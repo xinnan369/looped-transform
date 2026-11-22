@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loopcrowd"
+version = "0.1.0"
+description = "Stage 0 dataset validation and point-candidate capacity auditing"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24,<3", "scipy>=1.10,<2", "Pillow>=10,<13"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10", "jsonschema>=4,<5"]
+torch = ["torch>=2"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

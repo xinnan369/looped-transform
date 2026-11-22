@@ -1,0 +1,9 @@
+{
+  "dataset": "nwpu_crowd",
+  "format": "nwpu_official_points_json",
+  "coordinate_base": 0,
+  "image_suffix": ".jpg",
+  "images": "images",
+  "annotations": "jsons",
+  "split_files": {"train": "train.txt", "val": "val.txt", "test": "test.txt"}
+}
