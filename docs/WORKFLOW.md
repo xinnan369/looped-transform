@@ -1,0 +1,8 @@
+# Research workflow
+
+1. Work from a numbered issue with a stated hypothesis, scope, deliverables and acceptance checks. Create a `codex/<issue>-<topic>` branch from the default branch and keep one PR per issue.
+2. Keep source data, model weights, derived manifests, caches and training logs outside Git. Record the release identifier, config path, split source, preprocessing, seed and exact commands in the issue report. Commit only code, configuration, documentation, and small disclosure-safe aggregates or explicitly synthetic examples.
+3. For internal ShanghaiTech validation, use the configured seed 42 and selection rule in the README. Use the published NWPU validation memberships. Keep the official test split isolated from selection of configurations, checkpoints and thresholds. Evaluate it after those choices are frozen.
+4. Before a PR, run `pytest -q`, check CLI help and validate the example JSON against the report schema. Run on CPU even when CUDA is available. Record Python, OS, dependencies, GPU/runtime (if used), commands, actual results, and any failures or blockers.
+5. For each training run, preserve the commit SHA, dataset release, split, full config and seed, command, environment, logs, checkpoints and evaluation script/output. Record any run without this evidence as `not_run`. Summarize metrics only from traceable runs and preserve the upstream evaluation settings for comparisons.
+6. In the PR, link the issue and report directory. Include the head commit SHA, test pass count, environment, pending items, and acceptance checklist. Wait for explicit review before merging. Start the next stage only after the current stage is accepted.

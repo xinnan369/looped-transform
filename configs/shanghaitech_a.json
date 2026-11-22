@@ -1,0 +1,8 @@
+{
+  "dataset": "shanghaitech_a",
+  "format": "shanghaitech_mat_v5",
+  "coordinate_base": 0,
+  "image_suffix": ".jpg",
+  "split_dirs": {"train": "train_data", "test": "test_data"},
+  "validation": {"fraction": 0.10, "seed": 42}
+}
