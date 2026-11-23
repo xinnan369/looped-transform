@@ -1,0 +1,11 @@
+{
+  "variant": "shared_4",
+  "split": "val",
+  "checkpoint_sha256": "5c1662b31fefca2979404899959cbf23dfb35fa991a4991b3bd8b3273b0b1193",
+  "training_commit": "67223d575a34353d852c39fe9d9aa87d2521ad30",
+  "metrics_match_training_validation": true,
+  "run_manifest": {
+    "path": "~/loopcrowd-lc002/pilot/shared_4-final-eval/run_manifest.json",
+    "sha256": "e2e7d9e199508f34ee0482e07ab342506d18d768719e110ff60d271a6dde24e3"
+  }
+}

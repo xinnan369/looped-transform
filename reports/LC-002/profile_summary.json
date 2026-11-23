@@ -1,0 +1,667 @@
+{
+  "cnn_only": {
+    "execution": "completed",
+    "status": "smoke_only",
+    "git_commit": "d04e32845037f70b2700c562ab4fdb4dbd2ede7a",
+    "tracked_changes": "",
+    "config": {
+      "variant": "cnn_only",
+      "seed": 42,
+      "slots": 2,
+      "pretrained": false,
+      "density_weight": 0,
+      "loop_embedding": false,
+      "gradient_checkpointing": false,
+      "tile_size": 512,
+      "tile_overlap": 128,
+      "crop_mode": "random",
+      "batch_size": 2,
+      "workers": 0,
+      "precision": "bf16",
+      "epochs": 1,
+      "patience": 0,
+      "lr": 0.0002,
+      "weight_decay": 0.01,
+      "count_threshold": 0.3,
+      "localization_min_score": 0.05,
+      "dedup_radius": 2,
+      "stage": "smoke_only",
+      "label_policy": "synthetic_profile_targets"
+    },
+    "environment": {
+      "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+      "python": "3.11.11",
+      "torch": "2.2.2+cu121",
+      "torchvision": "0.17.2+cu121",
+      "numpy": "1.26.4",
+      "cuda_runtime": "12.1",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 3090"
+    },
+    "command": [
+      "${HOME}/.venvs/sigma-r1-cu121/bin/python",
+      "scripts/profile.py",
+      "--config",
+      "configs/lc002_profile.json",
+      "--variant",
+      "cnn_only",
+      "--device",
+      "cuda",
+      "--manifest",
+      "${HOME}/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "--output",
+      "${HOME}/loopcrowd-lc002/profile/cnn_only"
+    ],
+    "environment_setup": {
+      "PYTHONPATH": "${REPO}/src:${HOME}/loopcrowd-lc002/deps",
+      "TORCH_HOME": "${REPO}/artifacts/torch",
+      "OMP_NUM_THREADS": "2",
+      "MKL_NUM_THREADS": "2"
+    },
+    "data": {
+      "path": "~/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316"
+    },
+    "weight_initialization": {
+      "requested": "random",
+      "loaded": false
+    },
+    "evaluation_protocol": {
+      "inference": "native-scale tiles, midpoint ownership, score-ordered point-radius suppression",
+      "count": "strict score threshold followed by per-image MAE/RMSE",
+      "localization": "nap_local_v1 (see docs/DATA_AND_EVAL_PROTOCOL.md)",
+      "nwpu_official_f1": "not_ready"
+    },
+    "run_manifest": {
+      "path": "~/loopcrowd-lc002/profile/cnn_only/run_manifest.json",
+      "sha256": "69a01aa78332b6b374e252ba990838aa1143242bb113529ea17e010e5f5f68f3"
+    },
+    "log": {
+      "path": "~/loopcrowd-lc002/profile/cnn_only.log",
+      "sha256": "8cb2041bd7756e8a55f4d791856e9ee5e5168c4ece7b21fb11f665fab34ed8c1"
+    },
+    "measurements": {
+      "parameters": 1151750,
+      "forward_flops_per_image": 25094520832,
+      "flops_method": "2 per MAC, conv+linear+MHA projections and attention matmuls",
+      "train_batch": 2,
+      "train_step": {
+        "samples_ms": [
+          10.574250999979995,
+          9.352599999999711,
+          9.538146000011238,
+          9.870619000025727,
+          9.093190999976741
+        ],
+        "median_ms": 9.538146000011238
+      },
+      "batch1_forward": {
+        "samples_ms": [
+          2.021329000001515,
+          2.0362579999755326,
+          1.9923030000086328,
+          2.339527000003727,
+          2.4263090000431475
+        ],
+        "median_ms": 2.0362579999755326
+      },
+      "batch1_full_image": {
+        "samples_ms": [
+          55.381166000017856,
+          55.15681399998584,
+          39.91364699999167,
+          39.085819000035826,
+          39.2409579999935
+        ],
+        "median_ms": 39.91364699999167
+      },
+      "batch1_full_image_size": [
+        1021,
+        611
+      ],
+      "peak_allocated_bytes": 376119808,
+      "peak_reserved_bytes": 473956352,
+      "bf16_supported": true,
+      "fp16_supported": true,
+      "last_train_loss": 0.07780863344669342,
+      "output_shape": [
+        1,
+        2,
+        128,
+        128
+      ]
+    }
+  },
+  "shared_1": {
+    "execution": "completed",
+    "status": "smoke_only",
+    "git_commit": "d04e32845037f70b2700c562ab4fdb4dbd2ede7a",
+    "tracked_changes": "",
+    "config": {
+      "variant": "shared_1",
+      "seed": 42,
+      "slots": 2,
+      "pretrained": false,
+      "density_weight": 0,
+      "loop_embedding": false,
+      "gradient_checkpointing": false,
+      "tile_size": 512,
+      "tile_overlap": 128,
+      "crop_mode": "random",
+      "batch_size": 2,
+      "workers": 0,
+      "precision": "bf16",
+      "epochs": 1,
+      "patience": 0,
+      "lr": 0.0002,
+      "weight_decay": 0.01,
+      "count_threshold": 0.3,
+      "localization_min_score": 0.05,
+      "dedup_radius": 2,
+      "stage": "smoke_only",
+      "label_policy": "synthetic_profile_targets"
+    },
+    "environment": {
+      "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+      "python": "3.11.11",
+      "torch": "2.2.2+cu121",
+      "torchvision": "0.17.2+cu121",
+      "numpy": "1.26.4",
+      "cuda_runtime": "12.1",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 3090"
+    },
+    "command": [
+      "${HOME}/.venvs/sigma-r1-cu121/bin/python",
+      "scripts/profile.py",
+      "--config",
+      "configs/lc002_profile.json",
+      "--variant",
+      "shared_1",
+      "--device",
+      "cuda",
+      "--manifest",
+      "${HOME}/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "--output",
+      "${HOME}/loopcrowd-lc002/profile/shared_1"
+    ],
+    "environment_setup": {
+      "PYTHONPATH": "${REPO}/src:${HOME}/loopcrowd-lc002/deps",
+      "TORCH_HOME": "${REPO}/artifacts/torch",
+      "OMP_NUM_THREADS": "2",
+      "MKL_NUM_THREADS": "2"
+    },
+    "data": {
+      "path": "~/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316"
+    },
+    "weight_initialization": {
+      "requested": "random",
+      "loaded": false
+    },
+    "evaluation_protocol": {
+      "inference": "native-scale tiles, midpoint ownership, score-ordered point-radius suppression",
+      "count": "strict score threshold followed by per-image MAE/RMSE",
+      "localization": "nap_local_v1 (see docs/DATA_AND_EVAL_PROTOCOL.md)",
+      "nwpu_official_f1": "not_ready"
+    },
+    "run_manifest": {
+      "path": "~/loopcrowd-lc002/profile/shared_1/run_manifest.json",
+      "sha256": "01118d4d866437838773af92e0ec64c8ff03c1dbb7d739c573bd64c0109da14b"
+    },
+    "log": {
+      "path": "~/loopcrowd-lc002/profile/shared_1.log",
+      "sha256": "ae209ef04612152b84080ad5abc7f323a8e07fcaff1c68ccad1a245a7a112492"
+    },
+    "measurements": {
+      "parameters": 1596614,
+      "forward_flops_per_image": 28919726080,
+      "flops_method": "2 per MAC, conv+linear+MHA projections and attention matmuls",
+      "train_batch": 2,
+      "train_step": {
+        "samples_ms": [
+          15.688012999987677,
+          12.03568500000074,
+          13.726053999960186,
+          11.820955000018785,
+          11.765506000017467
+        ],
+        "median_ms": 12.03568500000074
+      },
+      "batch1_forward": {
+        "samples_ms": [
+          2.9587589999664488,
+          2.8386010000076567,
+          2.7167229999918163,
+          2.765467999950033,
+          2.7146219999849563
+        ],
+        "median_ms": 2.765467999950033
+      },
+      "batch1_full_image": {
+        "samples_ms": [
+          63.93543100000443,
+          51.247961000001396,
+          44.186147000004894,
+          48.302707999994254,
+          49.0045020000025
+        ],
+        "median_ms": 49.0045020000025
+      },
+      "batch1_full_image_size": [
+        1021,
+        611
+      ],
+      "peak_allocated_bytes": 461880320,
+      "peak_reserved_bytes": 507510784,
+      "bf16_supported": true,
+      "fp16_supported": true,
+      "last_train_loss": 0.07218079268932343,
+      "output_shape": [
+        1,
+        2,
+        128,
+        128
+      ]
+    }
+  },
+  "shared_2": {
+    "execution": "completed",
+    "status": "smoke_only",
+    "git_commit": "d04e32845037f70b2700c562ab4fdb4dbd2ede7a",
+    "tracked_changes": "",
+    "config": {
+      "variant": "shared_2",
+      "seed": 42,
+      "slots": 2,
+      "pretrained": false,
+      "density_weight": 0,
+      "loop_embedding": false,
+      "gradient_checkpointing": false,
+      "tile_size": 512,
+      "tile_overlap": 128,
+      "crop_mode": "random",
+      "batch_size": 2,
+      "workers": 0,
+      "precision": "bf16",
+      "epochs": 1,
+      "patience": 0,
+      "lr": 0.0002,
+      "weight_decay": 0.01,
+      "count_threshold": 0.3,
+      "localization_min_score": 0.05,
+      "dedup_radius": 2,
+      "stage": "smoke_only",
+      "label_policy": "synthetic_profile_targets"
+    },
+    "environment": {
+      "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+      "python": "3.11.11",
+      "torch": "2.2.2+cu121",
+      "torchvision": "0.17.2+cu121",
+      "numpy": "1.26.4",
+      "cuda_runtime": "12.1",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 3090"
+    },
+    "command": [
+      "${HOME}/.venvs/sigma-r1-cu121/bin/python",
+      "scripts/profile.py",
+      "--config",
+      "configs/lc002_profile.json",
+      "--variant",
+      "shared_2",
+      "--device",
+      "cuda",
+      "--manifest",
+      "${HOME}/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "--output",
+      "${HOME}/loopcrowd-lc002/profile/shared_2"
+    ],
+    "environment_setup": {
+      "PYTHONPATH": "${REPO}/src:${HOME}/loopcrowd-lc002/deps",
+      "TORCH_HOME": "${REPO}/artifacts/torch",
+      "OMP_NUM_THREADS": "2",
+      "MKL_NUM_THREADS": "2"
+    },
+    "data": {
+      "path": "~/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316"
+    },
+    "weight_initialization": {
+      "requested": "random",
+      "loaded": false
+    },
+    "evaluation_protocol": {
+      "inference": "native-scale tiles, midpoint ownership, score-ordered point-radius suppression",
+      "count": "strict score threshold followed by per-image MAE/RMSE",
+      "localization": "nap_local_v1 (see docs/DATA_AND_EVAL_PROTOCOL.md)",
+      "nwpu_official_f1": "not_ready"
+    },
+    "run_manifest": {
+      "path": "~/loopcrowd-lc002/profile/shared_2/run_manifest.json",
+      "sha256": "43bb07d6ed83d170b882451e715a696015a7b5b5e75779b3f94e070b1700839c"
+    },
+    "log": {
+      "path": "~/loopcrowd-lc002/profile/shared_2.log",
+      "sha256": "d208af8e713100fe1720b0b12bc1d95e98cedba7c24f9247e7704d20f3afa71c"
+    },
+    "measurements": {
+      "parameters": 1596614,
+      "forward_flops_per_image": 32744931328,
+      "flops_method": "2 per MAC, conv+linear+MHA projections and attention matmuls",
+      "train_batch": 2,
+      "train_step": {
+        "samples_ms": [
+          17.580366000004233,
+          22.56987099997332,
+          21.777610000015102,
+          14.038986999992176,
+          14.192487999991954
+        ],
+        "median_ms": 17.580366000004233
+      },
+      "batch1_forward": {
+        "samples_ms": [
+          4.627024999990681,
+          4.628901999979007,
+          5.135249000034037,
+          4.83206700005212,
+          4.993790000014542
+        ],
+        "median_ms": 4.83206700005212
+      },
+      "batch1_full_image": {
+        "samples_ms": [
+          56.43722299998899,
+          62.78480100002071,
+          61.3399870000535,
+          48.380438999970465,
+          49.67336700002534
+        ],
+        "median_ms": 56.43722299998899
+      },
+      "batch1_full_image_size": [
+        1021,
+        611
+      ],
+      "peak_allocated_bytes": 520109056,
+      "peak_reserved_bytes": 698351616,
+      "bf16_supported": true,
+      "fp16_supported": true,
+      "last_train_loss": 0.09043779969215393,
+      "output_shape": [
+        1,
+        2,
+        128,
+        128
+      ]
+    }
+  },
+  "shared_4": {
+    "execution": "completed",
+    "status": "smoke_only",
+    "git_commit": "d04e32845037f70b2700c562ab4fdb4dbd2ede7a",
+    "tracked_changes": "",
+    "config": {
+      "variant": "shared_4",
+      "seed": 42,
+      "slots": 2,
+      "pretrained": false,
+      "density_weight": 0,
+      "loop_embedding": false,
+      "gradient_checkpointing": false,
+      "tile_size": 512,
+      "tile_overlap": 128,
+      "crop_mode": "random",
+      "batch_size": 2,
+      "workers": 0,
+      "precision": "bf16",
+      "epochs": 1,
+      "patience": 0,
+      "lr": 0.0002,
+      "weight_decay": 0.01,
+      "count_threshold": 0.3,
+      "localization_min_score": 0.05,
+      "dedup_radius": 2,
+      "stage": "smoke_only",
+      "label_policy": "synthetic_profile_targets"
+    },
+    "environment": {
+      "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+      "python": "3.11.11",
+      "torch": "2.2.2+cu121",
+      "torchvision": "0.17.2+cu121",
+      "numpy": "1.26.4",
+      "cuda_runtime": "12.1",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 3090"
+    },
+    "command": [
+      "${HOME}/.venvs/sigma-r1-cu121/bin/python",
+      "scripts/profile.py",
+      "--config",
+      "configs/lc002_profile.json",
+      "--variant",
+      "shared_4",
+      "--device",
+      "cuda",
+      "--manifest",
+      "${HOME}/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "--output",
+      "${HOME}/loopcrowd-lc002/profile/shared_4"
+    ],
+    "environment_setup": {
+      "PYTHONPATH": "${REPO}/src:${HOME}/loopcrowd-lc002/deps",
+      "TORCH_HOME": "${REPO}/artifacts/torch",
+      "OMP_NUM_THREADS": "2",
+      "MKL_NUM_THREADS": "2"
+    },
+    "data": {
+      "path": "~/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316"
+    },
+    "weight_initialization": {
+      "requested": "random",
+      "loaded": false
+    },
+    "evaluation_protocol": {
+      "inference": "native-scale tiles, midpoint ownership, score-ordered point-radius suppression",
+      "count": "strict score threshold followed by per-image MAE/RMSE",
+      "localization": "nap_local_v1 (see docs/DATA_AND_EVAL_PROTOCOL.md)",
+      "nwpu_official_f1": "not_ready"
+    },
+    "run_manifest": {
+      "path": "~/loopcrowd-lc002/profile/shared_4/run_manifest.json",
+      "sha256": "2ac852e2b844a387c10fa6ee3e5a773aff708f9224d2e9e36fa1f1610d3f0dc2"
+    },
+    "log": {
+      "path": "~/loopcrowd-lc002/profile/shared_4.log",
+      "sha256": "7b1ccf529cc15155ebd0a0354825ab58eab07ef1b2ed3431d99a3c2e60d16982"
+    },
+    "measurements": {
+      "parameters": 1596614,
+      "forward_flops_per_image": 40395341824,
+      "flops_method": "2 per MAC, conv+linear+MHA projections and attention matmuls",
+      "train_batch": 2,
+      "train_step": {
+        "samples_ms": [
+          18.728295000016715,
+          20.978437999986,
+          20.095080000032794,
+          21.744073000036224,
+          21.001554999998007
+        ],
+        "median_ms": 20.978437999986
+      },
+      "batch1_forward": {
+        "samples_ms": [
+          5.88009399996281,
+          4.983445000050324,
+          5.00878200000443,
+          5.149043000017173,
+          4.923491999988983
+        ],
+        "median_ms": 5.00878200000443
+      },
+      "batch1_full_image": {
+        "samples_ms": [
+          76.65525099997694,
+          65.46138900000642,
+          72.05880599997272,
+          58.933072000002085,
+          67.8652500000112
+        ],
+        "median_ms": 67.8652500000112
+      },
+      "batch1_full_image_size": [
+        1021,
+        611
+      ],
+      "peak_allocated_bytes": 640171008,
+      "peak_reserved_bytes": 685768704,
+      "bf16_supported": true,
+      "fp16_supported": true,
+      "last_train_loss": 0.2901117205619812,
+      "output_shape": [
+        1,
+        2,
+        128,
+        128
+      ]
+    }
+  },
+  "unshared_4": {
+    "execution": "completed",
+    "status": "smoke_only",
+    "git_commit": "d04e32845037f70b2700c562ab4fdb4dbd2ede7a",
+    "tracked_changes": "",
+    "config": {
+      "variant": "unshared_4",
+      "seed": 42,
+      "slots": 2,
+      "pretrained": false,
+      "density_weight": 0,
+      "loop_embedding": false,
+      "gradient_checkpointing": false,
+      "tile_size": 512,
+      "tile_overlap": 128,
+      "crop_mode": "random",
+      "batch_size": 2,
+      "workers": 0,
+      "precision": "bf16",
+      "epochs": 1,
+      "patience": 0,
+      "lr": 0.0002,
+      "weight_decay": 0.01,
+      "count_threshold": 0.3,
+      "localization_min_score": 0.05,
+      "dedup_radius": 2,
+      "stage": "smoke_only",
+      "label_policy": "synthetic_profile_targets"
+    },
+    "environment": {
+      "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+      "python": "3.11.11",
+      "torch": "2.2.2+cu121",
+      "torchvision": "0.17.2+cu121",
+      "numpy": "1.26.4",
+      "cuda_runtime": "12.1",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 3090"
+    },
+    "command": [
+      "${HOME}/.venvs/sigma-r1-cu121/bin/python",
+      "scripts/profile.py",
+      "--config",
+      "configs/lc002_profile.json",
+      "--variant",
+      "unshared_4",
+      "--device",
+      "cuda",
+      "--manifest",
+      "${HOME}/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "--output",
+      "${HOME}/loopcrowd-lc002/profile/unshared_4"
+    ],
+    "environment_setup": {
+      "PYTHONPATH": "${REPO}/src:${HOME}/loopcrowd-lc002/deps",
+      "TORCH_HOME": "${REPO}/artifacts/torch",
+      "OMP_NUM_THREADS": "2",
+      "MKL_NUM_THREADS": "2"
+    },
+    "data": {
+      "path": "~/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316"
+    },
+    "weight_initialization": {
+      "requested": "random",
+      "loaded": false
+    },
+    "evaluation_protocol": {
+      "inference": "native-scale tiles, midpoint ownership, score-ordered point-radius suppression",
+      "count": "strict score threshold followed by per-image MAE/RMSE",
+      "localization": "nap_local_v1 (see docs/DATA_AND_EVAL_PROTOCOL.md)",
+      "nwpu_official_f1": "not_ready"
+    },
+    "run_manifest": {
+      "path": "~/loopcrowd-lc002/profile/unshared_4/run_manifest.json",
+      "sha256": "9ff997e42b5ce73677d5d9b8aa70be044f2d72ae39d65066ce1404f87d757c7e"
+    },
+    "log": {
+      "path": "~/loopcrowd-lc002/profile/unshared_4.log",
+      "sha256": "88e259919a3f9f3e7f4bbdf2cb92b138b5d34781e5f4a190b90128fb8e10d5c8"
+    },
+    "measurements": {
+      "parameters": 2931206,
+      "forward_flops_per_image": 40395341824,
+      "flops_method": "2 per MAC, conv+linear+MHA projections and attention matmuls",
+      "train_batch": 2,
+      "train_step": {
+        "samples_ms": [
+          20.155904999967333,
+          18.515190000016446,
+          29.496285999982774,
+          18.80062300000418,
+          30.696058000046378
+        ],
+        "median_ms": 20.155904999967333
+      },
+      "batch1_forward": {
+        "samples_ms": [
+          5.4471090000447475,
+          5.453174000024319,
+          5.054230000041571,
+          5.524497999999767,
+          4.882040999973469
+        ],
+        "median_ms": 5.4471090000447475
+      },
+      "batch1_full_image": {
+        "samples_ms": [
+          64.5852130000435,
+          67.35125899996319,
+          80.52322000003187,
+          58.653685000024325,
+          57.61362499998768
+        ],
+        "median_ms": 64.5852130000435
+      },
+      "batch1_full_image_size": [
+        1021,
+        611
+      ],
+      "peak_allocated_bytes": 658868736,
+      "peak_reserved_bytes": 713031680,
+      "bf16_supported": true,
+      "fp16_supported": true,
+      "last_train_loss": 0.1470271199941635,
+      "output_shape": [
+        1,
+        2,
+        128,
+        128
+      ]
+    }
+  }
+}

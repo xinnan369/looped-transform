@@ -1,0 +1,1139 @@
+{
+  "crop_size": 512,
+  "capacities": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "groups": [
+    {
+      "dataset": "shanghaitech_a",
+      "split": "train",
+      "policy": "random",
+      "seed": 42,
+      "images": 270,
+      "source_heads": 148236,
+      "crop_heads": 81090,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 930,
+            "point_loss_rate": 0.011468738438771735
+          },
+          "2": {
+            "lost_points": 51,
+            "point_loss_rate": 0.0006289308176100629
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 7477,
+            "point_loss_rate": 0.09220619065236157
+          },
+          "2": {
+            "lost_points": 1607,
+            "point_loss_rate": 0.01981748674312492
+          },
+          "4": {
+            "lost_points": 119,
+            "point_loss_rate": 0.0014675052410901468
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "train",
+      "policy": "density-biased",
+      "seed": 42,
+      "images": 270,
+      "source_heads": 148236,
+      "crop_heads": 91909,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 1010,
+            "point_loss_rate": 0.010989130553047035
+          },
+          "2": {
+            "lost_points": 45,
+            "point_loss_rate": 0.0004896147276110066
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 8444,
+            "point_loss_rate": 0.09187348355438532
+          },
+          "2": {
+            "lost_points": 1762,
+            "point_loss_rate": 0.019171136667790967
+          },
+          "4": {
+            "lost_points": 126,
+            "point_loss_rate": 0.0013709212373108183
+          },
+          "8": {
+            "lost_points": 1,
+            "point_loss_rate": 1.088032728024459e-05
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "train",
+      "policy": "random",
+      "seed": 123,
+      "images": 270,
+      "source_heads": 148236,
+      "crop_heads": 80587,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 842,
+            "point_loss_rate": 0.010448335339446809
+          },
+          "2": {
+            "lost_points": 25,
+            "point_loss_rate": 0.0003102237333564967
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 7105,
+            "point_loss_rate": 0.08816558501991636
+          },
+          "2": {
+            "lost_points": 1516,
+            "point_loss_rate": 0.01881196719073796
+          },
+          "4": {
+            "lost_points": 90,
+            "point_loss_rate": 0.0011168054400833881
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "train",
+      "policy": "density-biased",
+      "seed": 123,
+      "images": 270,
+      "source_heads": 148236,
+      "crop_heads": 91316,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 970,
+            "point_loss_rate": 0.010622453896359893
+          },
+          "2": {
+            "lost_points": 31,
+            "point_loss_rate": 0.0003394804853475842
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 8369,
+            "point_loss_rate": 0.09164878006044942
+          },
+          "2": {
+            "lost_points": 1753,
+            "point_loss_rate": 0.01919707389723597
+          },
+          "4": {
+            "lost_points": 109,
+            "point_loss_rate": 0.0011936571904156994
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "train",
+      "policy": "random",
+      "seed": 2026,
+      "images": 270,
+      "source_heads": 148236,
+      "crop_heads": 78858,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 783,
+            "point_loss_rate": 0.00992923989956631
+          },
+          "2": {
+            "lost_points": 34,
+            "point_loss_rate": 0.000431154733825357
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 6834,
+            "point_loss_rate": 0.08666210149889675
+          },
+          "2": {
+            "lost_points": 1394,
+            "point_loss_rate": 0.017677344086839637
+          },
+          "4": {
+            "lost_points": 81,
+            "point_loss_rate": 0.0010271627482309974
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "train",
+      "policy": "density-biased",
+      "seed": 2026,
+      "images": 270,
+      "source_heads": 148236,
+      "crop_heads": 92242,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 964,
+            "point_loss_rate": 0.010450770798551636
+          },
+          "2": {
+            "lost_points": 29,
+            "point_loss_rate": 0.00031439040784024633
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 8400,
+            "point_loss_rate": 0.09106480778820927
+          },
+          "2": {
+            "lost_points": 1699,
+            "point_loss_rate": 0.01841894148001995
+          },
+          "4": {
+            "lost_points": 102,
+            "point_loss_rate": 0.0011057869517139699
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "val",
+      "policy": "random",
+      "seed": 42,
+      "images": 30,
+      "source_heads": 14177,
+      "crop_heads": 9786,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 68,
+            "point_loss_rate": 0.006948702227672185
+          },
+          "2": {
+            "lost_points": 1,
+            "point_loss_rate": 0.00010218679746576743
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 763,
+            "point_loss_rate": 0.07796852646638054
+          },
+          "2": {
+            "lost_points": 88,
+            "point_loss_rate": 0.008992438176987532
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "val",
+      "policy": "density-biased",
+      "seed": 42,
+      "images": 30,
+      "source_heads": 14177,
+      "crop_heads": 10345,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 79,
+            "point_loss_rate": 0.00763653939101015
+          },
+          "2": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 812,
+            "point_loss_rate": 0.07849202513291445
+          },
+          "2": {
+            "lost_points": 84,
+            "point_loss_rate": 0.008119864668922184
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "val",
+      "policy": "random",
+      "seed": 123,
+      "images": 30,
+      "source_heads": 14177,
+      "crop_heads": 9644,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 70,
+            "point_loss_rate": 0.007258399004562422
+          },
+          "2": {
+            "lost_points": 2,
+            "point_loss_rate": 0.00020738282870178348
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 745,
+            "point_loss_rate": 0.07725010369141436
+          },
+          "2": {
+            "lost_points": 79,
+            "point_loss_rate": 0.008191621733720449
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "val",
+      "policy": "density-biased",
+      "seed": 123,
+      "images": 30,
+      "source_heads": 14177,
+      "crop_heads": 10417,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 82,
+            "point_loss_rate": 0.00787174810406067
+          },
+          "2": {
+            "lost_points": 1,
+            "point_loss_rate": 9.599692809830086e-05
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 841,
+            "point_loss_rate": 0.08073341653067102
+          },
+          "2": {
+            "lost_points": 94,
+            "point_loss_rate": 0.00902371124124028
+          },
+          "4": {
+            "lost_points": 1,
+            "point_loss_rate": 9.599692809830086e-05
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "val",
+      "policy": "random",
+      "seed": 2026,
+      "images": 30,
+      "source_heads": 14177,
+      "crop_heads": 9426,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 63,
+            "point_loss_rate": 0.00668364099299809
+          },
+          "2": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 721,
+            "point_loss_rate": 0.07649055803097815
+          },
+          "2": {
+            "lost_points": 82,
+            "point_loss_rate": 0.008699342244854658
+          },
+          "4": {
+            "lost_points": 2,
+            "point_loss_rate": 0.0002121790791427965
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_a",
+      "split": "val",
+      "policy": "density-biased",
+      "seed": 2026,
+      "images": 30,
+      "source_heads": 14177,
+      "crop_heads": 10379,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 73,
+            "point_loss_rate": 0.0070334328933423255
+          },
+          "2": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 805,
+            "point_loss_rate": 0.077560458618364
+          },
+          "2": {
+            "lost_points": 81,
+            "point_loss_rate": 0.007804220059736006
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "train",
+      "policy": "random",
+      "seed": 42,
+      "images": 360,
+      "source_heads": 44856,
+      "crop_heads": 10079,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 28,
+            "point_loss_rate": 0.0027780533783113405
+          },
+          "2": {
+            "lost_points": 2,
+            "point_loss_rate": 0.00019843238416509574
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 215,
+            "point_loss_rate": 0.02133148129774779
+          },
+          "2": {
+            "lost_points": 24,
+            "point_loss_rate": 0.0023811886099811487
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "train",
+      "policy": "density-biased",
+      "seed": 42,
+      "images": 360,
+      "source_heads": 44856,
+      "crop_heads": 27406,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 190,
+            "point_loss_rate": 0.006932788440487485
+          },
+          "2": {
+            "lost_points": 7,
+            "point_loss_rate": 0.0002554185214916442
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 1490,
+            "point_loss_rate": 0.05436765671750712
+          },
+          "2": {
+            "lost_points": 225,
+            "point_loss_rate": 0.008209881047945705
+          },
+          "4": {
+            "lost_points": 17,
+            "point_loss_rate": 0.0006203021236225644
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "train",
+      "policy": "random",
+      "seed": 123,
+      "images": 360,
+      "source_heads": 44856,
+      "crop_heads": 9350,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 51,
+            "point_loss_rate": 0.005454545454545455
+          },
+          "2": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 276,
+            "point_loss_rate": 0.029518716577540106
+          },
+          "2": {
+            "lost_points": 32,
+            "point_loss_rate": 0.003422459893048128
+          },
+          "4": {
+            "lost_points": 1,
+            "point_loss_rate": 0.000106951871657754
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "train",
+      "policy": "density-biased",
+      "seed": 123,
+      "images": 360,
+      "source_heads": 44856,
+      "crop_heads": 27789,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 196,
+            "point_loss_rate": 0.0070531505271870165
+          },
+          "2": {
+            "lost_points": 8,
+            "point_loss_rate": 0.00028788369498722517
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 1529,
+            "point_loss_rate": 0.05502177120443341
+          },
+          "2": {
+            "lost_points": 220,
+            "point_loss_rate": 0.007916801612148692
+          },
+          "4": {
+            "lost_points": 11,
+            "point_loss_rate": 0.0003958400806074346
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "train",
+      "policy": "random",
+      "seed": 2026,
+      "images": 360,
+      "source_heads": 44856,
+      "crop_heads": 10089,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 37,
+            "point_loss_rate": 0.0036673604916245416
+          },
+          "2": {
+            "lost_points": 1,
+            "point_loss_rate": 9.911785112498761e-05
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 303,
+            "point_loss_rate": 0.030032708890871247
+          },
+          "2": {
+            "lost_points": 25,
+            "point_loss_rate": 0.0024779462781246903
+          },
+          "4": {
+            "lost_points": 3,
+            "point_loss_rate": 0.0002973535533749628
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "train",
+      "policy": "density-biased",
+      "seed": 2026,
+      "images": 360,
+      "source_heads": 44856,
+      "crop_heads": 27892,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 191,
+            "point_loss_rate": 0.006847841675032267
+          },
+          "2": {
+            "lost_points": 7,
+            "point_loss_rate": 0.0002509680195038004
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 1567,
+            "point_loss_rate": 0.05618098379463646
+          },
+          "2": {
+            "lost_points": 226,
+            "point_loss_rate": 0.00810268177255127
+          },
+          "4": {
+            "lost_points": 9,
+            "point_loss_rate": 0.0003226731679334576
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "val",
+      "policy": "random",
+      "seed": 42,
+      "images": 40,
+      "source_heads": 4295,
+      "crop_heads": 972,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 3,
+            "point_loss_rate": 0.0030864197530864196
+          },
+          "2": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 14,
+            "point_loss_rate": 0.01440329218106996
+          },
+          "2": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "val",
+      "policy": "density-biased",
+      "seed": 42,
+      "images": 40,
+      "source_heads": 4295,
+      "crop_heads": 2743,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 21,
+            "point_loss_rate": 0.007655851257746992
+          },
+          "2": {
+            "lost_points": 1,
+            "point_loss_rate": 0.0003645643456069996
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 132,
+            "point_loss_rate": 0.048122493620123954
+          },
+          "2": {
+            "lost_points": 15,
+            "point_loss_rate": 0.005468465184104995
+          },
+          "4": {
+            "lost_points": 2,
+            "point_loss_rate": 0.0007291286912139992
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "val",
+      "policy": "random",
+      "seed": 123,
+      "images": 40,
+      "source_heads": 4295,
+      "crop_heads": 1286,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 10,
+            "point_loss_rate": 0.007776049766718507
+          },
+          "2": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 45,
+            "point_loss_rate": 0.034992223950233284
+          },
+          "2": {
+            "lost_points": 2,
+            "point_loss_rate": 0.0015552099533437014
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "val",
+      "policy": "density-biased",
+      "seed": 123,
+      "images": 40,
+      "source_heads": 4295,
+      "crop_heads": 2743,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 27,
+            "point_loss_rate": 0.00984323733138899
+          },
+          "2": {
+            "lost_points": 2,
+            "point_loss_rate": 0.0007291286912139992
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 138,
+            "point_loss_rate": 0.05030987969376595
+          },
+          "2": {
+            "lost_points": 24,
+            "point_loss_rate": 0.008749544294567991
+          },
+          "4": {
+            "lost_points": 3,
+            "point_loss_rate": 0.001093693036820999
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "val",
+      "policy": "random",
+      "seed": 2026,
+      "images": 40,
+      "source_heads": 4295,
+      "crop_heads": 1289,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 4,
+            "point_loss_rate": 0.0031031807602792862
+          },
+          "2": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 26,
+            "point_loss_rate": 0.02017067494181536
+          },
+          "2": {
+            "lost_points": 1,
+            "point_loss_rate": 0.0007757951900698216
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    },
+    {
+      "dataset": "shanghaitech_b",
+      "split": "val",
+      "policy": "density-biased",
+      "seed": 2026,
+      "images": 40,
+      "source_heads": 4295,
+      "crop_heads": 2603,
+      "overflow": {
+        "4": {
+          "1": {
+            "lost_points": 23,
+            "point_loss_rate": 0.008835958509412217
+          },
+          "2": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "4": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        },
+        "8": {
+          "1": {
+            "lost_points": 120,
+            "point_loss_rate": 0.04610065309258548
+          },
+          "2": {
+            "lost_points": 13,
+            "point_loss_rate": 0.004994237418363427
+          },
+          "4": {
+            "lost_points": 1,
+            "point_loss_rate": 0.000384172109104879
+          },
+          "8": {
+            "lost_points": 0,
+            "point_loss_rate": 0.0
+          }
+        }
+      }
+    }
+  ]
+}
