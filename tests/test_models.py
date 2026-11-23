@@ -38,11 +38,14 @@ def test_shared_parameter_identity_gradients_and_control_size():
     model = LoopCrowd("shared_4")
     block = model.blocks[0]
     weight = block.attn.in_proj_weight
-    observed, gradients = [], []
+    observed, direct_gradients, output_gradients = [], [], []
 
     def hook(module, arguments, output):
         observed.append(module.attn.in_proj_weight)
-        gradients.append(torch.autograd.grad(output.square().mean(), weight, retain_graph=True)[0])
+        # Detach previous passes to test this invocation's direct weight dependency.
+        isolated = module.forward(arguments[0].detach())
+        direct_gradients.append(torch.autograd.grad(isolated.square().mean(), weight)[0])
+        output.register_hook(output_gradients.append)
 
     handle = block.register_forward_hook(hook)
     output = model(torch.randn(2, 3, 40, 40))
@@ -50,7 +53,9 @@ def test_shared_parameter_identity_gradients_and_control_size():
     output["logits"].square().mean().backward()
     assert len(model.blocks) == 1
     assert len(observed) == 4 and all(parameter is weight for parameter in observed)
-    assert all(gradient.isfinite().all() and gradient.abs().sum() > 0 for gradient in gradients)
+    for gradients in (direct_gradients, output_gradients):
+        assert len(gradients) == 4
+        assert all(gradient.isfinite().all() and gradient.abs().sum() > 0 for gradient in gradients)
     assert weight.grad.abs().sum() > 0
     independent = LoopCrowd("unshared_4")
     assert len({id(block.attn.in_proj_weight) for block in independent.blocks}) == 4

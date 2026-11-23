@@ -2,8 +2,9 @@ import math
 
 import pytest
 import torch
+from PIL import Image
 
-from loopcrowd.inference import decode, deduplicate, tile_axis
+from loopcrowd.inference import decode, deduplicate, predict_image, tile_axis
 from loopcrowd.metrics import count_metrics, point_nap
 
 
@@ -46,3 +47,26 @@ def test_decode_restores_native_crop_coordinates():
     logits[0, 1, 1, 2] = 10
     offsets = torch.full((1, 2, 2, 3, 4), 0.25)
     assert decode({"logits": logits, "offsets": offsets}, 0.5)[0][:2] == [9.0, 5.0]
+
+
+def test_full_frame_stitching_suppresses_duplicate_across_seam():
+    class FixedTiles(torch.nn.Module):
+        stride = 4
+
+        def __init__(self):
+            super().__init__()
+            self.tiles = iter(((4, 0.875, 5), (3, 0.125, 6)))
+
+        def forward(self, image):
+            column, x_offset, score = next(self.tiles)
+            logits = torch.full((1, 1, 8, 8), -10.0)
+            logits[0, 0, 2, column] = score
+            offsets = torch.full((1, 1, 2, 8, 8), 0.5)
+            offsets[0, 0, 0, 2, column] = x_offset
+            return {"logits": logits, "offsets": offsets}
+
+    config = {"tile_size": 32, "tile_overlap": 8, "precision": "fp32",
+              "localization_min_score": 0.05, "dedup_radius": 2}
+    image = Image.new("RGB", (40, 32))
+    predictions = predict_image(FixedTiles(), image, config, torch.device("cpu"))
+    assert len(predictions) == 1 and predictions[0][:2] == [20.5, 10.0]
