@@ -44,6 +44,8 @@ def test_cpu_train_checkpoint_resume_and_tiled_evaluate(tmp_path):
     evaluate = ("scripts/evaluate.py", "--checkpoint", str(output / "last.pt"), "--manifest",
                 str(manifest), "--output", str(evaluation), "--device", "cpu")
     assert "--frozen-test" in call(*evaluate, "--split", "test", success=False).stderr
+    test_sweep = call(*evaluate, "--split", "test", "--frozen-test", "--threshold-sweep", success=False)
+    assert "restricted to internal validation" in test_sweep.stderr
     call(*evaluate, "--export-predictions", "--threshold-sweep")
     metrics = json.loads((evaluation / "metrics.json").read_text())
     assert metrics["images"] == 1 and metrics["expected_heads"] == 4

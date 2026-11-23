@@ -1,0 +1,1940 @@
+{
+  "metric": "nap_local_v1",
+  "parity": "local_only",
+  "upstream": {
+    "commit": "5c91a81ca062b1c7fd3db3ad1c55b1c21f0a7455",
+    "archive_sha256": "d4c8207d4bdf25ac51169bf10c7b4cb943149cde7dc347dd1db2f6a4b05cfc97",
+    "github_tree": "https://api.github.com/repos/TencentYoutuResearch/CrowdCounting-P2PNet/git/trees/5c91a81ca062b1c7fd3db3ad1c55b1c21f0a7455?recursive=1",
+    "python_files_inspected": [
+      "crowd_datasets/SHHA/SHHA.py",
+      "crowd_datasets/SHHA/__init__.py",
+      "crowd_datasets/SHHA/loading_data.py",
+      "crowd_datasets/__init__.py",
+      "engine.py",
+      "models/__init__.py",
+      "models/backbone.py",
+      "models/matcher.py",
+      "models/p2pnet.py",
+      "models/vgg_.py",
+      "run_test.py",
+      "train.py",
+      "util/__init__.py",
+      "util/misc.py"
+    ],
+    "evidence": {
+      "engine.py": {
+        "sha256": "efaee95fb89bdef18c213913279a002934fb88e2488fff9faca8e6db0bc1e2d7",
+        "matching_line_numbers": [
+          64,
+          66,
+          69,
+          72,
+          125,
+          146,
+          151,
+          152,
+          157
+        ]
+      },
+      "run_test.py": {
+        "sha256": "d5c25ec3d3045425ae7c3e761747c49af2b146b723f674c2fb2db9e7eff9e395",
+        "matching_line_numbers": [
+          86,
+          97
+        ]
+      },
+      "models/matcher.py": {
+        "sha256": "4426df389f763510d9879b858ddc15f8d6aae935d0812e5b957b281bcf549bc2",
+        "matching_line_numbers": [
+          7,
+          78
+        ]
+      },
+      "README.md": {
+        "sha256": "4afeaa24d431d6aaf11bbc2f5ba1cac62ff26b78ce4907cbe514c0eaf01e77a0",
+        "matching_line_numbers": [
+          54
+        ]
+      }
+    },
+    "status": "unavailable_upstream_evaluator",
+    "reason": "The pinned release includes count evaluation, visualization, and a training matcher. It contains the paper nAP table but no executable nAP evaluator."
+  },
+  "paper": "https://openaccess.thecvf.com/content/ICCV2021/html/Song_Rethinking_Counting_and_Localization_in_Crowds_A_Purely_Point-Based_Framework_ICCV_2021_paper.html",
+  "fixtures": {
+    "empty": {
+      "images": [
+        {
+          "gt": [],
+          "predictions": []
+        }
+      ],
+      "thresholds": [
+        {
+          "delta": 0.05,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.1,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.15,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.2,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.25,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.3,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.35,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.4,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.45,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.5,
+          "order_image_and_prediction": [],
+          "matched_gt_indices": [],
+          "local_ap": null,
+          "dense_oracle_ap": null,
+          "local_minus_oracle": null,
+          "upstream_ap": null,
+          "upstream_delta": null
+        }
+      ],
+      "nap_local_v1": null
+    },
+    "single": {
+      "images": [
+        {
+          "gt": [
+            [
+              3,
+              4
+            ]
+          ],
+          "predictions": [
+            [
+              3,
+              4,
+              0.9
+            ],
+            [
+              9,
+              9,
+              0.1
+            ]
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "delta": 0.05,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.1,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.15,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.2,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.25,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.3,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.35,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.4,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.45,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.5,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        }
+      ],
+      "nap_local_v1": 1.0
+    },
+    "two_close": {
+      "images": [
+        {
+          "gt": [
+            [
+              8,
+              8
+            ],
+            [
+              9,
+              8
+            ]
+          ],
+          "predictions": [
+            [
+              8,
+              8,
+              0.8
+            ],
+            [
+              9,
+              8,
+              0.7
+            ]
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "delta": 0.05,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.1,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.15,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.2,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.25,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.3,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.35,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.4,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.45,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.5,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 1.0,
+          "dense_oracle_ap": 1.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        }
+      ],
+      "nap_local_v1": 1.0
+    },
+    "duplicate": {
+      "images": [
+        {
+          "gt": [
+            [
+              3,
+              4
+            ],
+            [
+              13,
+              4
+            ]
+          ],
+          "predictions": [
+            [
+              3,
+              4,
+              0.9
+            ],
+            [
+              3,
+              4,
+              0.8
+            ],
+            [
+              13,
+              4,
+              0.5
+            ]
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "delta": 0.05,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.1,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.15,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.2,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.25,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.3,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.35,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.4,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.45,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.5,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null,
+            1
+          ],
+          "local_ap": 0.8333333333333333,
+          "dense_oracle_ap": 0.8333333333333333,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        }
+      ],
+      "nap_local_v1": 0.8333333333333333
+    },
+    "equal_scores": {
+      "images": [
+        {
+          "gt": [
+            [
+              8,
+              8
+            ]
+          ],
+          "predictions": [
+            [
+              20,
+              20,
+              0.7
+            ],
+            [
+              8,
+              8,
+              0.7
+            ]
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "delta": 0.05,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.1,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.15,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.2,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.25,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.3,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.35,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.4,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.45,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.5,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            null,
+            0
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        }
+      ],
+      "nap_local_v1": 0.5
+    },
+    "competing_gt": {
+      "images": [
+        {
+          "gt": [
+            [
+              0,
+              0
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              30,
+              0
+            ],
+            [
+              60,
+              0
+            ]
+          ],
+          "predictions": [
+            [
+              1,
+              0,
+              0.9
+            ],
+            [
+              0,
+              0,
+              0.5
+            ]
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "delta": 0.05,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            null
+          ],
+          "local_ap": 0.25,
+          "dense_oracle_ap": 0.25,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.1,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.15,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.2,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.25,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.3,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.35,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.4,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.45,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.5,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ]
+          ],
+          "matched_gt_indices": [
+            0,
+            1
+          ],
+          "local_ap": 0.5,
+          "dense_oracle_ap": 0.5,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        }
+      ],
+      "nap_local_v1": 0.475
+    },
+    "isolated_images": {
+      "images": [
+        {
+          "gt": [
+            [
+              8,
+              8
+            ]
+          ],
+          "predictions": []
+        },
+        {
+          "gt": [],
+          "predictions": [
+            [
+              8,
+              8,
+              0.9
+            ]
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "delta": 0.05,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.1,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.15,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.2,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.25,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.3,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.35,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.4,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.45,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.5,
+          "order_image_and_prediction": [
+            [
+              1,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        }
+      ],
+      "nap_local_v1": 0.0
+    },
+    "delta_boundary": {
+      "images": [
+        {
+          "gt": [
+            [
+              0,
+              0
+            ],
+            [
+              10,
+              0
+            ]
+          ],
+          "predictions": [
+            [
+              5,
+              0,
+              0.8
+            ]
+          ]
+        }
+      ],
+      "thresholds": [
+        {
+          "delta": 0.05,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.1,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.15,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.2,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.25,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.3,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.35,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.4,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.45,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        },
+        {
+          "delta": 0.5,
+          "order_image_and_prediction": [
+            [
+              0,
+              0
+            ]
+          ],
+          "matched_gt_indices": [
+            null
+          ],
+          "local_ap": 0.0,
+          "dense_oracle_ap": 0.0,
+          "local_minus_oracle": 0.0,
+          "upstream_ap": null,
+          "upstream_delta": null
+        }
+      ],
+      "nap_local_v1": 0.0
+    }
+  },
+  "boundary_above_point_five": {
+    "images": [
+      {
+        "gt": [
+          [
+            0,
+            0
+          ],
+          [
+            10,
+            0
+          ]
+        ],
+        "predictions": [
+          [
+            5,
+            0,
+            0.8
+          ]
+        ]
+      }
+    ],
+    "thresholds": [
+      {
+        "delta": 0.5,
+        "order_image_and_prediction": [
+          [
+            0,
+            0
+          ]
+        ],
+        "matched_gt_indices": [
+          null
+        ],
+        "local_ap": 0.0,
+        "dense_oracle_ap": 0.0,
+        "local_minus_oracle": 0.0,
+        "upstream_ap": null,
+        "upstream_delta": null
+      },
+      {
+        "delta": 0.51,
+        "order_image_and_prediction": [
+          [
+            0,
+            0
+          ]
+        ],
+        "matched_gt_indices": [
+          0
+        ],
+        "local_ap": 0.5,
+        "dense_oracle_ap": 0.5,
+        "local_minus_oracle": 0.0,
+        "upstream_ap": null,
+        "upstream_delta": null
+      }
+    ],
+    "nap_local_v1": 0.25
+  },
+  "nwpu_official_f1": "not_ready"
+}
