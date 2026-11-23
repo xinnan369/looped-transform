@@ -1,0 +1,38 @@
+{
+  "git_commit": "67223d575a34353d852c39fe9d9aa87d2521ad30",
+  "upstream_commit": "5c91a81ca062b1c7fd3db3ad1c55b1c21f0a7455",
+  "status": "smoke_only",
+  "execution": "completed",
+  "seed": 42,
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "torch": "2.2.2+cu121",
+  "torchvision": "0.17.2+cu121",
+  "command": "python train.py --data_root ${HOME}/loopcrowd-lc002/p2pnet/data --dataset_file SHHA --epochs 1 --lr_drop 3500 --output_dir ${HOME}/loopcrowd-lc002/p2pnet/logs --checkpoints_dir ${HOME}/loopcrowd-lc002/p2pnet/weights --tensorboard_dir ${HOME}/loopcrowd-lc002/p2pnet/tensorboard --lr 0.0001 --lr_backbone 0.00001 --batch_size 4 --eval_freq 1 --gpu_id 0 --seed 42 --num_workers 2 ",
+  "initialization": "imagenet",
+  "initialization_sha256": "6c64b3138f2f4fcb3bcc4cafde11619c4f440eb1631787e93a682fd88305888a",
+  "cwd": "/home/xinnan/loopcrowd-lc002/p2pnet/upstream",
+  "train_ids": 270,
+  "val_ids": 30,
+  "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+  "manifest_sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+  "checkpoints": {
+    "latest.pth": "2709f93a4675b3d1935ce60514ffad53edae5cb75ad9966eee349a3409e3e130"
+  },
+  "validation_metrics": "not_run",
+  "epochs": 1,
+  "log_sha256": "aed8d243a2b6ede6fdc15586eee1952262b32c4b9521fd33145aa1266d1fcb2b",
+  "log_path": "~/loopcrowd-lc002/p2pnet/train.log",
+  "epoch_log_excerpt": [
+    "Averaged stats: lr: 0.000100  loss: 0.1173 (0.2520)  loss_ce: 0.1173 (0.2520)  loss_ce_unscaled: 0.1173 (0.2520)  loss_point_unscaled: 4.2995 (4.5903)",
+    "Training time 0:00:06"
+  ],
+  "first_attempt": {
+    "log": "~/loopcrowd-lc002/p2pnet/first-attempt.log",
+    "sha256": "d87a2572861913b3bbdb9c23506cf49996e2d7a2c1f8600975020cf9d40f29fe",
+    "result": "upstream VGG path FileNotFoundError before training"
+  },
+  "run_manifest": {
+    "path": "~/loopcrowd-lc002/p2pnet/run_manifest.json",
+    "sha256": "1cc580ea5a830fc1cc9f5e35302b33e81b5fd8544e308a113afd90b964944783"
+  }
+}

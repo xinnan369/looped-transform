@@ -1,0 +1,8 @@
+{
+  "seed": 42,
+  "slots": 2,
+  "batch_size": 2,
+  "precision": "bf16",
+  "stage": "smoke_only",
+  "label_policy": "synthetic_profile_targets"
+}

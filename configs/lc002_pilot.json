@@ -1,0 +1,12 @@
+{
+  "seed": 42,
+  "slots": 2,
+  "pretrained": true,
+  "precision": "bf16",
+  "epochs": 1,
+  "workers": 4,
+  "batch_size": 2,
+  "crop_mode": "random",
+  "stage": "pilot",
+  "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds"
+}
