@@ -21,7 +21,7 @@ DEFAULT_CONFIG = {
     "tile_size": 512, "tile_overlap": 128, "crop_mode": "random", "batch_size": 2,
     "workers": 0, "precision": "fp32", "epochs": 1, "patience": 0, "lr": 0.0002,
     "weight_decay": 0.01, "count_threshold": 0.30, "localization_min_score": 0.05,
-    "dedup_radius": 2, "stage": "smoke_only", "label_policy": "synthetic",
+    "stage": "smoke_only", "label_policy": "synthetic",
 }
 
 
@@ -51,8 +51,8 @@ def read_config(path, variant=None):
         raise ValueError("unsupported precision")
     if config["stage"] not in ("smoke_only", "pilot", "full_train"):
         raise ValueError("unsupported execution stage")
-    if not config["label_policy"] or config["dedup_radius"] < 0 or config["density_weight"] < 0:
-        raise ValueError("set a label policy and nonnegative deduplication radius and density weight")
+    if not config["label_policy"] or config["density_weight"] < 0:
+        raise ValueError("set a label policy and nonnegative density weight")
     return config
 
 
@@ -117,11 +117,16 @@ def provenance(config, device, manifest=None):
         "data": None if manifest is None else {"manifest": str(manifest.resolve()), "sha256": file_sha(manifest)},
         "label_policy": config["label_policy"],
         "config": config,
+        "config_sha256": hashlib.sha256(
+            json.dumps(config, sort_keys=True, separators=(",", ":")).encode()
+        ).hexdigest(),
+        "lr_schedule": "constant",
         "weight_initialization": {"requested": WEIGHTS if config["pretrained"] else "random"},
         "eval_protocol": {
-            "inference": "native-scale tiles, midpoint ownership, score-ordered point-radius suppression",
-            "count": "strict score threshold followed by per-image MAE/RMSE",
-            "localization": "nap_local_v1 (see docs/DATA_AND_EVAL_PROTOCOL.md)",
+            "inference": "native-scale tiles with source tile and midpoint ownership",
+            "count": "ownership-only candidates, strict score cutoff, no radius suppression",
+            "localization": "nap_local_v1 on all in-frame tile candidates above the score floor",
+            "p2pnet_nap_parity": "unavailable_upstream_evaluator",
             "nwpu_official_f1": "not_ready",
         },
     }

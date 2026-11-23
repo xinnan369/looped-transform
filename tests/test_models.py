@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from loopcrowd.model import LoopCrowd, VARIANTS, window_partition, window_reverse
+from loopcrowd.model import LoopCrowd, VARIANTS, WindowBlock, window_partition, window_reverse
 
 
 def test_partition_reverse_and_padding():
@@ -67,3 +67,40 @@ def test_checkpointed_loop_and_density_backward():
     output["density"].mean().backward()
     assert model.blocks[0].attn.in_proj_weight.grad.abs().sum() > 0
     assert model.embedding.grad.abs().sum() > 0
+
+
+def test_shifted_partition_padding_and_next_pass_attention():
+    torch.manual_seed(42)
+    tokens = torch.randn(1, 16, 16, 192)
+    windows, mask = window_partition(tokens, 8, shift=4)
+    assert windows.shape == (9, 64, 192)
+    assert int(mask.sum()) == 24 * 24 - 16 * 16
+    assert not mask.all(dim=1).any()
+    assert torch.equal(window_reverse(windows, tokens.shape, 8, shift=4), tokens)
+    block = WindowBlock().eval()
+    with torch.no_grad():
+        first = block(tokens)
+        changed = first.clone()
+        changed[0, 5, 8] = torch.randn(192)
+        fixed, altered_fixed = block(first), block(changed)
+        shifted, altered_shifted = block(first, 4), block(changed, 4)
+        assert torch.equal(fixed[0, 5, 7], altered_fixed[0, 5, 7])
+        assert not torch.allclose(shifted[0, 5, 7], altered_shifted[0, 5, 7])
+        opposite_edge = first.clone()
+        opposite_edge[0, 15, 0] = torch.randn(192)
+        opposite_edge[0, 0, 15] = torch.randn(192)
+        assert torch.equal(shifted[0, 0, 0], block(opposite_edge, 4)[0, 0, 0])
+
+
+def test_shifted_variant_alternates_with_one_parameter_object():
+    model = LoopCrowd("shifted_shared_4")
+    observed = []
+    model.blocks[0].register_forward_pre_hook(
+        lambda block, args: observed.append((block.attn.in_proj_weight, args[1]))
+    )
+    output = model(torch.randn(2, 3, 47, 61))
+    output["logits"].square().mean().backward()
+    assert [shift for _, shift in observed] == [0, 4, 0, 4]
+    assert all(weight is model.blocks[0].attn.in_proj_weight for weight, _ in observed)
+    assert model.blocks[0].attn.in_proj_weight.grad.abs().sum() > 0
+    assert sum(p.numel() for p in model.parameters()) == sum(p.numel() for p in LoopCrowd("shared_4").parameters())
