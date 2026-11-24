@@ -8,7 +8,7 @@ The GPU runs use Ubuntu 22.04 under WSL2, Python 3.11.11, torch 2.2.2+cu121, tor
 | Windows CPU `pytest -q` | 55 passed in 46.50 s with one third-party AnyIO deprecation warning |
 | Close points | In-tile and seam-straddling true neighbors 1 px apart survive AP and counting |
 | Exact overlap duplicate | One owning tile contributes to counting. Both predictions enter AP and the duplicate is unmatched. |
-| Local metric | Eight fixtures verified global rank, GT associations and AP against a dense independent oracle at each δ. Maximum absolute AP difference 0.0. |
+| Local metric | Eleven fixtures verified global rank, GT associations, AP and score-sweep TP prefixes against a dense independent oracle. |
 | Shifted window | Direct block perturbation crosses a former boundary on the shifted call and produces no opposite-edge influence. Padding mask, shared object identity, alternating shifts and gradients passed. |
 | CPU end to end | Checkpoint save, resume and full-image evaluation, including 19 internal validation thresholds, passed on the fixture. |
 
@@ -31,3 +31,9 @@ done
 ```
 
 The initial fixture-check CLI imported training provenance helpers and encountered the local `scripts/profile.py` versus standard-library `profile` name collision. The verification CLI now uses only the numeric metric, JSON and hashlib and completed successfully. The sample dataset, predictions, checkpoints and full process logs stay outside Git. The path and digest of each completed run's manifest, log and best/last checkpoints are in [training_history.json](training_history.json). The canonical resolved config hash uses sorted JSON keys and compact separators.
+
+## Review follow-up
+
+WSL ran `pytest -q` with **59 passed in 24.07 s**. The score-order regression also passed on the original head before the refactor. The fixture CLI reused the existing P2PNet archive. Validation reused all seven best checkpoints and the original internal validation manifest. The score sweep was regenerated with identical numerical values. No training rerun occurred. For each model the exact command is the original `scripts/evaluate.py` command above with `--output "$work/review_recheck/$variant"`. The evaluation code SHA and local log/checkpoint hashes are in [validation_recheck.json](validation_recheck.json).
+
+The follow-up CI uses preinstalled Python on the runner, locked CPU-wheel versions, and offline pip installation from a staged wheel directory. Its only external dependency mirror is Alibaba Cloud's PyTorch/PyPI mirror. An explicit no-proxy, no-redirect one-byte probe checks each pinned URL and direct runner interface before acquisition. PyPI digests come from the mirror index. For the four CPU builds without a digest advertised in that mirror listing, the resolved byte length is locked and CI logs the computed SHA-256. The matrix plans 522,842,167 bytes including its probes. No NWPU archive was acquired. [Wheel lock](../../configs/ci_cpu_wheels.json) · [Shard provenance](download_provenance.md)

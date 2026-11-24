@@ -5,12 +5,16 @@ LC-002R follows the request-changes review on LC-002 PR #4. This stacked change 
 | Task | Evidence |
 |---|---|
 | A · Close points and seams | All in-frame tile candidates above the score floor enter AP. Counting uses source ownership. Regression cases cover two true 1 px neighbors, an exact overlap duplicate, and neighbors on opposite sides of a seam. |
-| B · Local nAP | Eight fixtures match an independent dense oracle at every δ. The pinned P2PNet release supplies no runnable nAP evaluator. [Metric parity](metric_parity.json) |
+| B · Local nAP | Eleven fixtures match an independent dense oracle at every δ and score cutoff. The pinned P2PNet release supplies no runnable nAP evaluator. [Metric parity](metric_parity.json) |
 | C · Recurrent window mixing | Alternating shifted partitions reuse one block. Direct token perturbations show cross-window influence and excluded opposite-edge influence. [Ablation](cross_window_ablation.md) |
 | D · Budget and thresholds | Seven variants completed 20 epochs apiece at seed 42, with 19 internal-validation score cutoffs per best checkpoint. [Sweep](threshold_sweep.csv) |
 | E · Strength of evidence | All runs use ShanghaiTech A train 270 and internal val 30. The stage and late-window checks below govern interpretation. |
 | F · Verification | 55 WSL CPU tests passed. RTX 3090 timings and checkpoint hashes are recorded. [Tests](test_results.md) · [History and provenance](training_history.json) |
-| G · Dataset scope | Official test is unused for threshold selection. NWPU original images remain incomplete and official F1 is `not_ready`. |
+| G · Dataset scope | Official test is unused for threshold selection. Full NWPU audit remains blocked and official F1 is `not_ready`. [Local shard provenance](download_provenance.md) |
+
+## PR #6 review recheck
+
+The review's low-score-first fixture yields rank `[1, 0]`, GT assignments `[0, unmatched]` and AP 1.0 at δ=0.50 at the original head `2498019`. The spatial tree already indexed score-ranked coordinates. The follow-up makes the rank coordinate explicit and adds separate regressions for global pooling, stable ties and threshold TP prefixes. The [recheck](validation_recheck.json) records fresh evaluation of the seven existing best checkpoints. Their local nAP, count errors and all 133 sweep values, including local precision and recall, matched the archived diagnostics exactly. The original per-epoch history remains an archive of the training run. The CSV now identifies the evaluation commit for the rescored rows.
 
 ## Seed 42 results
 
@@ -46,6 +50,6 @@ The fixed-cutoff rule selected `shared_1` for the shared side. Its 23.05% late M
 
 Profiles are `smoke_only`. The completed fixed-budget runs are `pilot` unless the repeat-seed late-window check supports `converged_experiment`. All outcomes use internal validation and local nAP. Comparative claims beyond these conditions require repeat evidence.
 
-The verified local NWPU shard contains 1,000 of 5,109 originals. SHA-256 `f27e4371323f0251ef3828df00a6603abbfaf1ccb42be285fa94e5bf3ec05345` matches the author release's `images_part1.zip`. The rest of the release is absent from the checked roots. Full NWPU audit and official F1 remain pending. [Author release](https://huggingface.co/datasets/Junyu3/NWPU-Crowd/blob/main/images_part1.zip)
+The verified local NWPU shard contains 1,000 of 5,109 originals. Its local timestamps precede the issue. The original transfer source and approval record are unverified. The shard is paused for further use. [NWPU provenance](download_provenance.md)
 
 [Experiment matrix](experiment_matrix.csv) · [Validation sweep](threshold_sweep.csv) · [Next steps](next_steps.md)
