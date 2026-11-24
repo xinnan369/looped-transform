@@ -20,12 +20,17 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--variant", choices=VARIANTS)
+    parser.add_argument("--seed", type=int)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
     parser.add_argument("--resume", action="store_true", help="Continue this output directory's last.pt")
+    parser.add_argument("--stop-after", type=int, help="Stop at this epoch while preserving the configured horizon")
     args = parser.parse_args()
-    fit(read_config(args.config, args.variant), args.manifest, args.output, torch.device(args.device), args.resume)
+    config = read_config(args.config, args.variant)
+    if args.seed is not None:
+        config["seed"] = args.seed
+    fit(config, args.manifest, args.output, torch.device(args.device), args.resume, args.stop_after)
 
 
 if __name__ == "__main__":

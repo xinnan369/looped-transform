@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import math
 import platform
 import random
 import subprocess
@@ -13,7 +14,7 @@ import torch
 import torchvision
 from torchvision.models import ResNet18_Weights
 
-from .model import LoopCrowd, VARIANTS, WEIGHTS
+from .model import LoopCrowd, VARIANTS, WEIGHTS, pretrained_path
 
 DEFAULT_CONFIG = {
     "variant": "cnn_only", "seed": 42, "slots": 2, "pretrained": False,
@@ -22,6 +23,8 @@ DEFAULT_CONFIG = {
     "workers": 0, "precision": "fp32", "epochs": 1, "patience": 0, "lr": 0.0002,
     "weight_decay": 0.01, "count_threshold": 0.30, "localization_min_score": 0.05,
     "stage": "smoke_only", "label_policy": "synthetic",
+    "lr_schedule": "constant", "min_lr": 0.00002, "warmup_fraction": 0.05,
+    "fixed_training_horizon": False,
 }
 
 
@@ -53,6 +56,17 @@ def read_config(path, variant=None):
         raise ValueError("unsupported execution stage")
     if not config["label_policy"] or config["density_weight"] < 0:
         raise ValueError("set a label policy and nonnegative density weight")
+    if config["lr_schedule"] not in ("constant", "warmup_cosine"):
+        raise ValueError("unsupported learning-rate schedule")
+    if type(config["fixed_training_horizon"]) is not bool:
+        raise ValueError("fixed_training_horizon must be a boolean")
+    if not math.isfinite(config["lr"]) or config["lr"] < 0:
+        raise ValueError("lr must be finite and nonnegative")
+    if config["lr_schedule"] == "warmup_cosine":
+        if not 0 < config["min_lr"] <= config["lr"] or not 0 < config["warmup_fraction"] < 1:
+            raise ValueError("warmup cosine requires 0 < min_lr <= lr and 0 < warmup_fraction < 1")
+    if config["patience"] and (config["fixed_training_horizon"] or config["lr_schedule"] != "constant"):
+        raise ValueError("fixed training horizons cannot use early stopping")
     return config
 
 
@@ -94,8 +108,8 @@ def weight_provenance(config, loaded):
     result = {"requested": WEIGHTS if config["pretrained"] else "random", "loaded": loaded}
     if loaded:
         url = ResNet18_Weights[WEIGHTS].url
-        path = Path(torch.hub.get_dir()) / "checkpoints" / url.rsplit("/", 1)[-1]
-        result.update(url=url, sha256=file_sha(path))
+        path = pretrained_path()
+        result.update(url=url, cache_path=str(path.resolve()), sha256=file_sha(path))
     return result
 
 
@@ -120,7 +134,7 @@ def provenance(config, device, manifest=None):
         "config_sha256": hashlib.sha256(
             json.dumps(config, sort_keys=True, separators=(",", ":")).encode()
         ).hexdigest(),
-        "lr_schedule": "constant",
+        "lr_schedule": config.get("lr_schedule", "constant"),
         "weight_initialization": {"requested": WEIGHTS if config["pretrained"] else "random"},
         "eval_protocol": {
             "inference": "native-scale tiles with source tile and midpoint ownership",
