@@ -1,5 +1,7 @@
 """Fixed-depth head-point models with a common CNN and point head."""
 
+from pathlib import Path
+
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -10,12 +12,19 @@ VARIANTS = {
     "cnn_only": (0, False),
     "shared_1": (1, True),
     "shared_2": (2, True),
+    "unshared_2": (2, False),
     "shared_4": (4, True),
     "unshared_4": (4, False),
     "shifted_shared_2": (2, True),
+    "shifted_unshared_2": (2, False),
     "shifted_shared_4": (4, True),
 }
 WEIGHTS = "IMAGENET1K_V1"
+
+
+def pretrained_path():
+    filename = ResNet18_Weights[WEIGHTS].url.rsplit("/", 1)[-1]
+    return Path(torch.hub.get_dir()) / "checkpoints" / filename
 
 
 def window_partition(tokens, size, shift=0):
@@ -80,7 +89,12 @@ class LoopCrowd(nn.Module):
         self.gradient_checkpointing = gradient_checkpointing
 
         # Initialize the common modules first so each control starts identically at the same seed.
-        cnn = resnet18(weights=ResNet18_Weights[WEIGHTS] if pretrained else None)
+        cnn = resnet18(weights=None)
+        if pretrained:
+            path = pretrained_path()
+            if not path.is_file():
+                raise FileNotFoundError(f"pretrained ResNet18 checkpoint must exist locally: {path}")
+            cnn.load_state_dict(torch.load(path, map_location="cpu", weights_only=True))
         self.p2 = nn.Sequential(cnn.conv1, cnn.bn1, cnn.relu, cnn.maxpool, cnn.layer1)
         self.p3 = cnn.layer2
         self.project = nn.Conv2d(128, 192, 1)

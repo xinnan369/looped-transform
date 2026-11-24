@@ -35,7 +35,7 @@ def point_targets(points, width, height, slots=2, stride=4, valid_width=None, va
     }
 
 
-def point_loss(prediction, target, density_weight=0):
+def point_loss(prediction, target, density_weight=0, components=None):
     logits, labels = prediction["logits"].float(), target["labels"]
     valid, positive = target["valid"], labels.bool()
     scores = logits.sigmoid()
@@ -45,6 +45,8 @@ def point_loss(prediction, target, density_weight=0):
                       * focal * valid).sum() / normalizer
     offset_error = F.smooth_l1_loss(prediction["offsets"].float(), target["offsets"], reduction="none")
     regression = (offset_error * positive.unsqueeze(2)).sum() / normalizer
+    if components is not None:
+        components.update(classification_loss=classification.detach(), offset_loss=regression.detach())
     loss = classification + regression
     if density_weight:
         density_error = F.smooth_l1_loss(prediction["density"].float(), target["density"], reduction="none")

@@ -25,6 +25,7 @@ def main():
     parser.add_argument("--split", choices=("val", "test"), default="val")
     parser.add_argument("--frozen-test", action="store_true", help="Confirm protocol and checkpoint are frozen")
     parser.add_argument("--export-predictions", action="store_true")
+    parser.add_argument("--per-image-counts", action="store_true")
     parser.add_argument("--threshold-sweep", action="store_true", help="Evaluate 0.05 to 0.95 on internal validation")
     args = parser.parse_args()
     if args.split == "test" and not args.frozen_test:
@@ -47,7 +48,8 @@ def main():
     run["checkpoint"] = {"path": str(args.checkpoint.resolve()), "sha256": file_sha(args.checkpoint),
                          "training_commit": state["git_commit"]}
     predictions = [] if args.export_predictions else None
-    metrics = evaluate(model, records, args.manifest.parent, config, device, predictions, args.threshold_sweep)
+    metrics = evaluate(model, records, args.manifest.parent, config, device, predictions,
+                       args.threshold_sweep, per_image=args.per_image_counts)
     if predictions is not None:
         write_json(args.output / "predictions.json", predictions)
     write_json(args.output / "metrics.json", metrics)

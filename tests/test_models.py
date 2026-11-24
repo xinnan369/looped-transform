@@ -104,3 +104,32 @@ def test_shifted_variant_alternates_with_one_parameter_object():
     assert all(weight is model.blocks[0].attn.in_proj_weight for weight, _ in observed)
     assert model.blocks[0].attn.in_proj_weight.grad.abs().sum() > 0
     assert sum(p.numel() for p in model.parameters()) == sum(p.numel() for p in LoopCrowd("shared_4").parameters())
+
+
+@pytest.mark.parametrize("prefix,second_shift", [("", 0), ("shifted_", 4)])
+def test_matched_two_call_blocks_have_expected_identity_and_gradients(prefix, second_shift):
+    torch.manual_seed(42)
+    shared = LoopCrowd(f"{prefix}shared_2")
+    torch.manual_seed(42)
+    unshared = LoopCrowd(f"{prefix}unshared_2")
+    assert torch.equal(shared.point_logits.weight, unshared.point_logits.weight)
+    assert torch.equal(shared.blocks[0].attn.in_proj_weight, unshared.blocks[0].attn.in_proj_weight)
+    counts = []
+    for model in (shared, unshared):
+        calls = []
+        for block in model.blocks:
+            block.register_forward_pre_hook(lambda block, args: calls.append((block, args[1])))
+        model(torch.randn(2, 3, 40, 40))["logits"].square().mean().backward()
+        assert [shift for _, shift in calls] == [0, second_shift]
+        assert (calls[0][0] is calls[1][0]) == model.shared
+        for block in model.blocks:
+            gradient = block.attn.in_proj_weight.grad
+            assert gradient.isfinite().all() and gradient.abs().sum() > 0
+        counts.append(sum(parameter.numel() for parameter in model.parameters()))
+    assert counts[1] - counts[0] == sum(parameter.numel() for parameter in shared.blocks[0].parameters())
+
+
+def test_pretrained_cache_miss_fails_locally(tmp_path, monkeypatch):
+    monkeypatch.setattr(torch.hub, "get_dir", lambda: str(tmp_path))
+    with pytest.raises(FileNotFoundError, match="must exist locally"):
+        LoopCrowd("cnn_only", pretrained=True)
