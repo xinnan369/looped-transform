@@ -1,0 +1,444 @@
+{
+  "status": "local_diagnostic_verified_on_existing_best_checkpoints",
+  "split": "ShanghaiTech A internal-val30",
+  "evaluation_budget": 7,
+  "archive": {
+    "pr": 6,
+    "commit": "2498019e63d2413e41b9f68ab47ad1c5dfb37c1b",
+    "source": "training_history.json and original validation sweep"
+  },
+  "original_head_adversarial_fixture": {
+    "commit": "2498019e63d2413e41b9f68ab47ad1c5dfb37c1b",
+    "gt": [
+      [
+        0,
+        0
+      ]
+    ],
+    "input_predictions": [
+      [
+        0.1,
+        0,
+        0.1
+      ],
+      [
+        0,
+        0,
+        0.9
+      ]
+    ],
+    "delta": 0.5,
+    "score_order_original_ids": [
+      1,
+      0
+    ],
+    "matched_gt_by_rank": [
+      0,
+      null
+    ],
+    "ap": 1.0
+  },
+  "variants": {
+    "cnn_only": {
+      "training_code_sha": "7834c4adca757872211632babdecdbce08ea1a2b",
+      "historical_diagnostic_source": "PR #6 at 2498019",
+      "best_epoch": 15,
+      "checkpoint_sha256": "39b2ef3c208600b523377f51b2b8067225832ef5ee6f677324188b766c19e656",
+      "manifest_sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+      "config_sha256": "df18efffe46f4befb21a604832cc8fe0c7f0a503db9aaee2c221767278d33e86",
+      "evaluation_code_sha": "a1dc7808a193c1e02e567a51102a4ff516e4599d",
+      "tracked_changes_during_reevaluation": "M reports/LC-002R/metric_parity.json",
+      "artifacts": {
+        "metrics.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/cnn_only/metrics.json",
+          "sha256": "d99d37b2f9eade67012ead78ca4aba835170c80002ab3a72d5a01b074714ecaa"
+        },
+        "run_manifest.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/cnn_only/run_manifest.json",
+          "sha256": "cc03a8d955ae5372837cd8ce5a47a39fde1bb301869d218124b090215b8e8c03"
+        },
+        "cnn_only.log": {
+          "path": "~/loopcrowd-lc002r/review_recheck/cnn_only.log",
+          "sha256": "cd3bdb2a4d034951fbf98abd70fc6bee89508ec05a1c6fe136cf2b74939c5f33"
+        }
+      },
+      "historical_nap_local_v1": {
+        "nap": 0.15968406845880317,
+        "ap_by_delta": {
+          "0.05": 0.006036450025680857,
+          "0.1": 0.0387165828195776,
+          "0.15": 0.08312660267040903,
+          "0.2": 0.1286740152327777,
+          "0.25": 0.16697482071290853,
+          "0.3": 0.19508624123303267,
+          "0.35": 0.2189709254599756,
+          "0.4": 0.23650063365305762,
+          "0.45": 0.2541786842901389,
+          "0.5": 0.2685757284904735
+        }
+      },
+      "rescored_nap_local_v1": {
+        "nap": 0.15968406845880317,
+        "ap_by_delta": {
+          "0.05": 0.006036450025680857,
+          "0.1": 0.0387165828195776,
+          "0.15": 0.08312660267040903,
+          "0.2": 0.1286740152327777,
+          "0.25": 0.16697482071290853,
+          "0.3": 0.19508624123303267,
+          "0.35": 0.2189709254599756,
+          "0.4": 0.23650063365305762,
+          "0.45": 0.2541786842901389,
+          "0.5": 0.2685757284904735
+        }
+      },
+      "counts_and_all_threshold_rows_identical": true,
+      "count_mae": 197.46666666666667,
+      "count_rmse": 262.91950605968105
+    },
+    "shared_1": {
+      "training_code_sha": "7834c4adca757872211632babdecdbce08ea1a2b",
+      "historical_diagnostic_source": "PR #6 at 2498019",
+      "best_epoch": 19,
+      "checkpoint_sha256": "f5335e02f404723e713e93082f211177de2281778fc13209ebe9e18b94e0cf46",
+      "manifest_sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+      "config_sha256": "8df55491a0aa603a77f0e20bab7cd7e9745beda96d1f63ef81d8deeeae79d6cc",
+      "evaluation_code_sha": "a1dc7808a193c1e02e567a51102a4ff516e4599d",
+      "tracked_changes_during_reevaluation": "M reports/LC-002R/metric_parity.json",
+      "artifacts": {
+        "metrics.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shared_1/metrics.json",
+          "sha256": "9000eb487f46f864c2dbed30ddff9fdc57772ced18c508514470c2bffdc0f590"
+        },
+        "run_manifest.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shared_1/run_manifest.json",
+          "sha256": "d4261930d42d48329d9b18f07d6bc29a4ad49f5dac9c4f149be0d45c53b91435"
+        },
+        "shared_1.log": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shared_1.log",
+          "sha256": "3ea974caaad9dbc7c1264fe1532a1647f846ec7e98d544ff4501ac67371521f6"
+        }
+      },
+      "historical_nap_local_v1": {
+        "nap": 0.19172848371702983,
+        "ap_by_delta": {
+          "0.05": 0.007525700938439554,
+          "0.1": 0.0481770982568963,
+          "0.15": 0.1051407423577766,
+          "0.2": 0.16030992601931235,
+          "0.25": 0.20359081226665912,
+          "0.3": 0.2357876239085146,
+          "0.35": 0.26165920182954716,
+          "0.4": 0.28211625734477314,
+          "0.45": 0.2991639459994582,
+          "0.5": 0.31381352824892117
+        }
+      },
+      "rescored_nap_local_v1": {
+        "nap": 0.19172848371702983,
+        "ap_by_delta": {
+          "0.05": 0.007525700938439554,
+          "0.1": 0.0481770982568963,
+          "0.15": 0.1051407423577766,
+          "0.2": 0.16030992601931235,
+          "0.25": 0.20359081226665912,
+          "0.3": 0.2357876239085146,
+          "0.35": 0.26165920182954716,
+          "0.4": 0.28211625734477314,
+          "0.45": 0.2991639459994582,
+          "0.5": 0.31381352824892117
+        }
+      },
+      "counts_and_all_threshold_rows_identical": true,
+      "count_mae": 162.63333333333333,
+      "count_rmse": 259.50189466231905
+    },
+    "shared_2": {
+      "training_code_sha": "7834c4adca757872211632babdecdbce08ea1a2b",
+      "historical_diagnostic_source": "PR #6 at 2498019",
+      "best_epoch": 19,
+      "checkpoint_sha256": "8b257ca05f8479b1b25446f01d9126e68f139eefe026538a35bb1a8f3fe0ce61",
+      "manifest_sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+      "config_sha256": "4e400294ab410c729c9c254c8eda86a0b961a9a2eeaa6ae78d70e70ad07fcf72",
+      "evaluation_code_sha": "a1dc7808a193c1e02e567a51102a4ff516e4599d",
+      "tracked_changes_during_reevaluation": "M reports/LC-002R/metric_parity.json",
+      "artifacts": {
+        "metrics.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shared_2/metrics.json",
+          "sha256": "eb0f534de49c97efbb44880a24158e07dae392ffa64317374877b8e1b04830e2"
+        },
+        "run_manifest.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shared_2/run_manifest.json",
+          "sha256": "93e56f398408594bd6d4d3496f9f38baf337bbe8fa2a6c80d71715e1742e9c65"
+        },
+        "shared_2.log": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shared_2.log",
+          "sha256": "4731a4481226508c72bb0fb61216bdf3120f0522c9c521c1b3bc87085359b7e4"
+        }
+      },
+      "historical_nap_local_v1": {
+        "nap": 0.17930568159894134,
+        "ap_by_delta": {
+          "0.05": 0.007100887276306507,
+          "0.1": 0.04514569504611482,
+          "0.15": 0.09878706654883343,
+          "0.2": 0.1501399020801046,
+          "0.25": 0.19001436149909917,
+          "0.3": 0.2207344106524041,
+          "0.35": 0.24488169965189135,
+          "0.4": 0.2632007834151566,
+          "0.45": 0.27991561183433494,
+          "0.5": 0.29313639798516783
+        }
+      },
+      "rescored_nap_local_v1": {
+        "nap": 0.17930568159894134,
+        "ap_by_delta": {
+          "0.05": 0.007100887276306507,
+          "0.1": 0.04514569504611482,
+          "0.15": 0.09878706654883343,
+          "0.2": 0.1501399020801046,
+          "0.25": 0.19001436149909917,
+          "0.3": 0.2207344106524041,
+          "0.35": 0.24488169965189135,
+          "0.4": 0.2632007834151566,
+          "0.45": 0.27991561183433494,
+          "0.5": 0.29313639798516783
+        }
+      },
+      "counts_and_all_threshold_rows_identical": true,
+      "count_mae": 181.9,
+      "count_rmse": 272.2932855090873
+    },
+    "shared_4": {
+      "training_code_sha": "7834c4adca757872211632babdecdbce08ea1a2b",
+      "historical_diagnostic_source": "PR #6 at 2498019",
+      "best_epoch": 17,
+      "checkpoint_sha256": "6eaedca8143bcc1a8e7453f75441b2f7b5144ce284f347a976a8a5b26ee3c286",
+      "manifest_sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+      "config_sha256": "351a38f53c6c9bdc7a9a8cca99252aec2d395436b4bd720db83da03fc62c86a9",
+      "evaluation_code_sha": "a1dc7808a193c1e02e567a51102a4ff516e4599d",
+      "tracked_changes_during_reevaluation": "M reports/LC-002R/metric_parity.json",
+      "artifacts": {
+        "metrics.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shared_4/metrics.json",
+          "sha256": "a42df7bffa39255c4d41db0a4ef2947b8fb3468b1e670a0ddcbf21144102ceb0"
+        },
+        "run_manifest.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shared_4/run_manifest.json",
+          "sha256": "6a6214c9994f91b070d92e1e5bad7176a3bbacec3ae3cabc373d7f8c7e9d534e"
+        },
+        "shared_4.log": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shared_4.log",
+          "sha256": "e2b6bf0ccda8f48605bab4b630f8c2cc090dc037cdfa618a5c66ee0d3ee53b4f"
+        }
+      },
+      "historical_nap_local_v1": {
+        "nap": 0.18155419366292783,
+        "ap_by_delta": {
+          "0.05": 0.007188642951224444,
+          "0.1": 0.046820406386047515,
+          "0.15": 0.10036438259017254,
+          "0.2": 0.15352814158145858,
+          "0.25": 0.1937178624127198,
+          "0.3": 0.22389720551959952,
+          "0.35": 0.24723900772923707,
+          "0.4": 0.2650354569121817,
+          "0.45": 0.28193096564170617,
+          "0.5": 0.2958198649049308
+        }
+      },
+      "rescored_nap_local_v1": {
+        "nap": 0.18155419366292783,
+        "ap_by_delta": {
+          "0.05": 0.007188642951224444,
+          "0.1": 0.046820406386047515,
+          "0.15": 0.10036438259017254,
+          "0.2": 0.15352814158145858,
+          "0.25": 0.1937178624127198,
+          "0.3": 0.22389720551959952,
+          "0.35": 0.24723900772923707,
+          "0.4": 0.2650354569121817,
+          "0.45": 0.28193096564170617,
+          "0.5": 0.2958198649049308
+        }
+      },
+      "counts_and_all_threshold_rows_identical": true,
+      "count_mae": 192.5,
+      "count_rmse": 300.54267583822434
+    },
+    "unshared_4": {
+      "training_code_sha": "7834c4adca757872211632babdecdbce08ea1a2b",
+      "historical_diagnostic_source": "PR #6 at 2498019",
+      "best_epoch": 17,
+      "checkpoint_sha256": "f12c0722a94883c021ad36cb34eabaf4a711a6df672f0a21b8a1f421e8105fc8",
+      "manifest_sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+      "config_sha256": "0698895e9e7afd1db7eb006f09fe9562a3bf5df683280a38f9bf77988b629817",
+      "evaluation_code_sha": "a1dc7808a193c1e02e567a51102a4ff516e4599d",
+      "tracked_changes_during_reevaluation": "M reports/LC-002R/metric_parity.json",
+      "artifacts": {
+        "metrics.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/unshared_4/metrics.json",
+          "sha256": "0a791f70e61fa18aaa909498ecf2efe0707fe7362c741c04026223982125d458"
+        },
+        "run_manifest.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/unshared_4/run_manifest.json",
+          "sha256": "809210697a120acf66325b9ad3e91b514452ad77acbf9eb8eb81320ad627d085"
+        },
+        "unshared_4.log": {
+          "path": "~/loopcrowd-lc002r/review_recheck/unshared_4.log",
+          "sha256": "da6df19f2c43a2d23f45e18b292803e30876f3f46829749934978dbcf8845e96"
+        }
+      },
+      "historical_nap_local_v1": {
+        "nap": 0.18958573190162378,
+        "ap_by_delta": {
+          "0.05": 0.007597370975925519,
+          "0.1": 0.048335420256560936,
+          "0.15": 0.10494612866054877,
+          "0.2": 0.1585327564771457,
+          "0.25": 0.20264404671518582,
+          "0.3": 0.23418914312982622,
+          "0.35": 0.2584043307610547,
+          "0.4": 0.27730491760005416,
+          "0.45": 0.29428902376843896,
+          "0.5": 0.30961418067149704
+        }
+      },
+      "rescored_nap_local_v1": {
+        "nap": 0.18958573190162378,
+        "ap_by_delta": {
+          "0.05": 0.007597370975925519,
+          "0.1": 0.048335420256560936,
+          "0.15": 0.10494612866054877,
+          "0.2": 0.1585327564771457,
+          "0.25": 0.20264404671518582,
+          "0.3": 0.23418914312982622,
+          "0.35": 0.2584043307610547,
+          "0.4": 0.27730491760005416,
+          "0.45": 0.29428902376843896,
+          "0.5": 0.30961418067149704
+        }
+      },
+      "counts_and_all_threshold_rows_identical": true,
+      "count_mae": 171.23333333333332,
+      "count_rmse": 284.800690542234
+    },
+    "shifted_shared_2": {
+      "training_code_sha": "7834c4adca757872211632babdecdbce08ea1a2b",
+      "historical_diagnostic_source": "PR #6 at 2498019",
+      "best_epoch": 19,
+      "checkpoint_sha256": "6491c40570500449405c38d51a08e66ea0894e921438f74006f97f715b6d4b5b",
+      "manifest_sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+      "config_sha256": "67601f979c547e75ba472f0621b8216c52c46e8312ac396b418f6088c2938870",
+      "evaluation_code_sha": "a1dc7808a193c1e02e567a51102a4ff516e4599d",
+      "tracked_changes_during_reevaluation": "M reports/LC-002R/metric_parity.json",
+      "artifacts": {
+        "metrics.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shifted_shared_2/metrics.json",
+          "sha256": "161e9d80e6a6e1b21432e54a80a72895cbe035c9a88e58e835f4867f2fdfed58"
+        },
+        "run_manifest.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shifted_shared_2/run_manifest.json",
+          "sha256": "e1726dd0ecd5a1a52d2a67adeffe80b51f290159d61dcfb43ac194a50c036790"
+        },
+        "shifted_shared_2.log": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shifted_shared_2.log",
+          "sha256": "44c66afd6886d77c97d526c9d10d1c9c1e0f8ad32bf3d3d62f6f02d992a843eb"
+        }
+      },
+      "historical_nap_local_v1": {
+        "nap": 0.18731452661603804,
+        "ap_by_delta": {
+          "0.05": 0.007260724929661469,
+          "0.1": 0.04636090841178896,
+          "0.15": 0.10082908174012316,
+          "0.2": 0.15605508155303577,
+          "0.25": 0.1980568021412455,
+          "0.3": 0.23041917876038315,
+          "0.35": 0.25663367638584006,
+          "0.4": 0.2764060199121388,
+          "0.45": 0.2933591961994461,
+          "0.5": 0.3077645961267172
+        }
+      },
+      "rescored_nap_local_v1": {
+        "nap": 0.18731452661603804,
+        "ap_by_delta": {
+          "0.05": 0.007260724929661469,
+          "0.1": 0.04636090841178896,
+          "0.15": 0.10082908174012316,
+          "0.2": 0.15605508155303577,
+          "0.25": 0.1980568021412455,
+          "0.3": 0.23041917876038315,
+          "0.35": 0.25663367638584006,
+          "0.4": 0.2764060199121388,
+          "0.45": 0.2933591961994461,
+          "0.5": 0.3077645961267172
+        }
+      },
+      "counts_and_all_threshold_rows_identical": true,
+      "count_mae": 176.26666666666668,
+      "count_rmse": 253.91678426865232
+    },
+    "shifted_shared_4": {
+      "training_code_sha": "7834c4adca757872211632babdecdbce08ea1a2b",
+      "historical_diagnostic_source": "PR #6 at 2498019",
+      "best_epoch": 19,
+      "checkpoint_sha256": "a9faec49ba4a1470fce399849448c28945f0924c8bfd58c9f0a00d821b05b4ec",
+      "manifest_sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+      "config_sha256": "8701c5b5570a07a088e4155565fd9bc98a67d55edb840fb795aaadc671d27bc4",
+      "evaluation_code_sha": "a1dc7808a193c1e02e567a51102a4ff516e4599d",
+      "tracked_changes_during_reevaluation": "M reports/LC-002R/metric_parity.json",
+      "artifacts": {
+        "metrics.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shifted_shared_4/metrics.json",
+          "sha256": "12a811b88e863b89c5b8bf1212fe793a4d26f9b1f4f7a1e0f9a6e3e28e87ff98"
+        },
+        "run_manifest.json": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shifted_shared_4/run_manifest.json",
+          "sha256": "9e9361b78bb8f70d56734aa1edf499a92150dc3d2204572e3960c9512dd24fd4"
+        },
+        "shifted_shared_4.log": {
+          "path": "~/loopcrowd-lc002r/review_recheck/shifted_shared_4.log",
+          "sha256": "fabc94d880348f176265bc8b8baf1ef986975b489ad5f0736dbf1941b1e3469a"
+        }
+      },
+      "historical_nap_local_v1": {
+        "nap": 0.1756872284466079,
+        "ap_by_delta": {
+          "0.05": 0.006555638275194861,
+          "0.1": 0.042259043179651276,
+          "0.15": 0.0916846807042434,
+          "0.2": 0.14412915835048143,
+          "0.25": 0.18460786209247346,
+          "0.3": 0.21608126262804506,
+          "0.35": 0.24199830044909915,
+          "0.4": 0.2604393623093883,
+          "0.45": 0.27749566223795485,
+          "0.5": 0.2916213142395472
+        }
+      },
+      "rescored_nap_local_v1": {
+        "nap": 0.1756872284466079,
+        "ap_by_delta": {
+          "0.05": 0.006555638275194861,
+          "0.1": 0.042259043179651276,
+          "0.15": 0.0916846807042434,
+          "0.2": 0.14412915835048143,
+          "0.25": 0.18460786209247346,
+          "0.3": 0.21608126262804506,
+          "0.35": 0.24199830044909915,
+          "0.4": 0.2604393623093883,
+          "0.45": 0.27749566223795485,
+          "0.5": 0.2916213142395472
+        }
+      },
+      "counts_and_all_threshold_rows_identical": true,
+      "count_mae": 208.73333333333332,
+      "count_rmse": 298.68266326208715
+    }
+  },
+  "compared_sweep_rows": 133,
+  "all_values_equal": true
+}

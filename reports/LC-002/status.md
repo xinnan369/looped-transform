@@ -1,5 +1,7 @@
 # LC-002 status
 
+These records preserve the LC-002 pilot and its original inference protocol. The ownership-only counting and local AP behavior introduced in the follow-up are described in [LC-002R](../LC-002R/status.md).
+
 LC-002 is based on LC-001 PR #2 while that prerequisite is awaiting merge. The LC-002 review branch targets the LC-001 branch.
 
 | Task | Result | Evidence |

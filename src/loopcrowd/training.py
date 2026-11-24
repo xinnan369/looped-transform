@@ -12,7 +12,7 @@ from .experiment import (
 )
 from .inference import autocast, predict_image
 from .manifest import read_manifest
-from .metrics import count_metrics, point_nap
+from .metrics import SCORE_THRESHOLDS, count_metrics, point_nap, score_threshold_sweep
 from .targets import point_loss
 
 
@@ -24,56 +24,77 @@ def optimizer_for(model, config):
     return torch.optim.AdamW(model.parameters(), lr=config["lr"], weight_decay=config["weight_decay"])
 
 
-def train_step(model, optimizer, scaler, images, target, config, device):
+def train_step(model, optimizer, scaler, images, target, config, device, diagnostics=None):
     optimizer.zero_grad(set_to_none=True)
     with autocast(device, config["precision"]):
         loss = point_loss(model(images), target, config["density_weight"])
     scaler.scale(loss).backward()
+    if diagnostics is not None:
+        scaler.unscale_(optimizer)
+        norms = [torch.linalg.vector_norm(p.grad.detach().float())
+                 for p in model.parameters() if p.grad is not None]
+        diagnostics["gradient_l2_last_step"] = float(torch.linalg.vector_norm(torch.stack(norms)))
     scaler.step(optimizer)
     scaler.update()
     return loss.detach()
 
 
-def evaluate(model, records, manifest_dir, config, device, all_predictions=None):
+def evaluate(model, records, manifest_dir, config, device, all_predictions=None, sweep=False):
     model.eval()
-    samples, expected, observed = [], [], []
+    samples, count_samples, expected, observed = [], [], [], []
+    summary = {}
+    threshold = config["count_threshold"]
+    if sweep and config["localization_min_score"] > min(SCORE_THRESHOLDS):
+        raise ValueError("score floor is above the first validation sweep threshold")
     for record in records:
         with load_rgb(record, manifest_dir) as image:
             predictions = predict_image(model, image, config, device)
         if all_predictions is not None:
             all_predictions.append({
-                "image_id": record.image_id, "dataset": record.dataset, "predictions": predictions,
+                "image_id": record.image_id, "dataset": record.dataset, **predictions.export(),
             })
+        for key, value in predictions.diagnostics(threshold).items():
+            summary[key] = summary.get(key, 0) + value
         if record.points is not None:
+            owned = predictions.count_candidates()
             expected.append(len(record.points))
-            observed.append(sum(score > config["count_threshold"] for _, _, score in predictions))
-            samples.append((record.points, predictions))
-    return {
+            observed.append(int((owned[:, 2] > threshold).sum()))
+            samples.append((record.points, predictions.candidates))
+            if sweep:
+                count_samples.append((record.points, owned))
+    result = {
         "images": len(records), "labeled_images": len(expected),
         "count": count_metrics(observed, expected) if expected else None,
         "expected_heads": sum(expected) if expected else None,
         "predicted_heads_on_labeled": sum(observed) if expected else None,
         "nap_local_v1": point_nap(samples) if samples else None,
         "nwpu_official_f1": "not_ready",
+        "candidate_diagnostics": summary,
+        "nap_score_floor": config["localization_min_score"],
     }
+    if sweep:
+        result["score_threshold_sweep"] = score_threshold_sweep(count_samples)
+    return result
 
 
 def _epoch(model, optimizer, scaler, loader, config, device):
     model.train()
     losses = torch.zeros((), device=device)
     heads = overflow = images_seen = 0
-    for images, target in loader:
+    diagnostics = {}
+    for step, (images, target) in enumerate(loader, 1):
         images_seen += len(images)
         heads += int(target["heads"].sum())
         overflow += int(target["overflow"].sum())
         gpu_target = {key: value.to(device, non_blocking=True) for key, value in target.items()}
         losses += train_step(model, optimizer, scaler, images.to(device, non_blocking=True),
-                             gpu_target, config, device)
+                             gpu_target, config, device, diagnostics if step == len(loader) else None)
     mean_loss = float(losses / len(loader))
-    if not np.isfinite(mean_loss):
-        raise RuntimeError("training loss became non-finite")
+    if not np.isfinite(mean_loss) or not np.isfinite(diagnostics["gradient_l2_last_step"]):
+        raise RuntimeError("training loss or observed gradient norm became non-finite")
     return {"loss": mean_loss, "crops": images_seen, "sampled_gt": heads, "overflow_gt": overflow,
-            "overflow_rate": overflow / heads if heads else None}
+            "overflow_rate": overflow / heads if heads else None,
+            "learning_rate": optimizer.param_groups[0]["lr"], **diagnostics}
 
 
 def fit(config, manifest, output, device, resume=False):
