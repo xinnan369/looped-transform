@@ -22,6 +22,44 @@ def test_nap_score_order_one_to_one_and_ap_envelope():
     assert result["ap_by_delta"] == {"0.5": pytest.approx(0.5)}
 
 
+def test_low_score_input_row_cannot_claim_ground_truth_first():
+    gt = [[0, 0]]
+    predictions = [[0.1, 0, 0.1], [0, 0, 0.9]]
+    ranked, matches = image_matches(gt, predictions, (0.5,))
+    assert ranked.tolist() == [1, 0]
+    assert matches.tolist() == [[0, -1]]
+    assert point_nap([(gt, predictions)], (0.5,))["ap_by_delta"] == {"0.5": 1.0}
+
+
+def test_nap_pools_predictions_in_global_score_order_without_cross_image_matches():
+    samples = [
+        ([[0, 0]], [[0, 0, 0.4]]),
+        ([[4, 4]], [[4, 4, 0.8], [0, 0, 0.95]]),
+    ]
+    assert point_nap(samples, (0.5,))["nap"] == pytest.approx(2 / 3)
+
+
+def test_equal_scores_preserve_input_and_image_order():
+    gt = [[0, 0]]
+    predictions = [[0.1, 0, 0.7], [0, 0, 0.7]]
+    ranked, matches = image_matches(gt, predictions, (0.5,))
+    assert ranked.tolist() == [0, 1]
+    assert matches.tolist() == [[0, -1]]
+    empty_image_fp = ([], [[0, 0, 0.7]])
+    tp_image = (gt, [predictions[1]])
+    assert point_nap([empty_image_fp, tp_image], (0.5,))["nap"] == 0.5
+    assert point_nap([tp_image, empty_image_fp], (0.5,))["nap"] == 1
+
+
+def test_sweep_true_positive_prefix_matches_the_retained_high_score_prediction():
+    samples = [([[0, 0]], [[0.1, 0, 0.1], [0, 0, 0.9]])]
+    rows = score_threshold_sweep(samples, (0.05, 0.5, 0.9))
+    assert [row["predicted_heads"] for row in rows] == [2, 1, 0]
+    assert [row["local_true_positives_delta_0_5"] for row in rows] == [1, 1, 0]
+    assert [row["local_precision"] for row in rows] == [0.5, 1.0, None]
+    assert [row["local_recall"] for row in rows] == [1.0, 1.0, 0]
+
+
 def test_nap_strict_threshold_and_no_cross_image_matches():
     gt = [[0, 0], [10, 0]]
     result = point_nap([(gt, [[5, 0, 1]])], thresholds=(0.5, 0.51))

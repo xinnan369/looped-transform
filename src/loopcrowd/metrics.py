@@ -26,35 +26,37 @@ def _ap(matches, number_of_heads):
 
 
 def image_matches(points, predictions, thresholds, neighbors=3):
-    """Return score-ranked prediction IDs and one GT index per prediction and δ."""
+    """Return original prediction IDs and GT matches, both in stable score order."""
     points = np.asarray(points, dtype=float).reshape(-1, 2)
     predictions = np.asarray(predictions, dtype=float).reshape(-1, 3)
     ranked = np.argsort(-predictions[:, 2], kind="stable")
-    predictions = predictions[ranked]
+    ranked_xy = predictions[ranked, :2]
     matched = np.full((len(thresholds), len(ranked)), -1, dtype=int)
-    if not len(points) or not len(predictions):
+    if not len(points) or not len(ranked_xy):
         return ranked, matched
 
     normalizer = np.ones(len(points))
     if len(points) > 1:
         distances, _ = cKDTree(points).query(points, k=1 + min(neighbors, len(points) - 1))
         normalizer = distances[:, 1:].mean(axis=1).clip(min=1e-12)
-    neighborhoods = cKDTree(predictions[:, :2]).query_ball_point(points, max(thresholds) * normalizer)
-    candidates = {}
-    for gt_id, ids in enumerate(neighborhoods):
-        if len(ids):
-            ratios = np.linalg.norm(points[gt_id] - predictions[ids, :2], axis=1) / normalizer[gt_id]
-            for index, ratio in zip(ids, ratios):
-                candidates.setdefault(index, []).append((ratio, gt_id))
-    ordered = [(index, sorted(candidates[index])) for index in sorted(candidates)]
+    # The KD-tree is built in score order. Its indices address ranks, not
+    # original input rows, and match columns use that same rank coordinate.
+    neighborhoods = cKDTree(ranked_xy).query_ball_point(points, max(thresholds) * normalizer)
+    candidates_by_rank = {}
+    for gt_id, ranks in enumerate(neighborhoods):
+        if len(ranks):
+            ratios = np.linalg.norm(points[gt_id] - ranked_xy[ranks], axis=1) / normalizer[gt_id]
+            for rank, ratio in zip(ranks, ratios):
+                candidates_by_rank.setdefault(rank, []).append((ratio, gt_id))
+    ordered = [(rank, sorted(candidates_by_rank[rank])) for rank in sorted(candidates_by_rank)]
     for row, threshold in enumerate(thresholds):
         used = set()
-        for index, nearby in ordered:
+        for rank, nearby in ordered:
             for distance, gt_id in nearby:
                 if distance >= threshold:
                     break
                 if gt_id not in used:
-                    matched[row, index] = gt_id
+                    matched[row, rank] = gt_id
                     used.add(gt_id)
                     break
     return ranked, matched
@@ -87,6 +89,7 @@ def score_threshold_sweep(samples, thresholds=SCORE_THRESHOLDS):
     for points, predictions in samples:
         predictions = np.asarray(predictions, dtype=float).reshape(-1, 3)
         ranked, matched = image_matches(points, predictions, (0.5,))
+        # The score boundary and TP prefix refer to the same rank positions.
         scores = predictions[ranked, 2]
         per_threshold = np.searchsorted(-scores, -thresholds, side="left")
         predicted_counts.append(per_threshold)

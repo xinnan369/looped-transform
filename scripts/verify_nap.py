@@ -11,7 +11,7 @@ import tarfile
 
 import numpy as np
 
-from loopcrowd.metrics import NAP_THRESHOLDS, image_matches, point_nap
+from loopcrowd.metrics import NAP_THRESHOLDS, SCORE_THRESHOLDS, image_matches, point_nap, score_threshold_sweep
 
 UPSTREAM = "5c91a81ca062b1c7fd3db3ad1c55b1c21f0a7455"
 FIXTURES = {
@@ -19,7 +19,13 @@ FIXTURES = {
     "single": [([[3, 4]], [[3, 4, 0.9], [9, 9, 0.1]])],
     "two_close": [([[8, 8], [9, 8]], [[8, 8, 0.8], [9, 8, 0.7]])],
     "duplicate": [([[3, 4], [13, 4]], [[3, 4, 0.9], [3, 4, 0.8], [13, 4, 0.5]])],
+    "low_score_first": [([[0, 0]], [[0.1, 0, 0.1], [0, 0, 0.9]])],
     "equal_scores": [([[8, 8]], [[20, 20, 0.7], [8, 8, 0.7]])],
+    "equal_scores_across_images": [([], [[0, 0, 0.7]]), ([[0, 0]], [[0, 0, 0.7]])],
+    "interleaved_image_scores": [
+        ([[0, 0]], [[0, 0, 0.4]]),
+        ([[4, 4]], [[4, 4, 0.8], [0, 0, 0.95]]),
+    ],
     "competing_gt": [([[0, 0], [2, 0], [30, 0], [60, 0]], [[1, 0, 0.9], [0, 0, 0.5]])],
     "isolated_images": [([[8, 8]], []), ([], [[8, 8, 0.9]])],
     "delta_boundary": [([[0, 0], [10, 0]], [[5, 0, 0.8]])],
@@ -94,6 +100,22 @@ def verify_fixture(samples, thresholds):
             "thresholds": rows, "nap_local_v1": metric["nap"]}
 
 
+def verify_sweep(samples):
+    order, matches, _ = dense_oracle(samples, 0.50)
+    gt = sum(len(points) for points, _ in samples)
+    rows = []
+    for row in score_threshold_sweep(samples, SCORE_THRESHOLDS):
+        retained = [match for (negative_score, _, _), match in zip(order, matches)
+                    if -negative_score > row["threshold"]]
+        tp = sum(match is not None for match in retained)
+        assert row["predicted_heads"] == len(retained)
+        assert row["local_true_positives_delta_0_5"] == tp
+        assert row["local_precision"] == (tp / len(retained) if retained else None)
+        assert row["local_recall"] == (tp / gt if gt else None)
+        rows.append({**row, "dense_oracle_tp": tp, "local_minus_oracle_tp": 0})
+    return rows
+
+
 def inspect_release(path):
     with tarfile.open(path) as archive:
         members = {m.name.split("/", 1)[1]: m for m in archive.getmembers() if m.isfile()}
@@ -138,14 +160,14 @@ def main():
         "metric": "nap_local_v1", "parity": "local_only",
         "upstream": inspect_release(args.upstream_archive),
         "paper": "https://openaccess.thecvf.com/content/ICCV2021/html/Song_Rethinking_Counting_and_Localization_in_Crowds_A_Purely_Point-Based_Framework_ICCV_2021_paper.html",
-        "fixtures": {name: verify_fixture(samples, NAP_THRESHOLDS)
+        "fixtures": {name: {**verify_fixture(samples, NAP_THRESHOLDS), "threshold_sweep": verify_sweep(samples)}
                      for name, samples in FIXTURES.items()},
         "boundary_above_point_five": verify_fixture(FIXTURES["delta_boundary"], (0.50, 0.51)),
         "nwpu_official_f1": "not_ready",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, allow_nan=False) + "\n", encoding="utf-8")
-    print(f"Verified local matching and AP on {len(FIXTURES)} fixtures. Upstream evaluator unavailable.")
+    print(f"Verified local ranking, matching, AP and sweep TP prefixes on {len(FIXTURES)} fixtures.")
 
 
 if __name__ == "__main__":
