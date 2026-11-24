@@ -43,7 +43,8 @@ jobs:
           PIP_DISABLE_PIP_VERSION_CHECK: '1'
           PIP_CONFIG_FILE: /dev/null
         run: |
-          PYTHONPATH="$RUNNER_TEMP/loopcrowd-wheels/pip-25.2-py3-none-any.whl" +            python -m pip install --no-index --no-deps "$RUNNER_TEMP"/loopcrowd-wheels/*.whl
+          wheel_dir="$RUNNER_TEMP/loopcrowd-wheels"
+          PYTHONPATH="$wheel_dir/pip-25.2-py3-none-any.whl" python -m pip install --no-index --no-deps "$wheel_dir"/*.whl
           python -m pip check
       - run: pytest -q
       - run: python scripts/audit_dataset.py --help

@@ -206,7 +206,7 @@
       "file": "torch-2.9.1+cpu-cp310-cp310-manylinux_2_28_x86_64.whl",
       "url": "https://mirrors.aliyun.com/pytorch-wheels/cpu/torch-2.9.1%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl",
       "bytes": 184425936,
-      "sha256": null
+      "sha256": "7210713b66943fdbfcc237b2e782871b649123ac5d29f548ce8c85be4223ab38"
     },
     {
       "name": "torchvision",
@@ -214,7 +214,7 @@
       "file": "torchvision-0.24.1+cpu-cp310-cp310-manylinux_2_28_x86_64.whl",
       "url": "https://mirrors.aliyun.com/pytorch-wheels/cpu/torchvision-0.24.1%2Bcpu-cp310-cp310-manylinux_2_28_x86_64.whl",
       "bytes": 1905888,
-      "sha256": null
+      "sha256": "c98e219150beaab521c684cfd5c9ba1b6e80794ca851e60e784bd7f368889961"
     }
   ],
   "cp313": [
@@ -424,7 +424,7 @@
       "file": "torch-2.9.1+cpu-cp313-cp313-manylinux_2_28_x86_64.whl",
       "url": "https://mirrors.aliyun.com/pytorch-wheels/cpu/torch-2.9.1%2Bcpu-cp313-cp313-manylinux_2_28_x86_64.whl",
       "bytes": 184380800,
-      "sha256": null
+      "sha256": "39b3dff6d8fba240ae0d1bede4ca11c2531ae3b47329206512d99e17907ff74b"
     },
     {
       "name": "torchvision",
@@ -432,7 +432,7 @@
       "file": "torchvision-0.24.1+cpu-cp313-cp313-manylinux_2_28_x86_64.whl",
       "url": "https://mirrors.aliyun.com/pytorch-wheels/cpu/torchvision-0.24.1%2Bcpu-cp313-cp313-manylinux_2_28_x86_64.whl",
       "bytes": 1909778,
-      "sha256": null
+      "sha256": "19eb1744686a992522bf9ab8bf4b3245c2202e93a39b1fe1fcb2b8d2ca982048"
     }
   ]
 }
