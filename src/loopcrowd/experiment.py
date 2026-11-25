@@ -25,6 +25,7 @@ DEFAULT_CONFIG = {
     "stage": "smoke_only", "label_policy": "synthetic",
     "lr_schedule": "constant", "min_lr": 0.00002, "warmup_fraction": 0.05,
     "fixed_training_horizon": False,
+    "backbone_bn": "train",
 }
 
 
@@ -52,6 +53,8 @@ def read_config(path, variant=None):
         raise ValueError("unsupported crop policy")
     if config["precision"] not in ("fp32", "bf16", "fp16"):
         raise ValueError("unsupported precision")
+    if config["backbone_bn"] not in ("train", "frozen"):
+        raise ValueError("unsupported backbone batch normalization policy")
     if config["stage"] not in ("smoke_only", "pilot", "full_train"):
         raise ValueError("unsupported execution stage")
     if not config["label_policy"] or config["density_weight"] < 0:
@@ -75,6 +78,7 @@ def make_model(config, initialize):
         config["variant"], slots=config["slots"], pretrained=config["pretrained"] and initialize,
         density=config["density_weight"] > 0, loop_embedding=config["loop_embedding"],
         gradient_checkpointing=config["gradient_checkpointing"],
+        freeze_backbone_bn=config.get("backbone_bn", "train") == "frozen",
     )
 
 

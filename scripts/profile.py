@@ -52,6 +52,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--variant", choices=VARIANTS)
+    parser.add_argument("--backbone-bn", choices=("train", "frozen"))
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, help="Use one real validation image for batch-one latency")
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cuda")
@@ -60,6 +61,8 @@ def main():
     if args.repeats < 1:
         parser.error("--repeats must be positive")
     config = read_config(args.config, args.variant)
+    if args.backbone_bn is not None:
+        config["backbone_bn"] = args.backbone_bn
     device, size = torch.device(args.device), config["tile_size"]
     use_cuda = device.type == "cuda"
     sync = torch.cuda.synchronize if use_cuda else lambda: None

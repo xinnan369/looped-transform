@@ -8,6 +8,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from .data import TrainingCrops, load_rgb
+from .diagnostics import LoopStatistics
 from .experiment import (
     DEFAULT_CONFIG, checkpoint, file_sha, load_checkpoint, make_model, provenance, seed_all,
     weight_provenance, write_json,
@@ -42,7 +43,8 @@ def train_step(model, optimizer, scaler, images, target, config, device, diagnos
     return loss.detach()
 
 
-def evaluate(model, records, manifest_dir, config, device, all_predictions=None, sweep=False, per_image=False):
+def evaluate(model, records, manifest_dir, config, device, all_predictions=None, sweep=False, per_image=False,
+             *, trace=None):
     model.eval()
     samples, count_samples, expected, observed = [], [], [], []
     summary = {}
@@ -52,7 +54,7 @@ def evaluate(model, records, manifest_dir, config, device, all_predictions=None,
         raise ValueError("score floor is above the first validation sweep threshold")
     for record in records:
         with load_rgb(record, manifest_dir) as image:
-            predictions = predict_image(model, image, config, device)
+            predictions = predict_image(model, image, config, device, trace=trace)
         if all_predictions is not None:
             all_predictions.append({
                 "image_id": record.image_id, "dataset": record.dataset, **predictions.export(),
@@ -218,7 +220,12 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
         details = _epoch(model, optimizer, scaler, loader, config, device, schedule)
         details["train_seconds"] = perf_counter() - start
         details["epoch"] = epoch
-        details["validation"] = evaluate(model, val, manifest.parent, config, device)
+        gains = model.loop_gains()
+        trace = LoopStatistics() if gains is not None else None
+        details["validation"] = evaluate(model, val, manifest.parent, config, device, trace=trace)
+        if trace is not None:
+            details["loop_gains"] = gains.detach().tolist()
+            details["validation_loop_statistics"] = trace.result()
         details["epoch_seconds"] = perf_counter() - start
         history.append(details)
         mae = details["validation"]["count"]["mae"]

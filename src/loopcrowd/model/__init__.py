@@ -1,6 +1,7 @@
 """Fixed-depth head-point models with a common CNN and point head."""
 
 from pathlib import Path
+from functools import partial
 
 import torch
 from torch import nn
@@ -12,6 +13,8 @@ VARIANTS = {
     "cnn_only": (0, False),
     "shared_1": (1, True),
     "shared_2": (2, True),
+    "shared_2_tied_gain": (2, True),
+    "shared_2_stage_gain": (2, True),
     "unshared_2": (2, False),
     "shared_4": (4, True),
     "unshared_4": (4, False),
@@ -20,6 +23,7 @@ VARIANTS = {
     "shifted_shared_4": (4, True),
 }
 WEIGHTS = "IMAGENET1K_V1"
+GAIN_STAGES = {"shared_2_tied_gain": 1, "shared_2_stage_gain": 2}
 
 
 def pretrained_path():
@@ -66,11 +70,21 @@ class WindowBlock(nn.Module):
         self.norm2 = nn.LayerNorm(width)
         self.ffn = nn.Sequential(nn.Linear(width, 4 * width), nn.GELU(), nn.Linear(4 * width, width))
 
-    def forward(self, tokens, shift=0):
+    def forward(self, tokens, shift=0, *, gains=None, trace=None):
+        before = tokens
         windows, padding = window_partition(self.norm1(tokens), self.window_size, shift)
         attended, _ = self.attn(windows, windows, windows, key_padding_mask=padding, need_weights=False)
-        tokens = tokens + window_reverse(attended, tokens.shape, self.window_size, shift)
-        return tokens + self.ffn(self.norm2(tokens))
+        attention = window_reverse(attended, tokens.shape, self.window_size, shift)
+        if gains is not None:
+            attention = gains[0] * attention
+        tokens = tokens + attention
+        feedforward = self.ffn(self.norm2(tokens))
+        if gains is not None:
+            feedforward = gains[1] * feedforward
+        tokens = tokens + feedforward
+        if trace is not None:
+            trace(before, tokens, attention, feedforward)
+        return tokens
 
 
 class LoopCrowd(nn.Module):
@@ -78,7 +92,7 @@ class LoopCrowd(nn.Module):
 
     def __init__(
         self, variant, slots=2, pretrained=False, density=False,
-        loop_embedding=False, gradient_checkpointing=False,
+        loop_embedding=False, gradient_checkpointing=False, freeze_backbone_bn=False,
     ):
         super().__init__()
         self.loops, self.shared = VARIANTS[variant]
@@ -87,6 +101,7 @@ class LoopCrowd(nn.Module):
         if type(slots) is not int or slots < 1:
             raise ValueError("slots must be a positive integer")
         self.gradient_checkpointing = gradient_checkpointing
+        self.freeze_backbone_bn = freeze_backbone_bn
 
         # Initialize the common modules first so each control starts identically at the same seed.
         cnn = resnet18(weights=None)
@@ -108,19 +123,45 @@ class LoopCrowd(nn.Module):
         self.density = nn.Conv2d(192, 1, 1) if density else None
         self.embedding = nn.Parameter(torch.zeros(192)) if loop_embedding else None
         self.blocks = nn.ModuleList(WindowBlock() for _ in range(1 if self.shared else self.loops))
+        stages = GAIN_STAGES.get(variant)
+        self.gain_logits = nn.Parameter(torch.zeros(stages, 2)) if stages else None
+        if self.freeze_backbone_bn:
+            self.train()
 
-    def forward(self, images):
+    def train(self, mode=True):
+        super().train(mode)
+        if mode and self.freeze_backbone_bn:
+            for layer in (*self.p2.modules(), *self.p3.modules()):
+                if isinstance(layer, nn.BatchNorm2d):
+                    layer.eval()
+        return self
+
+    def loop_gains(self):
+        if self.gain_logits is None:
+            return None
+        return (2 * self.gain_logits.sigmoid()).expand(self.loops, 2)
+
+    def forward(self, images, *, loop_count=None, trace=None):
+        calls = self.loops if loop_count is None else loop_count
+        if type(calls) is not int or not 0 <= calls <= self.loops:
+            raise ValueError("loop_count must be an integer inside the model's fixed depth")
         p2 = self.p2(images)
         tokens = self.project(self.p3(p2)).permute(0, 2, 3, 1)
-        for index in range(self.loops):
+        gains = self.loop_gains()
+        for index in range(calls):
             block = self.blocks[0 if self.shared else index]
             if self.embedding is not None:
                 tokens = tokens + self.embedding
             shift = block.window_size // 2 if self.shifted and index % 2 else 0
+            block_args = {}
+            if gains is not None:
+                block_args["gains"] = gains[index]
+            if trace is not None:
+                block_args["trace"] = partial(trace, index)
             if self.gradient_checkpointing and self.training and torch.is_grad_enabled():
-                tokens = checkpoint(block, tokens, shift, use_reentrant=False)
+                tokens = checkpoint(block, tokens, shift, use_reentrant=False, **block_args)
             else:
-                tokens = block(tokens, shift)
+                tokens = block(tokens, shift, **block_args)
         p3 = F.interpolate(tokens.permute(0, 3, 1, 2), size=p2.shape[-2:], mode="nearest")
         features = self.fuse(torch.cat((p2, p3), dim=1))
         batch, _, height, width = features.shape
