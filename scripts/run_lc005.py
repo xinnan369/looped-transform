@@ -131,7 +131,7 @@ def main():
     subprocess.run(["git", "ls-files", "--error-unmatch", str(PROTOCOL), *map(str, CONFIGS.values())],
                    check=True, stdout=subprocess.DEVNULL)
     subprocess.run(["git", "diff", "HEAD", "--quiet"], check=True)
-    device = torch.device("cuda")
+    device = torch.device("cuda", 0)
     if torch.cuda.device_count() != 1 or "3090" not in torch.cuda.get_device_name(device):
         parser.error("the frozen queue expects one visible RTX 3090")
     if not torch.cuda.is_bf16_supported():
