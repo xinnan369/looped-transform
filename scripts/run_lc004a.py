@@ -8,7 +8,7 @@ import numpy as np
 import torch
 
 from loopcrowd.diagnostics import backbone_bn_buffers, compare_prefixes, describe_bn, evaluate_prefix
-from loopcrowd.experiment import file_sha, load_checkpoint, make_model, read_config, write_json
+from loopcrowd.experiment import DEFAULT_CONFIG, file_sha, load_checkpoint, make_model, read_config, write_json
 from loopcrowd.manifest import read_manifest
 from loopcrowd.model import pretrained_path
 from scripts.run_lc003 import MANIFEST_SHA, WEIGHT_SHA, load_json, run_logged, stability
@@ -71,7 +71,7 @@ def assert_archived(source, archived, config, manifest_sha):
     if (
         run != archived["provenance"] or run["git_commit"] != TRAINING_CODE
         or run["tracked_changes"] or run["execution"] != "completed"
-        or run["config"] | {"backbone_bn": "train"} != config
+        or DEFAULT_CONFIG | run["config"] | {"backbone_bn": "train"} != config
         or run["data"]["sha256"] != manifest_sha or run["weight_initialization"]["sha256"] != WEIGHT_SHA
     ):
         raise ValueError(f"cannot reuse LC-003 arm with different provenance: {source}")

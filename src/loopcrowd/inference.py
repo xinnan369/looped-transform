@@ -78,8 +78,19 @@ class TilePredictions:
 
 @torch.inference_mode()
 def predict_image(model, image, config, device, *, loop_count=None, trace=None):
+    return _predict_tiles(model, image, config, device, loop_count=loop_count, trace=trace)["final"]
+
+
+@torch.inference_mode()
+def predict_image_stages(model, image, config, device):
+    return _predict_tiles(model, image, config, device, staged=True)
+
+
+def _predict_tiles(model, image, config, device, *, loop_count=None, trace=None, staged=False):
     size, overlap = config["tile_size"], config["tile_overlap"]
-    predictions, ids, ownership, tiles = [], [], [], []
+    stages = ("early", "final") if staged else ("final",)
+    by_stage = {stage: ([], [], []) for stage in stages}
+    tiles = []
     model_args = {}
     if loop_count is not None:
         model_args["loop_count"] = loop_count
@@ -94,13 +105,16 @@ def predict_image(model, image, config, device, *, loop_count=None, trace=None):
                 "ownership_xyxy": [x_min, y_min, x_max, y_max],
             })
             with autocast(device, config["precision"]):
-                output = model(tile[None].to(device), **model_args)
-            decoded = decode(output, config["localization_min_score"], model.stride).astype(float)
-            # Filter the valid side of each partially padded tile before returning native coordinates.
-            points = decoded[((decoded[:, :2] >= 0) & (decoded[:, :2] < [width, height])).all(axis=1)]
-            points[:, :2] += [left, top]
-            owned = ((points[:, :2] >= [x_min, y_min]) & (points[:, :2] < [x_max, y_max])).all(axis=1)
-            predictions.append(points)
-            ids.append(np.full(len(points), tile_id, dtype=int))
-            ownership.append(owned)
-    return TilePredictions(np.concatenate(predictions), np.concatenate(ids), np.concatenate(ownership), tiles)
+                batch = tile[None].to(device)
+                outputs = model.forward_stages(batch) if staged else {"final": model(batch, **model_args)}
+            for stage, output in outputs.items():
+                predictions, ids, ownership = by_stage[stage]
+                decoded = decode(output, config["localization_min_score"], model.stride).astype(float)
+                points = decoded[((decoded[:, :2] >= 0) & (decoded[:, :2] < [width, height])).all(axis=1)]
+                points[:, :2] += [left, top]
+                owned = ((points[:, :2] >= [x_min, y_min]) & (points[:, :2] < [x_max, y_max])).all(axis=1)
+                predictions.append(points)
+                ids.append(np.full(len(points), tile_id, dtype=int))
+                ownership.append(owned)
+    return {stage: TilePredictions(*(np.concatenate(values) for values in arrays), tiles)
+            for stage, arrays in by_stage.items()}

@@ -1,5 +1,6 @@
 """Train, validate and resume fixed-loop comparisons."""
 
+import hashlib
 import json
 from time import perf_counter
 
@@ -7,13 +8,14 @@ import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
+from .calibration import count_match_metrics, summarize_counts
 from .data import TrainingCrops, load_rgb
 from .diagnostics import LoopStatistics
 from .experiment import (
     DEFAULT_CONFIG, checkpoint, file_sha, load_checkpoint, make_model, provenance, seed_all,
-    weight_provenance, write_json,
+    state_sha, weight_provenance, write_json,
 )
-from .inference import autocast, predict_image
+from .inference import autocast, predict_image, predict_image_stages
 from .manifest import read_manifest
 from .metrics import SCORE_THRESHOLDS, count_metrics, point_nap, score_threshold_sweep
 from .scheduling import UpdateSchedule
@@ -28,10 +30,24 @@ def optimizer_for(model, config):
     return torch.optim.AdamW(model.parameters(), lr=config["lr"], weight_decay=config["weight_decay"])
 
 
+def supervised_point_loss(model, images, target, config, diagnostics=None):
+    weight = config.get("early_loss_weight")
+    if weight is None:
+        return point_loss(model(images), target, config["density_weight"], diagnostics)
+    predictions = model.forward_stages(images)
+    early_parts = {} if diagnostics is not None else None
+    early = point_loss(predictions["early"], target, config["density_weight"], early_parts)
+    final = point_loss(predictions["final"], target, config["density_weight"], diagnostics)
+    if diagnostics is not None:
+        diagnostics.update({f"early_{key}": value for key, value in early_parts.items()})
+        diagnostics.update(early_loss=early.detach(), final_loss=final.detach())
+    return final + weight * early
+
+
 def train_step(model, optimizer, scaler, images, target, config, device, diagnostics=None):
     optimizer.zero_grad(set_to_none=True)
     with autocast(device, config["precision"]):
-        loss = point_loss(model(images), target, config["density_weight"], diagnostics)
+        loss = supervised_point_loss(model, images, target, config, diagnostics)
     scaler.scale(loss).backward()
     if diagnostics is not None:
         scaler.unscale_(optimizer)
@@ -90,15 +106,50 @@ def evaluate(model, records, manifest_dir, config, device, all_predictions=None,
     return result
 
 
+def evaluate_stages(model, records, manifest_dir, config, device):
+    model.eval()
+    samples = {"early": [], "final": []}
+    counts = {"early": [], "final": []}
+    cutoff = config["count_threshold"]
+    for record in records:
+        with load_rgb(record, manifest_dir) as image:
+            staged = predict_image_stages(model, image, config, device)
+        for stage, predictions in staged.items():
+            owned = predictions.count_candidates()
+            active = owned[owned[:, 2] > cutoff]
+            matched, = count_match_metrics(record.points, active, (cutoff,))
+            counts[stage].append({"gt": len(record.points), "matches": matched})
+            samples[stage].append((record.points, predictions.candidates))
+    result = {}
+    for stage, rows in counts.items():
+        metrics = summarize_counts(rows, "matches")
+        result[stage] = {
+            "images": len(records), "count": {key: metrics[key] for key in ("mae", "rmse")},
+            "expected_heads": metrics["gt"], "predicted_heads_on_labeled": metrics["predicted"],
+            "nap_local_v1": point_nap(samples[stage]), "nap_score_floor": config["localization_min_score"],
+            "local_match_delta": 0.50,
+            **{key: value for key, value in metrics.items() if key.startswith("local_")},
+        }
+    return result
+
+
 def _epoch(model, optimizer, scaler, loader, config, device, schedule):
     model.train()
     losses = torch.zeros((), device=device)
     class_losses = torch.zeros_like(losses)
     offsets = torch.zeros_like(losses)
+    staged = config.get("early_loss_weight") is not None
+    stage_losses = {key: torch.zeros_like(losses) for key in (
+        "early_loss", "early_classification_loss", "early_offset_loss", "final_loss",
+    )} if staged else {}
+    order = hashlib.sha256() if staged else None
     heads = overflow = images_seen = valid_slots = skipped = 0
     rates, gradient_norms = [], []
     scale = scaler.get_scale()
     for images, target in loader:
+        if order is not None:
+            crop_identity = target.pop("crop_identity")
+            order.update(crop_identity.numpy().astype("<i8", copy=False).tobytes())
         images_seen += len(images)
         heads += int(target["heads"].sum())
         overflow += int(target["overflow"].sum())
@@ -118,6 +169,8 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule):
         losses += loss
         class_losses += diagnostics["classification_loss"]
         offsets += diagnostics["offset_loss"]
+        for key in stage_losses:
+            stage_losses[key] += diagnostics[key]
         gradient_norms.append(diagnostics["gradient_l2"])
     mean_loss = float(losses / len(loader))
     gradients = torch.stack(gradient_norms).cpu().numpy()
@@ -125,6 +178,9 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule):
     if not np.isfinite(mean_loss) or len(finite) + skipped < len(gradients):
         raise RuntimeError("training loss or observed gradient norm became non-finite")
     positive_slots = heads - overflow
+    staged_metrics = {key: float(value / len(loader)) for key, value in stage_losses.items()}
+    if order is not None:
+        staged_metrics["crop_order_sha256"] = order.hexdigest()
     return {
         "loss": mean_loss, "classification_loss": float(class_losses / len(loader)),
         "offset_loss": float(offsets / len(loader)), "crops": images_seen,
@@ -140,6 +196,7 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule):
         },
         "global_step": schedule.global_step, "optimizer_updates": len(rates), "amp_skipped_updates": skipped,
         "learning_rate": rates[-1] if rates else None, "learning_rates": rates,
+        **staged_metrics,
     }
 
 
@@ -157,7 +214,10 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
         raise ValueError(f"new run requires a new output directory: {output}")
     output.mkdir(parents=True, exist_ok=resume)
     seed_all(config["seed"])
-    model = make_model(config, initialize=not resume).to(device)
+    staged = config["early_loss_weight"] is not None
+    model = make_model(config, initialize=not resume)
+    initial_sha = state_sha(model) if staged and not resume else None
+    model.to(device)
     optimizer = optimizer_for(model, config)
     scaler = gpu_scaler(device, config["precision"])
     updates_per_epoch = (len(train) + config["batch_size"] - 1) // config["batch_size"]
@@ -202,11 +262,15 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
             if schedule.global_step != state["global_step"]:
                 raise ValueError("checkpoint optimizer position and scheduler state differ")
         run["weight_initialization"] = state["weight_initialization"]
+        if staged:
+            initial_sha = state["initial_state_sha256"]
         run["resumed_from"] = {
             "epoch": len(history), "sha256": file_sha(last_path), "git_commit": state["git_commit"],
             "global_step": schedule.global_step,
         }
 
+    if staged:
+        run["initial_state_sha256"] = initial_sha
     write_json(output / "run_manifest.json", run)
     for epoch in range(len(history) + 1, end_epoch + 1):
         start = perf_counter()
@@ -217,15 +281,26 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
             shuffle=True, num_workers=config["workers"], pin_memory=device.type == "cuda",
             generator=torch.Generator().manual_seed(epoch_seed),
         )
+        if staged and device.type == "cuda":
+            torch.cuda.reset_peak_memory_stats(device)
         details = _epoch(model, optimizer, scaler, loader, config, device, schedule)
         details["train_seconds"] = perf_counter() - start
         details["epoch"] = epoch
-        gains = model.loop_gains()
-        trace = LoopStatistics() if gains is not None else None
-        details["validation"] = evaluate(model, val, manifest.parent, config, device, trace=trace)
-        if trace is not None:
-            details["loop_gains"] = gains.detach().tolist()
-            details["validation_loop_statistics"] = trace.result()
+        if staged:
+            details["mean_train_batch_ms"] = 1000 * details["train_seconds"] / len(loader)
+            if device.type == "cuda":
+                details["peak_train_allocated_bytes"] = torch.cuda.max_memory_allocated(device)
+                details["peak_train_reserved_bytes"] = torch.cuda.max_memory_reserved(device)
+            stage_metrics = evaluate_stages(model, val, manifest.parent, config, device)
+            details["early_validation"] = stage_metrics["early"]
+            details["validation"] = stage_metrics["final"]
+        else:
+            gains = model.loop_gains()
+            trace = LoopStatistics() if gains is not None else None
+            details["validation"] = evaluate(model, val, manifest.parent, config, device, trace=trace)
+            if trace is not None:
+                details["loop_gains"] = gains.detach().tolist()
+                details["validation_loop_statistics"] = trace.result()
         details["epoch_seconds"] = perf_counter() - start
         history.append(details)
         mae = details["validation"]["count"]["mae"]
@@ -239,6 +314,8 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
             "best_epoch": best_epoch, "best_mae": best_mae, "git_commit": run["git_commit"],
             "weight_initialization": run["weight_initialization"],
         }
+        if staged:
+            state["initial_state_sha256"] = initial_sha
         if improved:
             checkpoint(best_path, state)
         checkpoint(last_path, state)

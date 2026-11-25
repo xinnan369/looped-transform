@@ -141,10 +141,16 @@ class LoopCrowd(nn.Module):
             return None
         return (2 * self.gain_logits.sigmoid()).expand(self.loops, 2)
 
-    def forward(self, images, *, loop_count=None, trace=None):
+    def forward_stages(self, images):
+        """Decode the first and second shared calls with the same point head."""
+        return self(images, return_stages=True)
+
+    def forward(self, images, *, loop_count=None, trace=None, return_stages=False):
         calls = self.loops if loop_count is None else loop_count
         if type(calls) is not int or not 0 <= calls <= self.loops:
             raise ValueError("loop_count must be an integer inside the model's fixed depth")
+        if return_stages and (self.loops != 2 or calls != 2 or not self.shared):
+            raise ValueError("stage predictions require both calls of a two-call shared model")
         p2 = self.p2(images)
         tokens = self.project(self.p3(p2)).permute(0, 2, 3, 1)
         gains = self.loop_gains()
@@ -162,6 +168,12 @@ class LoopCrowd(nn.Module):
                 tokens = checkpoint(block, tokens, shift, use_reentrant=False, **block_args)
             else:
                 tokens = block(tokens, shift, **block_args)
+            if return_stages and index == 0:
+                early = self._decode(p2, tokens)
+        final = self._decode(p2, tokens)
+        return {"early": early, "final": final} if return_stages else final
+
+    def _decode(self, p2, tokens):
         p3 = F.interpolate(tokens.permute(0, 3, 1, 2), size=p2.shape[-2:], mode="nearest")
         features = self.fuse(torch.cat((p2, p3), dim=1))
         batch, _, height, width = features.shape
