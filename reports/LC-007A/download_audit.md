@@ -9,6 +9,11 @@ New external experiment files, package installs, pretrained weight retrievals, m
 | 33 locally cached E40 checkpoints | [Frozen digest and path list](frozen_cases.csv) |
 | Historical local inputs referenced by the ledger | [Best/last, raw history and manifest digest checks](run_ledger.csv) |
 
-NWPU/WiderPerson access, preparation and evaluation remain paused. Download origins, final redirection, route, archive CRC and resume checks are inapplicable to this zero-download experiment. An early module-path import error and a pre-inference ledger classification assertion both stopped before any validation image was opened or checkpoint inferred. The first pre-inference run's log remains at `/home/xinnan/loopcrowd-lc007a-preflight-01.log`; the completed inference log and output remain at `/home/xinnan/loopcrowd-lc007a-inference.log` and `/home/xinnan/loopcrowd-lc007a`.
+NWPU/WiderPerson access, preparation and evaluation remain paused. Download origins, final redirection, route, archive CRC and resume checks are inapplicable to this zero-download experiment. An early module-path import error and a pre-inference ledger classification assertion both stopped before validation image access. The completed replay output remains at `/home/xinnan/loopcrowd-lc007a`.
+
+| WSL log | SHA-256 |
+| --- | --- |
+| `/home/xinnan/loopcrowd-lc007a-preflight-01.log` | `aa16ff7ead2db8da26826331c899b2ceadb62c5fbe0a2a4fa6aa0c3ff508b7f2` |
+| `/home/xinnan/loopcrowd-lc007a-inference.log` | `ab107952ac62b1be6719088ec045e5cdc926e5acb5fb968886947bec543a88ba` |
 
 The previous LC-002R hosted CI authorization is exhausted. All LC-007A commits carry `[skip ci]`. Only GitHub reads for coordination and publication of code and derived reports use repository network access. Local datasets, weights, full epoch logs and candidate coordinates remain local. Any future resource request requires separate authorization with exact bytes, local cache and space, trusted mainland source and final redirect, hashes and permitted route checks before acquisition.
