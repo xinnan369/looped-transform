@@ -1,0 +1,154 @@
+{
+  "shared_transfer_replication": {
+    "final": {
+      "relative_mae_reduction": 0.03556054650945159,
+      "seeds_with_lower_mae": 3
+    },
+    "early": {
+      "relative_mae_reduction": 0.2831062194269741,
+      "seeds_with_lower_mae": 3
+    },
+    "final_local_nap_delta": 0.00024433651597466355,
+    "unstable_runs": [
+      "123/shared_2_final_only",
+      "123/shared_2_aux_025",
+      "2026/shared_2_final_only",
+      "2026/shared_2_aux_025"
+    ],
+    "checks": {
+      "final_mean_mae_reduces_at_least_3_percent": true,
+      "final_mae_improves_in_at_least_two_seeds": true,
+      "final_mean_local_nap_delta_at_least_minus_0_005": true,
+      "all_six_pairs_stable": false,
+      "early_mae_reduces_at_least_3_percent_in_mean_and_two_seeds": true
+    },
+    "pass": false
+  },
+  "independent_supervision_diagnostic": {
+    "final": {
+      "relative_mae_reduction": 0.011606964178507071,
+      "seeds_with_lower_mae": 2
+    },
+    "early": {
+      "relative_mae_reduction": 0.4573850482601417,
+      "seeds_with_lower_mae": 3
+    },
+    "final_local_nap_delta": 0.0017324335348397242,
+    "unstable_runs": [
+      "123/unshared_2_final_only",
+      "123/unshared_2_aux_025",
+      "2026/unshared_2_final_only",
+      "2026/unshared_2_aux_025"
+    ],
+    "checks": {
+      "final_mean_mae_reduces_at_least_3_percent": false,
+      "final_mae_improves_in_at_least_two_seeds": true,
+      "final_mean_local_nap_delta_at_least_minus_0_005": true,
+      "all_six_pairs_stable": false,
+      "early_mae_reduces_at_least_3_percent_in_mean_and_two_seeds": true
+    },
+    "pass": false
+  },
+  "supervision_gain_difference": {
+    "shared_gain_heads": 0.9499999999999993,
+    "independent_gain_heads": 0.28999999999999915,
+    "shared_minus_independent_gain_heads": 0.6600000000000001,
+    "shared_minus_independent_gain_heads_sample_sd": 1.4156888782497383,
+    "shared_gain_fraction": 0.03556054650945159,
+    "independent_gain_fraction": 0.011606964178507071,
+    "per_seed": [
+      {
+        "seed": 42,
+        "shared_gain_heads": 0.7349999999999994,
+        "independent_gain_heads": 0.38500000000000156,
+        "shared_minus_independent_gain_heads": 0.34999999999999787,
+        "shared_gain_fraction": 0.027904328018223214,
+        "independent_gain_fraction": 0.01595854922279799,
+        "shared_minus_independent_percentage_points": 1.1945778795425224
+      },
+      {
+        "seed": 123,
+        "shared_gain_heads": 1.9800000000000004,
+        "independent_gain_heads": -0.22500000000000142,
+        "shared_minus_independent_gain_heads": 2.205000000000002,
+        "shared_gain_fraction": 0.07392197125256675,
+        "independent_gain_fraction": -0.00886001181334914,
+        "shared_minus_independent_percentage_points": 8.27819830659159
+      },
+      {
+        "seed": 2026,
+        "shared_gain_heads": 0.134999999999998,
+        "independent_gain_heads": 0.7099999999999973,
+        "shared_minus_independent_gain_heads": -0.5749999999999993,
+        "shared_gain_fraction": 0.004996299037749742,
+        "independent_gain_fraction": 0.02791429133084322,
+        "shared_minus_independent_percentage_points": -2.2917992293093477
+      }
+    ],
+    "shared_minus_independent_percentage_points": 2.395358233094452
+  },
+  "repeated_depth": {
+    "versus_shared_1": {
+      "relative_mae_reduction": -0.013439097941523514,
+      "seeds_with_lower_mae": 1
+    },
+    "final_local_nap_delta_vs_shared_1": 0.0029807632868386613,
+    "prefix_count": {
+      "relative_mae_reduction": 0.0581820397221884,
+      "seeds_with_lower_mae": 3
+    },
+    "prefix_local_nap_delta": 0.008737612765617945,
+    "prefix_seeds_with_higher_local_nap": 3,
+    "prefix_count_benefit": true,
+    "prefix_localization_benefit": true,
+    "checks": {
+      "final_mean_mae_reduces_at_least_3_percent_vs_shared_1": false,
+      "final_mae_improves_in_at_least_two_vs_shared_1": false,
+      "final_mean_local_nap_delta_vs_shared_1_at_least_minus_0_005": true,
+      "within_checkpoint_count_or_localization_benefit": true
+    },
+    "pass": false
+  },
+  "weight_sharing": {
+    "mae": {
+      "candidate_value": 25.765,
+      "reference_value": 24.695,
+      "candidate_minus_reference": 1.0700000000000003,
+      "paired_sample_sd": 1.6391079891209133,
+      "candidate_sample_sd": 1.049190163888321,
+      "reference_sample_sd": 0.9403589740093953,
+      "paired_deltas": [
+        1.865000000000002,
+        -0.8150000000000013,
+        2.16
+      ]
+    },
+    "rmse": {
+      "candidate_value": 34.556720606030204,
+      "reference_value": 33.50716931352268,
+      "candidate_minus_reference": 1.0495512925075186,
+      "paired_sample_sd": 2.8372948248117815,
+      "candidate_sample_sd": 1.977571858946577,
+      "reference_sample_sd": 1.4511894406233001,
+      "paired_deltas": [
+        2.8553793002771926,
+        -2.2207411829508175,
+        2.5140157601961803
+      ]
+    },
+    "local_nap": {
+      "candidate_value": 0.29253949058137857,
+      "reference_value": 0.2964687044280995,
+      "candidate_minus_reference": -0.003929213846720958,
+      "paired_sample_sd": 0.0019200370842045852,
+      "candidate_sample_sd": 0.001111355661431947,
+      "reference_sample_sd": 0.0027129650185894615,
+      "paired_deltas": [
+        -0.0059559516216244335,
+        -0.003694171946181102,
+        -0.002137517972357339
+      ]
+    }
+  },
+  "further_depth_supported_by_both_required_gates": false
+}
