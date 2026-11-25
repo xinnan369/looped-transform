@@ -109,7 +109,7 @@ def load_readouts(tables, directory):
                     items = [images[name] for name in ids if group == "all" or images[name]["density_group"] == group]
                     reported = metrics[(*key, group)]
                     check_aggregate(items, reported, group)
-                    packed[seed, arm, *key, group] = reported, {
+                    packed[(seed, arm, *key, group)] = reported, {
                         name: images[name] for name in ids if group == "all" or images[name]["density_group"] == group}
     return packed
 

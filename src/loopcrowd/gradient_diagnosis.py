@@ -90,8 +90,16 @@ def _vjp(loss, groups, *, retain_graph):
 def _combine(a, b):
     if a.keys() != b.keys():
         raise ValueError("expanded gradient names differ")
-    return {name: (right if left is None else left if right is None else left + right)
-            for name, left in a.items() for right in [b[name]]}
+    combined = {}
+    for name, left in a.items():
+        right = b[name]
+        if left is None:
+            combined[name] = right
+        elif right is None:
+            combined[name] = left
+        else:
+            combined[name] = left + right
+    return combined
 
 
 def _close(actual, expected, tolerance):
