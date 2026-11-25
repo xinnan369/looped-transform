@@ -77,16 +77,17 @@ class TilePredictions:
 
 
 @torch.inference_mode()
-def predict_image(model, image, config, device, *, loop_count=None, trace=None):
-    return _predict_tiles(model, image, config, device, loop_count=loop_count, trace=trace)["final"]
+def predict_image(model, image, config, device, *, loop_count=None, trace=None, require_finite=False):
+    return _predict_tiles(model, image, config, device, loop_count=loop_count, trace=trace,
+                          require_finite=require_finite)["final"]
 
 
 @torch.inference_mode()
-def predict_image_stages(model, image, config, device):
-    return _predict_tiles(model, image, config, device, staged=True)
+def predict_image_stages(model, image, config, device, *, require_finite=False):
+    return _predict_tiles(model, image, config, device, staged=True, require_finite=require_finite)
 
 
-def _predict_tiles(model, image, config, device, *, loop_count=None, trace=None, staged=False):
+def _predict_tiles(model, image, config, device, *, loop_count=None, trace=None, staged=False, require_finite=False):
     size, overlap = config["tile_size"], config["tile_overlap"]
     stages = ("early", "final") if staged else ("final",)
     by_stage = {stage: ([], [], []) for stage in stages}
@@ -107,6 +108,10 @@ def _predict_tiles(model, image, config, device, *, loop_count=None, trace=None,
             with autocast(device, config["precision"]):
                 batch = tile[None].to(device)
                 outputs = model.forward_stages(batch) if staged else {"final": model(batch, **model_args)}
+            if require_finite:
+                finite = [torch.isfinite(output[key]).all() for output in outputs.values() for key in ("logits", "offsets")]
+                if not torch.stack(finite).all():
+                    raise ValueError("nonfinite tiled logits or offsets")
             for stage, output in outputs.items():
                 predictions, ids, ownership = by_stage[stage]
                 decoded = decode(output, config["localization_min_score"], model.stride).astype(float)

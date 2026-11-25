@@ -14,6 +14,7 @@ import torch
 import torchvision
 from torchvision.models import ResNet18_Weights
 
+from .ema import validate_decay
 from .model import LoopCrowd, VARIANTS, WEIGHTS, pretrained_path
 
 DEFAULT_CONFIG = {
@@ -33,7 +34,7 @@ DEFAULT_CONFIG = {
 
 def read_config(path, variant=None):
     overrides = json.loads(path.read_text(encoding="utf-8"))
-    unknown = overrides.keys() - DEFAULT_CONFIG.keys()
+    unknown = overrides.keys() - DEFAULT_CONFIG.keys() - {"ema_decay"}
     if unknown:
         raise ValueError(f"unknown config keys: {sorted(unknown)}")
     config = DEFAULT_CONFIG | overrides
@@ -49,6 +50,8 @@ def read_config(path, variant=None):
         raise ValueError("early_loss_weight requires a fixed-window two-call model and a finite nonnegative value")
     if type(config["audit_training"]) is not bool:
         raise ValueError("audit_training must be a boolean")
+    if config.get("ema_decay") is not None:
+        validate_decay(config["ema_decay"])
     for name in ("slots", "tile_size", "batch_size", "epochs"):
         if type(config[name]) is not int or config[name] < 1:
             raise ValueError(f"{name} must be a positive integer")
