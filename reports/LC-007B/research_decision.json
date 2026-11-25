@@ -1,0 +1,113 @@
+{
+  "screen_pass": true,
+  "checks": {
+    "complete": true,
+    "gpu_budget_pass": true,
+    "all_ema_cv_pass": true,
+    "all_loss_finite_pass": true,
+    "at_least_six_cv_improve": true,
+    "all_arm_accuracy_guards_pass": true
+  },
+  "per_arm": {
+    "cnn_only": {
+      "live_mae": 29.2375,
+      "ema_mae": 27.2125,
+      "local_nap_change": 0.0008833445164509734,
+      "mae_pass": true,
+      "local_nap_pass": true
+    },
+    "shared_1": {
+      "live_mae": 25.37,
+      "ema_mae": 22.515,
+      "local_nap_change": 0.001384894296373368,
+      "mae_pass": true,
+      "local_nap_pass": true
+    },
+    "shared_2_aux_025": {
+      "live_mae": 25.205,
+      "ema_mae": 21.9375,
+      "local_nap_change": 0.0021748455385376397,
+      "mae_pass": true,
+      "local_nap_pass": true
+    },
+    "unshared_2_aux_025": {
+      "live_mae": 24.68,
+      "ema_mae": 20.8575,
+      "local_nap_change": 0.0024991828993021215,
+      "mae_pass": true,
+      "local_nap_pass": true
+    }
+  },
+  "cv_improved_runs": 8,
+  "ema_cv_passing_runs": 8,
+  "recorded_decision_scope": "Stage 1 only",
+  "queue_progress": {
+    "execution": "completed",
+    "ordered_runs": [
+      {
+        "seed": 42,
+        "arm": "cnn_only",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 42,
+        "arm": "shared_1",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 42,
+        "arm": "shared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 42,
+        "arm": "unshared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "unshared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "shared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "shared_1",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "cnn_only",
+        "epochs": 40,
+        "updates": 7200
+      }
+    ],
+    "training_code_sha": "6471f222dbe1480ff7fca1ef0291215f2498d32f",
+    "preflight_sha256": "797a303e017b14a3859201babf92bb9e39c36082f734d61d86d17c4786e6dfb4",
+    "current_run": null,
+    "gpu_seconds": 4043.2127201949406,
+    "peak_reserved_bytes": 713031680,
+    "successful_project_updates": 57600,
+    "seconds_by_phase": {
+      "preflight": 7.471358391980175,
+      "train_batch": 0,
+      "validation_image": 0,
+      "initialization": 1.0282022949977545,
+      "training": 1580.8945348960187,
+      "validation_live": 1213.9092377059496,
+      "validation_ema": 1226.4991248519727,
+      "checkpoint": 13.410262054021587
+    }
+  }
+}
