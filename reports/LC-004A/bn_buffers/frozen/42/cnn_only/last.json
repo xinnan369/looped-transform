@@ -1,0 +1,206 @@
+{
+  "checkpoint": {
+    "path": "/home/xinnan/loopcrowd-lc004a/train/frozen/42/cnn_only/last.pt",
+    "sha256": "b15fffe7fd781f0de7914160a5dd84260cb61cbd37d1ec4413f5f6eb59b00207"
+  },
+  "epoch": 40,
+  "training_code_sha": "12dea46e707ad38d854835351b1e8d3e03f58cac",
+  "config_sha256": "3dbd08057b6fe61780dcd2c02c0a2290cbd8ab4a05d647c63035ee57a7a3cc55",
+  "bn": {
+    "p2.1": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -0.07952157966792583,
+        "median": -3.363910749953902e-08,
+        "q95": 0.10595942512154564,
+        "rms": 0.04851236194372177,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 2.2195615137499143e-12,
+        "median": 2.319032669067383,
+        "q95": 9.037912178039539,
+        "rms": 4.203892707824707,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    },
+    "p2.4.0.bn1": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -2.2545898079872133,
+        "median": -0.8922858238220215,
+        "q95": 0.4969762697815883,
+        "rms": 1.2671815156936646,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 0.13145385757088662,
+        "median": 0.40916264057159424,
+        "q95": 1.2694092631340026,
+        "rms": 0.6565887928009033,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    },
+    "p2.4.0.bn2": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -0.5500478148460388,
+        "median": -0.05899509787559509,
+        "q95": 0.26473457887768703,
+        "rms": 0.2525784373283386,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 0.02830677404999733,
+        "median": 0.0767899677157402,
+        "q95": 0.19178568273782726,
+        "rms": 0.11244285106658936,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    },
+    "p2.4.1.bn1": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -1.9300195336341857,
+        "median": -0.5197511315345764,
+        "q95": 0.7321433961391436,
+        "rms": 1.0516518354415894,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 0.17423483058810235,
+        "median": 0.4318607449531555,
+        "q95": 0.7072589725255964,
+        "rms": 0.4700500965118408,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    },
+    "p2.4.1.bn2": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -0.3552143469452858,
+        "median": -0.04957927018404007,
+        "q95": 0.2526418320834636,
+        "rms": 0.21668754518032074,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 0.02971482425928116,
+        "median": 0.04892200976610184,
+        "q95": 0.0918075069785118,
+        "rms": 0.05727465823292732,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    },
+    "p3.0.bn1": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -1.0999050736427307,
+        "median": -0.29023581743240356,
+        "q95": 0.3704316824674606,
+        "rms": 0.5269235372543335,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 0.40997811406850815,
+        "median": 0.6302913427352905,
+        "q95": 0.9493517190217969,
+        "rms": 0.6673879027366638,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    },
+    "p3.0.bn2": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -0.5663038820028304,
+        "median": -0.1536310911178589,
+        "q95": 0.11777750924229603,
+        "rms": 0.31151965260505676,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 0.0340325303375721,
+        "median": 0.06409096717834473,
+        "q95": 0.17375793680548654,
+        "rms": 0.08559126406908035,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    },
+    "p3.0.downsample.1": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -0.4989272594451904,
+        "median": -0.08893565833568573,
+        "q95": 0.34299648255109766,
+        "rms": 0.3137754201889038,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 0.014241875382140279,
+        "median": 0.05929264426231384,
+        "q95": 0.1845210894942283,
+        "rms": 0.09006015956401825,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    },
+    "p3.1.bn1": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -0.7491940766572952,
+        "median": -0.3324372172355652,
+        "q95": 0.26270391047000846,
+        "rms": 0.4427086412906647,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 0.12550157867372036,
+        "median": 0.21442359685897827,
+        "q95": 0.3414536342024803,
+        "rms": 0.2369455099105835,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    },
+    "p3.1.bn2": {
+      "num_batches_tracked": 0,
+      "running_mean": {
+        "q05": -0.25968170166015625,
+        "median": -0.053386978805065155,
+        "q95": 0.0867911722511052,
+        "rms": 0.14185461401939392,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      },
+      "running_var": {
+        "q05": 0.016919962596148252,
+        "median": 0.030651824548840523,
+        "q95": 0.05823262073099613,
+        "rms": 0.0354682132601738,
+        "rms_delta_from_pretrained": 0.0,
+        "max_abs_delta_from_pretrained": 0.0
+      }
+    }
+  },
+  "local_artifact": {
+    "path": "/home/xinnan/loopcrowd-lc004a/bn_buffers/frozen/42/cnn_only/last.json",
+    "bytes": 6256,
+    "sha256": "64b90347dbf7ecc5ab319a5b635c2999b4daf826aaa19c6d69b3a51836d0a30d"
+  }
+}

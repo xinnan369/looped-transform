@@ -1,0 +1,151 @@
+{
+  "provenance": {
+    "git_commit": "34e310976d1bdbd0eab7855eb02bf087cba86638",
+    "tracked_changes": "",
+    "command": [
+      "/home/xinnan/.venvs/sigma-r1-cu121/bin/python",
+      "scripts/train.py",
+      "--manifest",
+      "/home/xinnan/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "--device",
+      "cuda",
+      "--variant",
+      "shared_1",
+      "--config",
+      "configs/lc003_warmup_cosine.json",
+      "--seed",
+      "2026",
+      "--output",
+      "/home/xinnan/loopcrowd-lc003/train/warmup_cosine/2026/shared_1"
+    ],
+    "cwd": "/mnt/c/Users/xinnan/Documents/ChatGPT/looped transform",
+    "seed": 2026,
+    "status": "pilot",
+    "environment": {
+      "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+      "python": "3.11.11",
+      "torch": "2.2.2+cu121",
+      "torchvision": "0.17.2+cu121",
+      "numpy": "1.26.4",
+      "cuda_runtime": "12.1",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 3090"
+    },
+    "data": {
+      "manifest": "/home/xinnan/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+      "training_images": 270,
+      "validation_images": 30
+    },
+    "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+    "config": {
+      "variant": "shared_1",
+      "seed": 2026,
+      "slots": 2,
+      "pretrained": true,
+      "density_weight": 0,
+      "loop_embedding": false,
+      "gradient_checkpointing": false,
+      "tile_size": 512,
+      "tile_overlap": 128,
+      "crop_mode": "random",
+      "batch_size": 2,
+      "workers": 4,
+      "precision": "bf16",
+      "epochs": 40,
+      "patience": 0,
+      "lr": 0.0002,
+      "weight_decay": 0.01,
+      "count_threshold": 0.3,
+      "localization_min_score": 0.05,
+      "stage": "pilot",
+      "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+      "lr_schedule": "warmup_cosine",
+      "min_lr": 2e-05,
+      "warmup_fraction": 0.05,
+      "fixed_training_horizon": true
+    },
+    "config_sha256": "b2d1df3265e07ea3117f46629e8972b94342430dc6fede710c726f3da15779a5",
+    "lr_schedule": "warmup_cosine",
+    "weight_initialization": {
+      "requested": "IMAGENET1K_V1",
+      "loaded": true,
+      "url": "https://download.pytorch.org/models/resnet18-f37072fd.pth",
+      "cache_path": "/home/xinnan/loopcrowd-lc002/torch/hub/checkpoints/resnet18-f37072fd.pth",
+      "sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec"
+    },
+    "eval_protocol": {
+      "inference": "native-scale tiles with source tile and midpoint ownership",
+      "count": "ownership-only candidates, strict score cutoff, no radius suppression",
+      "localization": "nap_local_v1 on all in-frame tile candidates above the score floor",
+      "p2pnet_nap_parity": "unavailable_upstream_evaluator",
+      "nwpu_official_f1": "not_ready"
+    },
+    "execution": "completed",
+    "updates_per_epoch": 135,
+    "planned_updates": 5400,
+    "warmup_updates": 270,
+    "completed_epochs": 40,
+    "best_epoch": 20,
+    "global_step": 5400,
+    "checkpoints": {
+      "best.pt": {
+        "path": "/home/xinnan/loopcrowd-lc003/train/warmup_cosine/2026/shared_1/best.pt",
+        "sha256": "390997585212e76480b543b7ea8b8d7e30f73be4fdccf6e31106821542723e45"
+      },
+      "last.pt": {
+        "path": "/home/xinnan/loopcrowd-lc003/train/warmup_cosine/2026/shared_1/last.pt",
+        "sha256": "2b4b3019bb1c17d1d0af9f8a0c1f1821833b43c753c623d5d88d0d5efcbdf990"
+      }
+    }
+  },
+  "summary": {
+    "late_mae": 233.19333333333333,
+    "late_rmse": 363.5540023934587,
+    "late_nap": 0.1818662593267344,
+    "late_mae_cv": 0.10633620488324902,
+    "late_loss_change": -0.006085740360705936,
+    "finite": true,
+    "stability_pass": false,
+    "best": {
+      "epoch": 20,
+      "mae": 165.53333333333333,
+      "rmse": 249.27494860093742,
+      "local_nap": 0.1828150504146816,
+      "predicted": 13371,
+      "gt": 14177
+    },
+    "final": {
+      "epoch": 40,
+      "mae": 265.3666666666667,
+      "rmse": 407.353040985335,
+      "local_nap": 0.17457197115719197,
+      "predicted": 17786,
+      "gt": 14177
+    },
+    "train_seconds": 110.41319159599789,
+    "epoch_seconds": 233.20047532499757
+  },
+  "source": "LC-003 diagnosis only",
+  "epochs_csv": {
+    "path": "epochs/train/2026/shared_1.csv",
+    "bytes": 16823,
+    "sha256": "1c56dc648a46d8a81932d8bc4aa7b829e283afd498a5849748b04384663218bd"
+  },
+  "raw_run_manifest": {
+    "path": "/home/xinnan/loopcrowd-lc003/train/warmup_cosine/2026/shared_1/run_manifest.json",
+    "bytes": 3301,
+    "sha256": "960c05cee3d5792b870d84e17af76be3b3b15d5e104d6d0fa11b239dcf998889"
+  },
+  "raw_history": {
+    "path": "/home/xinnan/loopcrowd-lc003/train/warmup_cosine/2026/shared_1/history.json",
+    "bytes": 231286,
+    "sha256": "085453210bf01efc35abad43fe2dcd40c1440b7db2d290791bed3c38e8052f00"
+  },
+  "raw_training_log": {
+    "path": "/home/xinnan/loopcrowd-lc003/train/warmup_cosine/2026/shared_1.log",
+    "bytes": 183163,
+    "sha256": "f363d1086ca957bfc926f22eb1949134942d81827e37af4eff101ed96efa6c3d"
+  },
+  "lr_trajectory_sha256": "267df5cbbc0137ade3d08c9e2e651d53a9beffb24191998785bbe4a8951beb98"
+}
