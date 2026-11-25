@@ -1,0 +1,20 @@
+{
+  "primary": {
+    "relative_mae_improvement": 0.05511527035620387,
+    "seeds_with_lower_mae": 2
+  },
+  "early": {
+    "relative_mae_improvement": 0.43652626164485336,
+    "seeds_with_lower_mae": 3
+  },
+  "final_mean_local_nap_delta": -0.0017583178910554238,
+  "stability_failed_runs": [],
+  "checks": {
+    "final_mean_mae_improves_at_least_3_percent": true,
+    "final_mae_improves_in_at_least_two_seeds": true,
+    "final_mean_local_nap_delta_at_least_minus_0_005": true,
+    "all_six_pass_stability": true,
+    "clear_early_mae_improvement": true
+  },
+  "research_gate_pass": true
+}

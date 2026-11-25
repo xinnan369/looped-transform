@@ -1,0 +1,568 @@
+{
+  "execution": "passed",
+  "provenance": {
+    "git_commit": "a0980795e425d8ccbaae0d400ace31efa06b1687",
+    "tracked_changes": "",
+    "command": [
+      "/home/xinnan/.venvs/sigma-r1-cu121/bin/python",
+      "/mnt/c/Users/xinnan/Documents/ChatGPT/looped transform/scripts/run_lc005.py",
+      "--manifest",
+      "/home/xinnan/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "--output",
+      "/home/xinnan/loopcrowd-lc005-run"
+    ],
+    "cwd": "/mnt/c/Users/xinnan/Documents/ChatGPT/looped transform",
+    "seed": 42,
+    "status": "pilot",
+    "environment": {
+      "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+      "python": "3.11.11",
+      "torch": "2.2.2+cu121",
+      "torchvision": "0.17.2+cu121",
+      "numpy": "1.26.4",
+      "cuda_runtime": "12.1",
+      "device": "cuda:0",
+      "gpu": "NVIDIA GeForce RTX 3090"
+    },
+    "data": {
+      "manifest": "/home/xinnan/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316"
+    },
+    "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+    "config": {
+      "variant": "shared_2",
+      "seed": 42,
+      "slots": 2,
+      "pretrained": true,
+      "density_weight": 0,
+      "loop_embedding": false,
+      "gradient_checkpointing": false,
+      "tile_size": 512,
+      "tile_overlap": 128,
+      "crop_mode": "random",
+      "batch_size": 2,
+      "workers": 4,
+      "precision": "bf16",
+      "epochs": 40,
+      "patience": 0,
+      "lr": 0.0002,
+      "weight_decay": 0.01,
+      "count_threshold": 0.3,
+      "localization_min_score": 0.05,
+      "stage": "pilot",
+      "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+      "lr_schedule": "warmup_cosine",
+      "min_lr": 2e-05,
+      "warmup_fraction": 0.05,
+      "fixed_training_horizon": true,
+      "backbone_bn": "train",
+      "early_loss_weight": 0.0
+    },
+    "config_sha256": "c0e4325d221b757c0f3a925db4597cc9136fc08eb02ce0c70f9d2afe409f1000",
+    "lr_schedule": "warmup_cosine",
+    "weight_initialization": {
+      "requested": "IMAGENET1K_V1"
+    },
+    "eval_protocol": {
+      "inference": "native-scale tiles with source tile and midpoint ownership",
+      "count": "ownership-only candidates, strict score cutoff, no radius suppression",
+      "localization": "nap_local_v1 on all in-frame tile candidates above the score floor",
+      "p2pnet_nap_parity": "unavailable_upstream_evaluator",
+      "nwpu_official_f1": "not_ready"
+    }
+  },
+  "protocol_sha256": "776fed2bc01554de7b38c39a1a164eafb67e31e35a3a4c3ea0be0567107bd621",
+  "train_images": 270,
+  "validation_images": 30,
+  "config_files": {
+    "final_only": {
+      "path": "configs/lc005_final_only.json",
+      "sha256": "8928bf58cf6934134c0eef46b0248e5bb0ab0217b289e23244d7556a34d70198"
+    },
+    "aux_025": {
+      "path": "configs/lc005_aux_025.json",
+      "sha256": "e5b7702e0f7c66804d4c6fef23e213d764936f66d2fe5cd3d40d99c6f3556d91"
+    }
+  },
+  "pretrained_weight": {
+    "path": "/home/xinnan/loopcrowd-lc002/torch/hub/checkpoints/resnet18-f37072fd.pth",
+    "sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec"
+  },
+  "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+  "preceding_fit_manifest_sha256": "deae96797d898fea2f0a4e99b97a589b892b3555ef54aee9850a405d2522e6f6",
+  "calibration_executed": false,
+  "device_total_bytes": 25769279488,
+  "device_free_bytes_before_preflight": 24436015104,
+  "pair_order": {
+    "42": [
+      "final_only",
+      "aux_025"
+    ],
+    "123": [
+      "aux_025",
+      "final_only"
+    ],
+    "2026": [
+      "final_only",
+      "aux_025"
+    ]
+  },
+  "arms": {
+    "42/final_only": {
+      "config": {
+        "variant": "shared_2",
+        "seed": 42,
+        "slots": 2,
+        "pretrained": true,
+        "density_weight": 0,
+        "loop_embedding": false,
+        "gradient_checkpointing": false,
+        "tile_size": 512,
+        "tile_overlap": 128,
+        "crop_mode": "random",
+        "batch_size": 2,
+        "workers": 4,
+        "precision": "bf16",
+        "epochs": 40,
+        "patience": 0,
+        "lr": 0.0002,
+        "weight_decay": 0.01,
+        "count_threshold": 0.3,
+        "localization_min_score": 0.05,
+        "stage": "pilot",
+        "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+        "lr_schedule": "warmup_cosine",
+        "min_lr": 2e-05,
+        "warmup_fraction": 0.05,
+        "fixed_training_horizon": true,
+        "backbone_bn": "train",
+        "early_loss_weight": 0.0
+      },
+      "config_sha256": "c0e4325d221b757c0f3a925db4597cc9136fc08eb02ce0c70f9d2afe409f1000",
+      "initial_state_sha256": "b524a3a01a52f10ae4996f1805d5bc7560dddb40e87371664481c0d3334ff834",
+      "autograd_graph_sha256": "909d65f246a19496df2ff4eaab68536ed427de85bc0f0dd62c51291d1ed0e267",
+      "parameters": 1596614,
+      "calls": {
+        "shared_block": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "fuse": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_logits": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_offsets": {
+          "calls": 2,
+          "unique_objects": 1
+        }
+      },
+      "probe_crop_index_left_top": [
+        [
+          0,
+          158,
+          33
+        ],
+        [
+          1,
+          181,
+          102
+        ]
+      ],
+      "updates_per_epoch": 135,
+      "planned_updates": 5400,
+      "warmup_updates": 270,
+      "planned_lr_trajectory_sha256": "267df5cbbc0137ade3d08c9e2e651d53a9beffb24191998785bbe4a8951beb98",
+      "warmup_peak_allocated_bytes": 591144448,
+      "warmup_peak_reserved_bytes": 668991488,
+      "train_step_ms_after_warmup": [
+        94.56916900126089,
+        52.8238759998203,
+        46.211791001042
+      ]
+    },
+    "42/aux_025": {
+      "config": {
+        "variant": "shared_2",
+        "seed": 42,
+        "slots": 2,
+        "pretrained": true,
+        "density_weight": 0,
+        "loop_embedding": false,
+        "gradient_checkpointing": false,
+        "tile_size": 512,
+        "tile_overlap": 128,
+        "crop_mode": "random",
+        "batch_size": 2,
+        "workers": 4,
+        "precision": "bf16",
+        "epochs": 40,
+        "patience": 0,
+        "lr": 0.0002,
+        "weight_decay": 0.01,
+        "count_threshold": 0.3,
+        "localization_min_score": 0.05,
+        "stage": "pilot",
+        "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+        "lr_schedule": "warmup_cosine",
+        "min_lr": 2e-05,
+        "warmup_fraction": 0.05,
+        "fixed_training_horizon": true,
+        "backbone_bn": "train",
+        "early_loss_weight": 0.25
+      },
+      "config_sha256": "d9b38cf07c21d65f2026cd2a20b35552645291ab94348d3788cd0d4a08291a0c",
+      "initial_state_sha256": "b524a3a01a52f10ae4996f1805d5bc7560dddb40e87371664481c0d3334ff834",
+      "autograd_graph_sha256": "909d65f246a19496df2ff4eaab68536ed427de85bc0f0dd62c51291d1ed0e267",
+      "parameters": 1596614,
+      "calls": {
+        "shared_block": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "fuse": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_logits": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_offsets": {
+          "calls": 2,
+          "unique_objects": 1
+        }
+      },
+      "probe_crop_index_left_top": [
+        [
+          0,
+          158,
+          33
+        ],
+        [
+          1,
+          181,
+          102
+        ]
+      ],
+      "updates_per_epoch": 135,
+      "planned_updates": 5400,
+      "warmup_updates": 270,
+      "planned_lr_trajectory_sha256": "267df5cbbc0137ade3d08c9e2e651d53a9beffb24191998785bbe4a8951beb98",
+      "warmup_peak_allocated_bytes": 600581632,
+      "warmup_peak_reserved_bytes": 696254464,
+      "train_step_ms_after_warmup": [
+        53.66965400025947,
+        49.465964000773965,
+        51.320524000402656
+      ]
+    },
+    "123/aux_025": {
+      "config": {
+        "variant": "shared_2",
+        "seed": 123,
+        "slots": 2,
+        "pretrained": true,
+        "density_weight": 0,
+        "loop_embedding": false,
+        "gradient_checkpointing": false,
+        "tile_size": 512,
+        "tile_overlap": 128,
+        "crop_mode": "random",
+        "batch_size": 2,
+        "workers": 4,
+        "precision": "bf16",
+        "epochs": 40,
+        "patience": 0,
+        "lr": 0.0002,
+        "weight_decay": 0.01,
+        "count_threshold": 0.3,
+        "localization_min_score": 0.05,
+        "stage": "pilot",
+        "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+        "lr_schedule": "warmup_cosine",
+        "min_lr": 2e-05,
+        "warmup_fraction": 0.05,
+        "fixed_training_horizon": true,
+        "backbone_bn": "train",
+        "early_loss_weight": 0.25
+      },
+      "config_sha256": "27255a2504f2b0eef20df416f871a0f5a485675047ba735cf048fff08dc2e388",
+      "initial_state_sha256": "e340cee693f9c61a5700d6ac3fd956b9f4fecfc62b076b08efa59d78d6f611f5",
+      "autograd_graph_sha256": "909d65f246a19496df2ff4eaab68536ed427de85bc0f0dd62c51291d1ed0e267",
+      "parameters": 1596614,
+      "calls": {
+        "shared_block": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "fuse": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_logits": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_offsets": {
+          "calls": 2,
+          "unique_objects": 1
+        }
+      },
+      "probe_crop_index_left_top": [
+        [
+          0,
+          207,
+          66
+        ],
+        [
+          1,
+          179,
+          138
+        ]
+      ],
+      "updates_per_epoch": 135,
+      "planned_updates": 5400,
+      "warmup_updates": 270,
+      "planned_lr_trajectory_sha256": "267df5cbbc0137ade3d08c9e2e651d53a9beffb24191998785bbe4a8951beb98",
+      "warmup_peak_allocated_bytes": 600581632,
+      "warmup_peak_reserved_bytes": 696254464,
+      "train_step_ms_after_warmup": [
+        52.84537999978056,
+        41.88046399940504,
+        51.41701699903933
+      ]
+    },
+    "123/final_only": {
+      "config": {
+        "variant": "shared_2",
+        "seed": 123,
+        "slots": 2,
+        "pretrained": true,
+        "density_weight": 0,
+        "loop_embedding": false,
+        "gradient_checkpointing": false,
+        "tile_size": 512,
+        "tile_overlap": 128,
+        "crop_mode": "random",
+        "batch_size": 2,
+        "workers": 4,
+        "precision": "bf16",
+        "epochs": 40,
+        "patience": 0,
+        "lr": 0.0002,
+        "weight_decay": 0.01,
+        "count_threshold": 0.3,
+        "localization_min_score": 0.05,
+        "stage": "pilot",
+        "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+        "lr_schedule": "warmup_cosine",
+        "min_lr": 2e-05,
+        "warmup_fraction": 0.05,
+        "fixed_training_horizon": true,
+        "backbone_bn": "train",
+        "early_loss_weight": 0.0
+      },
+      "config_sha256": "da433143694afce79a29c2801132761af9800d037b10aad4d1bb1c2a6de3c14f",
+      "initial_state_sha256": "e340cee693f9c61a5700d6ac3fd956b9f4fecfc62b076b08efa59d78d6f611f5",
+      "autograd_graph_sha256": "909d65f246a19496df2ff4eaab68536ed427de85bc0f0dd62c51291d1ed0e267",
+      "parameters": 1596614,
+      "calls": {
+        "shared_block": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "fuse": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_logits": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_offsets": {
+          "calls": 2,
+          "unique_objects": 1
+        }
+      },
+      "probe_crop_index_left_top": [
+        [
+          0,
+          207,
+          66
+        ],
+        [
+          1,
+          179,
+          138
+        ]
+      ],
+      "updates_per_epoch": 135,
+      "planned_updates": 5400,
+      "warmup_updates": 270,
+      "planned_lr_trajectory_sha256": "267df5cbbc0137ade3d08c9e2e651d53a9beffb24191998785bbe4a8951beb98",
+      "warmup_peak_allocated_bytes": 600581632,
+      "warmup_peak_reserved_bytes": 696254464,
+      "train_step_ms_after_warmup": [
+        27.640693000648753,
+        17.170016000818578,
+        16.871875999640906
+      ]
+    },
+    "2026/final_only": {
+      "config": {
+        "variant": "shared_2",
+        "seed": 2026,
+        "slots": 2,
+        "pretrained": true,
+        "density_weight": 0,
+        "loop_embedding": false,
+        "gradient_checkpointing": false,
+        "tile_size": 512,
+        "tile_overlap": 128,
+        "crop_mode": "random",
+        "batch_size": 2,
+        "workers": 4,
+        "precision": "bf16",
+        "epochs": 40,
+        "patience": 0,
+        "lr": 0.0002,
+        "weight_decay": 0.01,
+        "count_threshold": 0.3,
+        "localization_min_score": 0.05,
+        "stage": "pilot",
+        "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+        "lr_schedule": "warmup_cosine",
+        "min_lr": 2e-05,
+        "warmup_fraction": 0.05,
+        "fixed_training_horizon": true,
+        "backbone_bn": "train",
+        "early_loss_weight": 0.0
+      },
+      "config_sha256": "b981e614f3535c34ee31ab1bc8739a67e1c3523625ab5ea3315a114a196bb7ee",
+      "initial_state_sha256": "604cffc1704fa63899db57184f1b598d77fc63d51e946676e4880c3a1392fcde",
+      "autograd_graph_sha256": "909d65f246a19496df2ff4eaab68536ed427de85bc0f0dd62c51291d1ed0e267",
+      "parameters": 1596614,
+      "calls": {
+        "shared_block": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "fuse": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_logits": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_offsets": {
+          "calls": 2,
+          "unique_objects": 1
+        }
+      },
+      "probe_crop_index_left_top": [
+        [
+          0,
+          221,
+          244
+        ],
+        [
+          1,
+          173,
+          130
+        ]
+      ],
+      "updates_per_epoch": 135,
+      "planned_updates": 5400,
+      "warmup_updates": 270,
+      "planned_lr_trajectory_sha256": "267df5cbbc0137ade3d08c9e2e651d53a9beffb24191998785bbe4a8951beb98",
+      "warmup_peak_allocated_bytes": 600581632,
+      "warmup_peak_reserved_bytes": 696254464,
+      "train_step_ms_after_warmup": [
+        18.84332500048913,
+        27.21161799854599,
+        17.06014400042477
+      ]
+    },
+    "2026/aux_025": {
+      "config": {
+        "variant": "shared_2",
+        "seed": 2026,
+        "slots": 2,
+        "pretrained": true,
+        "density_weight": 0,
+        "loop_embedding": false,
+        "gradient_checkpointing": false,
+        "tile_size": 512,
+        "tile_overlap": 128,
+        "crop_mode": "random",
+        "batch_size": 2,
+        "workers": 4,
+        "precision": "bf16",
+        "epochs": 40,
+        "patience": 0,
+        "lr": 0.0002,
+        "weight_decay": 0.01,
+        "count_threshold": 0.3,
+        "localization_min_score": 0.05,
+        "stage": "pilot",
+        "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+        "lr_schedule": "warmup_cosine",
+        "min_lr": 2e-05,
+        "warmup_fraction": 0.05,
+        "fixed_training_horizon": true,
+        "backbone_bn": "train",
+        "early_loss_weight": 0.25
+      },
+      "config_sha256": "19543954ae314b55ac7bf0ac7ef771ce7f36415d4dc75d24400faa4d2fb16bf8",
+      "initial_state_sha256": "604cffc1704fa63899db57184f1b598d77fc63d51e946676e4880c3a1392fcde",
+      "autograd_graph_sha256": "909d65f246a19496df2ff4eaab68536ed427de85bc0f0dd62c51291d1ed0e267",
+      "parameters": 1596614,
+      "calls": {
+        "shared_block": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "fuse": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_logits": {
+          "calls": 2,
+          "unique_objects": 1
+        },
+        "point_offsets": {
+          "calls": 2,
+          "unique_objects": 1
+        }
+      },
+      "probe_crop_index_left_top": [
+        [
+          0,
+          221,
+          244
+        ],
+        [
+          1,
+          173,
+          130
+        ]
+      ],
+      "updates_per_epoch": 135,
+      "planned_updates": 5400,
+      "warmup_updates": 270,
+      "planned_lr_trajectory_sha256": "267df5cbbc0137ade3d08c9e2e651d53a9beffb24191998785bbe4a8951beb98",
+      "warmup_peak_allocated_bytes": 600581632,
+      "warmup_peak_reserved_bytes": 696254464,
+      "train_step_ms_after_warmup": [
+        17.11238999996567,
+        17.982503000894212,
+        17.279527000937378
+      ]
+    }
+  }
+}
