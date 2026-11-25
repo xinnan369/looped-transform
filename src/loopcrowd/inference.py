@@ -77,9 +77,14 @@ class TilePredictions:
 
 
 @torch.inference_mode()
-def predict_image(model, image, config, device):
+def predict_image(model, image, config, device, *, loop_count=None, trace=None):
     size, overlap = config["tile_size"], config["tile_overlap"]
     predictions, ids, ownership, tiles = [], [], [], []
+    model_args = {}
+    if loop_count is not None:
+        model_args["loop_count"] = loop_count
+    if trace is not None:
+        model_args["trace"] = trace
     for top, y_min, y_max in tile_axis(image.height, size, overlap):
         for left, x_min, x_max in tile_axis(image.width, size, overlap):
             tile, width, height = image_tile(image, left, top, size)
@@ -89,7 +94,7 @@ def predict_image(model, image, config, device):
                 "ownership_xyxy": [x_min, y_min, x_max, y_max],
             })
             with autocast(device, config["precision"]):
-                output = model(tile[None].to(device))
+                output = model(tile[None].to(device), **model_args)
             decoded = decode(output, config["localization_min_score"], model.stride).astype(float)
             # Filter the valid side of each partially padded tile before returning native coordinates.
             points = decoded[((decoded[:, :2] >= 0) & (decoded[:, :2] < [width, height])).all(axis=1)]

@@ -25,6 +25,13 @@ def _ap(matches, number_of_heads):
     return float(np.sum(np.diff(recall) * envelope[1:]))
 
 
+def point_spacing(points, neighbors=3):
+    if len(points) <= 1:
+        return np.ones(len(points))
+    distances, _ = cKDTree(points).query(points, k=1 + min(neighbors, len(points) - 1))
+    return distances[:, 1:].mean(axis=1).clip(min=1e-12)
+
+
 def image_matches(points, predictions, thresholds, neighbors=3):
     """Return original prediction IDs and GT matches, both in stable score order."""
     points = np.asarray(points, dtype=float).reshape(-1, 2)
@@ -35,10 +42,7 @@ def image_matches(points, predictions, thresholds, neighbors=3):
     if not len(points) or not len(ranked_xy):
         return ranked, matched
 
-    normalizer = np.ones(len(points))
-    if len(points) > 1:
-        distances, _ = cKDTree(points).query(points, k=1 + min(neighbors, len(points) - 1))
-        normalizer = distances[:, 1:].mean(axis=1).clip(min=1e-12)
+    normalizer = point_spacing(points, neighbors)
     # The KD-tree is built in score order. Its indices address ranks, not
     # original input rows, and match columns use that same rank coordinate.
     neighborhoods = cKDTree(ranked_xy).query_ball_point(points, max(thresholds) * normalizer)
@@ -74,6 +78,11 @@ def point_nap(samples, thresholds=NAP_THRESHOLDS, neighbors=3):
         scores.append(predictions[ranked, 2])
         assignments.append(matched >= 0)
         head_count += len(points)
+    return pooled_point_nap(scores, assignments, head_count, thresholds)
+
+
+def pooled_point_nap(scores, assignments, head_count, thresholds=NAP_THRESHOLDS):
+    """Pool score-ranked match arrays across images before computing local AP."""
     order = np.argsort(-np.concatenate(scores), kind="stable") if scores else []
     ranked_matches = np.concatenate(assignments, axis=1)[:, order] if scores else np.zeros((len(thresholds), 0))
     average_precision = {f"{threshold:g}": _ap(matches, head_count)
