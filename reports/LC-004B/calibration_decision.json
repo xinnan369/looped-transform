@@ -1,0 +1,114 @@
+{
+  "comparators": {
+    "shared_1": {
+      "raw_mean_gap": 12.255555555555556,
+      "corrected_mean_gap": 9.044444444444444,
+      "mean_gap_closure": 0.26201269265639165,
+      "per_seed_closure": [
+        null,
+        0.14,
+        0.13953488372093023
+      ],
+      "seeds_with_narrower_positive_raw_gap": 2,
+      "rank_invariant": true,
+      "pass": false,
+      "per_seed": [
+        {
+          "seed": 42,
+          "comparator": "shared_1",
+          "comparator_calls": 1,
+          "scope": "independent model",
+          "raw_mae_gap": -6.633333333333334,
+          "calibrated_mae_gap": -10.2,
+          "raw_local_fp_gap": -838,
+          "calibrated_local_fp_gap": 901,
+          "raw_local_fn_gap": 391,
+          "calibrated_local_fn_gap": -407,
+          "gap_closure": "N/A"
+        },
+        {
+          "seed": 123,
+          "comparator": "shared_1",
+          "comparator_calls": 1,
+          "scope": "independent model",
+          "raw_mae_gap": 23.333333333333332,
+          "calibrated_mae_gap": 20.066666666666666,
+          "raw_local_fp_gap": 191,
+          "calibrated_local_fp_gap": 251,
+          "raw_local_fn_gap": 65,
+          "calibrated_local_fn_gap": 5,
+          "gap_closure": 0.14
+        },
+        {
+          "seed": 2026,
+          "comparator": "shared_1",
+          "comparator_calls": 1,
+          "scope": "independent model",
+          "raw_mae_gap": 20.066666666666666,
+          "calibrated_mae_gap": 17.266666666666666,
+          "raw_local_fp_gap": 232,
+          "calibrated_local_fp_gap": 128,
+          "raw_local_fn_gap": 126,
+          "calibrated_local_fn_gap": 122,
+          "gap_closure": 0.13953488372093023
+        }
+      ]
+    },
+    "unshared_2": {
+      "raw_mean_gap": 14.577777777777778,
+      "corrected_mean_gap": -1.4555555555555555,
+      "mean_gap_closure": 1.0998475609756098,
+      "per_seed_closure": [
+        null,
+        null,
+        0.7856191744340879
+      ],
+      "seeds_with_narrower_positive_raw_gap": 1,
+      "rank_invariant": true,
+      "pass": false,
+      "per_seed": [
+        {
+          "seed": 42,
+          "comparator": "unshared_2",
+          "comparator_calls": 2,
+          "scope": "independent model",
+          "raw_mae_gap": -4.533333333333333,
+          "calibrated_mae_gap": 4.233333333333333,
+          "raw_local_fp_gap": -298,
+          "calibrated_local_fp_gap": 1415,
+          "raw_local_fn_gap": 344,
+          "calibrated_local_fn_gap": -538,
+          "gap_closure": "N/A"
+        },
+        {
+          "seed": 123,
+          "comparator": "unshared_2",
+          "comparator_calls": 2,
+          "scope": "independent model",
+          "raw_mae_gap": -1.8,
+          "calibrated_mae_gap": -19.333333333333332,
+          "raw_local_fp_gap": -624,
+          "calibrated_local_fp_gap": -468,
+          "raw_local_fn_gap": 164,
+          "calibrated_local_fn_gap": 132,
+          "gap_closure": "N/A"
+        },
+        {
+          "seed": 2026,
+          "comparator": "unshared_2",
+          "comparator_calls": 2,
+          "scope": "independent model",
+          "raw_mae_gap": 50.06666666666667,
+          "calibrated_mae_gap": 10.733333333333333,
+          "raw_local_fp_gap": 1647,
+          "calibrated_local_fp_gap": -282,
+          "raw_local_fn_gap": -251,
+          "calibrated_local_fn_gap": 466,
+          "gap_closure": 0.7856191744340879
+        }
+      ]
+    }
+  },
+  "rank_invariant_all_18_fixed_pools": true,
+  "supports_preregistered_calibratable_component": false
+}

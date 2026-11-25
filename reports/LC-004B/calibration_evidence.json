@@ -1,0 +1,344 @@
+{
+  "inputs": {
+    "protocol_commit": "a7b5d14be80aad4ac73723661328071cb7570ca1",
+    "protocol_sha256": "ced20189f479126caaad9395fdecd57109d1dd711b4636bb252154160cce420a",
+    "manifest_path": "/home/xinnan/loopcrowd-lc002/shanghaitech_a.jsonl",
+    "manifest_sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316",
+    "fit_file_sha256": "deae96797d898fea2f0a4e99b97a589b892b3555ef54aee9850a405d2522e6f6",
+    "fit_ids_sha256": "4e70deb475c3113b247a2d127bd9e0ea307d4d11a25a412a06fd7a88d1f90a07",
+    "val_ids_sha256": "9ab7450fd55d1e7e159ab731793ac04519468cab1e9327e5e071090d39209fa2",
+    "train_images": 270,
+    "fit_images": 60,
+    "val_images": 30,
+    "val_ids": [
+      "train/IMG_115",
+      "train/IMG_121",
+      "train/IMG_134",
+      "train/IMG_139",
+      "train/IMG_148",
+      "train/IMG_152",
+      "train/IMG_161",
+      "train/IMG_170",
+      "train/IMG_180",
+      "train/IMG_183",
+      "train/IMG_186",
+      "train/IMG_187",
+      "train/IMG_189",
+      "train/IMG_19",
+      "train/IMG_205",
+      "train/IMG_207",
+      "train/IMG_208",
+      "train/IMG_219",
+      "train/IMG_220",
+      "train/IMG_229",
+      "train/IMG_24",
+      "train/IMG_256",
+      "train/IMG_28",
+      "train/IMG_283",
+      "train/IMG_288",
+      "train/IMG_36",
+      "train/IMG_70",
+      "train/IMG_85",
+      "train/IMG_9",
+      "train/IMG_97"
+    ],
+    "pretrained_path": "/home/xinnan/loopcrowd-lc002/torch/hub/checkpoints/resnet18-f37072fd.pth",
+    "pretrained_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "train_density_boundaries": [
+      545.595144056282,
+      1080.5783824154107
+    ],
+    "cutoff_grid": [
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.09,
+      0.1,
+      0.11,
+      0.12,
+      0.13,
+      0.14,
+      0.15,
+      0.16,
+      0.17,
+      0.18,
+      0.19,
+      0.2,
+      0.21,
+      0.22,
+      0.23,
+      0.24,
+      0.25,
+      0.26,
+      0.27,
+      0.28,
+      0.29,
+      0.3,
+      0.31,
+      0.32,
+      0.33,
+      0.34,
+      0.35,
+      0.36,
+      0.37,
+      0.38,
+      0.39,
+      0.4,
+      0.41,
+      0.42,
+      0.43,
+      0.44,
+      0.45,
+      0.46,
+      0.47,
+      0.48,
+      0.49,
+      0.5,
+      0.51,
+      0.52,
+      0.53,
+      0.54,
+      0.55,
+      0.56,
+      0.57,
+      0.58,
+      0.59,
+      0.6,
+      0.61,
+      0.62,
+      0.63,
+      0.64,
+      0.65,
+      0.66,
+      0.67,
+      0.68,
+      0.69,
+      0.7,
+      0.71,
+      0.72,
+      0.73,
+      0.74,
+      0.75,
+      0.76,
+      0.77,
+      0.78,
+      0.79,
+      0.8,
+      0.81,
+      0.82,
+      0.83,
+      0.84,
+      0.85,
+      0.86,
+      0.87,
+      0.88,
+      0.89,
+      0.9,
+      0.91,
+      0.92,
+      0.93,
+      0.94,
+      0.95
+    ],
+    "count_cutoff": 0.3,
+    "fixed_score_floor": 0.05,
+    "floor_diagnostics": [
+      0.1,
+      0.2
+    ]
+  },
+  "run": {
+    "git_commit": "a7b5d14be80aad4ac73723661328071cb7570ca1",
+    "tracked_changes": "",
+    "command": [
+      "/home/xinnan/.venvs/sigma-r1-cu121/bin/python",
+      "/mnt/c/Users/xinnan/Documents/ChatGPT/looped transform/scripts/run_lc004b.py",
+      "--manifest",
+      "/home/xinnan/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "--lc003",
+      "/home/xinnan/loopcrowd-lc003",
+      "--output",
+      "/home/xinnan/loopcrowd-lc004b"
+    ],
+    "cwd": "/mnt/c/Users/xinnan/Documents/ChatGPT/looped transform",
+    "seed": 2026,
+    "status": "pilot",
+    "environment": {
+      "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+      "python": "3.11.11",
+      "torch": "2.2.2+cu121",
+      "torchvision": "0.17.2+cu121",
+      "numpy": "1.26.4",
+      "cuda_runtime": "12.1",
+      "device": "cuda",
+      "gpu": "NVIDIA GeForce RTX 3090"
+    },
+    "data": {
+      "manifest": "/home/xinnan/loopcrowd-lc002/shanghaitech_a.jsonl",
+      "sha256": "e026bb299a54f28b85c245e707f952361684b5bb0db9e50f031679950f641316"
+    },
+    "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+    "config": {
+      "variant": "unshared_2",
+      "seed": 2026,
+      "slots": 2,
+      "pretrained": true,
+      "density_weight": 0,
+      "loop_embedding": false,
+      "gradient_checkpointing": false,
+      "tile_size": 512,
+      "tile_overlap": 128,
+      "crop_mode": "random",
+      "batch_size": 2,
+      "workers": 4,
+      "precision": "bf16",
+      "epochs": 40,
+      "patience": 0,
+      "lr": 0.0002,
+      "weight_decay": 0.01,
+      "count_threshold": 0.3,
+      "localization_min_score": 0.05,
+      "stage": "pilot",
+      "label_policy": "shanghaitech_lc001_drop_only_logged_out_of_bounds",
+      "lr_schedule": "warmup_cosine",
+      "min_lr": 2e-05,
+      "warmup_fraction": 0.05,
+      "fixed_training_horizon": true
+    },
+    "config_sha256": "f76802cba9b588bf196380919369746dd32dd4534e0d8f9228f4f30ea0238af5",
+    "lr_schedule": "warmup_cosine",
+    "weight_initialization": {
+      "requested": "IMAGENET1K_V1"
+    },
+    "eval_protocol": {
+      "inference": "native-scale tiles with source tile and midpoint ownership",
+      "count": "ownership-only candidates, strict score cutoff, no radius suppression",
+      "localization": "nap_local_v1 on all in-frame tile candidates above the score floor",
+      "p2pnet_nap_parity": "unavailable_upstream_evaluator",
+      "nwpu_official_f1": "not_ready"
+    },
+    "execution": "completed",
+    "cases": 18,
+    "frozen_thresholds_sha256": "b61de4c5999e401b50790ad7833b558a8948488dc9d6ea3e6d5d9b4dec680f5b"
+  },
+  "frozen_threshold_table": {
+    "path": "/home/xinnan/loopcrowd-lc004b/frozen_thresholds.json",
+    "bytes": 28750,
+    "sha256": "b61de4c5999e401b50790ad7833b558a8948488dc9d6ea3e6d5d9b4dec680f5b"
+  },
+  "local_cases": {
+    "42-cnn_only-0": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/42-cnn_only-0.json",
+      "bytes": 33687,
+      "sha256": "541f07e22b775e36d5f805966794897280526690a5366be0871baa45754c9314"
+    },
+    "42-shared_1-1": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/42-shared_1-1.json",
+      "bytes": 33724,
+      "sha256": "adf3d620935e48bb62388500808cd4f9e27ddc65bbc954549fabaae2fa86da34"
+    },
+    "42-shared_2-0": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/42-shared_2-0.json",
+      "bytes": 33771,
+      "sha256": "12d0926464eccc8bbb6e0d0e2caa2f9d104ecd4e2e09691a79de490bd823a857"
+    },
+    "42-shared_2-1": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/42-shared_2-1.json",
+      "bytes": 33786,
+      "sha256": "f76fd248c1ee9b6b213a1e4be3f6cf86fc20cff213ed5e3340506de994162c5c"
+    },
+    "42-shared_2-2": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/42-shared_2-2.json",
+      "bytes": 33673,
+      "sha256": "49902f4cca8b89d54f5b75bfdaaa163229cbe3211112670bdb0756488178dd67"
+    },
+    "42-unshared_2-2": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/42-unshared_2-2.json",
+      "bytes": 33690,
+      "sha256": "c2143e525c3ac47de36fb9c310decde85ea675b5586767e618b32b19ce7011e8"
+    },
+    "123-cnn_only-0": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/123-cnn_only-0.json",
+      "bytes": 33711,
+      "sha256": "079ebffa0e1e7b39b4786e2ba35f72f7e859ea23808d88bca9793e2d363c71f1"
+    },
+    "123-shared_1-1": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/123-shared_1-1.json",
+      "bytes": 33701,
+      "sha256": "85bb2cb11ee5d10761e19d12728b353ff6339ac1457a9a7a2363c07d13d31deb"
+    },
+    "123-shared_2-0": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/123-shared_2-0.json",
+      "bytes": 33772,
+      "sha256": "bbc98f3a8f349522a1a51aea551f07e54f063ba7a64152eb050805c371083ea4"
+    },
+    "123-shared_2-1": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/123-shared_2-1.json",
+      "bytes": 33755,
+      "sha256": "35b1c5b28444083cc6a6d4233755a293124f806c481fc5620fd1994fd8db6538"
+    },
+    "123-shared_2-2": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/123-shared_2-2.json",
+      "bytes": 33717,
+      "sha256": "8b79f40cefe9cd69a3e96ccd5e40571c8a6cfbcb41f36f25d6a922dd05e21388"
+    },
+    "123-unshared_2-2": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/123-unshared_2-2.json",
+      "bytes": 33708,
+      "sha256": "2661a102c8a862cf5179e7c53c40d731fb20ddb8a61170e212b6373f385c14b5"
+    },
+    "2026-cnn_only-0": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/2026-cnn_only-0.json",
+      "bytes": 33726,
+      "sha256": "97aaffb41df68068393a0b19178d84d40c176b76f0924a6eae0b5fb01ba77832"
+    },
+    "2026-shared_1-1": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/2026-shared_1-1.json",
+      "bytes": 33720,
+      "sha256": "8c27b75cbff294bf612829165e86b19e45bdefa4039896013c21e8d96fb11dbe"
+    },
+    "2026-shared_2-0": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/2026-shared_2-0.json",
+      "bytes": 33747,
+      "sha256": "3fb59613630a27a1fc2f1328f020dfd251e47cd829b01a25e70906ae9414137e"
+    },
+    "2026-shared_2-1": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/2026-shared_2-1.json",
+      "bytes": 33763,
+      "sha256": "1d885065b78aa7836be86d546c4d3ab2962c4bc96d0a21e5ae0adf9a92221ecb"
+    },
+    "2026-shared_2-2": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/2026-shared_2-2.json",
+      "bytes": 33713,
+      "sha256": "f714a679a622e5390cb780cebc4a05fa06b662b167bf733ed195cd0dc5fe479c"
+    },
+    "2026-unshared_2-2": {
+      "path": "/home/xinnan/loopcrowd-lc004b/cases/2026-unshared_2-2.json",
+      "bytes": 33716,
+      "sha256": "51ddc216900e183c5c9c34bc1aeecbf86a103a16ec8c1f4f1f1703d4e5406761"
+    }
+  },
+  "local_queue_log": {
+    "path": "/home/xinnan/loopcrowd-lc004b-queue.log",
+    "bytes": 810,
+    "sha256": "09c3c514ac05a1c9e0439ced1cf62fc44378b1965490dc74b48d92ed0d34ce2c"
+  },
+  "local_tests": {
+    "python310": {
+      "path": "/home/xinnan/loopcrowd-lc004b-py310.log",
+      "bytes": 190,
+      "sha256": "56e6af778ccf3d5a40d26ce6b8b647ad71ce2963d848f88b053eff26271bfd2b"
+    },
+    "python311": {
+      "path": "/home/xinnan/loopcrowd-lc004b-py311.log",
+      "bytes": 190,
+      "sha256": "9070a090bb5d7b8da309f4043c518509fb5984f927d17bbaae73ae360cd8a17b"
+    },
+    "python313": {
+      "path": "/mnt/c/Users/xinnan/Documents/ChatGPT/looped transform/artifacts/lc004b-py313.log",
+      "bytes": 1228,
+      "sha256": "6e32edeb4fc6ffb0c442d07fb2bda0dfb42ee19a81a344bcf048147ae6b0bdff"
+    }
+  }
+}
