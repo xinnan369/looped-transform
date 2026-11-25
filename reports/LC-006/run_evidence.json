@@ -1,0 +1,151 @@
+{
+  "queue": {
+    "execution": "completed",
+    "ordered_runs": [
+      {
+        "seed": 42,
+        "arm": "cnn",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 42,
+        "arm": "shared_1",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 42,
+        "arm": "shared_2_final_only",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 42,
+        "arm": "shared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 42,
+        "arm": "unshared_2_final_only",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 42,
+        "arm": "unshared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "shared_1",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "cnn",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "unshared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "unshared_2_final_only",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "shared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 123,
+        "arm": "shared_2_final_only",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 2026,
+        "arm": "cnn",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 2026,
+        "arm": "shared_1",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 2026,
+        "arm": "shared_2_final_only",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 2026,
+        "arm": "shared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 2026,
+        "arm": "unshared_2_final_only",
+        "epochs": 40,
+        "updates": 7200
+      },
+      {
+        "seed": 2026,
+        "arm": "unshared_2_aux_025",
+        "epochs": 40,
+        "updates": 7200
+      }
+    ],
+    "preflight_sha256": "c6762e8a2c813367e542c1879ace82e76290cc87a4f6a49725e26a8b9a6f1988",
+    "training_code_sha": "3929926602df3ef1af1ac22508bba27e728a8117",
+    "epochs": 720,
+    "updates": 129600
+  },
+  "queue_log": {
+    "path": "/home/xinnan/loopcrowd-lc006-queue.log",
+    "sha256": "0ce0e28354997286194256f7ed6bac38ab35c6621154e7d573256c3d17767041",
+    "bytes": 2383
+  },
+  "train_history_index": {
+    "path": "training_history.csv",
+    "sha256": "6efda60b4a91c9374a6a79161f11e7aeae1e95e6bb806117ebe11d0d59480493",
+    "bytes": 4213
+  },
+  "local_tests": {
+    "310": {
+      "path": "/home/xinnan/loopcrowd-lc006-py310.log",
+      "sha256": "aaa2607f3eec3efa8f312bfd2f0cabca75bc21f91ae775a2215266903569f924",
+      "bytes": 191
+    },
+    "311": {
+      "path": "/home/xinnan/loopcrowd-lc006-py311.log",
+      "sha256": "d5f4642fcf74ad5f32fca076649b6bb40ca90561da61982d562cec17b5885c72",
+      "bytes": 191
+    },
+    "313": {
+      "path": "/mnt/c/Users/xinnan/Documents/ChatGPT/looped transform/artifacts/lc006-py313.log",
+      "sha256": "025013fb3002202f39690ed9e942dd8d553c28023411915dd8e9de52ce597fa4",
+      "bytes": 1484
+    }
+  },
+  "focused_test": {
+    "path": "/home/xinnan/loopcrowd-lc006-focused.log",
+    "sha256": "d86dcc37a96562fc0b367f0da3240ebb4d69229eca6948fdb0938a99b8ba179f",
+    "bytes": 110
+  }
+}

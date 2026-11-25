@@ -142,15 +142,15 @@ class LoopCrowd(nn.Module):
         return (2 * self.gain_logits.sigmoid()).expand(self.loops, 2)
 
     def forward_stages(self, images):
-        """Decode the first and second shared calls with the same point head."""
+        """Decode the first and second fixed-window calls with the same point head."""
         return self(images, return_stages=True)
 
     def forward(self, images, *, loop_count=None, trace=None, return_stages=False):
         calls = self.loops if loop_count is None else loop_count
         if type(calls) is not int or not 0 <= calls <= self.loops:
             raise ValueError("loop_count must be an integer inside the model's fixed depth")
-        if return_stages and (self.loops != 2 or calls != 2 or not self.shared):
-            raise ValueError("stage predictions require both calls of a two-call shared model")
+        if return_stages and (self.loops != 2 or calls != 2 or (not self.shared and self.shifted)):
+            raise ValueError("stage predictions require both calls of a supported two-call model")
         p2 = self.p2(images)
         tokens = self.project(self.p3(p2)).permute(0, 2, 3, 1)
         gains = self.loop_gains()

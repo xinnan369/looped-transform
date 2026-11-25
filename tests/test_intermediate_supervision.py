@@ -1,6 +1,7 @@
 from copy import deepcopy
 
 import numpy as np
+import pytest
 import torch
 from PIL import Image
 
@@ -17,13 +18,16 @@ def training_batch():
     return torch.randn(2, 3, 40, 40), {key: torch.stack((value, value)) for key, value in target.items()}
 
 
-def test_stages_reuse_one_block_and_existing_decoder_parameters():
-    model = LoopCrowd("shared_2").eval()
+@pytest.mark.parametrize("variant,parameters", [
+    ("shared_2", 1_596_614), ("unshared_2", 2_041_478),
+])
+def test_stages_reuse_existing_blocks_and_decoder_parameters(variant, parameters):
+    model = LoopCrowd(variant).eval()
     before = state_sha(model)
     seen = {}
     watched = {
-        "block": model.blocks[0], "fuse": model.fuse,
-        "logits": model.point_logits, "offsets": model.point_offsets,
+        "fuse": model.fuse, "logits": model.point_logits, "offsets": model.point_offsets,
+        **{f"block-{i}": block for i, block in enumerate(model.blocks)},
     }
     handles = [module.register_forward_pre_hook(
         lambda module, args, key=key: seen.setdefault(key, []).append(tuple(map(id, module.parameters())))
@@ -35,21 +39,31 @@ def test_stages_reuse_one_block_and_existing_decoder_parameters():
         for outputs in stages.values():
             assert outputs["logits"].shape == target["labels"].shape
             assert outputs["offsets"].shape == target["offsets"].shape
-    assert all(len(calls) == 2 and calls[0] == calls[1] for calls in seen.values())
+    for key in ("logits", "offsets", "fuse"):
+        assert len(seen[key]) == 2 and seen[key][0] == seen[key][1]
+    if model.shared:
+        assert len(seen["block-0"]) == 2 and seen["block-0"][0] == seen["block-0"][1]
+    else:
+        assert len(seen["block-0"]) == len(seen["block-1"]) == 1
+        assert not set(seen["block-0"][0]) & set(seen["block-1"][0])
+        assert not ({p.data_ptr() for p in model.blocks[0].parameters()}
+                    & {p.data_ptr() for p in model.blocks[1].parameters()})
     seen.clear()
     with torch.inference_mode():
         ordinary = model(images)
-    assert len(seen["block"]) == 2 and len(seen["logits"]) == len(seen["offsets"]) == len(seen["fuse"]) == 1
+    assert sum(len(calls) for key, calls in seen.items() if key.startswith("block-")) == 2
+    assert len(seen["logits"]) == len(seen["offsets"]) == len(seen["fuse"]) == 1
     for field, value in ordinary.items():
         torch.testing.assert_close(stages["final"][field], value, rtol=0, atol=0)
     for handle in handles:
         handle.remove()
     assert state_sha(model) == before
-    assert sum(p.numel() for p in model.parameters()) == 1_596_614
+    assert sum(p.numel() for p in model.parameters()) == parameters
 
 
-def test_zero_weight_matches_legacy_and_aux_backpropagates_into_shared_core():
-    original = LoopCrowd("shared_2")
+@pytest.mark.parametrize("variant", ("shared_2", "unshared_2"))
+def test_zero_weight_matches_legacy_and_aux_backpropagates_into_first_call(variant):
+    original = LoopCrowd(variant)
     zero, aux = deepcopy(original), deepcopy(original)
     images, target = training_batch()
     legacy = point_loss(original(images), target)
@@ -66,13 +80,17 @@ def test_zero_weight_matches_legacy_and_aux_backpropagates_into_shared_core():
     for key in ("blocks.0.attn.in_proj_weight", "point_logits.weight", "point_offsets.weight"):
         g0, g1 = (dict(model.named_parameters())[key].grad for model in (zero, aux))
         assert torch.linalg.vector_norm(g1 - g0) > 1e-6
+    if variant == "unshared_2":
+        second = [model.blocks[1].attn.in_proj_weight.grad for model in (zero, aux)]
+        torch.testing.assert_close(*second, rtol=1e-6, atol=1e-7)
 
 
-def test_normal_tiled_prediction_and_old_state_load(tmp_path):
-    original = LoopCrowd("shared_2").eval()
+@pytest.mark.parametrize("variant", ("shared_2", "unshared_2"))
+def test_normal_tiled_prediction_and_old_state_load(tmp_path, variant):
+    original = LoopCrowd(variant).eval()
     old_path = tmp_path / "old.pt"
-    old_config = {k: v for k, v in DEFAULT_CONFIG.items() if k != "early_loss_weight"} | {
-        "variant": "shared_2", "tile_size": 32, "tile_overlap": 8,
+    old_config = {k: v for k, v in DEFAULT_CONFIG.items() if k not in ("early_loss_weight", "audit_training")} | {
+        "variant": variant, "tile_size": 32, "tile_overlap": 8,
     }
     torch.save({"config": old_config, "model": original.state_dict()}, old_path)
     state = load_checkpoint(old_path, torch.device("cpu"))
@@ -86,7 +104,8 @@ def test_normal_tiled_prediction_and_old_state_load(tmp_path):
         np.testing.assert_array_equal(getattr(default, name), getattr(staged["final"], name))
 
 
-def test_stage_training_smoke_saves_and_resumes_loss_and_crop_record(tmp_path):
+@pytest.mark.parametrize("variant,weight", (("shared_2", 0.25), ("cnn_only", None)))
+def test_audited_training_smoke_saves_and_resumes_loss_and_crop_record(tmp_path, variant, weight):
     manifest = tmp_path / "manifest.jsonl"
     image = tmp_path / "fixture.png"
     Image.new("RGB", (33, 37), (90, 80, 20)).save(image)
@@ -94,8 +113,8 @@ def test_stage_training_smoke_saves_and_resumes_loss_and_crop_record(tmp_path):
                for i, split in enumerate(("train", "train", "val"))]
     write_manifest(manifest, records)
     config = DEFAULT_CONFIG | {
-        "variant": "shared_2", "epochs": 2, "tile_size": 32, "tile_overlap": 8,
-        "fixed_training_horizon": True, "early_loss_weight": 0.25,
+        "variant": variant, "epochs": 2, "tile_size": 32, "tile_overlap": 8,
+        "fixed_training_horizon": True, "early_loss_weight": weight, "audit_training": True,
     }
     output, device = tmp_path / "train", torch.device("cpu")
     paused = fit(config, manifest, output, device, stop_after=1)
@@ -105,10 +124,12 @@ def test_stage_training_smoke_saves_and_resumes_loss_and_crop_record(tmp_path):
     saved = load_checkpoint(output / "last.pt", device)
     assert paused["initial_state_sha256"] == saved["initial_state_sha256"] == complete["initial_state_sha256"]
     for row in saved["history"]:
-        assert row["loss"] == row["final_loss"] + 0.25 * row["early_loss"] or np.isclose(
-            row["loss"], row["final_loss"] + 0.25 * row["early_loss"]
-        )
         assert len(row["crop_order_sha256"]) == 64 and row["optimizer_updates"] == 1
-        for stage in ("early_validation", "validation"):
+        stages = ("early_validation", "validation") if weight is not None else ("validation",)
+        for stage in stages:
             assert row[stage]["local_tp"] + row[stage]["local_fn"] == row[stage]["expected_heads"]
-        assert 0 < row["early_classification_loss"] and 0 < row["early_offset_loss"]
+        if weight is not None:
+            assert np.isclose(row["loss"], row["final_loss"] + weight * row["early_loss"])
+            assert 0 < row["early_classification_loss"] and 0 < row["early_offset_loss"]
+        else:
+            assert row["loss"] == row["final_loss"] and "early_validation" not in row

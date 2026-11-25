@@ -1,0 +1,145 @@
+{
+  "execution": "passed",
+  "manifest": {
+    "path": "/home/xinnan/loopcrowd-lc002/shanghaitech_b.jsonl",
+    "sha256": "de60892266c08bce96a3ea07e884c86eec8d05e0a9d31c0949bcff9e925fe482",
+    "bytes": 3740682
+  },
+  "historical_capacity_audit": {
+    "path": "/mnt/c/Users/xinnan/Documents/ChatGPT/looped transform/reports/LC-001/shanghaitech_b_audit.json",
+    "sha256": "39aa8a912c7b51fd7668d017c6fd3329678918b8aa80d21621b63174fe4d1e45",
+    "bytes": 22307
+  },
+  "historical_label_rejections": {
+    "path": "/home/xinnan/loopcrowd-lc002/shanghaitech_b_rejections.json",
+    "sha256": "37b7cef9d3b43591453b90c085ab7528db4038ae6c605fa8d014def54d5692ca",
+    "bytes": 43819
+  },
+  "dataset_config": {
+    "path": "/mnt/c/Users/xinnan/Documents/ChatGPT/looped transform/configs/shanghaitech_b.json",
+    "sha256": "b4a04338018db5aef0d13c811b6457556239e7886eeb885376123086f1e63ada",
+    "bytes": 229
+  },
+  "pretrained_weight": {
+    "path": "/home/xinnan/loopcrowd-lc002/torch/hub/checkpoints/resnet18-f37072fd.pth",
+    "sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+    "bytes": 46830571
+  },
+  "dataset_root": "/home/xinnan/loopcrowd-lc002/data/part_B_final",
+  "train_image_annotation_pair_digests_sha256": "b63e89f884899d01b45ff575db25fed496369b7fa7536e62b0bbb88bbc7c69fc",
+  "official_train_file_pairs_verified": 400,
+  "official_test_images_opened": 0,
+  "coordinate_base": 0,
+  "coordinate_policy": "reject only finite out-of-frame points and match ledger exactly",
+  "split_policy": "first 40 of 400 train IDs sorted by sha256('42:' + image_id), then ID",
+  "train_density_tertiles_heads_per_megapixel": [
+    82.65177408854167,
+    180.98619249131943
+  ],
+  "crop_capacity_probe": {
+    "size": 512,
+    "policy": "random",
+    "seed": 42,
+    "epoch": 1
+  },
+  "splits": {
+    "train": {
+      "images": 360,
+      "raw_heads": 44974,
+      "cleaned_heads": 44856,
+      "rejected_out_of_bounds_heads": 118,
+      "split_ids_sha256": "39adc705752b61064ac487141856b856fa699cc3758480a2b1c142c961690a4a",
+      "density_tertile_image_counts": {
+        "high": 120,
+        "mid": 119,
+        "low": 121
+      },
+      "full_image_capacity": {
+        "total_cells": 17694720,
+        "occupied_cells": 44610,
+        "occupied_fraction": 0.002521091037326389,
+        "max_points_per_cell": 3,
+        "cell_histogram": {
+          "0": 17650110,
+          "1": 44372,
+          "2": 230,
+          "3": 8
+        },
+        "heads": 44856,
+        "stride": 4,
+        "slots": 2,
+        "overflow": {
+          "lost_points": 8,
+          "point_loss_rate": 0.00017834849295523454
+        }
+      },
+      "random_crop_probe_capacity": {
+        "total_cells": 5898240,
+        "occupied_cells": 9841,
+        "occupied_fraction": 0.0016684638129340278,
+        "max_points_per_cell": 2,
+        "cell_histogram": {
+          "0": 5888399,
+          "1": 9814,
+          "2": 27
+        },
+        "heads": 9868,
+        "stride": 4,
+        "slots": 2,
+        "overflow": {
+          "lost_points": 0,
+          "point_loss_rate": 0.0
+        }
+      }
+    },
+    "val": {
+      "images": 40,
+      "raw_heads": 4306,
+      "cleaned_heads": 4295,
+      "rejected_out_of_bounds_heads": 11,
+      "split_ids_sha256": "de7cf3621d465a0687d62834e78fac6eb6d5b9a397c8473a3488bc51bd2c17a2",
+      "density_tertile_image_counts": {
+        "low": 14,
+        "high": 11,
+        "mid": 15
+      },
+      "full_image_capacity": {
+        "total_cells": 1966080,
+        "occupied_cells": 4269,
+        "occupied_fraction": 0.00217132568359375,
+        "max_points_per_cell": 3,
+        "cell_histogram": {
+          "0": 1961811,
+          "1": 4244,
+          "2": 24,
+          "3": 1
+        },
+        "heads": 4295,
+        "stride": 4,
+        "slots": 2,
+        "overflow": {
+          "lost_points": 1,
+          "point_loss_rate": 0.00023282887077997672
+        }
+      },
+      "random_crop_probe_capacity": {
+        "total_cells": 655360,
+        "occupied_cells": 990,
+        "occupied_fraction": 0.0015106201171875,
+        "max_points_per_cell": 2,
+        "cell_histogram": {
+          "0": 654370,
+          "1": 986,
+          "2": 4
+        },
+        "heads": 994,
+        "stride": 4,
+        "slots": 2,
+        "overflow": {
+          "lost_points": 0,
+          "point_loss_rate": 0.0
+        }
+      }
+    }
+  }
+}

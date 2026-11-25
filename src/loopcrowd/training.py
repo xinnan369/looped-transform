@@ -106,15 +106,17 @@ def evaluate(model, records, manifest_dir, config, device, all_predictions=None,
     return result
 
 
-def evaluate_stages(model, records, manifest_dir, config, device):
+def evaluate_outputs(model, records, manifest_dir, config, device, *, staged):
     model.eval()
-    samples = {"early": [], "final": []}
-    counts = {"early": [], "final": []}
+    stages = ("early", "final") if staged else ("final",)
+    samples = {stage: [] for stage in stages}
+    counts = {stage: [] for stage in stages}
     cutoff = config["count_threshold"]
     for record in records:
         with load_rgb(record, manifest_dir) as image:
-            staged = predict_image_stages(model, image, config, device)
-        for stage, predictions in staged.items():
+            outputs = (predict_image_stages(model, image, config, device) if staged
+                       else {"final": predict_image(model, image, config, device)})
+        for stage, predictions in outputs.items():
             owned = predictions.count_candidates()
             active = owned[owned[:, 2] > cutoff]
             matched, = count_match_metrics(record.points, active, (cutoff,))
@@ -142,7 +144,7 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule):
     stage_losses = {key: torch.zeros_like(losses) for key in (
         "early_loss", "early_classification_loss", "early_offset_loss", "final_loss",
     )} if staged else {}
-    order = hashlib.sha256() if staged else None
+    order = hashlib.sha256() if staged or config.get("audit_training") else None
     heads = overflow = images_seen = valid_slots = skipped = 0
     rates, gradient_norms = [], []
     scale = scaler.get_scale()
@@ -181,6 +183,8 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule):
     staged_metrics = {key: float(value / len(loader)) for key, value in stage_losses.items()}
     if order is not None:
         staged_metrics["crop_order_sha256"] = order.hexdigest()
+        if not staged:
+            staged_metrics["final_loss"] = mean_loss
     return {
         "loss": mean_loss, "classification_loss": float(class_losses / len(loader)),
         "offset_loss": float(offsets / len(loader)), "crops": images_seen,
@@ -202,7 +206,7 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule):
 
 def fit(config, manifest, output, device, resume=False, stop_after=None):
     config = DEFAULT_CONFIG | config
-    records = read_manifest(manifest)
+    records = read_manifest(manifest, splits=("train", "val"))
     train = [record for record in records if record.split == "train"]
     val = [record for record in records if record.split == "val"]
     if not train or not val or len({record.dataset for record in train + val}) != 1:
@@ -215,8 +219,9 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
     output.mkdir(parents=True, exist_ok=resume)
     seed_all(config["seed"])
     staged = config["early_loss_weight"] is not None
+    audited = staged or config["audit_training"]
     model = make_model(config, initialize=not resume)
-    initial_sha = state_sha(model) if staged and not resume else None
+    initial_sha = state_sha(model) if audited and not resume else None
     model.to(device)
     optimizer = optimizer_for(model, config)
     scaler = gpu_scaler(device, config["precision"])
@@ -262,14 +267,14 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
             if schedule.global_step != state["global_step"]:
                 raise ValueError("checkpoint optimizer position and scheduler state differ")
         run["weight_initialization"] = state["weight_initialization"]
-        if staged:
+        if audited:
             initial_sha = state["initial_state_sha256"]
         run["resumed_from"] = {
             "epoch": len(history), "sha256": file_sha(last_path), "git_commit": state["git_commit"],
             "global_step": schedule.global_step,
         }
 
-    if staged:
+    if audited:
         run["initial_state_sha256"] = initial_sha
     write_json(output / "run_manifest.json", run)
     for epoch in range(len(history) + 1, end_epoch + 1):
@@ -281,18 +286,19 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
             shuffle=True, num_workers=config["workers"], pin_memory=device.type == "cuda",
             generator=torch.Generator().manual_seed(epoch_seed),
         )
-        if staged and device.type == "cuda":
+        if audited and device.type == "cuda":
             torch.cuda.reset_peak_memory_stats(device)
         details = _epoch(model, optimizer, scaler, loader, config, device, schedule)
         details["train_seconds"] = perf_counter() - start
         details["epoch"] = epoch
-        if staged:
+        if audited:
             details["mean_train_batch_ms"] = 1000 * details["train_seconds"] / len(loader)
             if device.type == "cuda":
                 details["peak_train_allocated_bytes"] = torch.cuda.max_memory_allocated(device)
                 details["peak_train_reserved_bytes"] = torch.cuda.max_memory_reserved(device)
-            stage_metrics = evaluate_stages(model, val, manifest.parent, config, device)
-            details["early_validation"] = stage_metrics["early"]
+            stage_metrics = evaluate_outputs(model, val, manifest.parent, config, device, staged=staged)
+            if staged:
+                details["early_validation"] = stage_metrics["early"]
             details["validation"] = stage_metrics["final"]
         else:
             gains = model.loop_gains()
@@ -314,7 +320,7 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
             "best_epoch": best_epoch, "best_mae": best_mae, "git_commit": run["git_commit"],
             "weight_initialization": run["weight_initialization"],
         }
-        if staged:
+        if audited:
             state["initial_state_sha256"] = initial_sha
         if improved:
             checkpoint(best_path, state)

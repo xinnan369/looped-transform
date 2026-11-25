@@ -66,12 +66,16 @@ def write_manifest(path: Path, records):
         temporary.unlink(missing_ok=True)
 
 
-def read_manifest(path: Path):
+def read_manifest(path: Path, *, splits=None):
     records = []
+    excluded = set() if splits is None else {"train", "val", "test"} - set(splits)
     with path.open(encoding="utf-8") as stream:
         for line_number, line in enumerate(stream, 1):
             try:
-                record = Record(**json.loads(line))
+                item = json.loads(line)
+                if excluded and isinstance(item, dict) and item.get("split") in excluded:
+                    continue
+                record = Record(**item)
                 image = Path(record.image_path)
                 if not image.is_absolute():
                     image = path.parent / image
