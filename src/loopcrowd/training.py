@@ -2,20 +2,24 @@
 
 import hashlib
 import json
+from contextlib import nullcontext
 from time import perf_counter
 
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
 
+from .accuracy_diagnosis import density
 from .calibration import count_match_metrics, summarize_counts
 from .data import TrainingCrops, load_rgb
 from .diagnostics import LoopStatistics
+from .ema import ParameterEMA, preserve_training_context
 from .experiment import (
     DEFAULT_CONFIG, checkpoint, file_sha, load_checkpoint, make_model, provenance, seed_all,
     state_sha, weight_provenance, write_json,
 )
 from .inference import autocast, predict_image, predict_image_stages
+from .grouped_validation import grouped_validation
 from .manifest import read_manifest
 from .metrics import SCORE_THRESHOLDS, count_metrics, point_nap, score_threshold_sweep
 from .scheduling import UpdateSchedule
@@ -44,7 +48,7 @@ def supervised_point_loss(model, images, target, config, diagnostics=None):
     return final + weight * early
 
 
-def train_step(model, optimizer, scaler, images, target, config, device, diagnostics=None):
+def train_step(model, optimizer, scaler, images, target, config, device, diagnostics=None, *, require_finite=False):
     optimizer.zero_grad(set_to_none=True)
     with autocast(device, config["precision"]):
         loss = supervised_point_loss(model, images, target, config, diagnostics)
@@ -54,6 +58,8 @@ def train_step(model, optimizer, scaler, images, target, config, device, diagnos
         grads = [p.grad.detach() for p in model.parameters() if p.grad is not None]
         norms = torch._foreach_norm(grads)
         diagnostics["gradient_l2"] = torch.linalg.vector_norm(torch.stack(norms))
+    if require_finite and not torch.isfinite(torch.stack([loss.detach(), *diagnostics.values()])).all():
+        raise ValueError("nonfinite training loss or gradient before optimizer step")
     scaler.step(optimizer)
     scaler.update()
     return loss.detach()
@@ -135,7 +141,7 @@ def evaluate_outputs(model, records, manifest_dir, config, device, *, staged):
     return result
 
 
-def _epoch(model, optimizer, scaler, loader, config, device, schedule):
+def _epoch(model, optimizer, scaler, loader, config, device, schedule, *, ema=None, guard=None):
     model.train()
     losses = torch.zeros((), device=device)
     class_losses = torch.zeros_like(losses)
@@ -149,6 +155,8 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule):
     rates, gradient_norms = [], []
     scale = scaler.get_scale()
     for images, target in loader:
+        if guard is not None:
+            guard.check("train_batch")
         if order is not None:
             crop_identity = target.pop("crop_identity")
             order.update(crop_identity.numpy().astype("<i8", copy=False).tobytes())
@@ -160,13 +168,23 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule):
         diagnostics = {}
         rate = schedule.apply()
         loss = train_step(model, optimizer, scaler, images.to(device, non_blocking=True),
-                          gpu_target, config, device, diagnostics)
+                          gpu_target, config, device, diagnostics, require_finite=guard is not None)
         next_scale = scaler.get_scale()
-        if next_scale >= scale:
+        updated = next_scale >= scale
+        if updated:
             schedule.global_step += 1
             rates.append(rate)
+            if guard is not None:
+                guard.record_update()
         else:
             skipped += 1
+        if ema is not None:
+            ema.update(updated=updated)
+        if guard is not None:
+            if not updated:
+                raise ValueError("Stage 1 requires every optimizer update")
+            ema.require_finite(check_live=True)
+            guard.check()
         scale = next_scale
         losses += loss
         class_losses += diagnostics["classification_loss"]
@@ -204,7 +222,11 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule):
     }
 
 
-def fit(config, manifest, output, device, resume=False, stop_after=None):
+def _phase(guard, name):
+    return guard.phase(name) if guard is not None else nullcontext()
+
+
+def fit(config, manifest, output, device, resume=False, stop_after=None, *, guard=None):
     config = DEFAULT_CONFIG | config
     records = read_manifest(manifest, splits=("train", "val"))
     train = [record for record in records if record.split == "train"]
@@ -217,12 +239,17 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
     if output.exists() and not resume:
         raise ValueError(f"new run requires a new output directory: {output}")
     output.mkdir(parents=True, exist_ok=resume)
-    seed_all(config["seed"])
     staged = config["early_loss_weight"] is not None
-    audited = staged or config["audit_training"]
-    model = make_model(config, initialize=not resume)
-    initial_sha = state_sha(model) if audited and not resume else None
-    model.to(device)
+    ema_enabled = config.get("ema_decay") is not None
+    if guard is not None and not ema_enabled:
+        raise ValueError("the Stage 1 resource guard requires parameter EMA")
+    audited = staged or config["audit_training"] or ema_enabled
+    with _phase(guard, "initialization"):
+        seed_all(config["seed"])
+        model = make_model(config, initialize=not resume)
+        initial_sha = state_sha(model) if audited and not resume else None
+        model.to(device)
+        ema = ParameterEMA(model, config["ema_decay"]) if ema_enabled else None
     optimizer = optimizer_for(model, config)
     scaler = gpu_scaler(device, config["precision"])
     updates_per_epoch = (len(train) + config["batch_size"] - 1) // config["batch_size"]
@@ -237,6 +264,12 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
     run["warmup_updates"] = schedule.warmup_updates
     last_path, best_path = output / "last.pt", output / "best.pt"
     data_sha = run["data"]["sha256"]
+    checkpoint_index = []
+    index_path = output / "checkpoint_index.json"
+    if ema is not None:
+        boundaries = np.quantile([density(record) for record in train], (1 / 3, 2 / 3)).tolist()
+        run["ema"] = {"decay": ema.decay, "buffers": "live", "density_tertiles": boundaries}
+        (output / "images").mkdir(exist_ok=resume)
 
     if resume:
         state = load_checkpoint(last_path, device)
@@ -244,7 +277,8 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
         compatible_fields = config.keys() if schedule.fixed else config.keys() - {"epochs"}
         legacy_constant = "scheduler" not in state and not schedule.fixed
         if (
-            any(saved_config[k] != config[k] for k in compatible_fields)
+            any(saved_config.get(k) != config[k] for k in compatible_fields)
+            or saved_config.get("ema_decay") != config.get("ema_decay")
             or state["data_sha256"] != data_sha
             or (state["git_commit"] != run["git_commit"] and not legacy_constant)
         ):
@@ -252,7 +286,7 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
         history, best_mae, best_epoch = state["history"], state["best_mae"], state["best_epoch"]
         if end_epoch <= len(history):
             raise ValueError("resume must request an epoch beyond the last checkpoint")
-        if not best_path.is_file():
+        if ema is None and not best_path.is_file():
             raise ValueError("resume requires best.pt from the existing run")
         model.load_state_dict(state["model"])
         optimizer.load_state_dict(state["optimizer"])
@@ -266,6 +300,13 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
             schedule.load_state_dict(state["scheduler"])
             if schedule.global_step != state["global_step"]:
                 raise ValueError("checkpoint optimizer position and scheduler state differ")
+        if ema is not None:
+            if "ema" not in state:
+                raise ValueError("EMA checkpoint is missing its shadow state")
+            ema.load_state_dict(state["ema"], expected_step=schedule.global_step)
+            checkpoint_index = json.loads(index_path.read_text(encoding="utf-8"))
+            if (len(checkpoint_index) != len(history) or checkpoint_index[-1]["sha256"] != file_sha(last_path)):
+                raise ValueError("EMA checkpoint provenance index differs")
         run["weight_initialization"] = state["weight_initialization"]
         if audited:
             initial_sha = state["initial_state_sha256"]
@@ -277,6 +318,20 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
     if audited:
         run["initial_state_sha256"] = initial_sha
     write_json(output / "run_manifest.json", run)
+    def checkpoint_state():
+        state = {
+            "model": model.state_dict(), "optimizer": optimizer.state_dict(), "scaler": scaler.state_dict(),
+            "scheduler": schedule.state_dict(), "global_step": schedule.global_step,
+            "config": config, "data_sha256": data_sha, "history": history,
+            "best_epoch": best_epoch, "best_mae": best_mae, "git_commit": run["git_commit"],
+            "weight_initialization": run["weight_initialization"],
+        }
+        if audited:
+            state["initial_state_sha256"] = initial_sha
+        if ema is not None:
+            state["ema"] = ema.state_dict()
+        return state
+
     for epoch in range(len(history) + 1, end_epoch + 1):
         start = perf_counter()
         epoch_seed = config["seed"] + epoch
@@ -288,15 +343,49 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
         )
         if audited and device.type == "cuda":
             torch.cuda.reset_peak_memory_stats(device)
-        details = _epoch(model, optimizer, scaler, loader, config, device, schedule)
-        details["train_seconds"] = perf_counter() - start
+        try:
+            with _phase(guard, "training"):
+                details = _epoch(model, optimizer, scaler, loader, config, device, schedule, ema=ema, guard=guard)
+            if guard is not None and details["optimizer_updates"] != updates_per_epoch:
+                raise ValueError("missing optimizer updates in Stage 1 epoch")
+            if ema is not None and ema.step != schedule.global_step:
+                raise ValueError("EMA update position diverged from the optimizer")
+            details["train_seconds"] = perf_counter() - start
+            if audited:
+                details["mean_train_batch_ms"] = 1000 * details["train_seconds"] / len(loader)
+                if device.type == "cuda":
+                    details["peak_train_allocated_bytes"] = torch.cuda.max_memory_allocated(device)
+                    details["peak_train_reserved_bytes"] = torch.cuda.max_memory_reserved(device)
+            stage_metrics = None
+            if ema is not None:
+                with preserve_training_context(model, device):
+                    readouts, image_rows = {}, []
+                    for policy, weights in (("live", nullcontext()), ("ema", ema.use_shadow())):
+                        with _phase(guard, f"validation_{policy}"), weights:
+                            metrics, rows = grouped_validation(
+                                model, val, manifest.parent, config, device, staged=staged, boundaries=boundaries,
+                                check=(lambda: guard.check("validation_image")) if guard is not None else (lambda: None))
+                        readouts[policy] = metrics
+                        image_rows.extend({"policy": policy, **row} for row in rows)
+                details["ema_validation"] = readouts["ema"]
+                details["ema_step"] = ema.step
+                stage_metrics = readouts["live"]
+                image_path = output / "images" / f"{epoch:02d}.json"
+                write_json(image_path, image_rows)
+                details["image_metrics_sha256"] = file_sha(image_path)
+            elif audited:
+                stage_metrics = evaluate_outputs(model, val, manifest.parent, config, device, staged=staged)
+        except Exception as error:
+            if guard is not None:
+                partial = output / "interrupted.pt"
+                checkpoint(partial, checkpoint_state() | {"interrupted_epoch": epoch})
+                run.update(execution="stopped", reason=f"{type(error).__name__}: {error}",
+                           completed_epochs=len(history), global_step=schedule.global_step,
+                           interrupted_checkpoint={"path": str(partial), "sha256": file_sha(partial)})
+                write_json(output / "run_manifest.json", run)
+            raise
         details["epoch"] = epoch
-        if audited:
-            details["mean_train_batch_ms"] = 1000 * details["train_seconds"] / len(loader)
-            if device.type == "cuda":
-                details["peak_train_allocated_bytes"] = torch.cuda.max_memory_allocated(device)
-                details["peak_train_reserved_bytes"] = torch.cuda.max_memory_reserved(device)
-            stage_metrics = evaluate_outputs(model, val, manifest.parent, config, device, staged=staged)
+        if stage_metrics is not None:
             if staged:
                 details["early_validation"] = stage_metrics["early"]
             details["validation"] = stage_metrics["final"]
@@ -310,21 +399,17 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
         details["epoch_seconds"] = perf_counter() - start
         history.append(details)
         mae = details["validation"]["count"]["mae"]
-        improved = mae < best_mae
+        improved = ema is None and mae < best_mae
         if improved:
             best_mae, best_epoch = mae, epoch
-        state = {
-            "model": model.state_dict(), "optimizer": optimizer.state_dict(), "scaler": scaler.state_dict(),
-            "scheduler": schedule.state_dict(), "global_step": schedule.global_step,
-            "config": config, "data_sha256": data_sha, "history": history,
-            "best_epoch": best_epoch, "best_mae": best_mae, "git_commit": run["git_commit"],
-            "weight_initialization": run["weight_initialization"],
-        }
-        if audited:
-            state["initial_state_sha256"] = initial_sha
+        state = checkpoint_state()
         if improved:
             checkpoint(best_path, state)
-        checkpoint(last_path, state)
+        with _phase(guard, "checkpoint"):
+            checkpoint(last_path, state)
+        if ema is not None:
+            checkpoint_index.append({"epoch": epoch, "step": ema.step, "sha256": file_sha(last_path)})
+            write_json(index_path, checkpoint_index)
         write_json(output / "history.json", history)
         print(json.dumps(details, allow_nan=False), flush=True)
         if config["patience"] and epoch - best_epoch >= config["patience"]:
@@ -334,7 +419,7 @@ def fit(config, manifest, output, device, resume=False, stop_after=None):
     run["best_epoch"] = best_epoch
     run["global_step"] = schedule.global_step
     run["execution"] = "paused" if len(history) == end_epoch < config["epochs"] else "completed"
-    run["checkpoints"] = {p.name: {"path": str(p.resolve()), "sha256": file_sha(p)}
-                          for p in (best_path, last_path)}
+    snapshots = (best_path, last_path) if ema is None else (last_path,)
+    run["checkpoints"] = {p.name: {"path": str(p.resolve()), "sha256": file_sha(p)} for p in snapshots}
     write_json(output / "run_manifest.json", run)
     return run

@@ -1,0 +1,27 @@
+{
+  "parent": "a2df15cc8f817e8d8f5b1ab2273a8f312ab9a651",
+  "issue": 19,
+  "ema_decay": 0.99,
+  "manifest_sha256": "de60892266c08bce96a3ea07e884c86eec8d05e0a9d31c0949bcff9e925fe482",
+  "weight_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec",
+  "configs": {
+    "cnn_only": "configs/lc006_cnn.json",
+    "shared_1": "configs/lc006_shared_1.json",
+    "shared_2_aux_025": "configs/lc006_shared_2_aux_025.json",
+    "unshared_2_aux_025": "configs/lc006_unshared_2_aux_025.json"
+  },
+  "order": {
+    "42": ["cnn_only", "shared_1", "shared_2_aux_025", "unshared_2_aux_025"],
+    "123": ["unshared_2_aux_025", "shared_2_aux_025", "shared_1", "cnn_only"]
+  },
+  "limits": {
+    "runs": 8,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "warmup_updates": 360,
+    "total_updates": 57600,
+    "gpu_seconds": 5400,
+    "peak_reserved_bytes": 2147483648,
+    "external_download_bytes": 0
+  }
+}
