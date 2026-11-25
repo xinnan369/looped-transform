@@ -250,8 +250,7 @@ def main():
     args = parser.parse_args()
     # A fresh output directory prevents a silent second pass after an interrupted run.
     args.output.mkdir(parents=True, exist_ok=False)
-    if subprocess.check_output(["git", "merge-base", "--is-ancestor", BASE, "HEAD"]).strip():
-        raise AssertionError("unreachable merge-base output")
+    subprocess.run(["git", "merge-base", "--is-ancestor", BASE, "HEAD"], check=True)
     code = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     runs = archive_runs()
     ledger = create_ledger(runs)

@@ -27,7 +27,7 @@ Use one train/val-scoped manifest and at most one full internal validation pass 
 
 ```bash
 source artifacts/lc002-env.sh
-PYTHONPATH="$PWD/scripts:$PYTHONPATH" python scripts/run_lc007a.py --output "$HOME/loopcrowd-lc007a"
+python -m scripts.run_lc007a --output "$HOME/loopcrowd-lc007a"
 ```
 
 After the run, use the tracked archival tool against that local directory. New optimizer updates, threshold fits and official test passes are zero. External experiment downloads, dependency installation, and NWPU/WiderPerson activity are out of scope.
