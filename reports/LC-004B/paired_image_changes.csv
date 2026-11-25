@@ -1,0 +1,451 @@
+seed,comparator,comparator_calls,scope,image_id,density_group,gt,raw_predicted_gap,raw_abs_count_error_gap,raw_local_tp_gap,raw_local_fp_gap,raw_local_fn_gap,calibrated_predicted_gap,calibrated_abs_count_error_gap,calibrated_local_tp_gap,calibrated_local_fp_gap,calibrated_local_fn_gap
+42,shared_1,1,independent model,train/IMG_115,low,288,-50,50,-16,-34,16,10,-10,8,2,-8
+42,shared_1,1,independent model,train/IMG_121,mid,156,-42,42,-18,-24,18,-14,14,-6,-8,6
+42,shared_1,1,independent model,train/IMG_134,mid,960,-4,4,-3,-1,3,83,-83,43,40,-43
+42,shared_1,1,independent model,train/IMG_139,mid,212,-52,52,-30,-22,30,-16,16,-8,-8,8
+42,shared_1,1,independent model,train/IMG_148,low,102,1,-1,3,-2,-3,17,-17,12,5,-12
+42,shared_1,1,independent model,train/IMG_152,mid,442,-38,38,-18,-20,18,34,-34,9,25,-9
+42,shared_1,1,independent model,train/IMG_161,low,81,-1,1,-1,0,1,8,-8,2,6,-2
+42,shared_1,1,independent model,train/IMG_170,high,754,-139,-139,-27,-112,27,20,20,5,15,-5
+42,shared_1,1,independent model,train/IMG_180,high,468,-51,51,-35,-16,35,-1,1,-2,1,2
+42,shared_1,1,independent model,train/IMG_183,mid,600,40,40,4,36,-4,261,261,29,232,-29
+42,shared_1,1,independent model,train/IMG_186,high,1655,255,-205,109,146,-109,520,-470,224,296,-224
+42,shared_1,1,independent model,train/IMG_187,mid,407,-81,-81,-13,-68,13,7,7,6,1,-6
+42,shared_1,1,independent model,train/IMG_189,high,498,-129,-129,-27,-102,27,-19,-19,-4,-15,4
+42,shared_1,1,independent model,train/IMG_19,high,707,-163,-163,-25,-138,25,-51,-51,-3,-48,3
+42,shared_1,1,independent model,train/IMG_205,low,136,0,0,0,0,0,0,0,0,0,0
+42,shared_1,1,independent model,train/IMG_207,low,131,-13,13,-6,-7,6,1,-1,0,1,0
+42,shared_1,1,independent model,train/IMG_208,mid,536,-50,50,-31,-19,31,14,-14,4,10,-4
+42,shared_1,1,independent model,train/IMG_219,high,426,-70,70,-38,-32,38,-14,14,-18,4,18
+42,shared_1,1,independent model,train/IMG_220,mid,305,-69,-69,-26,-43,26,-1,-1,-12,11,12
+42,shared_1,1,independent model,train/IMG_229,high,1321,-397,397,-165,-232,165,-152,152,-68,-84,68
+42,shared_1,1,independent model,train/IMG_24,low,160,-6,6,-2,-4,2,14,-14,4,10,-4
+42,shared_1,1,independent model,train/IMG_256,low,39,-5,1,1,-6,-1,7,-7,6,1,-6
+42,shared_1,1,independent model,train/IMG_28,high,814,-173,-173,-41,-132,41,9,9,-13,22,13
+42,shared_1,1,independent model,train/IMG_283,high,1427,92,-30,46,46,-46,303,-241,132,171,-132
+42,shared_1,1,independent model,train/IMG_288,low,317,-25,-25,-2,-23,2,41,41,15,26,-15
+42,shared_1,1,independent model,train/IMG_36,low,135,19,19,3,16,-3,55,39,14,41,-14
+42,shared_1,1,independent model,train/IMG_70,low,418,-22,-22,-6,-16,6,112,112,10,102,-10
+42,shared_1,1,independent model,train/IMG_85,high,271,22,22,-3,25,3,76,-20,18,58,-18
+42,shared_1,1,independent model,train/IMG_9,low,189,-57,-39,-9,-48,9,-18,0,0,-18,0
+42,shared_1,1,independent model,train/IMG_97,high,222,-21,21,-15,-6,15,2,-2,0,2,0
+123,shared_1,1,independent model,train/IMG_115,low,288,49,-49,2,47,-2,43,-43,17,26,-17
+123,shared_1,1,independent model,train/IMG_121,mid,156,-28,28,-15,-13,15,-30,30,-15,-15,15
+123,shared_1,1,independent model,train/IMG_134,mid,960,-47,47,-23,-24,23,-34,34,-22,-12,22
+123,shared_1,1,independent model,train/IMG_139,mid,212,-27,27,-18,-9,18,-25,25,-13,-12,13
+123,shared_1,1,independent model,train/IMG_148,low,102,1,-1,0,1,0,2,-2,0,2,0
+123,shared_1,1,independent model,train/IMG_152,mid,442,-51,51,-12,-39,12,-46,46,-14,-32,14
+123,shared_1,1,independent model,train/IMG_161,low,81,-8,-8,-4,-4,4,-4,-4,-2,-2,2
+123,shared_1,1,independent model,train/IMG_170,high,754,10,10,-6,16,6,14,14,-1,15,1
+123,shared_1,1,independent model,train/IMG_180,high,468,37,-37,25,12,-25,32,-32,21,11,-21
+123,shared_1,1,independent model,train/IMG_183,mid,600,111,111,3,108,-3,112,112,-3,115,3
+123,shared_1,1,independent model,train/IMG_186,high,1655,-120,-120,-33,-87,33,-100,-100,-22,-78,22
+123,shared_1,1,independent model,train/IMG_187,mid,407,-29,-29,-9,-20,9,-27,-27,-12,-15,12
+123,shared_1,1,independent model,train/IMG_189,high,498,32,32,16,16,-16,45,45,18,27,-18
+123,shared_1,1,independent model,train/IMG_19,high,707,31,31,4,27,-4,37,37,11,26,-11
+123,shared_1,1,independent model,train/IMG_205,low,136,-1,1,-1,0,1,-1,1,-1,0,1
+123,shared_1,1,independent model,train/IMG_207,low,131,7,-7,5,2,-5,2,-2,4,-2,-4
+123,shared_1,1,independent model,train/IMG_208,mid,536,6,-6,7,-1,-7,-8,8,-1,-7,1
+123,shared_1,1,independent model,train/IMG_219,high,426,42,2,14,28,-14,40,-40,13,27,-13
+123,shared_1,1,independent model,train/IMG_220,mid,305,6,6,2,4,-2,1,1,2,-1,-2
+123,shared_1,1,independent model,train/IMG_229,high,1321,-230,230,-78,-152,78,-161,161,-65,-96,65
+123,shared_1,1,independent model,train/IMG_24,low,160,-6,6,-10,4,10,-5,5,-3,-2,3
+123,shared_1,1,independent model,train/IMG_256,low,39,-6,6,-3,-3,3,-10,10,-8,-2,8
+123,shared_1,1,independent model,train/IMG_28,high,814,226,226,33,193,-33,240,240,36,204,-36
+123,shared_1,1,independent model,train/IMG_283,high,1427,26,26,39,-13,-39,24,-24,41,-17,-41
+123,shared_1,1,independent model,train/IMG_288,low,317,42,42,3,39,-3,46,46,14,32,-14
+123,shared_1,1,independent model,train/IMG_36,low,135,24,24,3,21,-3,27,27,0,27,0
+123,shared_1,1,independent model,train/IMG_70,low,418,40,40,-10,50,10,44,44,1,43,-1
+123,shared_1,1,independent model,train/IMG_85,high,271,1,1,6,-5,-6,2,-2,0,2,0
+123,shared_1,1,independent model,train/IMG_9,low,189,-1,-1,1,-2,-1,-11,-11,-5,-6,5
+123,shared_1,1,independent model,train/IMG_97,high,222,-11,11,-6,-5,6,-3,3,4,-7,-4
+2026,shared_1,1,independent model,train/IMG_115,low,288,-10,10,-20,10,20,15,-15,-5,20,5
+2026,shared_1,1,independent model,train/IMG_121,mid,156,-42,42,-18,-24,18,-37,37,-22,-15,22
+2026,shared_1,1,independent model,train/IMG_134,mid,960,-77,77,-54,-23,54,-54,54,-39,-15,39
+2026,shared_1,1,independent model,train/IMG_139,mid,212,4,-4,2,2,-2,0,0,0,0,0
+2026,shared_1,1,independent model,train/IMG_148,low,102,-16,16,-4,-12,4,-9,9,0,-9,0
+2026,shared_1,1,independent model,train/IMG_152,mid,442,-1,-1,-4,3,4,-19,19,-8,-11,8
+2026,shared_1,1,independent model,train/IMG_161,low,81,-16,16,-11,-5,11,-19,19,-13,-6,13
+2026,shared_1,1,independent model,train/IMG_170,high,754,-89,-89,-18,-71,18,-74,-74,-13,-61,13
+2026,shared_1,1,independent model,train/IMG_180,high,468,-18,18,-11,-7,11,-11,11,-9,-2,9
+2026,shared_1,1,independent model,train/IMG_183,mid,600,76,76,3,73,-3,29,29,7,22,-7
+2026,shared_1,1,independent model,train/IMG_186,high,1655,153,153,40,113,-40,102,102,31,71,-31
+2026,shared_1,1,independent model,train/IMG_187,mid,407,-20,-20,-12,-8,12,-16,-16,-9,-7,9
+2026,shared_1,1,independent model,train/IMG_189,high,498,12,12,-8,20,8,15,15,-2,17,2
+2026,shared_1,1,independent model,train/IMG_19,high,707,-28,-28,-17,-11,17,-31,-31,-12,-19,12
+2026,shared_1,1,independent model,train/IMG_205,low,136,-1,1,-1,0,1,0,0,0,0,0
+2026,shared_1,1,independent model,train/IMG_207,low,131,-8,8,3,-11,-3,-6,6,-3,-3,3
+2026,shared_1,1,independent model,train/IMG_208,mid,536,14,-14,9,5,-9,12,-12,4,8,-4
+2026,shared_1,1,independent model,train/IMG_219,high,426,-20,20,-3,-17,3,-15,15,-6,-9,6
+2026,shared_1,1,independent model,train/IMG_220,mid,305,-46,-30,-13,-33,13,-43,43,-15,-28,15
+2026,shared_1,1,independent model,train/IMG_229,high,1321,-68,68,-32,-36,32,-71,71,-29,-42,29
+2026,shared_1,1,independent model,train/IMG_24,low,160,8,-8,2,6,-2,2,-2,-3,5,3
+2026,shared_1,1,independent model,train/IMG_256,low,39,-1,1,-1,0,1,2,-2,2,0,-2
+2026,shared_1,1,independent model,train/IMG_28,high,814,51,51,5,46,-5,21,21,-5,26,5
+2026,shared_1,1,independent model,train/IMG_283,high,1427,82,82,20,62,-20,44,44,10,34,-10
+2026,shared_1,1,independent model,train/IMG_288,low,317,7,7,-5,12,5,-6,-6,-8,2,8
+2026,shared_1,1,independent model,train/IMG_36,low,135,7,7,-2,9,2,6,6,-3,9,3
+2026,shared_1,1,independent model,train/IMG_70,low,418,178,178,21,157,-21,182,182,29,153,-29
+2026,shared_1,1,independent model,train/IMG_85,high,271,14,-14,6,8,-6,11,-11,6,5,-6
+2026,shared_1,1,independent model,train/IMG_9,low,189,-36,-36,-9,-27,9,-19,-1,-4,-15,4
+2026,shared_1,1,independent model,train/IMG_97,high,222,-3,3,6,-9,-6,-5,5,-3,-2,3
+42,unshared_2,2,independent model,train/IMG_115,low,288,-6,6,3,-9,-3,52,-52,30,22,-30
+42,unshared_2,2,independent model,train/IMG_121,mid,156,-32,32,-12,-20,12,-2,2,-2,0,2
+42,unshared_2,2,independent model,train/IMG_134,mid,960,2,-2,-5,7,5,103,-103,53,50,-53
+42,unshared_2,2,independent model,train/IMG_139,mid,212,-46,46,-24,-22,24,-17,17,-12,-5,12
+42,unshared_2,2,independent model,train/IMG_148,low,102,10,-10,5,5,-5,25,-25,17,8,-17
+42,unshared_2,2,independent model,train/IMG_152,mid,442,-74,74,-36,-38,36,-1,1,-8,7,8
+42,unshared_2,2,independent model,train/IMG_161,low,81,-9,1,-1,-8,1,9,-9,6,3,-6
+42,unshared_2,2,independent model,train/IMG_170,high,754,-86,-86,-23,-63,23,79,79,11,68,-11
+42,unshared_2,2,independent model,train/IMG_180,high,468,0,0,-2,2,2,35,-35,28,7,-28
+42,unshared_2,2,independent model,train/IMG_183,mid,600,166,166,6,160,-6,388,388,55,333,-55
+42,unshared_2,2,independent model,train/IMG_186,high,1655,144,-94,51,93,-51,441,-391,178,263,-178
+42,unshared_2,2,independent model,train/IMG_187,mid,407,-46,-46,-13,-33,13,63,63,18,45,-18
+42,unshared_2,2,independent model,train/IMG_189,high,498,-87,-87,-22,-65,22,-1,-1,-2,1,2
+42,unshared_2,2,independent model,train/IMG_19,high,707,-78,-78,-27,-51,27,56,56,5,51,-5
+42,unshared_2,2,independent model,train/IMG_205,low,136,-1,1,-1,0,1,-1,1,-1,0,1
+42,unshared_2,2,independent model,train/IMG_207,low,131,-14,14,-9,-5,9,1,-1,1,0,-1
+42,unshared_2,2,independent model,train/IMG_208,mid,536,-18,18,-17,-1,17,48,-48,18,30,-18
+42,unshared_2,2,independent model,train/IMG_219,high,426,-41,41,-24,-17,24,18,-18,-1,19,1
+42,unshared_2,2,independent model,train/IMG_220,mid,305,-51,-51,-27,-24,27,16,16,-7,23,7
+42,unshared_2,2,independent model,train/IMG_229,high,1321,-161,161,-72,-89,72,28,-28,26,2,-26
+42,unshared_2,2,independent model,train/IMG_24,low,160,10,-10,4,6,-4,29,-29,13,16,-13
+42,unshared_2,2,independent model,train/IMG_256,low,39,3,-3,4,-1,-4,8,-8,7,1,-7
+42,unshared_2,2,independent model,train/IMG_28,high,814,-140,-140,-29,-111,29,62,62,6,56,-6
+42,unshared_2,2,independent model,train/IMG_283,high,1427,-138,-138,-51,-87,51,114,-52,38,76,-38
+42,unshared_2,2,independent model,train/IMG_288,low,317,-51,-51,-16,-35,16,7,7,-2,9,2
+42,unshared_2,2,independent model,train/IMG_36,low,135,54,40,15,39,-15,83,11,26,57,-26
+42,unshared_2,2,independent model,train/IMG_70,low,418,86,86,-1,87,1,239,239,20,219,-20
+42,unshared_2,2,independent model,train/IMG_85,high,271,-4,-4,-6,2,6,48,8,11,37,-11
+42,unshared_2,2,independent model,train/IMG_9,low,189,-37,-19,-13,-24,13,3,-3,-3,6,3
+42,unshared_2,2,independent model,train/IMG_97,high,222,3,-3,-1,4,1,20,-20,9,11,-9
+123,unshared_2,2,independent model,train/IMG_115,low,288,-51,-3,-7,-44,7,-28,28,1,-29,-1
+123,unshared_2,2,independent model,train/IMG_121,mid,156,15,-15,6,9,-6,5,-5,5,0,-5
+123,unshared_2,2,independent model,train/IMG_134,mid,960,-106,106,-59,-47,59,-69,69,-46,-23,46
+123,unshared_2,2,independent model,train/IMG_139,mid,212,1,-1,-1,2,1,3,-3,5,-2,-5
+123,unshared_2,2,independent model,train/IMG_148,low,102,9,-9,5,4,-5,14,-14,6,8,-6
+123,unshared_2,2,independent model,train/IMG_152,mid,442,-64,64,-19,-45,19,-82,82,-29,-53,29
+123,unshared_2,2,independent model,train/IMG_161,low,81,5,5,-1,6,1,4,2,1,3,-1
+123,unshared_2,2,independent model,train/IMG_170,high,754,25,25,-2,27,2,16,16,-12,28,12
+123,unshared_2,2,independent model,train/IMG_180,high,468,-22,22,-19,-3,19,-7,7,-9,2,9
+123,unshared_2,2,independent model,train/IMG_183,mid,600,-104,-104,-8,-96,8,-87,-87,-15,-72,15
+123,unshared_2,2,independent model,train/IMG_186,high,1655,333,333,101,232,-101,313,-215,113,200,-113
+123,unshared_2,2,independent model,train/IMG_187,mid,407,-105,-105,-13,-92,13,-92,-92,-20,-72,20
+123,unshared_2,2,independent model,train/IMG_189,high,498,35,35,7,28,-7,43,43,8,35,-8
+123,unshared_2,2,independent model,train/IMG_19,high,707,-59,-59,-10,-49,10,-43,-43,-6,-37,6
+123,unshared_2,2,independent model,train/IMG_205,low,136,0,0,0,0,0,0,0,0,0,0
+123,unshared_2,2,independent model,train/IMG_207,low,131,14,-14,2,12,-2,5,-5,-1,6,1
+123,unshared_2,2,independent model,train/IMG_208,mid,536,53,-53,27,26,-27,38,-38,18,20,-18
+123,unshared_2,2,independent model,train/IMG_219,high,426,42,2,14,28,-14,55,-55,15,40,-15
+123,unshared_2,2,independent model,train/IMG_220,mid,305,-8,-8,1,-9,-1,-1,-1,1,-2,-1
+123,unshared_2,2,independent model,train/IMG_229,high,1321,-232,232,-82,-150,82,-145,145,-72,-73,72
+123,unshared_2,2,independent model,train/IMG_24,low,160,-17,17,-10,-7,10,-8,8,-3,-5,3
+123,unshared_2,2,independent model,train/IMG_256,low,39,-4,4,-2,-2,2,-5,5,-2,-3,2
+123,unshared_2,2,independent model,train/IMG_28,high,814,-178,-178,-19,-159,19,-185,-185,-27,-158,27
+123,unshared_2,2,independent model,train/IMG_283,high,1427,-88,-88,-27,-61,27,-53,53,-10,-43,10
+123,unshared_2,2,independent model,train/IMG_288,low,317,-37,-37,-7,-30,7,-37,-37,-7,-30,7
+123,unshared_2,2,independent model,train/IMG_36,low,135,45,45,7,38,-7,32,32,2,30,-2
+123,unshared_2,2,independent model,train/IMG_70,low,418,-309,-309,-45,-264,45,-278,-278,-35,-243,35
+123,unshared_2,2,independent model,train/IMG_85,high,271,38,28,5,33,-5,26,-26,-1,27,1
+123,unshared_2,2,independent model,train/IMG_9,low,189,-4,-4,0,-4,0,-10,-10,-5,-5,5
+123,unshared_2,2,independent model,train/IMG_97,high,222,-15,15,-8,-7,8,-24,24,-7,-17,7
+2026,unshared_2,2,independent model,train/IMG_115,low,288,-31,31,-17,-14,17,-69,69,-29,-40,29
+2026,unshared_2,2,independent model,train/IMG_121,mid,156,-12,12,-4,-8,4,-33,33,-22,-11,22
+2026,unshared_2,2,independent model,train/IMG_134,mid,960,-77,77,-63,-14,63,-137,137,-101,-36,101
+2026,unshared_2,2,independent model,train/IMG_139,mid,212,6,-6,-4,10,4,-18,18,-14,-4,14
+2026,unshared_2,2,independent model,train/IMG_148,low,102,-1,1,2,-3,-2,-11,11,-4,-7,4
+2026,unshared_2,2,independent model,train/IMG_152,mid,442,27,21,-3,30,3,-56,56,-27,-29,27
+2026,unshared_2,2,independent model,train/IMG_161,low,81,-5,5,-7,2,7,-21,21,-13,-8,13
+2026,unshared_2,2,independent model,train/IMG_170,high,754,100,100,-4,104,4,-56,-56,-33,-23,33
+2026,unshared_2,2,independent model,train/IMG_180,high,468,16,-16,10,6,-10,-14,14,-13,-1,13
+2026,unshared_2,2,independent model,train/IMG_183,mid,600,67,67,-2,69,2,-167,-167,-28,-139,28
+2026,unshared_2,2,independent model,train/IMG_186,high,1655,547,547,158,389,-158,176,176,61,115,-61
+2026,unshared_2,2,independent model,train/IMG_187,mid,407,-4,-4,-14,10,14,-120,-120,-39,-81,39
+2026,unshared_2,2,independent model,train/IMG_189,high,498,165,165,26,139,-26,71,71,3,68,-3
+2026,unshared_2,2,independent model,train/IMG_19,high,707,4,4,-8,12,8,-146,-146,-35,-111,35
+2026,unshared_2,2,independent model,train/IMG_205,low,136,0,0,0,0,0,0,0,0,0,0
+2026,unshared_2,2,independent model,train/IMG_207,low,131,7,-7,5,2,-5,-8,8,-3,-5,3
+2026,unshared_2,2,independent model,train/IMG_208,mid,536,57,-57,23,34,-23,-12,12,-4,-8,4
+2026,unshared_2,2,independent model,train/IMG_219,high,426,16,-16,4,12,-4,-22,22,-8,-14,8
+2026,unshared_2,2,independent model,train/IMG_220,mid,305,-19,-3,-13,-6,13,-60,38,-28,-32,28
+2026,unshared_2,2,independent model,train/IMG_229,high,1321,158,-158,49,109,-49,-56,56,-25,-31,25
+2026,unshared_2,2,independent model,train/IMG_24,low,160,10,-10,2,8,-2,-12,12,-7,-5,7
+2026,unshared_2,2,independent model,train/IMG_256,low,39,0,0,1,-1,-1,-4,4,-1,-3,1
+2026,unshared_2,2,independent model,train/IMG_28,high,814,324,324,39,285,-39,119,119,4,115,-4
+2026,unshared_2,2,independent model,train/IMG_283,high,1427,135,135,11,124,-11,-166,-166,-83,-83,83
+2026,unshared_2,2,independent model,train/IMG_288,low,317,-4,-4,-5,1,5,-72,-72,-19,-53,19
+2026,unshared_2,2,independent model,train/IMG_36,low,135,44,44,9,35,-9,13,13,3,10,-3
+2026,unshared_2,2,independent model,train/IMG_70,low,418,293,293,32,261,-32,148,148,15,133,-15
+2026,unshared_2,2,independent model,train/IMG_85,high,271,43,-43,13,30,-13,5,-5,-1,6,1
+2026,unshared_2,2,independent model,train/IMG_9,low,189,16,16,2,14,-2,-11,7,-8,-3,8
+2026,unshared_2,2,independent model,train/IMG_97,high,222,16,-16,9,7,-9,-9,9,-7,-2,7
+42,cnn_only,0,independent model,train/IMG_115,low,288,-21,21,-11,-10,11,33,-33,14,19,-14
+42,cnn_only,0,independent model,train/IMG_121,mid,156,7,-7,8,-1,-8,30,-30,21,9,-21
+42,cnn_only,0,independent model,train/IMG_134,mid,960,-11,11,17,-28,-17,80,-80,70,10,-70
+42,cnn_only,0,independent model,train/IMG_139,mid,212,-35,35,-16,-19,16,-5,5,1,-6,-1
+42,cnn_only,0,independent model,train/IMG_148,low,102,16,-16,14,2,-14,28,-28,23,5,-23
+42,cnn_only,0,independent model,train/IMG_152,mid,442,-22,22,0,-22,0,45,-45,22,23,-22
+42,cnn_only,0,independent model,train/IMG_161,low,81,-3,3,3,-6,-3,14,-14,13,1,-13
+42,cnn_only,0,independent model,train/IMG_170,high,754,-51,-51,-16,-35,16,129,129,25,104,-25
+42,cnn_only,0,independent model,train/IMG_180,high,468,-39,39,-20,-19,20,8,-8,9,-1,-9
+42,cnn_only,0,independent model,train/IMG_183,mid,600,325,325,41,284,-41,510,510,67,443,-67
+42,cnn_only,0,independent model,train/IMG_186,high,1655,169,-119,72,97,-72,432,-382,168,264,-168
+42,cnn_only,0,independent model,train/IMG_187,mid,407,-54,-54,-1,-53,1,59,59,37,22,-37
+42,cnn_only,0,independent model,train/IMG_189,high,498,-111,-111,-15,-96,15,-32,-32,7,-39,-7
+42,cnn_only,0,independent model,train/IMG_19,high,707,81,81,14,67,-14,202,202,55,147,-55
+42,cnn_only,0,independent model,train/IMG_205,low,136,-3,3,-3,0,3,-2,2,-2,0,2
+42,cnn_only,0,independent model,train/IMG_207,low,131,-19,19,-10,-9,10,-2,2,-1,-1,1
+42,cnn_only,0,independent model,train/IMG_208,mid,536,-143,143,-52,-91,52,-54,54,-13,-41,13
+42,cnn_only,0,independent model,train/IMG_219,high,426,-59,59,-29,-30,29,-16,16,-12,-4,12
+42,cnn_only,0,independent model,train/IMG_220,mid,305,-125,-125,-23,-102,23,-57,-57,-9,-48,9
+42,cnn_only,0,independent model,train/IMG_229,high,1321,-214,214,-112,-102,112,-12,12,-8,-4,8
+42,cnn_only,0,independent model,train/IMG_24,low,160,-12,12,3,-15,-3,6,-6,8,-2,-8
+42,cnn_only,0,independent model,train/IMG_256,low,39,-17,-11,0,-17,0,-4,2,4,-8,-4
+42,cnn_only,0,independent model,train/IMG_28,high,814,-14,-14,-15,1,15,176,176,24,152,-24
+42,cnn_only,0,independent model,train/IMG_283,high,1427,-43,-43,46,-89,-46,226,-164,141,85,-141
+42,cnn_only,0,independent model,train/IMG_288,low,317,6,6,3,3,-3,64,64,16,48,-16
+42,cnn_only,0,independent model,train/IMG_36,low,135,-5,-5,2,-7,-2,23,23,6,17,-6
+42,cnn_only,0,independent model,train/IMG_70,low,418,-87,-87,-12,-75,12,50,50,13,37,-13
+42,cnn_only,0,independent model,train/IMG_85,high,271,16,16,13,3,-13,58,-2,28,30,-28
+42,cnn_only,0,independent model,train/IMG_9,low,189,-46,-28,-9,-37,9,2,-2,6,-4,-6
+42,cnn_only,0,independent model,train/IMG_97,high,222,-14,14,-2,-12,2,13,-13,8,5,-8
+123,cnn_only,0,independent model,train/IMG_115,low,288,-6,6,-12,6,12,-70,70,-29,-41,29
+123,cnn_only,0,independent model,train/IMG_121,mid,156,48,-48,35,13,-35,22,-22,23,-1,-23
+123,cnn_only,0,independent model,train/IMG_134,mid,960,-115,115,-37,-78,37,-181,181,-84,-97,84
+123,cnn_only,0,independent model,train/IMG_139,mid,212,-6,6,1,-7,-1,-36,36,-13,-23,13
+123,cnn_only,0,independent model,train/IMG_148,low,102,42,-42,30,12,-30,24,-24,20,4,-20
+123,cnn_only,0,independent model,train/IMG_152,mid,442,31,-31,23,8,-23,-50,50,-6,-44,6
+123,cnn_only,0,independent model,train/IMG_161,low,81,47,-1,20,27,-20,27,-21,16,11,-16
+123,cnn_only,0,independent model,train/IMG_170,high,754,51,51,8,43,-8,-109,-109,-27,-82,27
+123,cnn_only,0,independent model,train/IMG_180,high,468,51,-51,35,16,-35,4,-4,7,-3,-7
+123,cnn_only,0,independent model,train/IMG_183,mid,600,158,158,31,127,-31,-65,-65,-2,-63,2
+123,cnn_only,0,independent model,train/IMG_186,high,1655,322,322,100,222,-100,-24,-24,-8,-16,8
+123,cnn_only,0,independent model,train/IMG_187,mid,407,54,54,18,36,-18,-72,-72,-6,-66,6
+123,cnn_only,0,independent model,train/IMG_189,high,498,-37,-37,16,-53,-16,-131,-131,-6,-125,6
+123,cnn_only,0,independent model,train/IMG_19,high,707,183,183,50,133,-50,61,61,15,46,-15
+123,cnn_only,0,independent model,train/IMG_205,low,136,0,0,0,0,0,0,0,0,0,0
+123,cnn_only,0,independent model,train/IMG_207,low,131,24,-24,16,8,-16,1,-1,5,-4,-5
+123,cnn_only,0,independent model,train/IMG_208,mid,536,-28,28,11,-39,-11,-107,107,-25,-82,25
+123,cnn_only,0,independent model,train/IMG_219,high,426,126,-82,48,78,-48,83,-83,32,51,-32
+123,cnn_only,0,independent model,train/IMG_220,mid,305,-31,-31,15,-46,-15,-84,-84,3,-87,-3
+123,cnn_only,0,independent model,train/IMG_229,high,1321,-20,20,4,-24,-4,-255,255,-96,-159,96
+123,cnn_only,0,independent model,train/IMG_24,low,160,-19,19,-7,-12,7,-30,30,-9,-21,9
+123,cnn_only,0,independent model,train/IMG_256,low,39,5,-5,5,0,-5,-5,5,-3,-2,3
+123,cnn_only,0,independent model,train/IMG_28,high,814,251,251,29,222,-29,46,46,-3,49,3
+123,cnn_only,0,independent model,train/IMG_283,high,1427,109,109,96,13,-96,-144,94,0,-144,0
+123,cnn_only,0,independent model,train/IMG_288,low,317,25,25,10,15,-10,-42,-42,-6,-36,6
+123,cnn_only,0,independent model,train/IMG_36,low,135,-14,-14,-3,-11,3,-53,-53,-13,-40,13
+123,cnn_only,0,independent model,train/IMG_70,low,418,6,6,-2,8,2,-152,-152,-15,-137,15
+123,cnn_only,0,independent model,train/IMG_85,high,271,66,0,25,41,-25,19,-19,9,10,-9
+123,cnn_only,0,independent model,train/IMG_9,low,189,36,36,14,22,-14,-9,-9,1,-10,-1
+123,cnn_only,0,independent model,train/IMG_97,high,222,60,-60,34,26,-34,33,-33,25,8,-25
+2026,cnn_only,0,independent model,train/IMG_115,low,288,-22,22,-33,11,33,4,-4,-20,24,20
+2026,cnn_only,0,independent model,train/IMG_121,mid,156,11,-11,15,-4,-15,9,-9,9,0,-9
+2026,cnn_only,0,independent model,train/IMG_134,mid,960,-201,201,-103,-98,103,-168,168,-94,-74,94
+2026,cnn_only,0,independent model,train/IMG_139,mid,212,15,-15,5,10,-5,13,-13,7,6,-7
+2026,cnn_only,0,independent model,train/IMG_148,low,102,6,-6,7,-1,-7,8,-8,11,-3,-11
+2026,cnn_only,0,independent model,train/IMG_152,mid,442,60,-12,38,22,-38,44,-44,30,14,-30
+2026,cnn_only,0,independent model,train/IMG_161,low,81,6,-6,1,5,-1,2,-2,-1,3,1
+2026,cnn_only,0,independent model,train/IMG_170,high,754,-107,-107,-17,-90,17,-105,-105,-14,-91,14
+2026,cnn_only,0,independent model,train/IMG_180,high,468,-30,30,-21,-9,21,-42,42,-32,-10,32
+2026,cnn_only,0,independent model,train/IMG_183,mid,600,257,257,33,224,-33,226,226,44,182,-44
+2026,cnn_only,0,independent model,train/IMG_186,high,1655,-16,-16,43,-59,-43,-22,-22,36,-58,-36
+2026,cnn_only,0,independent model,train/IMG_187,mid,407,56,56,12,44,-12,38,38,15,23,-15
+2026,cnn_only,0,independent model,train/IMG_189,high,498,-23,-23,12,-35,-12,-33,-33,7,-40,-7
+2026,cnn_only,0,independent model,train/IMG_19,high,707,236,236,41,195,-41,179,179,42,137,-42
+2026,cnn_only,0,independent model,train/IMG_205,low,136,-2,2,-1,-1,1,-2,2,-1,-1,1
+2026,cnn_only,0,independent model,train/IMG_207,low,131,9,-9,8,1,-8,0,0,1,-1,-1
+2026,cnn_only,0,independent model,train/IMG_208,mid,536,-47,47,5,-52,-5,-48,48,1,-49,-1
+2026,cnn_only,0,independent model,train/IMG_219,high,426,46,-46,25,21,-25,40,-40,32,8,-32
+2026,cnn_only,0,independent model,train/IMG_220,mid,305,-109,-93,-23,-86,23,-103,-5,-27,-76,27
+2026,cnn_only,0,independent model,train/IMG_229,high,1321,-90,90,-29,-61,29,-66,66,-12,-54,12
+2026,cnn_only,0,independent model,train/IMG_24,low,160,9,-9,3,6,-3,4,-4,-1,5,1
+2026,cnn_only,0,independent model,train/IMG_256,low,39,-12,12,-1,-11,1,-9,9,-1,-8,1
+2026,cnn_only,0,independent model,train/IMG_28,high,814,108,108,12,96,-12,89,89,1,88,-1
+2026,cnn_only,0,independent model,train/IMG_283,high,1427,237,237,116,121,-116,186,0,108,78,-108
+2026,cnn_only,0,independent model,train/IMG_288,low,317,28,28,7,21,-7,15,15,-1,16,1
+2026,cnn_only,0,independent model,train/IMG_36,low,135,3,3,-3,6,3,0,0,-1,1,1
+2026,cnn_only,0,independent model,train/IMG_70,low,418,58,58,6,52,-6,53,53,5,48,-5
+2026,cnn_only,0,independent model,train/IMG_85,high,271,60,-60,30,30,-30,47,-47,24,23,-24
+2026,cnn_only,0,independent model,train/IMG_9,low,189,-63,-63,-12,-51,12,-51,-33,-13,-38,13
+2026,cnn_only,0,independent model,train/IMG_97,high,222,46,-46,31,15,-31,31,-31,21,10,-21
+42,shared_2,1,same checkpoint prefix,train/IMG_115,low,288,-402,-232,-26,-376,26,-86,84,18,-104,-18
+42,shared_2,1,same checkpoint prefix,train/IMG_121,mid,156,16,-16,17,-1,-17,65,-65,47,18,-47
+42,shared_2,1,same checkpoint prefix,train/IMG_134,mid,960,-26,26,32,-58,-32,263,-263,194,69,-194
+42,shared_2,1,same checkpoint prefix,train/IMG_139,mid,212,-116,86,-37,-79,37,-17,17,1,-18,-1
+42,shared_2,1,same checkpoint prefix,train/IMG_148,low,102,-81,-15,-14,-67,14,3,-3,16,-13,-16
+42,shared_2,1,same checkpoint prefix,train/IMG_152,mid,442,-401,-197,-66,-335,66,-114,90,-24,-90,24
+42,shared_2,1,same checkpoint prefix,train/IMG_161,low,81,-23,-13,7,-30,-7,39,-39,26,13,-26
+42,shared_2,1,same checkpoint prefix,train/IMG_170,high,754,-354,-354,-60,-294,60,186,186,33,153,-33
+42,shared_2,1,same checkpoint prefix,train/IMG_180,high,468,-192,192,-108,-84,108,-6,6,-9,3,9
+42,shared_2,1,same checkpoint prefix,train/IMG_183,mid,600,-584,-584,-61,-523,61,170,170,18,152,-18
+42,shared_2,1,same checkpoint prefix,train/IMG_186,high,1655,552,-502,225,327,-225,1087,-1037,549,538,-549
+42,shared_2,1,same checkpoint prefix,train/IMG_187,mid,407,-578,-578,-29,-549,29,-81,-81,29,-110,-29
+42,shared_2,1,same checkpoint prefix,train/IMG_189,high,498,4,4,-4,8,4,305,255,85,220,-85
+42,shared_2,1,same checkpoint prefix,train/IMG_19,high,707,-586,-586,-93,-493,93,-186,-186,-37,-149,37
+42,shared_2,1,same checkpoint prefix,train/IMG_205,low,136,-4,4,-1,-3,1,-2,2,0,-2,0
+42,shared_2,1,same checkpoint prefix,train/IMG_207,low,131,-123,57,-25,-98,25,-45,45,-4,-41,4
+42,shared_2,1,same checkpoint prefix,train/IMG_208,mid,536,-501,-5,-141,-360,141,-144,144,-42,-102,42
+42,shared_2,1,same checkpoint prefix,train/IMG_219,high,426,-137,37,-61,-76,61,45,-45,3,42,-3
+42,shared_2,1,same checkpoint prefix,train/IMG_220,mid,305,-322,-322,-37,-285,37,-117,-117,-13,-104,13
+42,shared_2,1,same checkpoint prefix,train/IMG_229,high,1321,-75,75,-37,-38,37,319,-319,181,138,-181
+42,shared_2,1,same checkpoint prefix,train/IMG_24,low,160,-260,-108,-36,-224,36,-89,63,-14,-75,14
+42,shared_2,1,same checkpoint prefix,train/IMG_256,low,39,-32,-26,-3,-29,3,3,-3,7,-4,-7
+42,shared_2,1,same checkpoint prefix,train/IMG_28,high,814,330,330,39,291,-39,965,965,213,752,-213
+42,shared_2,1,same checkpoint prefix,train/IMG_283,high,1427,73,-11,63,10,-63,759,-697,432,327,-432
+42,shared_2,1,same checkpoint prefix,train/IMG_288,low,317,-439,-439,-48,-391,48,-190,-190,-24,-166,24
+42,shared_2,1,same checkpoint prefix,train/IMG_36,low,135,-265,-265,-14,-251,14,-123,-123,-6,-117,6
+42,shared_2,1,same checkpoint prefix,train/IMG_70,low,418,-861,-861,-64,-797,64,-268,-268,-22,-246,22
+42,shared_2,1,same checkpoint prefix,train/IMG_85,high,271,-25,-25,2,-27,-2,127,-71,48,79,-48
+42,shared_2,1,same checkpoint prefix,train/IMG_9,low,189,-410,-392,-49,-361,49,-165,-147,-23,-142,23
+42,shared_2,1,same checkpoint prefix,train/IMG_97,high,222,-79,79,-23,-56,23,20,-20,26,-6,-26
+123,shared_2,1,same checkpoint prefix,train/IMG_115,low,288,-230,-182,11,-241,-11,33,-33,53,-20,-53
+123,shared_2,1,same checkpoint prefix,train/IMG_121,mid,156,44,-44,26,18,-26,73,-73,56,17,-56
+123,shared_2,1,same checkpoint prefix,train/IMG_134,mid,960,3,-3,35,-32,-35,145,-145,130,15,-130
+123,shared_2,1,same checkpoint prefix,train/IMG_139,mid,212,-63,63,-10,-53,10,27,-27,25,2,-25
+123,shared_2,1,same checkpoint prefix,train/IMG_148,low,102,-8,8,14,-22,-14,54,-54,41,13,-41
+123,shared_2,1,same checkpoint prefix,train/IMG_152,mid,442,-354,-174,-38,-316,38,-96,96,-1,-95,1
+123,shared_2,1,same checkpoint prefix,train/IMG_161,low,81,13,13,11,2,-11,61,-55,34,27,-34
+123,shared_2,1,same checkpoint prefix,train/IMG_170,high,754,-444,-444,-40,-404,40,83,83,23,60,-23
+123,shared_2,1,same checkpoint prefix,train/IMG_180,high,468,-136,136,-59,-77,59,50,-50,35,15,-35
+123,shared_2,1,same checkpoint prefix,train/IMG_183,mid,600,-771,-771,-24,-747,24,14,14,23,-9,-23
+123,shared_2,1,same checkpoint prefix,train/IMG_186,high,1655,821,-31,303,518,-303,1148,-1050,580,568,-580
+123,shared_2,1,same checkpoint prefix,train/IMG_187,mid,407,-416,-416,2,-418,-2,59,59,64,-5,-64
+123,shared_2,1,same checkpoint prefix,train/IMG_189,high,498,-320,-320,-36,-284,36,67,67,25,42,-25
+123,shared_2,1,same checkpoint prefix,train/IMG_19,high,707,-685,-685,-79,-606,79,-269,-269,-47,-222,47
+123,shared_2,1,same checkpoint prefix,train/IMG_205,low,136,-2,2,-1,-1,1,0,0,0,0,0
+123,shared_2,1,same checkpoint prefix,train/IMG_207,low,131,-139,-37,-7,-132,7,-34,34,4,-38,-4
+123,shared_2,1,same checkpoint prefix,train/IMG_208,mid,536,-445,-139,-84,-361,84,-115,115,-6,-109,6
+123,shared_2,1,same checkpoint prefix,train/IMG_219,high,426,-236,-236,-68,-168,68,-33,9,-23,-10,23
+123,shared_2,1,same checkpoint prefix,train/IMG_220,mid,305,-316,-316,-7,-309,7,-103,-103,11,-114,-11
+123,shared_2,1,same checkpoint prefix,train/IMG_229,high,1321,133,-133,66,67,-66,494,-494,251,243,-251
+123,shared_2,1,same checkpoint prefix,train/IMG_24,low,160,-262,-62,-47,-215,47,-77,77,-17,-60,17
+123,shared_2,1,same checkpoint prefix,train/IMG_256,low,39,-30,-4,-3,-27,3,1,-1,3,-2,-3
+123,shared_2,1,same checkpoint prefix,train/IMG_28,high,814,90,90,5,85,-5,836,836,162,674,-162
+123,shared_2,1,same checkpoint prefix,train/IMG_283,high,1427,282,-14,172,110,-172,833,-833,549,284,-549
+123,shared_2,1,same checkpoint prefix,train/IMG_288,low,317,-465,-465,-32,-433,32,-245,-245,-15,-230,15
+123,shared_2,1,same checkpoint prefix,train/IMG_36,low,135,-293,-293,-16,-277,16,-137,-137,-11,-126,11
+123,shared_2,1,same checkpoint prefix,train/IMG_70,low,418,-757,-757,-42,-715,42,-197,-197,-5,-192,5
+123,shared_2,1,same checkpoint prefix,train/IMG_85,high,271,-77,-77,-4,-73,4,90,-90,46,44,-46
+123,shared_2,1,same checkpoint prefix,train/IMG_9,low,189,-568,-568,-24,-544,24,-262,-262,-12,-250,12
+123,shared_2,1,same checkpoint prefix,train/IMG_97,high,222,-62,62,-6,-56,6,30,-30,32,-2,-32
+2026,shared_2,1,same checkpoint prefix,train/IMG_115,low,288,-107,21,18,-125,-18,12,-12,43,-31,-43
+2026,shared_2,1,same checkpoint prefix,train/IMG_121,mid,156,45,-45,34,11,-34,44,-44,33,11,-33
+2026,shared_2,1,same checkpoint prefix,train/IMG_134,mid,960,43,-43,50,-7,-50,101,-101,97,4,-97
+2026,shared_2,1,same checkpoint prefix,train/IMG_139,mid,212,-9,9,5,-14,-5,34,-34,24,10,-24
+2026,shared_2,1,same checkpoint prefix,train/IMG_148,low,102,12,-12,15,-3,-15,31,-31,29,2,-29
+2026,shared_2,1,same checkpoint prefix,train/IMG_152,mid,442,-227,-227,-14,-213,14,-69,49,4,-73,-4
+2026,shared_2,1,same checkpoint prefix,train/IMG_161,low,81,19,-19,8,11,-8,24,-24,13,11,-13
+2026,shared_2,1,same checkpoint prefix,train/IMG_170,high,754,-489,-489,-53,-436,53,-127,-127,-19,-108,19
+2026,shared_2,1,same checkpoint prefix,train/IMG_180,high,468,-287,287,-133,-154,133,-146,146,-92,-54,92
+2026,shared_2,1,same checkpoint prefix,train/IMG_183,mid,600,-626,-626,-28,-598,28,-151,-151,2,-153,-2
+2026,shared_2,1,same checkpoint prefix,train/IMG_186,high,1655,-67,-67,-14,-53,14,489,233,146,343,-146
+2026,shared_2,1,same checkpoint prefix,train/IMG_187,mid,407,-329,-329,4,-333,-4,-90,-90,33,-123,-33
+2026,shared_2,1,same checkpoint prefix,train/IMG_189,high,498,-387,-387,-69,-318,69,-151,-151,-29,-122,29
+2026,shared_2,1,same checkpoint prefix,train/IMG_19,high,707,-407,-407,-40,-367,40,-100,-100,-12,-88,12
+2026,shared_2,1,same checkpoint prefix,train/IMG_205,low,136,0,0,0,0,0,0,0,0,0,0
+2026,shared_2,1,same checkpoint prefix,train/IMG_207,low,131,-61,61,-8,-53,8,-25,25,-5,-20,5
+2026,shared_2,1,same checkpoint prefix,train/IMG_208,mid,536,-257,67,-56,-201,56,-83,83,-3,-80,3
+2026,shared_2,1,same checkpoint prefix,train/IMG_219,high,426,-267,-49,-94,-173,94,-132,132,-62,-70,62
+2026,shared_2,1,same checkpoint prefix,train/IMG_220,mid,305,-263,-247,-32,-231,32,-135,-37,-11,-124,11
+2026,shared_2,1,same checkpoint prefix,train/IMG_229,high,1321,-965,-243,-296,-669,296,-341,341,-134,-207,134
+2026,shared_2,1,same checkpoint prefix,train/IMG_24,low,160,-78,52,-1,-77,1,-28,28,9,-37,-9
+2026,shared_2,1,same checkpoint prefix,train/IMG_256,low,39,-2,2,4,-6,-4,10,-10,11,-1,-11
+2026,shared_2,1,same checkpoint prefix,train/IMG_28,high,814,-141,-141,-20,-121,20,246,246,39,207,-39
+2026,shared_2,1,same checkpoint prefix,train/IMG_283,high,1427,101,101,92,9,-92,535,-349,289,246,-289
+2026,shared_2,1,same checkpoint prefix,train/IMG_288,low,317,-203,-203,-14,-189,14,-90,-90,-7,-83,7
+2026,shared_2,1,same checkpoint prefix,train/IMG_36,low,135,-217,-217,-15,-202,15,-120,-120,-8,-112,8
+2026,shared_2,1,same checkpoint prefix,train/IMG_70,low,418,-383,-383,-27,-356,27,-7,-7,12,-19,-12
+2026,shared_2,1,same checkpoint prefix,train/IMG_85,high,271,-115,-41,-20,-95,20,-34,34,-2,-32,2
+2026,shared_2,1,same checkpoint prefix,train/IMG_9,low,189,-160,-160,-18,-142,18,-42,-24,4,-46,-4
+2026,shared_2,1,same checkpoint prefix,train/IMG_97,high,222,8,-8,24,-16,-24,45,-45,36,9,-36
+42,shared_2,0,same checkpoint prefix,train/IMG_115,low,288,15,-15,59,-44,-59,-49,49,39,-88,-39
+42,shared_2,0,same checkpoint prefix,train/IMG_121,mid,156,-44,44,19,-63,-19,-77,45,6,-83,-6
+42,shared_2,0,same checkpoint prefix,train/IMG_134,mid,960,74,-74,144,-70,-144,-47,47,95,-142,-95
+42,shared_2,0,same checkpoint prefix,train/IMG_139,mid,212,-45,45,0,-45,0,-100,100,-19,-81,19
+42,shared_2,0,same checkpoint prefix,train/IMG_148,low,102,-164,-98,-8,-156,8,-235,-169,-16,-219,16
+42,shared_2,0,same checkpoint prefix,train/IMG_152,mid,442,-24,24,-13,-11,13,-101,101,-39,-62,39
+42,shared_2,0,same checkpoint prefix,train/IMG_161,low,81,-48,-38,5,-53,-5,-81,-71,-2,-79,2
+42,shared_2,0,same checkpoint prefix,train/IMG_170,high,754,649,3,177,472,-177,545,107,126,419,-126
+42,shared_2,0,same checkpoint prefix,train/IMG_180,high,468,-68,68,-39,-29,39,-136,136,-74,-62,74
+42,shared_2,0,same checkpoint prefix,train/IMG_183,mid,600,732,732,111,621,-111,576,576,70,506,-70
+42,shared_2,0,same checkpoint prefix,train/IMG_186,high,1655,839,-789,384,455,-384,685,-635,298,387,-298
+42,shared_2,0,same checkpoint prefix,train/IMG_187,mid,407,164,100,115,49,-115,67,67,88,-21,-88
+42,shared_2,0,same checkpoint prefix,train/IMG_189,high,498,285,275,88,197,-88,201,201,65,136,-65
+42,shared_2,0,same checkpoint prefix,train/IMG_19,high,707,713,191,292,421,-292,587,317,248,339,-248
+42,shared_2,0,same checkpoint prefix,train/IMG_205,low,136,-54,54,-24,-30,24,-84,84,-31,-53,31
+42,shared_2,0,same checkpoint prefix,train/IMG_207,low,131,-214,-34,-41,-173,41,-287,-107,-55,-232,55
+42,shared_2,0,same checkpoint prefix,train/IMG_208,mid,536,-60,60,37,-97,-37,-150,150,5,-155,-5
+42,shared_2,0,same checkpoint prefix,train/IMG_219,high,426,-84,84,-46,-38,46,-137,37,-55,-82,55
+42,shared_2,0,same checkpoint prefix,train/IMG_220,mid,305,-148,-148,22,-170,-22,-244,-244,8,-252,-8
+42,shared_2,0,same checkpoint prefix,train/IMG_229,high,1321,227,-227,111,116,-111,113,-113,46,67,-46
+42,shared_2,0,same checkpoint prefix,train/IMG_24,low,160,-110,42,7,-117,-7,-180,-28,-4,-176,4
+42,shared_2,0,same checkpoint prefix,train/IMG_256,low,39,-30,-24,13,-43,-13,-58,-52,7,-65,-7
+42,shared_2,0,same checkpoint prefix,train/IMG_28,high,814,1307,775,311,996,-311,1195,887,270,925,-270
+42,shared_2,0,same checkpoint prefix,train/IMG_283,high,1427,741,-679,481,260,-481,537,-475,368,169,-368
+42,shared_2,0,same checkpoint prefix,train/IMG_288,low,317,13,13,34,-21,-34,-77,-77,17,-94,-17
+42,shared_2,0,same checkpoint prefix,train/IMG_36,low,135,-4,-4,14,-18,-14,-61,-61,0,-61,0
+42,shared_2,0,same checkpoint prefix,train/IMG_70,low,418,460,460,104,356,-104,354,354,65,289,-65
+42,shared_2,0,same checkpoint prefix,train/IMG_85,high,271,-30,-30,-2,-28,2,-89,-89,-17,-72,17
+42,shared_2,0,same checkpoint prefix,train/IMG_9,low,189,-74,-56,11,-85,-11,-132,-114,-4,-128,4
+42,shared_2,0,same checkpoint prefix,train/IMG_97,high,222,-49,49,0,-49,0,-86,86,-13,-73,13
+123,shared_2,0,same checkpoint prefix,train/IMG_115,low,288,133,-133,85,48,-85,10,-10,53,-43,-53
+123,shared_2,0,same checkpoint prefix,train/IMG_121,mid,156,-22,22,18,-40,-18,-85,61,-8,-77,8
+123,shared_2,0,same checkpoint prefix,train/IMG_134,mid,960,-85,85,39,-124,-39,-292,292,-67,-225,67
+123,shared_2,0,same checkpoint prefix,train/IMG_139,mid,212,1,-1,18,-17,-18,-86,86,-17,-69,17
+123,shared_2,0,same checkpoint prefix,train/IMG_148,low,102,-144,-122,-9,-135,9,-231,-173,-24,-207,24
+123,shared_2,0,same checkpoint prefix,train/IMG_152,mid,442,11,-11,11,0,-11,-150,150,-45,-105,45
+123,shared_2,0,same checkpoint prefix,train/IMG_161,low,81,-9,-9,6,-15,-6,-72,-72,-6,-66,6
+123,shared_2,0,same checkpoint prefix,train/IMG_170,high,754,755,-17,230,525,-230,491,-73,146,345,-146
+123,shared_2,0,same checkpoint prefix,train/IMG_180,high,468,65,-65,50,15,-50,-40,40,-5,-35,5
+123,shared_2,0,same checkpoint prefix,train/IMG_183,mid,600,1045,1045,146,899,-146,673,673,75,598,-75
+123,shared_2,0,same checkpoint prefix,train/IMG_186,high,1655,1422,-632,655,767,-655,923,-825,446,477,-446
+123,shared_2,0,same checkpoint prefix,train/IMG_187,mid,407,436,190,165,271,-165,225,149,117,108,-117
+123,shared_2,0,same checkpoint prefix,train/IMG_189,high,498,421,261,129,292,-129,240,240,82,158,-82
+123,shared_2,0,same checkpoint prefix,train/IMG_19,high,707,853,267,330,523,-330,630,246,266,364,-266
+123,shared_2,0,same checkpoint prefix,train/IMG_205,low,136,-82,82,-30,-52,30,-106,106,-34,-72,34
+123,shared_2,0,same checkpoint prefix,train/IMG_207,low,131,-152,-50,-23,-129,23,-244,-96,-46,-198,46
+123,shared_2,0,same checkpoint prefix,train/IMG_208,mid,536,44,-44,83,-39,-83,-123,123,14,-137,-14
+123,shared_2,0,same checkpoint prefix,train/IMG_219,high,426,50,-6,17,33,-17,-47,-5,-21,-26,21
+123,shared_2,0,same checkpoint prefix,train/IMG_220,mid,305,-5,-5,49,-54,-49,-149,-149,27,-176,-27
+123,shared_2,0,same checkpoint prefix,train/IMG_229,high,1321,739,-739,362,377,-362,417,-417,210,207,-210
+123,shared_2,0,same checkpoint prefix,train/IMG_24,low,160,-102,98,0,-102,0,-161,61,-10,-151,10
+123,shared_2,0,same checkpoint prefix,train/IMG_256,low,39,-49,-23,-2,-47,2,-85,-39,-14,-71,14
+123,shared_2,0,same checkpoint prefix,train/IMG_28,high,814,1665,947,398,1267,-398,1352,850,322,1030,-322
+123,shared_2,0,same checkpoint prefix,train/IMG_283,high,1427,989,-721,611,378,-611,548,-548,404,144,-404
+123,shared_2,0,same checkpoint prefix,train/IMG_288,low,317,98,98,51,47,-51,-57,-57,9,-66,-9
+123,shared_2,0,same checkpoint prefix,train/IMG_36,low,135,-51,-51,-9,-42,9,-147,-147,-30,-117,30
+123,shared_2,0,same checkpoint prefix,train/IMG_70,low,418,625,625,96,529,-96,357,357,54,303,-54
+123,shared_2,0,same checkpoint prefix,train/IMG_85,high,271,37,29,25,12,-25,-70,-42,-16,-54,16
+123,shared_2,0,same checkpoint prefix,train/IMG_9,low,189,27,27,31,-4,-31,-74,-74,4,-78,-4
+123,shared_2,0,same checkpoint prefix,train/IMG_97,high,222,-13,13,13,-26,-13,-91,91,-12,-79,12
+2026,shared_2,0,same checkpoint prefix,train/IMG_115,low,288,107,-107,68,39,-68,35,-35,47,-12,-47
+2026,shared_2,0,same checkpoint prefix,train/IMG_121,mid,156,3,-3,35,-32,-35,-37,37,9,-46,-9
+2026,shared_2,0,same checkpoint prefix,train/IMG_134,mid,960,-32,32,43,-75,-43,-184,184,-34,-150,34
+2026,shared_2,0,same checkpoint prefix,train/IMG_139,mid,212,49,-49,35,14,-35,0,0,17,-17,-17
+2026,shared_2,0,same checkpoint prefix,train/IMG_148,low,102,-103,-19,-8,-95,8,-152,-48,-25,-127,25
+2026,shared_2,0,same checkpoint prefix,train/IMG_152,mid,442,137,-89,47,90,-47,5,-5,2,3,-2
+2026,shared_2,0,same checkpoint prefix,train/IMG_161,low,81,-16,16,-3,-13,3,-65,1,-15,-50,15
+2026,shared_2,0,same checkpoint prefix,train/IMG_170,high,754,825,65,237,588,-237,577,1,158,419,-158
+2026,shared_2,0,same checkpoint prefix,train/IMG_180,high,468,-65,65,-34,-31,34,-134,134,-80,-54,80
+2026,shared_2,0,same checkpoint prefix,train/IMG_183,mid,600,860,860,115,745,-115,478,478,56,422,-56
+2026,shared_2,0,same checkpoint prefix,train/IMG_186,high,1655,1394,70,525,869,-525,870,-148,346,524,-346
+2026,shared_2,0,same checkpoint prefix,train/IMG_187,mid,407,387,33,163,224,-163,212,-24,116,96,-116
+2026,shared_2,0,same checkpoint prefix,train/IMG_189,high,498,331,113,106,225,-106,172,84,61,111,-61
+2026,shared_2,0,same checkpoint prefix,train/IMG_19,high,707,970,448,328,642,-328,730,388,262,468,-262
+2026,shared_2,0,same checkpoint prefix,train/IMG_205,low,136,-40,40,-17,-23,17,-50,50,-20,-30,20
+2026,shared_2,0,same checkpoint prefix,train/IMG_207,low,131,-144,26,-32,-112,32,-212,-12,-53,-159,53
+2026,shared_2,0,same checkpoint prefix,train/IMG_208,mid,536,84,-84,81,3,-81,-66,66,29,-95,-29
+2026,shared_2,0,same checkpoint prefix,train/IMG_219,high,426,-12,12,-9,-3,9,-98,98,-42,-56,42
+2026,shared_2,0,same checkpoint prefix,train/IMG_220,mid,305,-67,-51,28,-95,-28,-190,-92,-6,-184,6
+2026,shared_2,0,same checkpoint prefix,train/IMG_229,high,1321,507,-507,216,291,-216,176,-176,88,88,-88
+2026,shared_2,0,same checkpoint prefix,train/IMG_24,low,160,-32,32,16,-48,-16,-85,85,4,-89,-4
+2026,shared_2,0,same checkpoint prefix,train/IMG_256,low,39,-11,11,9,-20,-9,-28,6,3,-31,-3
+2026,shared_2,0,same checkpoint prefix,train/IMG_28,high,814,1570,992,350,1220,-350,1255,897,279,976,-279
+2026,shared_2,0,same checkpoint prefix,train/IMG_283,high,1427,1184,-396,616,568,-616,714,-528,428,286,-428
+2026,shared_2,0,same checkpoint prefix,train/IMG_288,low,317,203,165,67,136,-67,80,80,37,43,-37
+2026,shared_2,0,same checkpoint prefix,train/IMG_36,low,135,-7,-7,-3,-4,3,-84,-84,-13,-71,13
+2026,shared_2,0,same checkpoint prefix,train/IMG_70,low,418,868,796,162,706,-162,629,629,121,508,-121
+2026,shared_2,0,same checkpoint prefix,train/IMG_85,high,271,41,-41,25,16,-25,-45,45,-7,-38,7
+2026,shared_2,0,same checkpoint prefix,train/IMG_9,low,189,36,0,31,5,-31,-30,-12,11,-41,-11
+2026,shared_2,0,same checkpoint prefix,train/IMG_97,high,222,19,-19,34,-15,-34,-34,34,4,-38,-4
