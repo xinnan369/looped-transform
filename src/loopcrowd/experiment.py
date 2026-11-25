@@ -27,6 +27,7 @@ DEFAULT_CONFIG = {
     "fixed_training_horizon": False,
     "backbone_bn": "train",
     "early_loss_weight": None,
+    "audit_training": False,
 }
 
 
@@ -42,10 +43,12 @@ def read_config(path, variant=None):
         raise ValueError("unknown model variant")
     early = config["early_loss_weight"]
     if early is not None and (
-        config["variant"] != "shared_2" or type(early) not in (int, float)
+        config["variant"] not in ("shared_2", "unshared_2") or type(early) not in (int, float)
         or not math.isfinite(early) or early < 0
     ):
-        raise ValueError("early_loss_weight requires shared_2 and a finite nonnegative value")
+        raise ValueError("early_loss_weight requires a fixed-window two-call model and a finite nonnegative value")
+    if type(config["audit_training"]) is not bool:
+        raise ValueError("audit_training must be a boolean")
     for name in ("slots", "tile_size", "batch_size", "epochs"):
         if type(config[name]) is not int or config[name] < 1:
             raise ValueError(f"{name} must be a positive integer")
@@ -104,10 +107,12 @@ def file_sha(path):
     return digest.hexdigest()
 
 
-def state_sha(model):
+def state_sha(model, *, prefixes=None):
     """Hash the exact tensor contents, including buffers, independent of checkpoint packaging."""
     digest = hashlib.sha256()
     for name, value in sorted(model.state_dict().items()):
+        if prefixes is not None and not name.startswith(prefixes):
+            continue
         tensor = value.detach().cpu().contiguous()
         header = json.dumps([name, str(tensor.dtype), tuple(tensor.shape)], separators=(",", ":"))
         digest.update(header.encode("utf-8") + b"\n")

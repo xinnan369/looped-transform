@@ -47,6 +47,11 @@ def audit_arm(config, train, manifest, device):
     seed_all(config["seed"])
     model = make_model(config, initialize=True)
     init_sha = state_sha(model)
+    common_sha = state_sha(model, prefixes=("p2.", "p3.", "project.", "fuse.", "point_logits.", "point_offsets."))
+    block_hashes = [state_sha(block) for block in model.blocks]
+    block_parameters = [set(map(id, block.parameters())) for block in model.blocks]
+    if sum(map(len, block_parameters)) != len(set().union(*block_parameters)):
+        raise ValueError("independent blocks share parameter objects")
     model.to(device).train()
     optimizer = optimizer_for(model, config)
     scaler = gpu_scaler(device, config["precision"])
@@ -64,10 +69,13 @@ def audit_arm(config, train, manifest, device):
     images = images.to(device)
     target = {key: value.to(device) for key, value in labels.items()}
     seen = {}
-    watched = {
-        "shared_block": model.blocks[0], "fuse": model.fuse,
-        "point_logits": model.point_logits, "point_offsets": model.point_offsets,
-    }
+    watched = {"fuse": model.fuse, "point_logits": model.point_logits, "point_offsets": model.point_offsets}
+    decoder_calls = 2 if config["early_loss_weight"] is not None else 1
+    expected_calls = dict.fromkeys(watched, decoder_calls)
+    for index, block in enumerate(model.blocks, 1):
+        name = "shared_block" if model.shared else f"independent_block_{index}"
+        watched[name] = block
+        expected_calls[name] = model.loops if model.shared else 1
     handles = [module.register_forward_pre_hook(
         lambda module, _, key=key: seen.setdefault(key, []).append(id(module))
     ) for key, module in watched.items()]
@@ -82,7 +90,7 @@ def audit_arm(config, train, manifest, device):
         handle.remove()
     calls = {key: {"calls": len(ids), "unique_objects": len(set(ids))} for key, ids in seen.items()}
     assert calls.keys() == watched.keys()
-    assert all(value == {"calls": 2, "unique_objects": 1} for value in calls.values())
+    assert all(value == {"calls": expected_calls[key], "unique_objects": 1} for key, value in calls.items())
     assert torch.isfinite(loss)
     warm_peak = torch.cuda.max_memory_allocated(device)
     warm_reserved = torch.cuda.max_memory_reserved(device)
@@ -96,6 +104,7 @@ def audit_arm(config, train, manifest, device):
         assert torch.isfinite(value)
     return {
         "config": config, "config_sha256": json_digest(config), "initial_state_sha256": init_sha,
+        "common_initializer_sha256": common_sha, "block_initializer_sha256": block_hashes,
         "autograd_graph_sha256": signature,
         "parameters": sum(parameter.numel() for parameter in model.parameters()),
         "calls": calls, "probe_crop_index_left_top": crop_probe,

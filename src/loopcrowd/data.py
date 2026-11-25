@@ -54,6 +54,6 @@ class TrainingCrops(Dataset):
             crop_points(points, left, top, size), size, size, self.config["slots"],
             valid_width=width, valid_height=height,
         )
-        if self.config.get("early_loss_weight") is not None:
+        if self.config.get("early_loss_weight") is not None or self.config.get("audit_training"):
             target["crop_identity"] = torch.tensor([index, left, top])
         return tile, target

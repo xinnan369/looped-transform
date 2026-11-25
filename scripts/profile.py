@@ -103,7 +103,7 @@ def main():
     sample_size = None
     sample = images[:1]
     if args.manifest:
-        record = next(record for record in read_manifest(args.manifest) if record.split == "val")
+        record = read_manifest(args.manifest, splits=("val",))[0]
         with load_rgb(record, args.manifest.parent) as image:
             sample_size = list(image.size)
             sample = image_tile(image, 0, 0, size)[0][None].to(device)
