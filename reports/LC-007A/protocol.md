@@ -30,4 +30,13 @@ source artifacts/lc002-env.sh
 python -m scripts.run_lc007a --output "$HOME/loopcrowd-lc007a"
 ```
 
-After the run, use the tracked archival tool against that local directory. New optimizer updates, threshold fits and official test passes are zero. External experiment downloads, dependency installation, and NWPU/WiderPerson activity are out of scope.
+The first command activates the existing `~/.venvs/sigma-r1-cu121` and exports `PYTHONPATH="$PWD/src:$HOME/loopcrowd-lc002/deps"`, `TORCH_HOME="$HOME/loopcrowd-lc002/torch"`, and `OMP_NUM_THREADS=2 MKL_NUM_THREADS=2`. Run with the repository root as the working directory. The historical weights, manifests and images stay in their recorded locations.
+
+Produce the tracked evidence from the saved local output without rerunning inference.
+
+```bash
+source artifacts/lc002-env.sh
+python -m scripts.archive_lc007a --local "$HOME/loopcrowd-lc007a"
+```
+
+New research optimizer updates, threshold fits and official test passes are zero. External experiment downloads, dependency installation, and NWPU/WiderPerson activity are out of scope.
