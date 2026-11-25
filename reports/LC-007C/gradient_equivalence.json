@@ -1,0 +1,302 @@
+{
+  "real_checkpoint_gradient_execution": "not_run_pending_owner_gpu_approval",
+  "synthetic_cpu_execution": "passed",
+  "generated_data_only": true,
+  "torch": "2.2.2+cu121",
+  "python": "3.11.11",
+  "tolerances_abs_rel": {
+    "fp32": {
+      "outputs": [
+        1e-06,
+        2e-05
+      ],
+      "losses": [
+        1e-06,
+        2e-05
+      ],
+      "gradients": [
+        2e-06,
+        0.0002
+      ]
+    },
+    "bf16": {
+      "outputs": [
+        0.002,
+        0.02
+      ],
+      "losses": [
+        0.0005,
+        0.01
+      ],
+      "gradients": [
+        0.001,
+        0.04
+      ]
+    }
+  },
+  "cases": [
+    {
+      "variant": "shared_2",
+      "synthetic_batch": [
+        2,
+        3,
+        64,
+        64
+      ],
+      "precision": "bf16",
+      "seconds": {
+        "standard": [
+          1.3190506960017956,
+          1.309120437996171,
+          1.2139458390010986
+        ],
+        "probe": [
+          3.334380701002374,
+          3.2290005709946854,
+          3.324656787001004
+        ]
+      },
+      "probe_to_single_backward_ratio": 2.5396110934529066,
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "native_vs_expanded_gradient_checks": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0009765625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0001220703125
+          }
+        }
+      },
+      "live_model_and_bn_unchanged": true
+    },
+    {
+      "variant": "unshared_2",
+      "synthetic_batch": [
+        2,
+        3,
+        64,
+        64
+      ],
+      "precision": "bf16",
+      "seconds": {
+        "standard": [
+          1.1397823029983556,
+          1.047181449997879,
+          1.2531005019991426
+        ],
+        "probe": [
+          3.1701570810037083,
+          3.10513067899592,
+          3.099207517996547
+        ]
+      },
+      "probe_to_single_backward_ratio": 2.724319083413949,
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "native_vs_expanded_gradient_checks": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0009765625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      },
+      "live_model_and_bn_unchanged": true
+    },
+    {
+      "variant": "shared_2",
+      "synthetic_batch": [
+        2,
+        3,
+        128,
+        128
+      ],
+      "precision": "bf16",
+      "seconds": {
+        "standard": [
+          6.558135403000051,
+          6.144561826004065,
+          6.525289425997471
+        ],
+        "probe": [
+          16.352690954001446,
+          16.243225204998453,
+          16.926593003998278
+        ]
+      },
+      "probe_to_single_backward_ratio": 2.5060483737089925,
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "native_vs_expanded_gradient_checks": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0001220703125
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00146484375
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0001220703125
+          }
+        }
+      },
+      "live_model_and_bn_unchanged": true
+    },
+    {
+      "variant": "unshared_2",
+      "synthetic_batch": [
+        2,
+        3,
+        128,
+        128
+      ],
+      "precision": "bf16",
+      "seconds": {
+        "standard": [
+          6.408818904004875,
+          5.136277120996965,
+          5.0043198769999435
+        ],
+        "probe": [
+          13.259285205000197,
+          13.044400170998415,
+          12.863105166994501
+        ]
+      },
+      "probe_to_single_backward_ratio": 2.539660509685751,
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "native_vs_expanded_gradient_checks": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.001953125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      },
+      "live_model_and_bn_unchanged": true
+    }
+  ],
+  "resource_projection_unvalidated": {
+    "historical_epoch_means": 160,
+    "historical_epoch_mean_batch_ms_p10_p50_p90": [
+      25.40738547444764,
+      26.316601061120714,
+      60.418673652788534
+    ],
+    "cpu_synthetic_probe_to_single_backward_ratio_min_max": [
+      2.5060483737089925,
+      2.724319083413949
+    ],
+    "96_case_training_cost_proxy_seconds": [
+      6.1125251566499506,
+      15.801575580177733
+    ],
+    "planning_upper_seconds": 91.60315116035547,
+    "formula": "2 \u00d7 upper historical-step-scaled synthetic ratio + 60 seconds for I/O, preflight and finalization",
+    "limits": "different device, input size, precision dispatch and allocator; no GPU timing or memory was measured"
+  }
+}

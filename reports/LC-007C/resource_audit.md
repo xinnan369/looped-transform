@@ -1,0 +1,9 @@
+# LC-007C resource audit
+
+This phase performed **0 GPU cases, 0 project optimizer updates, 0 real checkpoint deserializations and 0 external experiment bytes**. Archived metrics and synthetic CPU gradients were used. SHA-256 checks read the four existing local E40 files, the cleaned ShanghaiTech B manifest and the cached ResNet18 initialization as bytes. Probe selection used the 360 original train records only, with no image opens. Data, weights and checkpoints remain local. [Source and local checksums](probe_manifest.json)
+
+The CPU tests and benchmark reused the installed Python environments. They did not install packages, probe mirrors, refresh weights, access official test images or access NWPU/WiderPerson. Existing synthetic optimizer smoke fixtures are part of the local test suites. New diagnostic code has no optimizer update. All commits use `[skip ci]`.
+
+The proposed limits in Issue #21 cover a later decision. Only the budget method, generated inputs, and frozen case order were prepared for review. Batch-two 64 px and 128 px BF16 synthetic CPU probes cost 2.51–2.72 times the generated one-backward timing. The four corresponding LC-007B real arms have epoch mean batch time p10/p50/p90 of 25.41/26.32/60.42 ms across 160 epochs. Scaling the historical p10–p90 by that CPU ratio yields a rough 6.1–15.8 s training-step cost proxy for 96 cases. Doubling the upper proxy and adding 60 s for I/O, preflight and finalization gives approximately 92 s for planning. Device dispatch, input size, backward graph and allocator differences can change these estimates. [Raw synthetic timings](gradient_equivalence.json)
+
+Actual GPU synchronization times, allocator usage and gradients are pending separate approval. The proposed 1,200-second budget is a ceiling for a later decision. Prior unspent LC-007B resources were not carried forward.
