@@ -79,7 +79,7 @@ def archive_runs():
     issue = "LC-004A"
     for run_id, ref in read_json(ROOT / issue / "training_history.json")["runs"].items():
         path = ROOT / issue / ref["path"]
-        action = "training_record_reuse" if ref["source"] == "LC-003 reuse" else "fresh_train"
+        action = "fresh_train" if ref["source"] == "LC-004A new training" else "training_record_reuse"
         runs[f"{issue}/{run_id}"] = (read_json(path), path, action)
     issue = "LC-006"
     for ref in read_csv(ROOT / issue / "training_history.csv"):
