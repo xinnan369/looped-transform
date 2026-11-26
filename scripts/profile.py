@@ -24,7 +24,7 @@ from loopcrowd.targets import point_targets
 from loopcrowd.training import gpu_scaler, optimizer_for, train_step
 
 
-def forward_costs(model, image):
+def forward_costs(model, image, *, depth_staged=False):
     counts = []
     gate_adds, gate_multiplies = [], []
 
@@ -46,7 +46,9 @@ def forward_costs(model, image):
                if isinstance(module, (nn.Conv2d, nn.Linear, nn.MultiheadAttention))]
     try:
         with torch.no_grad():
-            if getattr(model, "channel_gate_names", ()):
+            if depth_staged:
+                model.forward_depth_stages(image, diagnostic=True, channel_trace=count_gates)
+            elif getattr(model, "channel_gate_names", ()):
                 model(image, channel_trace=count_gates)
             else:
                 model(image)
@@ -149,6 +151,8 @@ def main():
     if model.channel_gate_deltas is not None:
         result["flops_method"] += ", plus channel scale additions and multiplications"
         result["forward_costs_per_image"] = costs
+    if config.get("depth_screen"):
+        result["four_readout_costs_per_image"] = forward_costs(model, images[:1], depth_staged=True)
     write_json(args.output / "run_manifest.json", run)
     write_json(args.output / "profile.json", result)
     print(result, flush=True)

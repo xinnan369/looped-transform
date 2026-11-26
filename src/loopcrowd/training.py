@@ -38,7 +38,7 @@ def supervised_point_loss(model, images, target, config, diagnostics=None):
     weight = config.get("early_loss_weight")
     if weight is None:
         return point_loss(model(images), target, config["density_weight"], diagnostics)
-    predictions = model.forward_stages(images)
+    predictions = (model.forward_depth_stages(images) if config.get("depth_screen") else model.forward_stages(images))
     early_parts = {} if diagnostics is not None else None
     early = point_loss(predictions["early"], target, config["density_weight"], early_parts)
     final = point_loss(predictions["final"], target, config["density_weight"], diagnostics)
@@ -268,8 +268,9 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
     data_sha = run["data"]["sha256"]
     checkpoint_index = []
     index_path = output / "checkpoint_index.json"
-    if ema is not None:
+    if ema is not None or config.get("depth_screen"):
         boundaries = np.quantile([density(record) for record in train], (1 / 3, 2 / 3)).tolist()
+    if ema is not None:
         run["ema"] = {"decay": ema.decay, "buffers": "live", "density_tertiles": boundaries}
         (output / "images").mkdir(exist_ok=resume)
 
@@ -377,13 +378,21 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
                         readouts[policy] = metrics
                         image_rows.extend({"policy": policy, **row} for row in rows)
                 details["ema_validation"] = readouts["ema"]
+                if config.get("depth_screen"):
+                    details["depth_live_validation"] = readouts["live"]
                 details["ema_step"] = ema.step
                 stage_metrics = readouts["live"]
                 image_path = output / "images" / f"{epoch:02d}.json"
                 write_json(image_path, image_rows)
                 details["image_metrics_sha256"] = file_sha(image_path)
             elif audited:
-                stage_metrics = evaluate_outputs(model, val, manifest.parent, config, device, staged=staged)
+                if config.get("depth_screen"):
+                    stage_metrics, rows = grouped_validation(
+                        model, val, manifest.parent, config, device, staged=staged, boundaries=boundaries,
+                        check=lambda: None)
+                    details["depth_live_validation"] = stage_metrics
+                else:
+                    stage_metrics = evaluate_outputs(model, val, manifest.parent, config, device, staged=staged)
             if ema is None and model.channel_gate_deltas is not None:
                 details["channel_gate_statistics"] = {"live": model.channel_gate_statistics()}
         except Exception as error:

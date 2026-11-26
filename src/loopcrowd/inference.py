@@ -87,9 +87,19 @@ def predict_image_stages(model, image, config, device, *, require_finite=False):
     return _predict_tiles(model, image, config, device, staged=True, require_finite=require_finite)
 
 
-def _predict_tiles(model, image, config, device, *, loop_count=None, trace=None, staged=False, require_finite=False):
+@torch.inference_mode()
+def predict_image_depth(model, image, config, device):
+    norms = []
+    predictions = _predict_tiles(model, image, config, device, depth_norms=norms, require_finite=True)
+    return predictions, np.stack(norms)
+
+
+def _predict_tiles(model, image, config, device, *, loop_count=None, trace=None, staged=False, require_finite=False,
+                   depth_norms=None):
     size, overlap = config["tile_size"], config["tile_overlap"]
     stages = ("early", "final") if staged else ("final",)
+    if depth_norms is not None:
+        stages = ("stage1", "early", "stage3", "final")
     by_stage = {stage: ([], [], []) for stage in stages}
     tiles = []
     model_args = {}
@@ -107,7 +117,19 @@ def _predict_tiles(model, image, config, device, *, loop_count=None, trace=None,
             })
             with autocast(device, config["precision"]):
                 batch = tile[None].to(device)
-                outputs = model.forward_stages(batch) if staged else {"final": model(batch, **model_args)}
+                if depth_norms is not None:
+                    sums = []
+
+                    def trace_state(index, before, after):
+                        previous, current = before.float(), after.float()
+                        sums.append(torch.stack((previous.square().mean(), (current - previous).square().mean())))
+
+                    outputs = model.forward_depth_stages(batch, diagnostic=True, state_trace=trace_state)
+                    depth_norms.append(torch.stack(sums).cpu().numpy())
+                    if not np.isfinite(depth_norms[-1]).all():
+                        raise ValueError("nonfinite depth state update")
+                else:
+                    outputs = model.forward_stages(batch) if staged else {"final": model(batch, **model_args)}
             if require_finite:
                 finite = [torch.isfinite(output[key]).all() for output in outputs.values() for key in ("logits", "offsets")]
                 if not torch.stack(finite).all():

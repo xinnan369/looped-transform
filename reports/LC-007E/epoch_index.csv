@@ -1,0 +1,9 @@
+seed,order,arm,reference,planned_epochs,observed_epochs,planned_updates,status
+42,1,S4,shared_2_aux_025,40,0,7200,not_run
+42,2,U4,unshared_2_aux_025,40,0,7200,not_run
+42,3,S4RS,RS,40,0,7200,not_run
+42,4,U4RS,U-RS,40,0,7200,not_run
+123,1,U4RS,U-RS,40,0,7200,not_run
+123,2,S4RS,RS,40,0,7200,not_run
+123,3,U4,unshared_2_aux_025,40,0,7200,not_run
+123,4,S4,shared_2_aux_025,40,0,7200,not_run

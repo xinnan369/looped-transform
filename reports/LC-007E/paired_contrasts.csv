@@ -1,0 +1,17 @@
+candidate,reference,comparison,scope,policy,endpoint,status
+S4,shared_2_aux_025,depth_ungated,42+123,ema,final_E36-E40,not_run
+S4RS,RS,depth_RS,42+123,ema,final_E36-E40,not_run
+U4,unshared_2_aux_025,depth_ungated_unshared,42+123,ema,final_E36-E40,not_run
+U4RS,U-RS,depth_RS_unshared,42+123,ema,final_E36-E40,not_run
+S4,U4,sharing_ungated,42+123,ema,final_E36-E40,not_run
+S4RS,U4RS,sharing_RS,42+123,ema,final_E36-E40,not_run
+S4RS,S4,gating_shared,42+123,ema,final_E36-E40,not_run
+U4RS,U4,gating_unshared,42+123,ema,final_E36-E40,not_run
+S4-U4,Shared2-Unshared2,sharing_gap_interaction_ungated,42+123,ema,final_E36-E40,not_run
+S4RS-U4RS,RS-U-RS,sharing_gap_interaction_RS,42+123,ema,final_E36-E40,not_run
+S4,cnn_only,independent_reference,42+123,ema,final_E36-E40,not_run
+S4RS,cnn_only,independent_reference,42+123,ema,final_E36-E40,not_run
+S4,shared_1,independent_reference,42+123,ema,final_E36-E40,not_run
+S4RS,shared_1,independent_reference,42+123,ema,final_E36-E40,not_run
+S4,unshared_2_aux_025,independent_reference,42+123,ema,final_E36-E40,not_run
+S4RS,unshared_2_aux_025,independent_reference,42+123,ema,final_E36-E40,not_run

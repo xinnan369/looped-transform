@@ -1,0 +1,9 @@
+arm,stage,branches,scope,policy,min,max,mean,l2,delta_l2,status
+S4RS,1,attention/ffn/state,42+123,live+ema,,,,,,not_run
+S4RS,2,attention/ffn/state,42+123,live+ema,,,,,,not_run
+S4RS,3,attention/ffn/state,42+123,live+ema,,,,,,not_run
+S4RS,4,attention/ffn/state,42+123,live+ema,,,,,,not_run
+U4RS,1,attention/ffn/state,42+123,live+ema,,,,,,not_run
+U4RS,2,attention/ffn/state,42+123,live+ema,,,,,,not_run
+U4RS,3,attention/ffn/state,42+123,live+ema,,,,,,not_run
+U4RS,4,attention/ffn/state,42+123,live+ema,,,,,,not_run

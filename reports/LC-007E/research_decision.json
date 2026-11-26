@@ -1,0 +1,19 @@
+{
+  "status": "DRAFT_DEPTH_SCREEN / GPU_TRAINING_NOT_AUTHORIZED",
+  "parent_experiment": "LC-007D",
+  "parent_joint_gate": "failed",
+  "deployment_default": "retain_ungated_shared_2_aux_ema",
+  "evaluation": "not_run",
+  "planned_fresh_runs": 8,
+  "completed_fresh_runs": 0,
+  "planned_successful_updates": 57600,
+  "successful_project_updates": 0,
+  "gpu_authorization": null,
+  "depth_RS_joint_gate": "not_run",
+  "depth_ungated_joint_gate": "not_run",
+  "sharing_RS_joint_gate": "not_run",
+  "sharing_ungated_joint_gate": "not_run",
+  "sharing_gap_interactions": "not_run",
+  "candidate_identity_transitions": "not_available",
+  "K8_K16_or_replication": "not_authorized"
+}
