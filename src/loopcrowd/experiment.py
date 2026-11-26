@@ -15,7 +15,7 @@ import torchvision
 from torchvision.models import ResNet18_Weights
 
 from .ema import validate_decay
-from .model import LoopCrowd, VARIANTS, WEIGHTS, pretrained_path
+from .model import CHANNEL_GATES, LoopCrowd, VARIANTS, WEIGHTS, pretrained_path
 
 DEFAULT_CONFIG = {
     "variant": "cnn_only", "seed": 42, "slots": 2, "pretrained": False,
@@ -44,7 +44,7 @@ def read_config(path, variant=None):
         raise ValueError("unknown model variant")
     early = config["early_loss_weight"]
     if early is not None and (
-        config["variant"] not in ("shared_2", "unshared_2") or type(early) not in (int, float)
+        config["variant"] not in ("shared_2", "unshared_2", *CHANNEL_GATES) or type(early) not in (int, float)
         or not math.isfinite(early) or early < 0
     ):
         raise ValueError("early_loss_weight requires a fixed-window two-call model and a finite nonnegative value")

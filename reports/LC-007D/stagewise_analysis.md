@@ -1,0 +1,5 @@
+# Stagewise measurements
+
+LC-007D experimental metrics and gate distributions are `not_run`. The planned readouts cover the early and final decoder for live and EMA, for both seeds and all three gated arms. For each density group and epoch, report paired final-minus-early changes in MAE, RMSE, nAP, FP, FN and signed count error, with matched image IDs and fixed GT. Estimate per-image count cancellation from TP/FP/FN and the signed and absolute count errors. Report all-data pooled local nAP and the separate density-group pooled values.
+
+Candidate identity, GT-level recovered/lost/both/unmatched transitions, and matched-only displacement, score and rank changes are `not_available` in this design. The frozen inference path retains tile assignment and coordinates/scores but discards the cell and slot indices used by the decoder. No extra inference sweep is scheduled. Scale distributions describe what the model learned. Evaluating causal effects would require an intervention outside this protocol. [Readout and thresholds](protocol.md)

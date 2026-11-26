@@ -9,6 +9,11 @@ from torch.nn import functional as F
 from torch.utils.checkpoint import checkpoint
 from torchvision.models import ResNet18_Weights, resnet18
 
+CHANNEL_GATES = {
+    "shared_2_channel_residual": ("attention", "ffn"),
+    "shared_2_channel_residual_state": ("attention", "ffn", "state"),
+    "unshared_2_channel_residual_state": ("attention", "ffn", "state"),
+}
 VARIANTS = {
     "cnn_only": (0, False),
     "shared_1": (1, True),
@@ -16,6 +21,9 @@ VARIANTS = {
     "shared_2_tied_gain": (2, True),
     "shared_2_stage_gain": (2, True),
     "unshared_2": (2, False),
+    "shared_2_channel_residual": (2, True),
+    "shared_2_channel_residual_state": (2, True),
+    "unshared_2_channel_residual_state": (2, False),
     "shared_4": (4, True),
     "unshared_4": (4, False),
     "shifted_shared_2": (2, True),
@@ -70,17 +78,21 @@ class WindowBlock(nn.Module):
         self.norm2 = nn.LayerNorm(width)
         self.ffn = nn.Sequential(nn.Linear(width, 4 * width), nn.GELU(), nn.Linear(4 * width, width))
 
-    def forward(self, tokens, shift=0, *, gains=None, trace=None):
+    def forward(self, tokens, shift=0, *, gains=None, trace=None, channel_scales=None):
         before = tokens
         windows, padding = window_partition(self.norm1(tokens), self.window_size, shift)
         attended, _ = self.attn(windows, windows, windows, key_padding_mask=padding, need_weights=False)
         attention = window_reverse(attended, tokens.shape, self.window_size, shift)
         if gains is not None:
             attention = gains[0] * attention
+        if channel_scales is not None:
+            attention = attention * channel_scales[0].to(dtype=attention.dtype)
         tokens = tokens + attention
         feedforward = self.ffn(self.norm2(tokens))
         if gains is not None:
             feedforward = gains[1] * feedforward
+        if channel_scales is not None:
+            feedforward = feedforward * channel_scales[1].to(dtype=feedforward.dtype)
         tokens = tokens + feedforward
         if trace is not None:
             trace(before, tokens, attention, feedforward)
@@ -125,6 +137,11 @@ class LoopCrowd(nn.Module):
         self.blocks = nn.ModuleList(WindowBlock() for _ in range(1 if self.shared else self.loops))
         stages = GAIN_STAGES.get(variant)
         self.gain_logits = nn.Parameter(torch.zeros(stages, 2)) if stages else None
+        self.channel_gate_names = CHANNEL_GATES.get(variant, ())
+        self.channel_gate_deltas = (
+            nn.Parameter(torch.zeros(self.loops, len(self.channel_gate_names), 192, dtype=torch.float32))
+            if self.channel_gate_names else None
+        )
         if self.freeze_backbone_bn:
             self.train()
 
@@ -145,10 +162,26 @@ class LoopCrowd(nn.Module):
         """Decode the first and second fixed-window calls with the same point head."""
         return self(images, return_stages=True)
 
-    def forward(self, images, *, loop_count=None, trace=None, return_stages=False):
+    @torch.no_grad()
+    def channel_gate_statistics(self):
+        if self.channel_gate_deltas is None:
+            return []
+        scales = 1 + self.channel_gate_deltas
+        stats = torch.stack((scales.amin(-1), scales.amax(-1), scales.mean(-1),
+                             scales.norm(dim=-1), self.channel_gate_deltas.norm(dim=-1)), dim=-1).tolist()
+        return [
+            {"stage": stage, "branch": branch, "min": low, "max": high, "mean": mean,
+             "l2": norm, "delta_l2": delta_norm}
+            for stage, stage_stats in enumerate(stats, 1)
+            for branch, (low, high, mean, norm, delta_norm) in zip(self.channel_gate_names, stage_stats, strict=True)
+        ]
+
+    def forward(self, images, *, loop_count=None, trace=None, return_stages=False, channel_trace=None):
         calls = self.loops if loop_count is None else loop_count
         if type(calls) is not int or not 0 <= calls <= self.loops:
             raise ValueError("loop_count must be an integer inside the model's fixed depth")
+        if self.channel_gate_deltas is not None and calls != self.loops:
+            raise ValueError("channel-gated variants require both fixed loop calls")
         if return_stages and (self.loops != 2 or calls != 2 or (not self.shared and self.shifted)):
             raise ValueError("stage predictions require both calls of a supported two-call model")
         p2 = self.p2(images)
@@ -164,10 +197,19 @@ class LoopCrowd(nn.Module):
                 block_args["gains"] = gains[index]
             if trace is not None:
                 block_args["trace"] = partial(trace, index)
+            if self.channel_gate_deltas is not None:
+                before = tokens
+                scales = 1 + self.channel_gate_deltas[index]
+                block_args["channel_scales"] = scales[:2]
             if self.gradient_checkpointing and self.training and torch.is_grad_enabled():
                 tokens = checkpoint(block, tokens, shift, use_reentrant=False, **block_args)
             else:
                 tokens = block(tokens, shift, **block_args)
+            if self.channel_gate_deltas is not None:
+                if len(self.channel_gate_names) == 3:
+                    tokens = tokens * scales[2].to(dtype=tokens.dtype)
+                if channel_trace is not None:
+                    channel_trace(index, before, tokens, dict(zip(self.channel_gate_names, scales, strict=True)))
             if return_stages and index == 0:
                 early = self._decode(p2, tokens)
         final = self._decode(p2, tokens)

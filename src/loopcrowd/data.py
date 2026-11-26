@@ -40,14 +40,17 @@ class TrainingCrops(Dataset):
     def __len__(self):
         return len(self.records)
 
+    def origin(self, record, points):
+        return crop_origin(
+            points, record.image_width, record.image_height, self.config["tile_size"], self.config["crop_mode"],
+            self.config["seed"], f"{record.dataset}:{record.image_id}", self.epoch,
+        )
+
     def __getitem__(self, index):
         record = self.records[index]
         points = np.asarray(record.points, dtype=float).reshape(-1, 2)
         size = self.config["tile_size"]
-        left, top = crop_origin(
-            points, record.image_width, record.image_height, size, self.config["crop_mode"],
-            self.config["seed"], f"{record.dataset}:{record.image_id}", self.epoch,
-        )
+        left, top = self.origin(record, points)
         with load_rgb(record, self.manifest_dir) as image:
             tile, width, height = image_tile(image, left, top, size)
         target = point_targets(
