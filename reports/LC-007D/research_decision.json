@@ -1,0 +1,21 @@
+{
+  "status": "DRAFT_ARCHITECTURE / GPU_TRAINING_NOT_AUTHORIZED",
+  "code_and_preregistration_commit": "6f6c37a2c3643e1b97ec0d1f27d53cdf2b60b695",
+  "gpu_authorization": null,
+  "planned_fresh_runs": 6,
+  "completed_fresh_runs": 0,
+  "planned_successful_updates": 43200,
+  "successful_project_updates": 0,
+  "evaluation": "not_run",
+  "criteria": {
+    "RS_vs_shared_2_aux_025": "not_run",
+    "R_vs_shared_2_aux_025": "not_run",
+    "RS_vs_R": "not_run",
+    "shared_gates_vs_independent_CNN_and_Shared_1": "not_run",
+    "shared_gates_vs_ungated_Unshared_2_target": "not_run",
+    "RS_vs_U-RS": "not_run"
+  },
+  "candidate_identity_transitions": "not_available",
+  "deployment_decision": "retain_existing_shared_2_aux_ema_pending_evidence",
+  "replication": "not_authorized"
+}

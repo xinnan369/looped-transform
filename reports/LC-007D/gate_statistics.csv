@@ -1,0 +1,17 @@
+arm,stage,branch,seed,policy,epochs,min,max,mean,l2,delta_l2,status
+R,1,attention,42+123,live+ema,1-40,,,,,,not_run
+R,1,ffn,42+123,live+ema,1-40,,,,,,not_run
+R,2,attention,42+123,live+ema,1-40,,,,,,not_run
+R,2,ffn,42+123,live+ema,1-40,,,,,,not_run
+RS,1,attention,42+123,live+ema,1-40,,,,,,not_run
+RS,1,ffn,42+123,live+ema,1-40,,,,,,not_run
+RS,1,state,42+123,live+ema,1-40,,,,,,not_run
+RS,2,attention,42+123,live+ema,1-40,,,,,,not_run
+RS,2,ffn,42+123,live+ema,1-40,,,,,,not_run
+RS,2,state,42+123,live+ema,1-40,,,,,,not_run
+U-RS,1,attention,42+123,live+ema,1-40,,,,,,not_run
+U-RS,1,ffn,42+123,live+ema,1-40,,,,,,not_run
+U-RS,1,state,42+123,live+ema,1-40,,,,,,not_run
+U-RS,2,attention,42+123,live+ema,1-40,,,,,,not_run
+U-RS,2,ffn,42+123,live+ema,1-40,,,,,,not_run
+U-RS,2,state,42+123,live+ema,1-40,,,,,,not_run

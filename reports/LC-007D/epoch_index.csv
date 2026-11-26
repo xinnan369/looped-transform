@@ -1,0 +1,7 @@
+seed,sequence,arm,reference,planned_epochs,planned_updates,observed_epochs,status,history_path,sha256
+42,1,R,shared_2_aux_025,40,7200,0,not_run,,
+42,2,RS,shared_2_aux_025,40,7200,0,not_run,,
+42,3,U-RS,unshared_2_aux_025,40,7200,0,not_run,,
+123,1,U-RS,unshared_2_aux_025,40,7200,0,not_run,,
+123,2,RS,shared_2_aux_025,40,7200,0,not_run,,
+123,3,R,shared_2_aux_025,40,7200,0,not_run,,

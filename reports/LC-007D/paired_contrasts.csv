@@ -1,0 +1,11 @@
+candidate,reference,contrast,scope,policy,endpoint,mae_change,rmse_change,local_nap_change,fp_change,fn_change,status
+RS,shared_2_aux_025,primary,42+123,ema,final_E36-E40,,,,,,not_run
+R,shared_2_aux_025,residual_ablation,42+123,ema,final_E36-E40,,,,,,not_run
+RS,R,state_increment,42+123,ema,final_E36-E40,,,,,,not_run
+R,cnn_only,independent_cnn,42+123,ema,final_E36-E40,,,,,,not_run
+RS,cnn_only,independent_cnn,42+123,ema,final_E36-E40,,,,,,not_run
+R,shared_1,independent_one_call,42+123,ema,final_E36-E40,,,,,,not_run
+RS,shared_1,independent_one_call,42+123,ema,final_E36-E40,,,,,,not_run
+R,unshared_2_aux_025,ungated_unshared_target,42+123,ema,final_E36-E40,,,,,,not_run
+RS,unshared_2_aux_025,ungated_unshared_target,42+123,ema,final_E36-E40,,,,,,not_run
+RS,U-RS,matched_sharing,42+123,ema,final_E36-E40,,,,,,not_run
