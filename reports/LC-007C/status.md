@@ -2,6 +2,8 @@
 
 **The CPU scope and separately approved GPU diagnosis completed.** This draft stacks on accepted LC-007B PR #20 head `0aeaea0562f075fd28ecaa48c6400193a7cf22f4`. The CPU freeze is `ad0f4840c37f11a948fa43951d0d672351a6eb6d`. The GPU runner and unchanged numerical tolerances froze at `2f951ed843669bca3cc614e296cec1230c750430`.
 
+The completed GPU scope received a technical pass. The original approval preceded execution at 08:30:55 Asia/Shanghai on November 26 and required the background-job check. The draft remains open for owner acceptance. [Authorization record](authorization_record.md)
+
 | Deliverable | Evidence |
 | --- | --- |
 | Archive-only diagnosis | All 24 indexed files and 42,560 rows reconciled to frozen checksums and sizes. Recomputed 80 seed/epoch/policy/group comparisons, 48 endpoint summaries and 800 paired-image rows. [Stagewise analysis](stagewise_analysis.md) · [Archive integrity](archive_integrity.json) |
