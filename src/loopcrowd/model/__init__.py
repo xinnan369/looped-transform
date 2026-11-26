@@ -19,6 +19,7 @@ CHANNEL_GATES = {
     "unshared_8_channel_residual_state": ("attention", "ffn", "state"),
 }
 DEPTH4_VARIANTS = ("shared_4", "unshared_4", "shared_4_channel_residual_state", "unshared_4_channel_residual_state")
+SHIFTED_DEPTH4_VARIANTS = ("shifted_shared_4", "shifted_unshared_4")
 DEPTH8_VARIANTS = ("shared_8", "unshared_8", "shared_8_channel_residual_state", "unshared_8_channel_residual_state")
 DEPTH_VARIANTS = (*DEPTH4_VARIANTS, *DEPTH8_VARIANTS)
 VARIANTS = {
@@ -42,6 +43,7 @@ VARIANTS = {
     "shifted_shared_2": (2, True),
     "shifted_unshared_2": (2, False),
     "shifted_shared_4": (4, True),
+    "shifted_unshared_4": (4, False),
 }
 WEIGHTS = "IMAGENET1K_V1"
 GAIN_STAGES = {"shared_2_tied_gain": 1, "shared_2_stage_gain": 2}
@@ -117,11 +119,11 @@ class LoopCrowd(nn.Module):
 
     def __init__(
         self, variant, slots=2, pretrained=False, density=False,
-        loop_embedding=False, gradient_checkpointing=False, freeze_backbone_bn=False,
+        loop_embedding=False, gradient_checkpointing=False, freeze_backbone_bn=False, depth_screen=False,
     ):
         super().__init__()
         self.loops, self.shared = VARIANTS[variant]
-        self.depth_screen = variant in DEPTH_VARIANTS
+        self.depth_screen = variant in DEPTH_VARIANTS or (depth_screen and variant in SHIFTED_DEPTH4_VARIANTS)
         self.shifted = variant.startswith("shifted_")
         self.slots = slots
         if type(slots) is not int or slots < 1:

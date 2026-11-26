@@ -1,0 +1,20 @@
+# LC-007G four-call cross-window protocol
+
+**DRAFT_CROSS_WINDOW / GPU_TRAINING_NOT_AUTHORIZED.** Keep ungated Shared-2 with auxiliary supervision and EMA as the formal baseline. Use Shared-4 to test a change in spatial connectivity at fixed depth. K=4 came closest to its same-depth independent control in the B screen, and S4 stage 3→4 improved local nAP while worsening count MAE in both seeds. The K=8 comparisons motivate returning to this controlled geometry change. [Issue #29](https://github.com/xinnan369/looped-transform/issues/29) · [K=4 review](https://github.com/xinnan369/looped-transform/pull/26) · [K=8 review](https://github.com/xinnan369/looped-transform/pull/28)
+
+Historical LC-002R A seed 42 recorded fixed S4 best MAE 192.50 and nAP 0.1816, shifted S4 best MAE 208.73 and nAP 0.1757, and late MAE CVs of 28.66% and 26.82%. LC-003 A also found no stable shifted-K2 advantage. These outcomes use earlier A recipes and remain historical evidence. The B test uses fixed auxiliary supervision and EMA with matched archived controls. [Prior A evidence](../LC-002R/status.md) · [LC-003](../LC-003/status.md) · [Issue #5](https://github.com/xinnan369/looped-transform/issues/5) · [PR #6](https://github.com/xinnan369/looped-transform/pull/6)
+
+| Seed | New serial order | Horizon per arm |
+| --- | --- | --- |
+| 42 | S4-shift, U4-shift | 40 × 180 successful updates |
+| 123 | U4-shift, S4-shift | 40 × 180 successful updates |
+
+Use four historical fixed S4/U4 runs and four new shifted S4/U4 runs, with the fixed and shifted model of the same sharing regime starting with identical full-state and block hashes. Verify the corresponding B fixtures, crop and LR hashes, successful updates, metric source and EMA recipe before reusing the historical runs. Record observed epoch hashes during training and stop on a mismatch. Historical controls were run earlier. [Frozen queue](../../configs/lc007g_cross_window.json) · [K=4 arm recipe](../../configs/lc007e_depth4.json)
+
+Use the existing B train360/internal-val40 manifest and its 44,856 and 4,295 cleaned heads, cached ResNet18, fresh seeds, batch 2 BF16, native random 512 crops, overlap 128, stride 4 with two slots, training BN, AdamW peak LR 0.0002 and weight decay 0.01, 360 warmup updates and cosine minimum LR 0.00002. Use 0.99 FP32 EMA on unique parameters with live BN buffers. Train with the same final loss plus 0.25 midpoint loss at t2/t4. Validation uses four stage reads within one tiled sweep for each of live and EMA in every epoch. Keep strict owned score >0.30 for count, raw >0.05 for AP, strict normalized count δ=0.50 and pooled nAP at δ=0.05 through 0.50, with stable score order and normalized-distance/GT-ID tie breaking. Density boundaries from train are 82.65177408854167 and 180.98619249131943 heads/Mpx.
+
+## Decision rules
+
+Average final EMA E36–40 within seed, then weight both seeds equally. E40 and live are supplementary. Primary S4-shift vs S4 requires macro MAE ≤23.655875, local nAP strictly above 0.3004341719 and both metrics favorable in both seeds. Apply the same 3% and strictly higher nAP rule to U4-shift vs U4 and S4-shift vs U4-shift. For each joint gate require both compared arms and seeds to have sample MAE CV ≤10% and absolute relative sampled final-loss change from E31–35 to E36–40 ≤3%, plus macro RMSE ≤1.03× and each of FP and FN ≤1.05× the comparator. Exact archived unrounded references govern comparisons. Incomplete guard evidence leaves the gate unevaluable.
+
+Report (S4-shift−U4-shift)−(S4−U4) for MAE and nAP along with direct gates. Report parity and the original 3% MAE plus higher local nAP target against retained S2 (MAE ≤21.279375, nAP >0.295320775), CNN, Shared-1 and U2 (MAE ≤20.231775, nAP >0.300470175). Compare R descriptively. Stagewise shift contrasts use 1→2 and 3→4 difference-in-differences relative to fixed geometry within each sharing regime. This is an exploratory two-seed B screen with a locked threshold, shift schedule, prefix and epoch window. A negative or one-metric gain retains the S2 baseline. A positive outcome may support a separate five-seed A/B proposal. [Stagewise plan](stagewise_analysis.md)

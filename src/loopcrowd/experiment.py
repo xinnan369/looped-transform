@@ -15,7 +15,9 @@ import torchvision
 from torchvision.models import ResNet18_Weights
 
 from .ema import validate_decay
-from .model import CHANNEL_GATES, DEPTH8_VARIANTS, DEPTH_VARIANTS, LoopCrowd, VARIANTS, WEIGHTS, pretrained_path
+from .model import (
+    CHANNEL_GATES, DEPTH8_VARIANTS, DEPTH_VARIANTS, SHIFTED_DEPTH4_VARIANTS, LoopCrowd, VARIANTS, WEIGHTS, pretrained_path,
+)
 
 DEFAULT_CONFIG = {
     "variant": "cnn_only", "seed": 42, "slots": 2, "pretrained": False,
@@ -45,7 +47,7 @@ def read_config(path, variant=None):
     early = config["early_loss_weight"]
     depth = config.get("depth_screen", False)
     if type(depth) is not bool or (depth and (
-        config["variant"] not in DEPTH_VARIANTS or early != .25 or config["loop_embedding"]
+        config["variant"] not in (*DEPTH_VARIANTS, *SHIFTED_DEPTH4_VARIANTS) or early != .25 or config["loop_embedding"]
         or config["density_weight"] or config["gradient_checkpointing"]
     )):
         raise ValueError("depth_screen requires a supported fixed-window variant with frozen midpoint supervision")
@@ -105,6 +107,7 @@ def make_model(config, initialize):
         density=config["density_weight"] > 0, loop_embedding=config["loop_embedding"],
         gradient_checkpointing=config["gradient_checkpointing"],
         freeze_backbone_bn=config.get("backbone_bn", "train") == "frozen",
+        depth_screen=config.get("depth_screen", False),
     )
 
 

@@ -1,0 +1,5 @@
+seed,serial_order,arm,reference,planned_epochs,observed_epochs,planned_updates,status
+42,1,S4-shift,S4,40,0,7200,not_run
+42,2,U4-shift,U4,40,0,7200,not_run
+123,1,U4-shift,U4,40,0,7200,not_run
+123,2,S4-shift,S4,40,0,7200,not_run

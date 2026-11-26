@@ -1,0 +1,15 @@
+{
+  "status": "DRAFT_CROSS_WINDOW / GPU_TRAINING_NOT_AUTHORIZED",
+  "evaluation": "not_run",
+  "gpu_authorization": null,
+  "fresh_runs_planned": 4,
+  "fresh_runs_completed": 0,
+  "project_updates_planned": 28800,
+  "project_updates_completed": 0,
+  "geometry_only_joint_gates": "not_run",
+  "direct_sharing_joint_gate": "not_run",
+  "stagewise_and_sharing_interactions": "not_run",
+  "seam_localized_transitions": "not_available",
+  "current_default": "retain_ungated_shared_2_aux_ema",
+  "cross_dataset_replication": "not_authorized"
+}

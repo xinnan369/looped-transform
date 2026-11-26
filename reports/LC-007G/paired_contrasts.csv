@@ -1,0 +1,10 @@
+candidate,reference,comparison,scope,policy,endpoint,status
+S4-shift,S4,primary_shift,42+123,ema,final_E36-E40,not_run
+U4-shift,U4,independent_shift,42+123,ema,final_E36-E40,not_run
+S4-shift,U4-shift,matched_sharing,42+123,ema,final_E36-E40,not_run
+S4-shift_minus_U4-shift,S4_minus_U4,sharing_interaction,42+123,ema,final_E36-E40,not_run
+S4-shift,shared_2_aux_025,retained_baseline,42+123,ema,final_E36-E40,not_run
+S4-shift,cnn_only,historical_target,42+123,ema,final_E36-E40,not_run
+S4-shift,shared_1,historical_target,42+123,ema,final_E36-E40,not_run
+S4-shift,unshared_2_aux_025,historical_target,42+123,ema,final_E36-E40,not_run
+S4-shift,R,historical_descriptive,42+123,ema,final_E36-E40,not_run

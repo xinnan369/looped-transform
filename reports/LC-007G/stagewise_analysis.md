@@ -1,0 +1,5 @@
+# Real-data stagewise plan
+
+Experimental stages are `not_run`. For either sharing regime compute each stage change within the same epoch, seed, policy and density group, then subtract the matching fixed-arm change from the shifted-arm change. Analyze shift steps 1→2 and 3→4. Report per-stage local nAP, MAE/RMSE, signed count error, TP/FP/FN and image-level count cancellation. Cancellation is twice the lesser of FP and FN per image. State and update RMS use means of squares on real tokens, averaged by tile and image in the existing evaluator. Any nonfinite output or norm stops the run.
+
+Seam-localized recall, candidate identities and GT matched transitions are `not_available`. The current decoder retains tile IDs, coordinates and scores while discarding the cell/slot IDs needed for identity comparisons. The planned validation preserves the existing matcher and uses one sweep per policy. The synthetic token mechanism measures attention-window connectivity and supports no inference about boundary-specific detection recall. [Token mechanism](cross_window_mechanism.md) · [Protocol](protocol.md)
