@@ -15,8 +15,12 @@ CHANNEL_GATES = {
     "unshared_2_channel_residual_state": ("attention", "ffn", "state"),
     "shared_4_channel_residual_state": ("attention", "ffn", "state"),
     "unshared_4_channel_residual_state": ("attention", "ffn", "state"),
+    "shared_8_channel_residual_state": ("attention", "ffn", "state"),
+    "unshared_8_channel_residual_state": ("attention", "ffn", "state"),
 }
 DEPTH4_VARIANTS = ("shared_4", "unshared_4", "shared_4_channel_residual_state", "unshared_4_channel_residual_state")
+DEPTH8_VARIANTS = ("shared_8", "unshared_8", "shared_8_channel_residual_state", "unshared_8_channel_residual_state")
+DEPTH_VARIANTS = (*DEPTH4_VARIANTS, *DEPTH8_VARIANTS)
 VARIANTS = {
     "cnn_only": (0, False),
     "shared_1": (1, True),
@@ -31,6 +35,10 @@ VARIANTS = {
     "unshared_4": (4, False),
     "shared_4_channel_residual_state": (4, True),
     "unshared_4_channel_residual_state": (4, False),
+    "shared_8": (8, True),
+    "unshared_8": (8, False),
+    "shared_8_channel_residual_state": (8, True),
+    "unshared_8_channel_residual_state": (8, False),
     "shifted_shared_2": (2, True),
     "shifted_unshared_2": (2, False),
     "shifted_shared_4": (4, True),
@@ -113,7 +121,7 @@ class LoopCrowd(nn.Module):
     ):
         super().__init__()
         self.loops, self.shared = VARIANTS[variant]
-        self.depth4 = variant in DEPTH4_VARIANTS
+        self.depth_screen = variant in DEPTH_VARIANTS
         self.shifted = variant.startswith("shifted_")
         self.slots = slots
         if type(slots) is not int or slots < 1:
@@ -168,11 +176,16 @@ class LoopCrowd(nn.Module):
         """Decode the first and second fixed-window calls with the same point head."""
         return self(images, return_stages=True)
 
+    def depth_readout_stages(self, diagnostic=False):
+        midpoint, final = self.loops // 2 - 1, self.loops - 1
+        if not diagnostic:
+            return {midpoint: "early", final: "final"}
+        names = {midpoint: "early", final: "final"}
+        return {index: names.get(index, f"stage{index + 1}") for index in range(self.loops)}
+
     def forward_depth_stages(self, images, *, diagnostic=False, state_trace=None, channel_trace=None):
         """Read the midpoint and final state, or every state in one diagnostic forward."""
-        stages = {1: "early", 3: "final"}
-        if diagnostic:
-            stages = {0: "stage1", 1: "early", 2: "stage3", 3: "final"}
+        stages = self.depth_readout_stages(diagnostic)
         return self(images, depth_stages=stages, state_trace=state_trace, channel_trace=channel_trace)
 
     @torch.no_grad()
@@ -194,12 +207,14 @@ class LoopCrowd(nn.Module):
         calls = self.loops if loop_count is None else loop_count
         if type(calls) is not int or not 0 <= calls <= self.loops:
             raise ValueError("loop_count must be an integer inside the model's fixed depth")
+        if self.loops == 8 and calls != 8:
+            raise ValueError("K=8 variants require all eight fixed loop calls")
         if self.channel_gate_deltas is not None and calls != self.loops:
             raise ValueError("channel-gated variants require both fixed loop calls")
         if return_stages and (self.loops != 2 or calls != 2 or (not self.shared and self.shifted)):
             raise ValueError("stage predictions require both calls of a supported two-call model")
-        if depth_stages is not None and (not self.depth4 or calls != 4 or return_stages):
-            raise ValueError("depth readouts require all four calls of a fixed-window model")
+        if depth_stages is not None and (not self.depth_screen or calls != self.loops or return_stages):
+            raise ValueError("depth readouts require all calls of a supported fixed-window model")
         readouts = {}
         p2 = self.p2(images)
         tokens = self.project(self.p3(p2)).permute(0, 2, 3, 1)

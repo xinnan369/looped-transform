@@ -88,18 +88,20 @@ def predict_image_stages(model, image, config, device, *, require_finite=False):
 
 
 @torch.inference_mode()
-def predict_image_depth(model, image, config, device):
+def predict_image_depth(model, image, config, device, *, diagnostic=True):
     norms = []
-    predictions = _predict_tiles(model, image, config, device, depth_norms=norms, require_finite=True)
+    predictions = _predict_tiles(model, image, config, device, depth_norms=norms, require_finite=True,
+                                 depth_diagnostic=diagnostic)
     return predictions, np.stack(norms)
 
 
 def _predict_tiles(model, image, config, device, *, loop_count=None, trace=None, staged=False, require_finite=False,
-                   depth_norms=None):
+                   depth_norms=None, depth_diagnostic=True):
     size, overlap = config["tile_size"], config["tile_overlap"]
     stages = ("early", "final") if staged else ("final",)
     if depth_norms is not None:
-        stages = ("stage1", "early", "stage3", "final")
+        selected = model.depth_readout_stages(depth_diagnostic)
+        stages = tuple(selected.values())
     by_stage = {stage: ([], [], []) for stage in stages}
     tiles = []
     model_args = {}
@@ -121,10 +123,11 @@ def _predict_tiles(model, image, config, device, *, loop_count=None, trace=None,
                     sums = []
 
                     def trace_state(index, before, after):
-                        previous, current = before.float(), after.float()
-                        sums.append(torch.stack((previous.square().mean(), (current - previous).square().mean())))
+                        if index in selected:
+                            previous, current = before.float(), after.float()
+                            sums.append(torch.stack((previous.square().mean(), (current - previous).square().mean())))
 
-                    outputs = model.forward_depth_stages(batch, diagnostic=True, state_trace=trace_state)
+                    outputs = model.forward_depth_stages(batch, diagnostic=depth_diagnostic, state_trace=trace_state)
                     depth_norms.append(torch.stack(sums).cpu().numpy())
                     if not np.isfinite(depth_norms[-1]).all():
                         raise ValueError("nonfinite depth state update")

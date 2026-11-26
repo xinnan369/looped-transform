@@ -25,12 +25,12 @@ def summarize(rows, ranked):
     }
 
 
-def grouped_validation(model, records, directory, config, device, *, staged, boundaries, check):
+def grouped_validation(model, records, directory, config, device, *, staged, boundaries, check, depth_diagnostic=True):
     model.eval()
     stages = ("early", "final") if staged else ("final",)
     depth = config.get("depth_screen", False)
     if depth:
-        stages = ("stage1", "early", "stage3", "final")
+        stages = tuple(model.depth_readout_stages(depth_diagnostic).values())
     state_stats = {stage: [] for stage in stages}
     rows, ranked = ({stage: [] for stage in stages} for _ in range(2))
     threshold = config["count_threshold"]
@@ -40,7 +40,7 @@ def grouped_validation(model, records, directory, config, device, *, staged, bou
         check()
         with load_rgb(record, directory) as image:
             if depth:
-                outputs, norms = predict_image_depth(model, image, config, device)
+                outputs, norms = predict_image_depth(model, image, config, device, diagnostic=depth_diagnostic)
             else:
                 outputs = (predict_image_stages(model, image, config, device, require_finite=True) if staged else
                            {"final": predict_image(model, image, config, device, require_finite=True)})

@@ -1,0 +1,39 @@
+{
+  "issue": 27,
+  "parent": "143ee08788a337566cfe182ede1d24ba912faaae",
+  "state": "DRAFT_DEPTH8 / GPU_TRAINING_NOT_AUTHORIZED",
+  "arm_config": "configs/lc007f_depth8.json",
+  "arms": {
+    "S8": {"variant": "shared_8", "comparison": "S4", "depth2": "shared_2_aux_025"},
+    "U8": {"variant": "unshared_8", "comparison": "U4", "depth2": "unshared_2_aux_025"},
+    "S8RS": {"variant": "shared_8_channel_residual_state", "comparison": "S4RS", "depth2": "RS"},
+    "U8RS": {"variant": "unshared_8_channel_residual_state", "comparison": "U4RS", "depth2": "U-RS"}
+  },
+  "order": {"42": ["S8", "U8", "S8RS", "U8RS"], "123": ["U8RS", "S8RS", "U8", "S8"]},
+  "limits_if_approved": {
+    "runs": 8,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "warmup_updates": 360,
+    "total_updates": 57600,
+    "peak_reserved_bytes": 2147483648,
+    "gpu_seconds": 10800,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  },
+  "tolerances": {
+    "fp32": {"output": {"atol": 1e-6, "rtol": 2e-5}, "gradient": {"atol": 2e-6, "rtol": 2e-4}},
+    "bf16": {"output": {"atol": 0.002, "rtol": 0.02}, "gradient": {"atol": 0.001, "rtol": 0.04}}
+  },
+  "decision": {
+    "epochs": [36, 37, 38, 39, 40],
+    "loss_reference_epochs": [31, 32, 33, 34, 35],
+    "mae_ratio_max": 0.97,
+    "nap_strict_delta_min": 0,
+    "sample_cv_max": 0.10,
+    "absolute_loss_relative_change_max": 0.03,
+    "rmse_ratio_max": 1.03,
+    "fp_ratio_max": 1.05,
+    "fn_ratio_max": 1.05
+  }
+}

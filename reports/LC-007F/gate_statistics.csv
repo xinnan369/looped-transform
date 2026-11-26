@@ -1,0 +1,3 @@
+arm,calls,branches,scope,policy,min,max,mean,l2,delta_l2,status
+S8RS,1-8,attention/ffn/state,42+123,live+ema,,,,,,not_run
+U8RS,1-8,attention/ffn/state,42+123,live+ema,,,,,,not_run

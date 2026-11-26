@@ -365,6 +365,9 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
                     details["peak_train_allocated_bytes"] = torch.cuda.max_memory_allocated(device)
                     details["peak_train_reserved_bytes"] = torch.cuda.max_memory_reserved(device)
             stage_metrics = None
+            validation_options = {}
+            if "depth_readout_start_epoch" in config:
+                validation_options["depth_diagnostic"] = epoch >= config["depth_readout_start_epoch"]
             if ema is not None:
                 with preserve_training_context(model, device):
                     readouts, image_rows = {}, []
@@ -372,7 +375,8 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
                         with _phase(guard, f"validation_{policy}"), weights:
                             metrics, rows = grouped_validation(
                                 model, val, manifest.parent, config, device, staged=staged, boundaries=boundaries,
-                                check=(lambda: guard.check("validation_image")) if guard is not None else (lambda: None))
+                                check=(lambda: guard.check("validation_image")) if guard is not None else (lambda: None),
+                                **validation_options)
                             if model.channel_gate_deltas is not None:
                                 details.setdefault("channel_gate_statistics", {})[policy] = model.channel_gate_statistics()
                         readouts[policy] = metrics
@@ -389,7 +393,7 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
                 if config.get("depth_screen"):
                     stage_metrics, rows = grouped_validation(
                         model, val, manifest.parent, config, device, staged=staged, boundaries=boundaries,
-                        check=lambda: None)
+                        check=lambda: None, **validation_options)
                     details["depth_live_validation"] = stage_metrics
                 else:
                     stage_metrics = evaluate_outputs(model, val, manifest.parent, config, device, staged=staged)

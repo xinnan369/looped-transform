@@ -23,21 +23,23 @@ PLAN = json.loads(SCREEN.read_text(encoding="utf-8"))
 CONFIG = Path(PLAN["arm_config"])
 
 
-@pytest.mark.parametrize("ungated", ("shared_4", "unshared_4"))
+@pytest.mark.parametrize("ungated", ("shared_4", "unshared_4", "shared_8", "unshared_8"))
 @pytest.mark.parametrize("precision", ("fp32", "bf16"))
-def test_four_calls_unit_gate_and_gradients(ungated, precision):
+def test_depth_unit_gate_and_gradients(ungated, precision):
     gated = f"{ungated}_channel_residual_state"
     seed_all(42)
     baseline = LoopCrowd(ungated)
     rng = torch.get_rng_state()
     seed_all(42)
     model = LoopCrowd(gated)
+    depth = model.loops
+    midpoint = depth // 2
     assert torch.equal(rng, torch.get_rng_state())
-    assert len(model.blocks) == (1 if model.shared else 4)
+    assert len(model.blocks) == (1 if model.shared else depth)
     assert len({id(block.attn.in_proj_weight) for block in model.blocks}) == len(model.blocks)
     assert [state_sha(block) for block in model.blocks] == [state_sha(block) for block in baseline.blocks]
     gates = model.channel_gate_deltas
-    assert gates.dtype == torch.float32 and gates.numel() == 2304 and torch.count_nonzero(gates) == 0
+    assert gates.dtype == torch.float32 and gates.numel() == depth * 3 * 192 and torch.count_nonzero(gates) == 0
     images = torch.randn(2, 3, 32, 32)
     target = {k: torch.stack((v, v)) for k, v in point_targets(np.array([[8.25, 13.75]]), 32, 32, 2).items()}
     outputs, losses, call_states = {}, {}, []
@@ -52,11 +54,15 @@ def test_four_calls_unit_gate_and_gradients(ungated, precision):
         with torch.autocast("cpu", dtype=torch.bfloat16, enabled=precision == "bf16"):
             stages = candidate.forward_depth_stages(images, diagnostic=True,
                                                     state_trace=track if candidate is model else None)
+            if depth == 8:
+                with torch.no_grad():
+                    selected = candidate.forward_depth_stages(images)
+                torch.testing.assert_close(selected, {key: stages[key] for key in selected}, atol=0, rtol=0)
             mid, final = (point_loss(stages[key], target) for key in ("early", "final"))
             total = final + .25 * mid
         if candidate is model:
             grad, = torch.autograd.grad(mid, gates, retain_graph=True)
-            assert torch.all(grad[:2].norm(dim=-1) > 0) and torch.count_nonzero(grad[2:]) == 0
+            assert torch.all(grad[:midpoint].norm(dim=-1) > 0) and torch.count_nonzero(grad[midpoint:]) == 0
         total.backward()
         outputs[candidate], losses[candidate] = stages, torch.stack((mid, final, total))
     tol = PLAN["tolerances"][precision]
@@ -65,7 +71,7 @@ def test_four_calls_unit_gate_and_gradients(ungated, precision):
     torch.testing.assert_close(losses[model], losses[baseline], **tol["output"])
     for key, parameter in baseline.named_parameters():
         torch.testing.assert_close(parameter.grad, dict(model.named_parameters())[key].grad, **tol["gradient"])
-    assert len(call_states) == 4 and all(state.grad.norm() > 0 for state in call_states)
+    assert len(call_states) == depth and all(state.grad.norm() > 0 for state in call_states)
     assert torch.isfinite(gates.grad).all() and torch.all(gates.grad.norm(dim=-1) > 0)
     if precision == "bf16":
         assert all(state.dtype == torch.bfloat16 for state in call_states)

@@ -1,0 +1,14 @@
+{
+  "status": "DRAFT_DEPTH8 / GPU_TRAINING_NOT_AUTHORIZED",
+  "evaluation": "not_run",
+  "gpu_authorization": null,
+  "fresh_runs_planned": 8,
+  "fresh_runs_completed": 0,
+  "project_updates_planned": 57600,
+  "project_updates_completed": 0,
+  "joint_gates": "not_run",
+  "sharing_interactions": "not_run",
+  "candidate_identity_transitions": "not_available",
+  "current_default": "retain_ungated_shared_2_aux_ema",
+  "K16_and_cross_dataset_replication": "not_authorized"
+}
