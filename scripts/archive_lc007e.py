@@ -203,7 +203,8 @@ def archive(root, output, *, screen_path=SCREEN, history_tables=history, contras
     write_json(output / "research_decision.json", summary)
     write_json(output / "run_evidence.json", {"execution": runtime | progress, "cases": evidence, "phase_rows": len(phases)})
     write_json(output / "authorization.json", owner)
-    for filename in ("gpu_phases.jsonl", "background_start.txt", "background_end.txt", "synthetic_gpu_latency.json"):
+    for filename in ("gpu_phases.jsonl", "background_start.txt", "background_end.txt", "synthetic_gpu_latency.json",
+                     "device_memory_start.json", "device_memory_end.json"):
         if (run / filename).is_file():
             copyfile(run / filename, output / filename)
     print(summary["status"], verified, "verified runs", progress.get("successful_updates", 0), "updates", qualifies)

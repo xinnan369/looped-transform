@@ -1,0 +1,37 @@
+{
+  "issue": 29,
+  "parent": "8b2e912c2591cac643cb3d93732c870f5674fd50",
+  "state": "DRAFT_CROSS_WINDOW / GPU_TRAINING_NOT_AUTHORIZED",
+  "arm_config": "configs/lc007e_depth4.json",
+  "arms": {
+    "S4-shift": {"variant": "shifted_shared_4", "comparison": "S4"},
+    "U4-shift": {"variant": "shifted_unshared_4", "comparison": "U4"}
+  },
+  "fixed_references": {"S4": "shared_4", "U4": "unshared_4"},
+  "order": {"42": ["S4-shift", "U4-shift"], "123": ["U4-shift", "S4-shift"]},
+  "limits_if_approved": {
+    "runs": 4,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "warmup_updates": 360,
+    "total_updates": 28800,
+    "gpu_seconds": 5400,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  },
+  "memory_policy": "device_headroom_and_observation_only",
+  "decision": {
+    "epochs": [36, 37, 38, 39, 40],
+    "loss_reference_epochs": [31, 32, 33, 34, 35],
+    "mae_ratio_max": 0.97,
+    "nap_strict_delta_min": 0,
+    "sample_cv_max": 0.10,
+    "absolute_loss_relative_change_max": 0.03,
+    "rmse_ratio_max": 1.03,
+    "fp_ratio_max": 1.05,
+    "fn_ratio_max": 1.05,
+    "fixed_S4_mae_target": 23.655875,
+    "retained_S2_mae_target": 21.279375,
+    "U2_mae_target": 20.231775
+  }
+}

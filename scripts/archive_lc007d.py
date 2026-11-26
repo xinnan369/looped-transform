@@ -50,11 +50,12 @@ def close_out(root, config, *, config_path=CONFIG):
     path = run / "gpu_phases.jsonl"
     phases = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()] if path.is_file() else []
     limits = config["limits_if_approved"]
+    peak_limit = limits.get("peak_reserved_bytes")
     if progress["execution"] == "completed":
         order = [f"{seed}/{arm}" for seed, arms in config["order"].items() for arm in arms]
         if (progress["completed"] != order or progress["successful_updates"] != limits["total_updates"]
                 or progress["charged_seconds"] > limits["gpu_seconds"]
-                or progress["peak_reserved_bytes"] > limits["peak_reserved_bytes"]
+                or (peak_limit is not None and progress["peak_reserved_bytes"] > peak_limit)
                 or not phases or phases[-1]["phase"] != "cleanup" or any(row["failure"] for row in phases)):
             raise ValueError("completed queue does not reconcile to the scoped resource ledger")
     return authorization, progress, phases, provenance | {"exit_status": code, "runner_log": local_ref(root / "runner.log")}

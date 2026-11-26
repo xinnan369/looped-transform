@@ -61,7 +61,8 @@ class ScreenBudget:
         # Reserve final synchronization and cleanup even when checking a single batch.
         if totals["charged_seconds"] + estimate + self.cleanup_reserve_seconds >= self.limits["gpu_seconds"]:
             raise RuntimeError(f"{self.label} time budget would be exceeded during {operation or self.case}")
-        if self.reserved > self.limits["peak_reserved_bytes"]:
+        peak_limit = self.limits.get("peak_reserved_bytes")
+        if peak_limit is not None and self.reserved > peak_limit:
             raise RuntimeError(f"{self.label} process reserved exceeds the 2 GiB cap")
         if operation == "train_batch" and self.updates >= self.limits["total_updates"]:
             raise RuntimeError(f"{self.label} optimizer-update cap reached")

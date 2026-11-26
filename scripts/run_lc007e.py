@@ -2,6 +2,7 @@
 
 import argparse
 import shutil
+from contextlib import nullcontext
 from pathlib import Path
 from statistics import median
 from time import perf_counter
@@ -50,25 +51,37 @@ def latency(screen, budget, *, load_config=config_for, modes=("final_only", "sta
                   for mode, values in modes.items()} for arm, modes in samples.items()}
 
 
+def configure_device_memory(device, peak_limit, required_free):
+    free, total = torch.cuda.mem_get_info(device)
+    if free < required_free:
+        raise RuntimeError(f"device has {free} free bytes, below the projected {required_free} bytes")
+    if peak_limit is not None:
+        torch.cuda.set_per_process_memory_fraction(peak_limit / total, device)
+    return {"free_bytes": free, "total_bytes": total}
+
+
 def execute(manifest, output, screen, revision, *, audit_inputs=audit, history_tables=history, budget_type=DepthBudget,
             projection_keys=("upper_with_15pct_contingency_seconds", "peak_reserved_scenario_2x_bytes"),
-            latency_modes=("final_only", "staged"), free_disk_gib=3):
+            latency_modes=("final_only", "staged"), free_disk_gib=3, charge_cpu_preflight=False):
     if shutil.disk_usage(output.parent).free < free_disk_gib * 1024**3:
         raise RuntimeError(f"{budget_type.label} requires {free_disk_gib} GiB free for checkpoints and evidence")
     output.mkdir()
     progress = {"execution": "in_progress", "code_commit": revision, "completed": []}
-    budget = None
     limits = screen["limits_if_approved"]
+    peak_limit = limits.get("peak_reserved_bytes")
+    device = torch.device("cuda:0")
+    budget = budget_type(limits, output / "gpu_phases.jsonl", device) if charge_cpu_preflight else None
     try:
-        evidence = audit_inputs(manifest, screen)
-        write_json(output / "preflight_cpu.json", evidence)
-        projection = evidence["resource_projection"]
-        if (projection[projection_keys[0]] > limits["gpu_seconds"]
-                or projection[projection_keys[1]] > limits["peak_reserved_bytes"]):
-            raise RuntimeError("CPU resource projection exceeds the proposed limits")
-        tables = history_tables()
-        device = torch.device("cuda:0")
-        budget = budget_type(limits, output / "gpu_phases.jsonl", device)
+        with budget.phase("cpu_preflight") if budget is not None else nullcontext():
+            evidence = audit_inputs(manifest, screen)
+            write_json(output / "preflight_cpu.json", evidence)
+            projection = evidence["resource_projection"]
+            if (projection[projection_keys[0]] > limits["gpu_seconds"]
+                    or (peak_limit is not None and projection[projection_keys[1]] > peak_limit)):
+                raise RuntimeError("CPU resource projection exceeds the proposed limits")
+            tables = history_tables()
+        if budget is None:
+            budget = budget_type(limits, output / "gpu_phases.jsonl", device)
         try:
             with budget.phase("preflight"):
                 (output / "background_start.txt").write_text(background_snapshot(), encoding="utf-8")
@@ -77,10 +90,10 @@ def execute(manifest, output, screen, revision, *, audit_inputs=audit, history_t
                 budget.active = True
                 if "3090" not in torch.cuda.get_device_name(device) or not torch.cuda.is_bf16_supported():
                     raise RuntimeError("one visible BF16-capable RTX 3090 is required")
-                free, total = torch.cuda.mem_get_info(device)
-                if free < limits["peak_reserved_bytes"]:
-                    raise RuntimeError("existing jobs leave less than 2 GiB free")
-                torch.cuda.set_per_process_memory_fraction(limits["peak_reserved_bytes"] / total, device)
+                required_free = peak_limit if peak_limit is not None else projection[projection_keys[1]]
+                memory = configure_device_memory(device, peak_limit, required_free)
+                if peak_limit is None:
+                    write_json(output / "device_memory_start.json", memory)
                 write_json(output / "synthetic_gpu_latency.json", latency(screen, budget, modes=latency_modes))
                 torch.cuda.empty_cache()
             for seed_text, arms in screen["order"].items():
@@ -105,9 +118,13 @@ def execute(manifest, output, screen, revision, *, audit_inputs=audit, history_t
                 with budget.phase("cleanup"):
                     torch.cuda.empty_cache()
                     (output / "background_end.txt").write_text(background_snapshot(), encoding="utf-8")
+                    if peak_limit is None:
+                        free, total = torch.cuda.mem_get_info(device)
+                        write_json(output / "device_memory_end.json", {"free_bytes": free, "total_bytes": total})
         totals = budget.totals()
         if (len(progress["completed"]) != limits["runs"] or budget.updates != limits["total_updates"]
-                or totals["charged_seconds"] > limits["gpu_seconds"] or budget.reserved > limits["peak_reserved_bytes"]):
+                or totals["charged_seconds"] > limits["gpu_seconds"]
+                or (peak_limit is not None and budget.reserved > peak_limit)):
             raise RuntimeError("final resource ledger or update denominator differs")
         progress.update(execution="completed", current=None)
     except BaseException as error:

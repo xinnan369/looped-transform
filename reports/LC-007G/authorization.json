@@ -1,0 +1,19 @@
+{
+  "owner_message_ref": "Codex chat 01a200e8-67b1-73e0-b721-c7002ea14aca / turn 01a21845-fed6-7550-9e28-7e30710ab76a / message 01a21845-ff33-7720-b852-6aed7983e5fc",
+  "approved_at": "2026-11-26T22:32:50+08:00",
+  "owner_exact_text": "\u6279\u51c6",
+  "issue": 29,
+  "code_commit": "3e01e677714f87d71a2f7b0518a48f71f2669f82",
+  "config_sha256": "9d444769dd6a543c93d0e2f58781ef790d45c88cb71195ba12c1fb7797f7e95b",
+  "approval_scope": "Frozen Issue #29 and draft PR #30. One serial RTX 3090, four shifted K=4 fresh runs, 160 epochs, 28,800 updates within 5,400 seconds including preflight. Observe VRAM and actual device headroom without an allocator quota. Preserve concurrent jobs. Zero external experiment bytes.",
+  "limits": {
+    "runs": 4,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "warmup_updates": 360,
+    "total_updates": 28800,
+    "gpu_seconds": 5400,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  }
+}
