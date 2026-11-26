@@ -1,6 +1,4 @@
-"""CPU-only preparation for frozen two-call loss and call-gradient diagnostics."""
-
-from contextlib import contextmanager
+"""Frozen two-call loss and call-gradient diagnostics."""
 
 import torch
 from torch import nn
@@ -75,15 +73,33 @@ def _native_groups(parameters, shared):
 
 
 def _losses(outputs, target):
+    values = [value for stage in outputs.values() for value in stage.values()]
+    if not all_finite(values):
+        raise FloatingPointError("nonfinite probe output")
     early, final = (point_loss(outputs[stage], target) for stage in ("early", "final"))
-    return {"early": early, "final": final, "total": final + WEIGHT * early}
+    total = final + WEIGHT * early
+    if not all_finite((early, final, total)):
+        raise FloatingPointError("nonfinite probe loss")
+    return {"early": early, "final": final, "total": total}
+
+
+@torch.no_grad()
+def all_finite(tensors):
+    values = tuple(value.detach() for value in tensors)
+    if not values:
+        return True
+    norms = torch._foreach_norm(values, ord=float("inf"))
+    return bool(torch.isfinite(torch.stack(norms)).all())
 
 
 def _vjp(loss, groups, *, retain_graph):
     tensors = [tensor for group in groups.values() for tensor in group.values()]
     if len({id(tensor) for tensor in tensors}) != len(tensors):
         raise ValueError("a probe parameter was listed more than once")
-    gradients = iter(torch.autograd.grad(loss, tensors, retain_graph=retain_graph, allow_unused=True))
+    values = torch.autograd.grad(loss, tensors, retain_graph=retain_graph, allow_unused=True)
+    if not all_finite(value for value in values if value is not None):
+        raise FloatingPointError("nonfinite probe VJP")
+    gradients = iter(values)
     return {name: {key: next(gradients) for key in group} for name, group in groups.items()}
 
 
@@ -158,9 +174,15 @@ def gradient_pair(a, b, parameters, *, left_scale=1.0):
 
 def diagnose_two_calls(model, images, target, *, precision="fp32", parameter_values=None):
     """Compare a native and expanded graph on generated CPU fixtures."""
+    if images.device.type != "cpu":
+        raise ValueError("the synthetic probe entry point requires CPU tensors")
+    return _diagnose_two_calls(model, images, target, precision=precision, parameter_values=parameter_values)
+
+
+def _diagnose_two_calls(model, images, target, *, precision, parameter_values=None):
     device = images.device
-    if device.type != "cpu" or any(p.device.type != "cpu" for p in model.parameters()):
-        raise RuntimeError("LC-007C currently authorizes synthetic CPU probes only")
+    if any(t.device != device for t in (*model.parameters(), *model.buffers(), *target.values())):
+        raise ValueError("probe inputs and model must share one device")
     if (model.loops != 2 or model.shifted or model.embedding is not None or model.gain_logits is not None
             or model.density is not None or model.gradient_checkpointing or model.freeze_backbone_bn):
         raise ValueError("gradient probe requires the frozen two-call LC-007B graph")
@@ -217,5 +239,7 @@ def diagnose_two_calls(model, images, target, *, precision="fp32", parameter_val
             first, second = f"{group}_call_1", f"{group}_call_2"
             rows.append({"comparison": f"{kind}_first_vs_second_call", "group": group, "relation": relation,
                          **gradient_pair(expanded[first], expanded[second], expanded_groups[first])})
-    return {"outputs_max_abs": output_checks, "losses_max_abs": loss_checks, "gradient_equivalence": checks,
+    return {"outputs_max_abs": output_checks, "native_losses": {
+                name: float(value.detach()) for name, value in native_losses.items()},
+            "losses_max_abs": loss_checks, "gradient_equivalence": checks,
             "comparisons": rows}

@@ -11,6 +11,7 @@ from loopcrowd.probe_budget import ProbeBudget
 from loopcrowd.targets import point_targets
 from scripts.archive_lc007c import correction
 from scripts.prepare_lc007c import crop_plan
+from scripts.run_lc007c import immutable_readout
 
 
 def fixture(variant):
@@ -145,3 +146,42 @@ def test_cooperative_budget_accounts_interrupted_phase_and_raises_final_sync():
     with pytest.raises(RuntimeError, match="case cap"):
         with guard.phase("too many cases", estimate_seconds=1, batch_policy_case=True):
             pytest.fail("must refuse before running")
+
+
+def test_phase_records_crossings_during_a_failure_and_charges_cleanup():
+    times = iter((0., 3., 3., 4.))
+    peaks = iter((100, 150, 150))
+    guard = ProbeBudget(seconds=2, reserved_bytes=120, cases=2, synchronize=lambda: None,
+                        peak_reserved=lambda: next(peaks), clock=lambda: next(times))
+    with pytest.raises(ValueError, match="interrupted"):
+        with guard.phase("fixture", estimate_seconds=1, batch_policy_case=True):
+            raise ValueError("interrupted in the case")
+    error_phase = guard.phases[-1]
+    assert error_phase["status"] == "failed"
+    assert error_phase["budget_crossings"] == ["gpu_seconds", "process_peak_reserved_bytes"]
+    with pytest.raises(RuntimeError, match="would be exceeded"):
+        with guard.phase("must release", estimate_seconds=1, cleanup=True):
+            pass
+    assert guard.cases == 1 and guard.seconds == 4
+    assert guard.phases[-1]["status"] == "budget_exceeded"
+
+
+def test_runner_detects_mutated_model_during_abort(monkeypatch):
+    model, images, target = fixture("shared_2")
+    import scripts.run_lc007c as runner
+
+    def bad_measurement(model, *_args, **_kwargs):
+        with torch.no_grad():
+            next(model.parameters()).add_(1)
+        raise ValueError("injected forward error")
+
+    monkeypatch.setattr(runner, "_diagnose_two_calls", bad_measurement)
+    with pytest.raises(RuntimeError, match="probe changed") as error:
+        immutable_readout(model, {}, images, target, "live", torch.device("cpu"))
+    assert isinstance(error.value.__context__, ValueError)
+
+
+def test_runner_invariance_on_generated_bf16_input():
+    model, images, target = fixture("unshared_2")
+    shadow = {name: value.detach().clone() for name, value in model.named_parameters()}
+    assert immutable_readout(model, shadow, images, target, "ema", torch.device("cpu"))["gradient_equivalence"]
