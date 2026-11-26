@@ -16,4 +16,4 @@ The separate CPU input audit reconciled 24 indexed files, eight historical runs 
 | ---: | ---: | ---: | ---: | ---: |
 | 191.52 | 193.09 | 192.96 | 190.35 | 190.09 |
 
-Project updates, GPU timing and peak memory, and hosted CI are `not_run`. The local metrics here describe CPU verification and synthetic inputs. [Resource audit](resource_audit.md)
+The CPU results above come from verification and synthetic inputs. Subsequent archive verification checked all six training trajectories, retained EMA checkpoints, image-file checksums and pooled count reconciliations. A separate confined CPU fixture verified the partial archive path with one completed run and unevaluable decision gates. Hosted CI remains `not_run`. [Executed resource audit](resource_audit.md) · [Indexed raw results](epoch_index.csv)

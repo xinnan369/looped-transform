@@ -1,0 +1,20 @@
+{
+  "owner_message_ref": "Codex chat 01a200e8-67b1-73e0-b721-c7002ea14aca / turn 01a215af-cc11-7031-b013-04903cb2bd13 / message 01a215af-cc71-7c20-ab3d-9302677a1e5d",
+  "approved_at": "2026-11-26T10:29:32+08:00",
+  "owner_exact_text": "\u6388\u6743",
+  "issue": 23,
+  "code_commit": "99851b1baf893a6619bbe79c980c8635c9ac896a",
+  "config_sha256": "f035d088fe3a23794dcc3f441ffb5b2ec3141ec36a04d620e88d0314b1d9fc79",
+  "approval_scope": "Preregistered Issue #23 and draft PR #24 only. Local ShanghaiTech B, two seeds, R/RS/U-RS in frozen order, one serial RTX 3090, synthetic forward-only latency plus six fresh runs, no reruns or expansion. Preserve concurrent training. Zero external experiment downloads.",
+  "limits": {
+    "runs": 6,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "warmup_updates": 360,
+    "total_updates": 43200,
+    "peak_reserved_bytes": 2147483648,
+    "gpu_seconds": 5400,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  }
+}
