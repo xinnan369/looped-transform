@@ -1,5 +1,5 @@
 {
-  "real_checkpoint_gradient_execution": "not_run_pending_owner_gpu_approval",
+  "real_checkpoint_gradient_execution": "completed",
   "synthetic_cpu_execution": "passed",
   "generated_data_only": true,
   "torch": "2.2.2+cu121",
@@ -298,5 +298,5089 @@
     "planning_upper_seconds": 91.60315116035547,
     "formula": "2 \u00d7 upper historical-step-scaled synthetic ratio + 60 seconds for I/O, preflight and finalization",
     "limits": "different device, input size, precision dispatch and allocator; no GPU timing or memory was measured"
-  }
+  },
+  "gpu_synthetic_preflight": {
+    "shared_2": {
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 1.4829723834991455,
+        "final": 1.4696869850158691,
+        "total": 1.8404300212860107
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0001220703125
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.001953125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        }
+      }
+    },
+    "unshared_2": {
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 1.4411349296569824,
+        "final": 1.414029598236084,
+        "total": 1.7743133306503296
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00146484375
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    }
+  },
+  "gpu_case_equivalence": [
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 1,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "c26f76115809eb1364e7d4876b4bcc427625568551b5cc7db12e55620845fe2a",
+      "status": "completed",
+      "batch_tensor_sha256": "f6e00baf1452dfa166edb4bd13c8e1bdea58fc0373bfca367acf7e7d69200354",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.322090744972229,
+        "final": 0.31540513038635254,
+        "total": 0.3959278166294098
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 1,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "c26f76115809eb1364e7d4876b4bcc427625568551b5cc7db12e55620845fe2a",
+      "status": "completed",
+      "batch_tensor_sha256": "f6e00baf1452dfa166edb4bd13c8e1bdea58fc0373bfca367acf7e7d69200354",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3244538903236389,
+        "final": 0.31716251373291016,
+        "total": 0.3982759714126587
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 2,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "06dba4aa0699e0d1827484e7372aecba0d706ac719c29dc1a464fd5872549f59",
+      "status": "completed",
+      "batch_tensor_sha256": "141bc1c0ce24dcb7bb5fae1b74e4e8d201004af226d2c03315a6c8ef7e0b247d",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3473178744316101,
+        "final": 0.3296123743057251,
+        "total": 0.4164418578147888
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 2,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "06dba4aa0699e0d1827484e7372aecba0d706ac719c29dc1a464fd5872549f59",
+      "status": "completed",
+      "batch_tensor_sha256": "141bc1c0ce24dcb7bb5fae1b74e4e8d201004af226d2c03315a6c8ef7e0b247d",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35795944929122925,
+        "final": 0.33935508131980896,
+        "total": 0.4288449287414551
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 4.57763671875e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 3,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "591ff11641ad8f954d989165dcbaf57de3f9728dd020df3db4d23ab2d405cddd",
+      "status": "completed",
+      "batch_tensor_sha256": "fc9333abdd8f84b6640621bce1dc245f5f717a9ea409267c0fcc72c21c44c326",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3328217566013336,
+        "final": 0.32420581579208374,
+        "total": 0.40741124749183655
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 3,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "591ff11641ad8f954d989165dcbaf57de3f9728dd020df3db4d23ab2d405cddd",
+      "status": "completed",
+      "batch_tensor_sha256": "fc9333abdd8f84b6640621bce1dc245f5f717a9ea409267c0fcc72c21c44c326",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.34717652201652527,
+        "final": 0.3416205644607544,
+        "total": 0.4284147024154663
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 4,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "11846923fbdf1a834bfd8c2fe3039aeac4e3cc71b23f7180e5d2a2c7f627f8b5",
+      "status": "completed",
+      "batch_tensor_sha256": "1c25ae45cfdb37be79eb85db816efa18ef473400f3a22b73468fc251404d8a01",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.400547057390213,
+        "final": 0.39191341400146484,
+        "total": 0.4920501708984375
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 4,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "11846923fbdf1a834bfd8c2fe3039aeac4e3cc71b23f7180e5d2a2c7f627f8b5",
+      "status": "completed",
+      "batch_tensor_sha256": "1c25ae45cfdb37be79eb85db816efa18ef473400f3a22b73468fc251404d8a01",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3973241448402405,
+        "final": 0.3865208029747009,
+        "total": 0.48585182428359985
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 5,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "ce25d7bf8eda7c99577ed694a018275e35dd66abf38bc33c8c1bc89584d9ac82",
+      "status": "completed",
+      "batch_tensor_sha256": "03cfa437969447eceb42f8ac52ab336432b47c77fe8c1ba17db15198b1b2cb22",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4016963243484497,
+        "final": 0.3988487720489502,
+        "total": 0.4992728531360626
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 5,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "ce25d7bf8eda7c99577ed694a018275e35dd66abf38bc33c8c1bc89584d9ac82",
+      "status": "completed",
+      "batch_tensor_sha256": "03cfa437969447eceb42f8ac52ab336432b47c77fe8c1ba17db15198b1b2cb22",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.40296313166618347,
+        "final": 0.4016210436820984,
+        "total": 0.5023618340492249
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 6,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "f32a2c15aca138f6fb9552de2edba1f02d8d8cb4d43d1acdd5c029ec5bac383a",
+      "status": "completed",
+      "batch_tensor_sha256": "15fac9650f2fe880069b9dae29394738770a5aabdfecfef59fb17b940e950c3b",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3781065344810486,
+        "final": 0.37106001377105713,
+        "total": 0.46558666229248047
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 6,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "f32a2c15aca138f6fb9552de2edba1f02d8d8cb4d43d1acdd5c029ec5bac383a",
+      "status": "completed",
+      "batch_tensor_sha256": "15fac9650f2fe880069b9dae29394738770a5aabdfecfef59fb17b940e950c3b",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.384622722864151,
+        "final": 0.3784220814704895,
+        "total": 0.47457775473594666
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 7,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "bc435452b5665ae4842a53ff625b81643fd18aa2f8c3e1ebfe8b6e084e8551c8",
+      "status": "completed",
+      "batch_tensor_sha256": "89cfe0cb7e2b5c409d548c11e2f84e8f428033cedc8a02eb587ba963a167d919",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.37186795473098755,
+        "final": 0.3684576749801636,
+        "total": 0.46142464876174927
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0003662109375
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 7,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "bc435452b5665ae4842a53ff625b81643fd18aa2f8c3e1ebfe8b6e084e8551c8",
+      "status": "completed",
+      "batch_tensor_sha256": "89cfe0cb7e2b5c409d548c11e2f84e8f428033cedc8a02eb587ba963a167d919",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3716176152229309,
+        "final": 0.36850622296333313,
+        "total": 0.46141064167022705
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 8,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "04faaab2abf6e4e74ce725565784a1885cf4cf09991e6a94a917f1e7e8b6d116",
+      "status": "completed",
+      "batch_tensor_sha256": "a290086cb05bf67a8dca42872f5be82ad5a927854a99cf4e6cf801c3cbd85c80",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3754785656929016,
+        "final": 0.37489837408065796,
+        "total": 0.46876800060272217
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 8,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "04faaab2abf6e4e74ce725565784a1885cf4cf09991e6a94a917f1e7e8b6d116",
+      "status": "completed",
+      "batch_tensor_sha256": "a290086cb05bf67a8dca42872f5be82ad5a927854a99cf4e6cf801c3cbd85c80",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3803566098213196,
+        "final": 0.37992364168167114,
+        "total": 0.47501277923583984
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00018310546875
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 9,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "955c95f5d4116beaabdab16e50fd610d2400bbd1e63356d89c091b9c51b5c2e9",
+      "status": "completed",
+      "batch_tensor_sha256": "f54a151372fd37af5d94c41f335259d50081a10fb7d0cfc7a58117857ad6d287",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3760537803173065,
+        "final": 0.37355467677116394,
+        "total": 0.46756812930107117
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 9,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "955c95f5d4116beaabdab16e50fd610d2400bbd1e63356d89c091b9c51b5c2e9",
+      "status": "completed",
+      "batch_tensor_sha256": "f54a151372fd37af5d94c41f335259d50081a10fb7d0cfc7a58117857ad6d287",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3741130828857422,
+        "final": 0.37125828862190247,
+        "total": 0.464786559343338
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 10,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "fe8358693fbb2fc5e4abe5157a61cb16ff8fb4b1c3ffe25eb438d16a5d986ae3",
+      "status": "completed",
+      "batch_tensor_sha256": "9eb2b4a0f9b066e53333c3629454bdcda31acd22f32c259607250bb089744055",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.36860528588294983,
+        "final": 0.3663497567176819,
+        "total": 0.45850107073783875
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 10,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "fe8358693fbb2fc5e4abe5157a61cb16ff8fb4b1c3ffe25eb438d16a5d986ae3",
+      "status": "completed",
+      "batch_tensor_sha256": "9eb2b4a0f9b066e53333c3629454bdcda31acd22f32c259607250bb089744055",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.37017640471458435,
+        "final": 0.36848387122154236,
+        "total": 0.46102797985076904
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 11,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "8b35b07e5db74827e05e73b0f795a7fbafed84650480e369fb99c98ce2826711",
+      "status": "completed",
+      "batch_tensor_sha256": "a99c4f1d56d3add912aadb282ed28ea5826dae6c31422d1fddde57165a193203",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.37716659903526306,
+        "final": 0.37267565727233887,
+        "total": 0.46696731448173523
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 11,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "8b35b07e5db74827e05e73b0f795a7fbafed84650480e369fb99c98ce2826711",
+      "status": "completed",
+      "batch_tensor_sha256": "a99c4f1d56d3add912aadb282ed28ea5826dae6c31422d1fddde57165a193203",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.37633204460144043,
+        "final": 0.3711698651313782,
+        "total": 0.4652528762817383
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 9.1552734375e-05
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 12,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "f4778584983c3dd53fa42d3ed46bbdc4b74ef23112d07779e60e96c770a773d3",
+      "status": "completed",
+      "batch_tensor_sha256": "d10397468d211ccd7c25bf4f94a11d46b9f891b0eede7b2dde482227bf377626",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35900169610977173,
+        "final": 0.36000606417655945,
+        "total": 0.4497565031051636
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "shared_2_aux_025",
+      "batch": 12,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "f4778584983c3dd53fa42d3ed46bbdc4b74ef23112d07779e60e96c770a773d3",
+      "status": "completed",
+      "batch_tensor_sha256": "d10397468d211ccd7c25bf4f94a11d46b9f891b0eede7b2dde482227bf377626",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.358584463596344,
+        "final": 0.35832637548446655,
+        "total": 0.44797247648239136
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 1,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "c26f76115809eb1364e7d4876b4bcc427625568551b5cc7db12e55620845fe2a",
+      "status": "completed",
+      "batch_tensor_sha256": "f6e00baf1452dfa166edb4bd13c8e1bdea58fc0373bfca367acf7e7d69200354",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.31377190351486206,
+        "final": 0.2985665798187256,
+        "total": 0.3770095705986023
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 1,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "c26f76115809eb1364e7d4876b4bcc427625568551b5cc7db12e55620845fe2a",
+      "status": "completed",
+      "batch_tensor_sha256": "f6e00baf1452dfa166edb4bd13c8e1bdea58fc0373bfca367acf7e7d69200354",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3133796155452728,
+        "final": 0.29854926466941833,
+        "total": 0.37689417600631714
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 2,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "06dba4aa0699e0d1827484e7372aecba0d706ac719c29dc1a464fd5872549f59",
+      "status": "completed",
+      "batch_tensor_sha256": "141bc1c0ce24dcb7bb5fae1b74e4e8d201004af226d2c03315a6c8ef7e0b247d",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.36623361706733704,
+        "final": 0.3510473966598511,
+        "total": 0.44260579347610474
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 2,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "06dba4aa0699e0d1827484e7372aecba0d706ac719c29dc1a464fd5872549f59",
+      "status": "completed",
+      "batch_tensor_sha256": "141bc1c0ce24dcb7bb5fae1b74e4e8d201004af226d2c03315a6c8ef7e0b247d",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.36879217624664307,
+        "final": 0.35312047600746155,
+        "total": 0.4453185200691223
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 3,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "591ff11641ad8f954d989165dcbaf57de3f9728dd020df3db4d23ab2d405cddd",
+      "status": "completed",
+      "batch_tensor_sha256": "fc9333abdd8f84b6640621bce1dc245f5f717a9ea409267c0fcc72c21c44c326",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.31286248564720154,
+        "final": 0.29589444398880005,
+        "total": 0.37411007285118103
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 3,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "591ff11641ad8f954d989165dcbaf57de3f9728dd020df3db4d23ab2d405cddd",
+      "status": "completed",
+      "batch_tensor_sha256": "fc9333abdd8f84b6640621bce1dc245f5f717a9ea409267c0fcc72c21c44c326",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.32661929726600647,
+        "final": 0.31719881296157837,
+        "total": 0.3988536298274994
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 4,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "11846923fbdf1a834bfd8c2fe3039aeac4e3cc71b23f7180e5d2a2c7f627f8b5",
+      "status": "completed",
+      "batch_tensor_sha256": "1c25ae45cfdb37be79eb85db816efa18ef473400f3a22b73468fc251404d8a01",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3928661346435547,
+        "final": 0.37848252058029175,
+        "total": 0.4766990542411804
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 4,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "11846923fbdf1a834bfd8c2fe3039aeac4e3cc71b23f7180e5d2a2c7f627f8b5",
+      "status": "completed",
+      "batch_tensor_sha256": "1c25ae45cfdb37be79eb85db816efa18ef473400f3a22b73468fc251404d8a01",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.39392825961112976,
+        "final": 0.37903138995170593,
+        "total": 0.47751346230506897
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 5,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "ce25d7bf8eda7c99577ed694a018275e35dd66abf38bc33c8c1bc89584d9ac82",
+      "status": "completed",
+      "batch_tensor_sha256": "03cfa437969447eceb42f8ac52ab336432b47c77fe8c1ba17db15198b1b2cb22",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.382946252822876,
+        "final": 0.38075682520866394,
+        "total": 0.47649338841438293
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 5,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "ce25d7bf8eda7c99577ed694a018275e35dd66abf38bc33c8c1bc89584d9ac82",
+      "status": "completed",
+      "batch_tensor_sha256": "03cfa437969447eceb42f8ac52ab336432b47c77fe8c1ba17db15198b1b2cb22",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.38754284381866455,
+        "final": 0.3856922686100006,
+        "total": 0.48257797956466675
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 6,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "f32a2c15aca138f6fb9552de2edba1f02d8d8cb4d43d1acdd5c029ec5bac383a",
+      "status": "completed",
+      "batch_tensor_sha256": "15fac9650f2fe880069b9dae29394738770a5aabdfecfef59fb17b940e950c3b",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.38292762637138367,
+        "final": 0.3780706524848938,
+        "total": 0.4738025665283203
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 6,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "f32a2c15aca138f6fb9552de2edba1f02d8d8cb4d43d1acdd5c029ec5bac383a",
+      "status": "completed",
+      "batch_tensor_sha256": "15fac9650f2fe880069b9dae29394738770a5aabdfecfef59fb17b940e950c3b",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3865407407283783,
+        "final": 0.38217979669570923,
+        "total": 0.4788149893283844
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 7,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "bc435452b5665ae4842a53ff625b81643fd18aa2f8c3e1ebfe8b6e084e8551c8",
+      "status": "completed",
+      "batch_tensor_sha256": "89cfe0cb7e2b5c409d548c11e2f84e8f428033cedc8a02eb587ba963a167d919",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.37240707874298096,
+        "final": 0.3665905296802521,
+        "total": 0.4596922993659973
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 7,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "bc435452b5665ae4842a53ff625b81643fd18aa2f8c3e1ebfe8b6e084e8551c8",
+      "status": "completed",
+      "batch_tensor_sha256": "89cfe0cb7e2b5c409d548c11e2f84e8f428033cedc8a02eb587ba963a167d919",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3718366324901581,
+        "final": 0.3658056855201721,
+        "total": 0.45876485109329224
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 8,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "04faaab2abf6e4e74ce725565784a1885cf4cf09991e6a94a917f1e7e8b6d116",
+      "status": "completed",
+      "batch_tensor_sha256": "a290086cb05bf67a8dca42872f5be82ad5a927854a99cf4e6cf801c3cbd85c80",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.37629175186157227,
+        "final": 0.3750477135181427,
+        "total": 0.46912065148353577
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0003662109375
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 8,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "04faaab2abf6e4e74ce725565784a1885cf4cf09991e6a94a917f1e7e8b6d116",
+      "status": "completed",
+      "batch_tensor_sha256": "a290086cb05bf67a8dca42872f5be82ad5a927854a99cf4e6cf801c3cbd85c80",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.38291269540786743,
+        "final": 0.38078534603118896,
+        "total": 0.47651350498199463
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 9,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "955c95f5d4116beaabdab16e50fd610d2400bbd1e63356d89c091b9c51b5c2e9",
+      "status": "completed",
+      "batch_tensor_sha256": "f54a151372fd37af5d94c41f335259d50081a10fb7d0cfc7a58117857ad6d287",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3717622458934784,
+        "final": 0.37009501457214355,
+        "total": 0.46303558349609375
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 9,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "955c95f5d4116beaabdab16e50fd610d2400bbd1e63356d89c091b9c51b5c2e9",
+      "status": "completed",
+      "batch_tensor_sha256": "f54a151372fd37af5d94c41f335259d50081a10fb7d0cfc7a58117857ad6d287",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.36956197023391724,
+        "final": 0.367104709148407,
+        "total": 0.4594951868057251
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 10,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "fe8358693fbb2fc5e4abe5157a61cb16ff8fb4b1c3ffe25eb438d16a5d986ae3",
+      "status": "completed",
+      "batch_tensor_sha256": "9eb2b4a0f9b066e53333c3629454bdcda31acd22f32c259607250bb089744055",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.37001556158065796,
+        "final": 0.3667582869529724,
+        "total": 0.4592621922492981
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 10,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "fe8358693fbb2fc5e4abe5157a61cb16ff8fb4b1c3ffe25eb438d16a5d986ae3",
+      "status": "completed",
+      "batch_tensor_sha256": "9eb2b4a0f9b066e53333c3629454bdcda31acd22f32c259607250bb089744055",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3714364171028137,
+        "final": 0.36909520626068115,
+        "total": 0.4619542956352234
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 11,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "8b35b07e5db74827e05e73b0f795a7fbafed84650480e369fb99c98ce2826711",
+      "status": "completed",
+      "batch_tensor_sha256": "a99c4f1d56d3add912aadb282ed28ea5826dae6c31422d1fddde57165a193203",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3723428547382355,
+        "final": 0.3673171103000641,
+        "total": 0.46040281653404236
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 11,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "8b35b07e5db74827e05e73b0f795a7fbafed84650480e369fb99c98ce2826711",
+      "status": "completed",
+      "batch_tensor_sha256": "a99c4f1d56d3add912aadb282ed28ea5826dae6c31422d1fddde57165a193203",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3717328906059265,
+        "final": 0.36609548330307007,
+        "total": 0.4590287208557129
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 9.1552734375e-05
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 12,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "f4778584983c3dd53fa42d3ed46bbdc4b74ef23112d07779e60e96c770a773d3",
+      "status": "completed",
+      "batch_tensor_sha256": "d10397468d211ccd7c25bf4f94a11d46b9f891b0eede7b2dde482227bf377626",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35692599415779114,
+        "final": 0.3588472604751587,
+        "total": 0.4480787515640259
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "unshared_2_aux_025",
+      "batch": 12,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "f4778584983c3dd53fa42d3ed46bbdc4b74ef23112d07779e60e96c770a773d3",
+      "status": "completed",
+      "batch_tensor_sha256": "d10397468d211ccd7c25bf4f94a11d46b9f891b0eede7b2dde482227bf377626",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35599398612976074,
+        "final": 0.35708093643188477,
+        "total": 0.44607943296432495
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 6.103515625e-05
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 1,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "85b956a28337464cb2bef39e015b757e0f64a9dbee5f55fbc9184b67a6496047",
+      "status": "completed",
+      "batch_tensor_sha256": "551086981f1ba91dab8bd36fbe9c55d1162e8d3d1b35c30621fa78cc8c8125d6",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.31287744641304016,
+        "final": 0.30415886640548706,
+        "total": 0.3823782205581665
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 1,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "85b956a28337464cb2bef39e015b757e0f64a9dbee5f55fbc9184b67a6496047",
+      "status": "completed",
+      "batch_tensor_sha256": "551086981f1ba91dab8bd36fbe9c55d1162e8d3d1b35c30621fa78cc8c8125d6",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.31686392426490784,
+        "final": 0.31046971678733826,
+        "total": 0.3896856904029846
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 2,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "2ff1f9ec1685bdf35777ea45ec4fd407b2c3fedafcf86d37dd56007ec6ad1b6a",
+      "status": "completed",
+      "batch_tensor_sha256": "3f08646332c058430bfa2e5f92df8169ba9b8926a50e5a0de65260d6552b9124",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.40652894973754883,
+        "final": 0.3754245936870575,
+        "total": 0.4770568311214447
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000732421875
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 2,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "2ff1f9ec1685bdf35777ea45ec4fd407b2c3fedafcf86d37dd56007ec6ad1b6a",
+      "status": "completed",
+      "batch_tensor_sha256": "3f08646332c058430bfa2e5f92df8169ba9b8926a50e5a0de65260d6552b9124",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4049493074417114,
+        "final": 0.38324350118637085,
+        "total": 0.4844808280467987
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 4.57763671875e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 3,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "f0cb20489429e4f878b715bf2c0c885b70d5a0e1ae6c01b9f1426e4e342bee9e",
+      "status": "completed",
+      "batch_tensor_sha256": "e1331b2a594a94a6e046681d861801b7ab5cc4f176e50d85ddf1ba72d2676959",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35048332810401917,
+        "final": 0.34288445115089417,
+        "total": 0.43050527572631836
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 3,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "f0cb20489429e4f878b715bf2c0c885b70d5a0e1ae6c01b9f1426e4e342bee9e",
+      "status": "completed",
+      "batch_tensor_sha256": "e1331b2a594a94a6e046681d861801b7ab5cc4f176e50d85ddf1ba72d2676959",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35092562437057495,
+        "final": 0.34271153807640076,
+        "total": 0.4304429292678833
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 4,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "d6ff32db1fd746a9129105c6d1c29c9556f1baa4b49aa015574b210482d8b4a5",
+      "status": "completed",
+      "batch_tensor_sha256": "b4139f7a2e582c8b1cbce495e1d984a754902d8af0fa9575b04bf9dbe5c00e9a",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3566801846027374,
+        "final": 0.34310171008110046,
+        "total": 0.4322717487812042
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 2.6702880859375e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 2.6702880859375e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 4,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "d6ff32db1fd746a9129105c6d1c29c9556f1baa4b49aa015574b210482d8b4a5",
+      "status": "completed",
+      "batch_tensor_sha256": "b4139f7a2e582c8b1cbce495e1d984a754902d8af0fa9575b04bf9dbe5c00e9a",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.36016684770584106,
+        "final": 0.3487429916858673,
+        "total": 0.43878471851348877
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 2.6702880859375e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 2.6702880859375e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 5,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "3ff9aa1203a0a08aa0f4827cdb6ce4c174a36a583c89537aaabf5bee1b6b2616",
+      "status": "completed",
+      "batch_tensor_sha256": "6e1b86f5855aaa44855e34e66886607d1d6195cd93078a35753fc478a69bb59c",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35049086809158325,
+        "final": 0.3460147976875305,
+        "total": 0.43363749980926514
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 5,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "3ff9aa1203a0a08aa0f4827cdb6ce4c174a36a583c89537aaabf5bee1b6b2616",
+      "status": "completed",
+      "batch_tensor_sha256": "6e1b86f5855aaa44855e34e66886607d1d6195cd93078a35753fc478a69bb59c",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35553213953971863,
+        "final": 0.3528188467025757,
+        "total": 0.44170188903808594
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00018310546875
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 6,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "33a357f554106d8051a9113a5bc7ae5dcbce68e32e919538f073d896532cfff7",
+      "status": "completed",
+      "batch_tensor_sha256": "f17d237d01a3ea31434c21d2afc0ec0660b9dba13e8d97b6e5bca8542b4c7ffb",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.39789077639579773,
+        "final": 0.3893251419067383,
+        "total": 0.4887978434562683
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00018310546875
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 6,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "33a357f554106d8051a9113a5bc7ae5dcbce68e32e919538f073d896532cfff7",
+      "status": "completed",
+      "batch_tensor_sha256": "f17d237d01a3ea31434c21d2afc0ec0660b9dba13e8d97b6e5bca8542b4c7ffb",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4033995568752289,
+        "final": 0.39432695508003235,
+        "total": 0.49517685174942017
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 2.288818359375e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 2.288818359375e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 7,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "5f4400a62c3d01b0a13615b7987bb63704d961ef4bce108d67e2eedb90446742",
+      "status": "completed",
+      "batch_tensor_sha256": "468068ad8977a95c87217e922ba90821ae283064a14e85b7468f7e57cd61af67",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4655805230140686,
+        "final": 0.4609614610671997,
+        "total": 0.5773565769195557
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 6.103515625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 7,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "5f4400a62c3d01b0a13615b7987bb63704d961ef4bce108d67e2eedb90446742",
+      "status": "completed",
+      "batch_tensor_sha256": "468068ad8977a95c87217e922ba90821ae283064a14e85b7468f7e57cd61af67",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4721776843070984,
+        "final": 0.46891090273857117,
+        "total": 0.5869553089141846
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 8,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "0558f59567edfceb9500a83e01cac1bd1d8e29eda7de91b8ee5316391f805fc6",
+      "status": "completed",
+      "batch_tensor_sha256": "f89537fd9b329d2ede2481db5a0ba0ed537d882da4f1b780bce7011f05064a13",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.41664186120033264,
+        "final": 0.40841934084892273,
+        "total": 0.5125797986984253
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00018310546875
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 8,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "0558f59567edfceb9500a83e01cac1bd1d8e29eda7de91b8ee5316391f805fc6",
+      "status": "completed",
+      "batch_tensor_sha256": "f89537fd9b329d2ede2481db5a0ba0ed537d882da4f1b780bce7011f05064a13",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.41903188824653625,
+        "final": 0.4100782573223114,
+        "total": 0.5148362517356873
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 9,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "16be3780c7afae6d56de37ceefe69939aacd023bab71f0f2178a1217ff52dd1b",
+      "status": "completed",
+      "batch_tensor_sha256": "8f2136caef53b351fb12a194cd6dae5d019a057bf389da404cf784edd4b2ec45",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.36607393622398376,
+        "final": 0.3626396059989929,
+        "total": 0.45415809750556946
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 9,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "16be3780c7afae6d56de37ceefe69939aacd023bab71f0f2178a1217ff52dd1b",
+      "status": "completed",
+      "batch_tensor_sha256": "8f2136caef53b351fb12a194cd6dae5d019a057bf389da404cf784edd4b2ec45",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3678562641143799,
+        "final": 0.36392366886138916,
+        "total": 0.45588773488998413
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 10,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "fb474b3431ff9ea43c368fc210bbde81815778eff7a2fea1cad7b0734d94f4fe",
+      "status": "completed",
+      "batch_tensor_sha256": "e488182ce0ca7f6addac6a16fd27cf4365eae98419191fe15d0204d57ccaf1d2",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.40585172176361084,
+        "final": 0.401464581489563,
+        "total": 0.5029275417327881
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 10,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "fb474b3431ff9ea43c368fc210bbde81815778eff7a2fea1cad7b0734d94f4fe",
+      "status": "completed",
+      "batch_tensor_sha256": "e488182ce0ca7f6addac6a16fd27cf4365eae98419191fe15d0204d57ccaf1d2",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4082239270210266,
+        "final": 0.40385502576828003,
+        "total": 0.5059109926223755
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 11,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "4fa16059c9cbe8c2292cd6465a1fab4c6e09061923c25a4358166e0747767eb2",
+      "status": "completed",
+      "batch_tensor_sha256": "d26e50a8bc0a8f01efff97a13847a6c668babe07a1ff101f224d6cf09baabe41",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3522056043148041,
+        "final": 0.34620267152786255,
+        "total": 0.43425408005714417
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 11,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "4fa16059c9cbe8c2292cd6465a1fab4c6e09061923c25a4358166e0747767eb2",
+      "status": "completed",
+      "batch_tensor_sha256": "d26e50a8bc0a8f01efff97a13847a6c668babe07a1ff101f224d6cf09baabe41",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35368460416793823,
+        "final": 0.3472870886325836,
+        "total": 0.435708224773407
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 3.0517578125e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 12,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "2b53d28bccc748e6de8b4610b8f58c1b65eb851e587385168c62b62ab1437f6c",
+      "status": "completed",
+      "batch_tensor_sha256": "63f5207928472700d5b3d42b63e87bb3fa710e16f327499fb22fb65ecf905777",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35618850588798523,
+        "final": 0.35631799697875977,
+        "total": 0.44536513090133667
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 9.1552734375e-05
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "shared_2_aux_025",
+      "batch": 12,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "2b53d28bccc748e6de8b4610b8f58c1b65eb851e587385168c62b62ab1437f6c",
+      "status": "completed",
+      "batch_tensor_sha256": "63f5207928472700d5b3d42b63e87bb3fa710e16f327499fb22fb65ecf905777",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35786187648773193,
+        "final": 0.35852599143981934,
+        "total": 0.4479914605617523
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 7.62939453125e-06
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00018310546875
+          },
+          "block": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 1.52587890625e-05
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 1,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "85b956a28337464cb2bef39e015b757e0f64a9dbee5f55fbc9184b67a6496047",
+      "status": "completed",
+      "batch_tensor_sha256": "551086981f1ba91dab8bd36fbe9c55d1162e8d3d1b35c30621fa78cc8c8125d6",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.30521243810653687,
+        "final": 0.2934265732765198,
+        "total": 0.3697296977043152
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 1,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "85b956a28337464cb2bef39e015b757e0f64a9dbee5f55fbc9184b67a6496047",
+      "status": "completed",
+      "batch_tensor_sha256": "551086981f1ba91dab8bd36fbe9c55d1162e8d3d1b35c30621fa78cc8c8125d6",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3086613714694977,
+        "final": 0.2992885112762451,
+        "total": 0.37645384669303894
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 2,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "2ff1f9ec1685bdf35777ea45ec4fd407b2c3fedafcf86d37dd56007ec6ad1b6a",
+      "status": "completed",
+      "batch_tensor_sha256": "3f08646332c058430bfa2e5f92df8169ba9b8926a50e5a0de65260d6552b9124",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4115718603134155,
+        "final": 0.36216044425964355,
+        "total": 0.46505340933799744
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 2,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "2ff1f9ec1685bdf35777ea45ec4fd407b2c3fedafcf86d37dd56007ec6ad1b6a",
+      "status": "completed",
+      "batch_tensor_sha256": "3f08646332c058430bfa2e5f92df8169ba9b8926a50e5a0de65260d6552b9124",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.41799405217170715,
+        "final": 0.37649276852607727,
+        "total": 0.48099127411842346
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 3,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "f0cb20489429e4f878b715bf2c0c885b70d5a0e1ae6c01b9f1426e4e342bee9e",
+      "status": "completed",
+      "batch_tensor_sha256": "e1331b2a594a94a6e046681d861801b7ab5cc4f176e50d85ddf1ba72d2676959",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3151184916496277,
+        "final": 0.2954268157482147,
+        "total": 0.37420642375946045
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000732421875
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 3,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "f0cb20489429e4f878b715bf2c0c885b70d5a0e1ae6c01b9f1426e4e342bee9e",
+      "status": "completed",
+      "batch_tensor_sha256": "e1331b2a594a94a6e046681d861801b7ab5cc4f176e50d85ddf1ba72d2676959",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3201267123222351,
+        "final": 0.30306923389434814,
+        "total": 0.3831009268760681
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00048828125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 4,
+      "policy": "live",
+      "density_group": "low",
+      "batch_sha256": "d6ff32db1fd746a9129105c6d1c29c9556f1baa4b49aa015574b210482d8b4a5",
+      "status": "completed",
+      "batch_tensor_sha256": "b4139f7a2e582c8b1cbce495e1d984a754902d8af0fa9575b04bf9dbe5c00e9a",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3513597548007965,
+        "final": 0.3351340889930725,
+        "total": 0.42297402024269104
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0003662109375
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 4,
+      "policy": "ema",
+      "density_group": "low",
+      "batch_sha256": "d6ff32db1fd746a9129105c6d1c29c9556f1baa4b49aa015574b210482d8b4a5",
+      "status": "completed",
+      "batch_tensor_sha256": "b4139f7a2e582c8b1cbce495e1d984a754902d8af0fa9575b04bf9dbe5c00e9a",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3578699231147766,
+        "final": 0.34317106008529663,
+        "total": 0.4326385259628296
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 5,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "3ff9aa1203a0a08aa0f4827cdb6ce4c174a36a583c89537aaabf5bee1b6b2616",
+      "status": "completed",
+      "batch_tensor_sha256": "6e1b86f5855aaa44855e34e66886607d1d6195cd93078a35753fc478a69bb59c",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35365021228790283,
+        "final": 0.3444249629974365,
+        "total": 0.43283751606941223
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 5,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "3ff9aa1203a0a08aa0f4827cdb6ce4c174a36a583c89537aaabf5bee1b6b2616",
+      "status": "completed",
+      "batch_tensor_sha256": "6e1b86f5855aaa44855e34e66886607d1d6195cd93078a35753fc478a69bb59c",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3581145405769348,
+        "final": 0.35075345635414124,
+        "total": 0.44028210639953613
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 6,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "33a357f554106d8051a9113a5bc7ae5dcbce68e32e919538f073d896532cfff7",
+      "status": "completed",
+      "batch_tensor_sha256": "f17d237d01a3ea31434c21d2afc0ec0660b9dba13e8d97b6e5bca8542b4c7ffb",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3837524354457855,
+        "final": 0.377302885055542,
+        "total": 0.47324100136756897
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 6,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "33a357f554106d8051a9113a5bc7ae5dcbce68e32e919538f073d896532cfff7",
+      "status": "completed",
+      "batch_tensor_sha256": "f17d237d01a3ea31434c21d2afc0ec0660b9dba13e8d97b6e5bca8542b4c7ffb",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3872300386428833,
+        "final": 0.3822759985923767,
+        "total": 0.47908350825309753
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 7,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "5f4400a62c3d01b0a13615b7987bb63704d961ef4bce108d67e2eedb90446742",
+      "status": "completed",
+      "batch_tensor_sha256": "468068ad8977a95c87217e922ba90821ae283064a14e85b7468f7e57cd61af67",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.44387054443359375,
+        "final": 0.4416804611682892,
+        "total": 0.5526480674743652
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 7,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "5f4400a62c3d01b0a13615b7987bb63704d961ef4bce108d67e2eedb90446742",
+      "status": "completed",
+      "batch_tensor_sha256": "468068ad8977a95c87217e922ba90821ae283064a14e85b7468f7e57cd61af67",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4514847695827484,
+        "final": 0.4503767490386963,
+        "total": 0.5632479190826416
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00018310546875
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 8,
+      "policy": "live",
+      "density_group": "mid",
+      "batch_sha256": "0558f59567edfceb9500a83e01cac1bd1d8e29eda7de91b8ee5316391f805fc6",
+      "status": "completed",
+      "batch_tensor_sha256": "f89537fd9b329d2ede2481db5a0ba0ed537d882da4f1b780bce7011f05064a13",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4061615467071533,
+        "final": 0.3975672721862793,
+        "total": 0.4991076588630676
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00018310546875
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 8,
+      "policy": "ema",
+      "density_group": "mid",
+      "batch_sha256": "0558f59567edfceb9500a83e01cac1bd1d8e29eda7de91b8ee5316391f805fc6",
+      "status": "completed",
+      "batch_tensor_sha256": "f89537fd9b329d2ede2481db5a0ba0ed537d882da4f1b780bce7011f05064a13",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.40809816122055054,
+        "final": 0.4004365801811218,
+        "total": 0.5024611353874207
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 9,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "16be3780c7afae6d56de37ceefe69939aacd023bab71f0f2178a1217ff52dd1b",
+      "status": "completed",
+      "batch_tensor_sha256": "8f2136caef53b351fb12a194cd6dae5d019a057bf389da404cf784edd4b2ec45",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.36641937494277954,
+        "final": 0.36145514249801636,
+        "total": 0.45305997133255005
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 9,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "16be3780c7afae6d56de37ceefe69939aacd023bab71f0f2178a1217ff52dd1b",
+      "status": "completed",
+      "batch_tensor_sha256": "8f2136caef53b351fb12a194cd6dae5d019a057bf389da404cf784edd4b2ec45",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.3675629198551178,
+        "final": 0.36269181966781616,
+        "total": 0.454582542181015
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.00018310546875
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 10,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "fb474b3431ff9ea43c368fc210bbde81815778eff7a2fea1cad7b0734d94f4fe",
+      "status": "completed",
+      "batch_tensor_sha256": "e488182ce0ca7f6addac6a16fd27cf4365eae98419191fe15d0204d57ccaf1d2",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.4070969820022583,
+        "final": 0.40400612354278564,
+        "total": 0.5057803392410278
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 10,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "fb474b3431ff9ea43c368fc210bbde81815778eff7a2fea1cad7b0734d94f4fe",
+      "status": "completed",
+      "batch_tensor_sha256": "e488182ce0ca7f6addac6a16fd27cf4365eae98419191fe15d0204d57ccaf1d2",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.40909767150878906,
+        "final": 0.40665653347969055,
+        "total": 0.5089309215545654
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 9.1552734375e-05
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 11,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "4fa16059c9cbe8c2292cd6465a1fab4c6e09061923c25a4358166e0747767eb2",
+      "status": "completed",
+      "batch_tensor_sha256": "d26e50a8bc0a8f01efff97a13847a6c668babe07a1ff101f224d6cf09baabe41",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.351970911026001,
+        "final": 0.3446318805217743,
+        "total": 0.43262460827827454
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 11,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "4fa16059c9cbe8c2292cd6465a1fab4c6e09061923c25a4358166e0747767eb2",
+      "status": "completed",
+      "batch_tensor_sha256": "d26e50a8bc0a8f01efff97a13847a6c668babe07a1ff101f224d6cf09baabe41",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35399219393730164,
+        "final": 0.34594178199768066,
+        "total": 0.43443983793258667
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 12,
+      "policy": "live",
+      "density_group": "high",
+      "batch_sha256": "2b53d28bccc748e6de8b4610b8f58c1b65eb851e587385168c62b62ab1437f6c",
+      "status": "completed",
+      "batch_tensor_sha256": "63f5207928472700d5b3d42b63e87bb3fa710e16f327499fb22fb65ecf905777",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35868263244628906,
+        "final": 0.3578917980194092,
+        "total": 0.44756245613098145
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0001220703125
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "unshared_2_aux_025",
+      "batch": 12,
+      "policy": "ema",
+      "density_group": "high",
+      "batch_sha256": "2b53d28bccc748e6de8b4610b8f58c1b65eb851e587385168c62b62ab1437f6c",
+      "status": "completed",
+      "batch_tensor_sha256": "63f5207928472700d5b3d42b63e87bb3fa710e16f327499fb22fb65ecf905777",
+      "outputs_max_abs": {
+        "early_logits": 0.0,
+        "early_offsets": 0.0,
+        "final_logits": 0.0,
+        "final_offsets": 0.0
+      },
+      "native_losses": {
+        "early": 0.35985204577445984,
+        "final": 0.3591383993625641,
+        "total": 0.44910141825675964
+      },
+      "losses_max_abs": {
+        "early": 0.0,
+        "final": 0.0,
+        "total": 0.0
+      },
+      "gradient_equivalence": {
+        "final": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.0
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        },
+        "total": {
+          "decoder": {
+            "parameters_with_gradient": 7,
+            "max_abs_delta": 0.000244140625
+          },
+          "block_1": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          },
+          "block_2": {
+            "parameters_with_gradient": 12,
+            "max_abs_delta": 0.0
+          }
+        }
+      }
+    }
+  ]
 }

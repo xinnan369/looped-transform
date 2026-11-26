@@ -1,6 +1,6 @@
 # LC-007C archive and gradient-probe protocol
 
-Issue #21 authorizes archived CPU recomputation, generated CPU fixtures and preparation. The stacked parent is PR #20 head `0aeaea0562f075fd28ecaa48c6400193a7cf22f4`. The LC-007B execution freeze was `6471f222dbe1480ff7fca1ef0291215f2498d32f`. Current GPU status is `NOT_RUN_PENDING_OWNER_GPU_APPROVAL`.
+Issue #21 originally authorized archived CPU recomputation, generated CPU fixtures and preparation. The stacked parent is PR #20 head `0aeaea0562f075fd28ecaa48c6400193a7cf22f4`. The LC-007B execution freeze was `6471f222dbe1480ff7fca1ef0291215f2498d32f`. This document preserves the CPU freeze that preceded the [separately approved execution](gpu_execution_protocol.md).
 
 ## Frozen archive endpoint
 
