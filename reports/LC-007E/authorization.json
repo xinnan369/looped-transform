@@ -1,0 +1,20 @@
+{
+  "owner_message_ref": "Codex chat 01a200e8-67b1-73e0-b721-c7002ea14aca / turn 01a21622-5434-7202-96ab-ac16c0c8bc02 / message 01a21622-54be-73e2-894e-621a6871b70e",
+  "approved_at": "2026-11-26T12:34:38+08:00",
+  "owner_exact_text": "\u6388\u6743",
+  "issue": 25,
+  "code_commit": "b6d3297a3c37afe302e29551bbda1170117c4794",
+  "config_sha256": "6be91c5dea640a261eaf312a0a83a1c57664bcc987812e8bf345d0daaae5dead",
+  "approval_scope": "Frozen Issue #25 and draft PR #26. Serial RTX 3090 K=4 factorial, eight runs, 320 epochs, 57,600 updates, charged forward-only synthetic preflight, concurrent training preserved, zero external experiment bytes.",
+  "limits": {
+    "runs": 8,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "warmup_updates": 360,
+    "total_updates": 57600,
+    "peak_reserved_bytes": 2147483648,
+    "gpu_seconds": 9000,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  }
+}

@@ -5,7 +5,7 @@ import numpy as np
 from .accuracy_diagnosis import density, density_bin
 from .calibration import DENSITY_GROUPS, count_match_metrics, rank_metrics, summarize_counts
 from .data import load_rgb
-from .inference import predict_image, predict_image_stages
+from .inference import predict_image, predict_image_depth, predict_image_stages
 from .metrics import pooled_point_nap
 
 
@@ -28,6 +28,10 @@ def summarize(rows, ranked):
 def grouped_validation(model, records, directory, config, device, *, staged, boundaries, check):
     model.eval()
     stages = ("early", "final") if staged else ("final",)
+    depth = config.get("depth_screen", False)
+    if depth:
+        stages = ("stage1", "early", "stage3", "final")
+    state_stats = {stage: [] for stage in stages}
     rows, ranked = ({stage: [] for stage in stages} for _ in range(2))
     threshold = config["count_threshold"]
     for record in records:
@@ -35,16 +39,21 @@ def grouped_validation(model, records, directory, config, device, *, staged, bou
             raise ValueError("grouped evaluation requires internal-validation images")
         check()
         with load_rgb(record, directory) as image:
-            outputs = (predict_image_stages(model, image, config, device, require_finite=True) if staged else
-                       {"final": predict_image(model, image, config, device, require_finite=True)})
+            if depth:
+                outputs, norms = predict_image_depth(model, image, config, device)
+            else:
+                outputs = (predict_image_stages(model, image, config, device, require_finite=True) if staged else
+                           {"final": predict_image(model, image, config, device, require_finite=True)})
         group = density_bin(density(record), boundaries)
-        for stage, predictions in outputs.items():
+        for index, (stage, predictions) in enumerate(outputs.items()):
             active = predictions.count_candidates()
             active = active[active[:, 2] > threshold]
             matches, = count_match_metrics(record.points, active, (threshold,))
             rows[stage].append({"image_id": record.image_id, "gt": len(record.points),
                                 "density_group": group, "matches": matches})
             ranked[stage].append(rank_metrics(record.points, predictions))
+            if depth:
+                state_stats[stage].append(norms[:, index].mean(axis=0, dtype=np.float64))
     check()
     results = {stage: summarize(rows[stage], ranked[stage]) | {
         "nap_score_floor": config["localization_min_score"], "local_match_delta": 0.50,
@@ -52,6 +61,11 @@ def grouped_validation(model, records, directory, config, device, *, staged, bou
     image_rows = []
     for stage in stages:
         results[stage]["density_groups"] = {}
+        if depth:
+            state, update = np.sqrt(np.mean(state_stats[stage], axis=0))
+            results[stage]["state_update"] = {"state_rms": float(state), "update_rms": float(update),
+                                              "relative_rms": float(update / state) if state else None,
+                                              "nonfinite": 0}
         for group in DENSITY_GROUPS:
             index = [i for i, row in enumerate(rows[stage]) if row["density_group"] == group]
             results[stage]["density_groups"][group] = summarize(

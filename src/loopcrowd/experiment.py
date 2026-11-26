@@ -15,7 +15,7 @@ import torchvision
 from torchvision.models import ResNet18_Weights
 
 from .ema import validate_decay
-from .model import CHANNEL_GATES, LoopCrowd, VARIANTS, WEIGHTS, pretrained_path
+from .model import CHANNEL_GATES, DEPTH4_VARIANTS, LoopCrowd, VARIANTS, WEIGHTS, pretrained_path
 
 DEFAULT_CONFIG = {
     "variant": "cnn_only", "seed": 42, "slots": 2, "pretrained": False,
@@ -34,7 +34,7 @@ DEFAULT_CONFIG = {
 
 def read_config(path, variant=None):
     overrides = json.loads(path.read_text(encoding="utf-8"))
-    unknown = overrides.keys() - DEFAULT_CONFIG.keys() - {"ema_decay"}
+    unknown = overrides.keys() - DEFAULT_CONFIG.keys() - {"ema_decay", "depth_screen"}
     if unknown:
         raise ValueError(f"unknown config keys: {sorted(unknown)}")
     config = DEFAULT_CONFIG | overrides
@@ -43,11 +43,18 @@ def read_config(path, variant=None):
     if config["variant"] not in VARIANTS:
         raise ValueError("unknown model variant")
     early = config["early_loss_weight"]
+    depth = config.get("depth_screen", False)
+    if type(depth) is not bool or (depth and (
+        config["variant"] not in DEPTH4_VARIANTS or early != .25 or config["loop_embedding"]
+        or config["density_weight"] or config["gradient_checkpointing"]
+    )):
+        raise ValueError("depth_screen requires a fixed-window K=4 variant with the frozen midpoint supervision")
+    two_call = ("shared_2", "unshared_2", *(name for name in CHANNEL_GATES if name not in DEPTH4_VARIANTS))
     if early is not None and (
-        config["variant"] not in ("shared_2", "unshared_2", *CHANNEL_GATES) or type(early) not in (int, float)
+        (not depth and config["variant"] not in two_call) or type(early) not in (int, float)
         or not math.isfinite(early) or early < 0
     ):
-        raise ValueError("early_loss_weight requires a fixed-window two-call model and a finite nonnegative value")
+        raise ValueError("early_loss_weight requires a supported fixed-window model and a finite nonnegative value")
     if type(config["audit_training"]) is not bool:
         raise ValueError("audit_training must be a boolean")
     if config.get("ema_decay") is not None:

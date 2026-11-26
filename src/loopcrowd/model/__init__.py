@@ -13,7 +13,10 @@ CHANNEL_GATES = {
     "shared_2_channel_residual": ("attention", "ffn"),
     "shared_2_channel_residual_state": ("attention", "ffn", "state"),
     "unshared_2_channel_residual_state": ("attention", "ffn", "state"),
+    "shared_4_channel_residual_state": ("attention", "ffn", "state"),
+    "unshared_4_channel_residual_state": ("attention", "ffn", "state"),
 }
+DEPTH4_VARIANTS = ("shared_4", "unshared_4", "shared_4_channel_residual_state", "unshared_4_channel_residual_state")
 VARIANTS = {
     "cnn_only": (0, False),
     "shared_1": (1, True),
@@ -26,6 +29,8 @@ VARIANTS = {
     "unshared_2_channel_residual_state": (2, False),
     "shared_4": (4, True),
     "unshared_4": (4, False),
+    "shared_4_channel_residual_state": (4, True),
+    "unshared_4_channel_residual_state": (4, False),
     "shifted_shared_2": (2, True),
     "shifted_unshared_2": (2, False),
     "shifted_shared_4": (4, True),
@@ -108,6 +113,7 @@ class LoopCrowd(nn.Module):
     ):
         super().__init__()
         self.loops, self.shared = VARIANTS[variant]
+        self.depth4 = variant in DEPTH4_VARIANTS
         self.shifted = variant.startswith("shifted_")
         self.slots = slots
         if type(slots) is not int or slots < 1:
@@ -162,6 +168,13 @@ class LoopCrowd(nn.Module):
         """Decode the first and second fixed-window calls with the same point head."""
         return self(images, return_stages=True)
 
+    def forward_depth_stages(self, images, *, diagnostic=False, state_trace=None, channel_trace=None):
+        """Read the midpoint and final state, or every state in one diagnostic forward."""
+        stages = {1: "early", 3: "final"}
+        if diagnostic:
+            stages = {0: "stage1", 1: "early", 2: "stage3", 3: "final"}
+        return self(images, depth_stages=stages, state_trace=state_trace, channel_trace=channel_trace)
+
     @torch.no_grad()
     def channel_gate_statistics(self):
         if self.channel_gate_deltas is None:
@@ -176,7 +189,8 @@ class LoopCrowd(nn.Module):
             for branch, (low, high, mean, norm, delta_norm) in zip(self.channel_gate_names, stage_stats, strict=True)
         ]
 
-    def forward(self, images, *, loop_count=None, trace=None, return_stages=False, channel_trace=None):
+    def forward(self, images, *, loop_count=None, trace=None, return_stages=False, channel_trace=None,
+                depth_stages=None, state_trace=None):
         calls = self.loops if loop_count is None else loop_count
         if type(calls) is not int or not 0 <= calls <= self.loops:
             raise ValueError("loop_count must be an integer inside the model's fixed depth")
@@ -184,6 +198,9 @@ class LoopCrowd(nn.Module):
             raise ValueError("channel-gated variants require both fixed loop calls")
         if return_stages and (self.loops != 2 or calls != 2 or (not self.shared and self.shifted)):
             raise ValueError("stage predictions require both calls of a supported two-call model")
+        if depth_stages is not None and (not self.depth4 or calls != 4 or return_stages):
+            raise ValueError("depth readouts require all four calls of a fixed-window model")
+        readouts = {}
         p2 = self.p2(images)
         tokens = self.project(self.p3(p2)).permute(0, 2, 3, 1)
         gains = self.loop_gains()
@@ -197,8 +214,9 @@ class LoopCrowd(nn.Module):
                 block_args["gains"] = gains[index]
             if trace is not None:
                 block_args["trace"] = partial(trace, index)
-            if self.channel_gate_deltas is not None:
+            if self.channel_gate_deltas is not None or state_trace is not None:
                 before = tokens
+            if self.channel_gate_deltas is not None:
                 scales = 1 + self.channel_gate_deltas[index]
                 block_args["channel_scales"] = scales[:2]
             if self.gradient_checkpointing and self.training and torch.is_grad_enabled():
@@ -212,6 +230,12 @@ class LoopCrowd(nn.Module):
                     channel_trace(index, before, tokens, dict(zip(self.channel_gate_names, scales, strict=True)))
             if return_stages and index == 0:
                 early = self._decode(p2, tokens)
+            if state_trace is not None:
+                state_trace(index, before, tokens)
+            if depth_stages is not None and index in depth_stages:
+                readouts[depth_stages[index]] = self._decode(p2, tokens)
+        if depth_stages is not None:
+            return readouts
         final = self._decode(p2, tokens)
         return {"early": early, "final": final} if return_stages else final
 

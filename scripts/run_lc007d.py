@@ -35,6 +35,9 @@ def require_authorization(record, screen, config_sha, revision):
 class ScreenBudget:
     """Charge wall time from preflight through final synchronization, including failures."""
 
+    label = "LC-007D"
+    cleanup_reserve_seconds = 5
+
     def __init__(self, limits, ledger, device):
         self.limits = limits
         self.ledger = ledger
@@ -56,17 +59,17 @@ class ScreenBudget:
         totals = self.totals()
         estimate = max(DEFAULT_RESERVES.get(operation, 0), self.longest.get(operation, 0))
         # Reserve final synchronization and cleanup even when checking a single batch.
-        if totals["charged_seconds"] + estimate + 5 >= self.limits["gpu_seconds"]:
-            raise RuntimeError(f"LC-007D time budget would be exceeded during {operation or self.case}")
+        if totals["charged_seconds"] + estimate + self.cleanup_reserve_seconds >= self.limits["gpu_seconds"]:
+            raise RuntimeError(f"{self.label} time budget would be exceeded during {operation or self.case}")
         if self.reserved > self.limits["peak_reserved_bytes"]:
-            raise RuntimeError("LC-007D process reserved exceeds the 2 GiB cap")
+            raise RuntimeError(f"{self.label} process reserved exceeds the 2 GiB cap")
         if operation == "train_batch" and self.updates >= self.limits["total_updates"]:
-            raise RuntimeError("LC-007D optimizer-update cap reached")
+            raise RuntimeError(f"{self.label} optimizer-update cap reached")
 
     def record_update(self):
         self.updates += 1
         if self.updates > self.limits["total_updates"]:
-            raise RuntimeError("LC-007D optimizer-update cap exceeded")
+            raise RuntimeError(f"{self.label} optimizer-update cap exceeded")
 
     @contextmanager
     def phase(self, name):

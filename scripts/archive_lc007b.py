@@ -35,11 +35,14 @@ def all_readouts(history):
         live = {"final": row["validation"]}
         if "early_validation" in row:
             live["early"] = row["early_validation"]
+        if "depth_live_validation" in row:
+            live = row["depth_live_validation"]
         for policy, readouts in (("live", live), ("ema", row["ema_validation"])):
             for stage, raw in readouts.items():
                 for group, result in {"all": raw, **raw["density_groups"]}.items():
+                    state = raw.get("state_update") if group == "all" else None
                     yield {"epoch": row["epoch"], "policy": policy, "stage": stage, "density_group": group,
-                           **metrics(result)}
+                           **metrics(result)} | (state or {})
 
 
 def local_ref(path):
