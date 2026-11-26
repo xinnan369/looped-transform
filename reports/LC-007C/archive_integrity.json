@@ -1,0 +1,46 @@
+{
+  "source_commit": "0aeaea0562f075fd28ecaa48c6400193a7cf22f4",
+  "source_freeze_commit": "6471f222dbe1480ff7fca1ef0291215f2498d32f",
+  "archive_index_sha256": "6387f93632e3a5c5f3fcbba605697bc3a889c039469cdc29e962923be36e79a4",
+  "preflight_sha256": "d2c01019d3fefb60d9712bb38c4f39f3ef9123defa0a7df276ae96d97c68a042",
+  "verified_index_entries": 24,
+  "indexed_rows": 42560,
+  "late_grouped_rows": 80,
+  "summary_rows": 48,
+  "paired_image_rows": 800,
+  "seeds": [
+    42,
+    123
+  ],
+  "policies": [
+    "live",
+    "ema"
+  ],
+  "groups": {
+    "all": [
+      40,
+      4295
+    ],
+    "low": [
+      13,
+      566
+    ],
+    "mid": [
+      16,
+      1511
+    ],
+    "high": [
+      11,
+      2218
+    ]
+  },
+  "epochs": [
+    36,
+    37,
+    38,
+    39,
+    40
+  ],
+  "archive_correction_sha256": "dcfaf575207532e271d6bdf960a253a0119ebbf745d06cda9c4fdfa2780a25ff",
+  "archive_image_correction_sha256": "17bc8e759c395bce7428c9f61ea4609af3a4bb19a04baf558a6cc44025f8b505"
+}
