@@ -15,7 +15,7 @@ from loopcrowd.training import fit
 from scripts.prepare_lc007g import SCREEN
 from scripts.probe_cross_window import probe
 from scripts.run_lc007d import require_authorization
-from scripts.run_lc007e import configure_device_memory
+from scripts.run_lc007e import configure_device_memory, execute
 from scripts.run_lc007g import CrossWindowBudget
 
 PLAN = json.loads(SCREEN.read_text(encoding="utf-8"))
@@ -141,3 +141,19 @@ def test_observational_memory_policy_uses_free_headroom_and_no_fraction(tmp_path
     old_limits = limits | {"peak_reserved_bytes": 2 * 1024**3}
     with pytest.raises(ValueError, match="does not match"):
         require_authorization(approval | {"limits": old_limits}, PLAN, "fixture", "fixture")
+
+
+def test_uncapped_runner_charges_failed_cpu_preflight(tmp_path, monkeypatch):
+    def missing_input(*args):
+        raise FileNotFoundError("fixture is missing")
+
+    monkeypatch.setattr(torch.cuda, "device_count", lambda: pytest.fail("must stop before CUDA"))
+    output = tmp_path / "run"
+    with pytest.raises(FileNotFoundError, match="fixture is missing"):
+        execute(tmp_path / "missing", output, PLAN, "fixture", audit_inputs=missing_input,
+                budget_type=CrossWindowBudget, charge_cpu_preflight=True, free_disk_gib=0)
+    rows = (output / "gpu_phases.jsonl").read_text(encoding="utf-8").splitlines()
+    row, = [json.loads(line) for line in rows]
+    assert row["phase"] == "cpu_preflight" and "fixture is missing" in row["failure"]
+    progress = json.loads((output / "queue_progress.json").read_text(encoding="utf-8"))
+    assert progress["execution"] == "stopped" and progress["charged_seconds"] >= row["seconds"]

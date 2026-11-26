@@ -17,7 +17,7 @@ class CrossWindowBudget(DepthBudget):
         if "peak_reserved_bytes" in limits:
             raise ValueError("LC-007G observes memory without a process quota")
         super().__init__(limits, ledger, device)
-        self.longest.update(preflight=30, training=20, validation_live=20, validation_ema=20, checkpoint=2)
+        self.longest.update(cpu_preflight=60, preflight=30, training=20, validation_live=20, validation_ema=20, checkpoint=2)
 
 
 def main():
@@ -33,7 +33,7 @@ def main():
     if git("status", "--porcelain", "--untracked-files=no"):
         raise ValueError("a clean frozen worktree is required")
     execute(args.manifest, args.output, screen, revision, audit_inputs=audit, history_tables=history,
-            budget_type=CrossWindowBudget,
+            budget_type=CrossWindowBudget, charge_cpu_preflight=True,
             projection_keys=("upper_with_20pct_contingency_seconds", "required_device_headroom_bytes_estimate"))
 
 

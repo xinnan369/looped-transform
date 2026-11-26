@@ -2,6 +2,7 @@
 
 import argparse
 import shutil
+from contextlib import nullcontext
 from pathlib import Path
 from statistics import median
 from time import perf_counter
@@ -61,24 +62,26 @@ def configure_device_memory(device, peak_limit, required_free):
 
 def execute(manifest, output, screen, revision, *, audit_inputs=audit, history_tables=history, budget_type=DepthBudget,
             projection_keys=("upper_with_15pct_contingency_seconds", "peak_reserved_scenario_2x_bytes"),
-            latency_modes=("final_only", "staged"), free_disk_gib=3):
+            latency_modes=("final_only", "staged"), free_disk_gib=3, charge_cpu_preflight=False):
     if shutil.disk_usage(output.parent).free < free_disk_gib * 1024**3:
         raise RuntimeError(f"{budget_type.label} requires {free_disk_gib} GiB free for checkpoints and evidence")
     output.mkdir()
     progress = {"execution": "in_progress", "code_commit": revision, "completed": []}
-    budget = None
     limits = screen["limits_if_approved"]
     peak_limit = limits.get("peak_reserved_bytes")
+    device = torch.device("cuda:0")
+    budget = budget_type(limits, output / "gpu_phases.jsonl", device) if charge_cpu_preflight else None
     try:
-        evidence = audit_inputs(manifest, screen)
-        write_json(output / "preflight_cpu.json", evidence)
-        projection = evidence["resource_projection"]
-        if (projection[projection_keys[0]] > limits["gpu_seconds"]
-                or (peak_limit is not None and projection[projection_keys[1]] > peak_limit)):
-            raise RuntimeError("CPU resource projection exceeds the proposed limits")
-        tables = history_tables()
-        device = torch.device("cuda:0")
-        budget = budget_type(limits, output / "gpu_phases.jsonl", device)
+        with budget.phase("cpu_preflight") if budget is not None else nullcontext():
+            evidence = audit_inputs(manifest, screen)
+            write_json(output / "preflight_cpu.json", evidence)
+            projection = evidence["resource_projection"]
+            if (projection[projection_keys[0]] > limits["gpu_seconds"]
+                    or (peak_limit is not None and projection[projection_keys[1]] > peak_limit)):
+                raise RuntimeError("CPU resource projection exceeds the proposed limits")
+            tables = history_tables()
+        if budget is None:
+            budget = budget_type(limits, output / "gpu_phases.jsonl", device)
         try:
             with budget.phase("preflight"):
                 (output / "background_start.txt").write_text(background_snapshot(), encoding="utf-8")
