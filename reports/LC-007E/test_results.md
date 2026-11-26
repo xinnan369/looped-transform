@@ -12,4 +12,6 @@ The new tests verify FP32/BF16 identity-gate outputs and offsets, both supervise
 
 The separate audit checked 24 LC-007B and 18 LC-007D indexed files, all eight planned starts and 320 planned epoch crop/LR pairs against archived actual pairs. It checked the seed-matched encoder, decoder and inherited block digests, unchanged RNG for gated/ungated pairs, and all four block digests for the matched unshared comparison. The audit digest is `7bf48295ffa2dc15948281a0469105130d0130bea15eee5761a9239a30fba8b0`. [Audit](initialization_audit.json)
 
-Synthetic parity, budget checks and arithmetic estimates characterize the CPU preparation. GPU execution, historical checkpoint loading and hosted CI are `not_run`. [Executed resources](resource_audit.md)
+Post-freeze archival fixtures exercise the joint criteria, sharing interactions and partial queue path. The partial fixture read the four completed seed-42 histories, verified their checkpoint and trajectory digests and checked 56,480 archived rows and 1,920 gate rows. [Archiver](../../scripts/archive_lc007e.py)
+
+Synthetic parity, budget checks and arithmetic estimates characterize the CPU preparation. Hosted CI and historical checkpoint loading remain `not_run`. [Executed resources](resource_audit.md)

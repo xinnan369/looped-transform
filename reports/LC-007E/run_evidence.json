@@ -1,0 +1,208 @@
+{
+  "execution": {
+    "launch_time": "2026-11-26T12:35:15+08:00",
+    "exit_time": "2026-11-26T14:38:34+08:00",
+    "exit_status": 0,
+    "runner_log": {
+      "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/runner.log",
+      "sha256": "2f75b7f5dbfefd63784fe986bfb819ddad50e8111c04a1aea58cbdb44228c504",
+      "bytes": 11260017
+    },
+    "execution": "completed",
+    "code_commit": "b6d3297a3c37afe302e29551bbda1170117c4794",
+    "completed": [
+      "42/S4",
+      "42/U4",
+      "42/S4RS",
+      "42/U4RS",
+      "123/U4RS",
+      "123/S4RS",
+      "123/U4",
+      "123/S4"
+    ],
+    "current": null,
+    "charged_seconds": 7385.731724792,
+    "peak_allocated_bytes": 804309504,
+    "peak_reserved_bytes": 970981376,
+    "successful_updates": 57600
+  },
+  "cases": [
+    {
+      "seed": 42,
+      "arm": "S4",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/S4/run_manifest.json",
+        "sha256": "72ea7fa24753dbd0e56fc2b5f24cc8350170c66eed1a5688011f66c5e37420e6",
+        "bytes": 3448
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/S4/last.pt",
+        "sha256": "ec2cb7b74e81fb5faa27526aa92448835095513cf8b1f60f8b7a4d85cbce977d",
+        "bytes": 26264661
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/S4/history.json",
+        "sha256": "df9d003617e930eca60a7c44a72eab94a8eaaf90be1e771b869a1a703cc01126",
+        "bytes": 2004302
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "U4",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/U4/run_manifest.json",
+        "sha256": "2db1c6221028a8a2fdaf350df764e047f9cbfb03dde0307cda416ad69f0bc063",
+        "bytes": 3450
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/U4/last.pt",
+        "sha256": "a5b6bf8ad0f01851cd7020b274fa5be8376699225331f5b016d763fa140979e5",
+        "bytes": 47661457
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/U4/history.json",
+        "sha256": "4e75bb6bfa8659d1fbb84ae6eb177e8673fae738762b1cce99b80fb54fc06f0d",
+        "bytes": 2004713
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "S4RS",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/S4RS/run_manifest.json",
+        "sha256": "6136f379b9392a748a532d70a316b1e408053f8901d6c23bd6ec40ef75ee2fdd",
+        "bytes": 3473
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/S4RS/last.pt",
+        "sha256": "c9d6af73a2099357f7b76d22fa6e4e032f8ffdb2450384bcf0524d7df4e9e5dd",
+        "bytes": 26395452
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/S4RS/history.json",
+        "sha256": "bc7a3a78963ffa1a137468ace319f868b4021fa03f7d0ee5219f9688e04539b1",
+        "bytes": 2259183
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "U4RS",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/U4RS/run_manifest.json",
+        "sha256": "c91f0b18ee8bf6a8db0d0a27029993275b357cc2320c11ba878d6675e7c5c9e8",
+        "bytes": 3475
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/U4RS/last.pt",
+        "sha256": "28110647c6893bb305b0706d9f652d239f8c60b9494af91f979ff8336122a6b7",
+        "bytes": 47792376
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/42/U4RS/history.json",
+        "sha256": "c1aafe926f3df7f078c1260b02b3f6fdc53e0cb4828a573aae4988d4b213acfe",
+        "bytes": 2259105
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "U4RS",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/U4RS/run_manifest.json",
+        "sha256": "204269cac414e7e3486710112c324cb2db1372ee6fab5a6ae90b0fa6eb3f235e",
+        "bytes": 3478
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/U4RS/last.pt",
+        "sha256": "05e8a8d6a3052314c7678c09e20703e259e891fe69576c106c9de1e13393ece4",
+        "bytes": 47792376
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/U4RS/history.json",
+        "sha256": "e43904fddc3cef8e58381614f0fd110337907de3eb399ce8da38a3525ea6476e",
+        "bytes": 2259874
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "S4RS",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/S4RS/run_manifest.json",
+        "sha256": "aab1e147a4c1f53aab71d8c67d01f5a936cfdb9d3b12ae9817567e9cb3448bcb",
+        "bytes": 3476
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/S4RS/last.pt",
+        "sha256": "d529c7727720b68c7b54a135427670f370ab813dcd8bdf24a31306dfe4b46b55",
+        "bytes": 26395196
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/S4RS/history.json",
+        "sha256": "59c800f747f0ec0fd1e4f9d40eae20740f813ff47f4252478893fb38f454495b",
+        "bytes": 2258465
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "U4",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/U4/run_manifest.json",
+        "sha256": "64e39fc3f8d32fd752ab687629522d58bdd211419c750c38c01ad61fd358c479",
+        "bytes": 3453
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/U4/last.pt",
+        "sha256": "27c1fcba8201cdbf49aad5a22d781150ecd7310ecf255a4a1df665a7c294761e",
+        "bytes": 47661521
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/U4/history.json",
+        "sha256": "a14d4e737025a264dc9a5222052798c225d346e3285f2b5ecc275313c9d613b3",
+        "bytes": 2004766
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "S4",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/S4/run_manifest.json",
+        "sha256": "913dcf369f03fd656c2cb7aecab641bd37b159216e18c358eec5da520751df52",
+        "bytes": 3451
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/S4/last.pt",
+        "sha256": "3cc6e4effa0cf6f638e6a3c28538e2dfbd567ad1e4e7f8d9c2c12d2abcb40e30",
+        "bytes": 26264277
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007e-gpu-20261126/run/train/123/S4/history.json",
+        "sha256": "fd438fe4f6aae365d5a00f3f46471cc8b686339a3feef610ea44f90ec542651e",
+        "bytes": 2003553
+      }
+    }
+  ],
+  "phase_rows": 1290
+}
