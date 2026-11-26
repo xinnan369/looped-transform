@@ -10,7 +10,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from .accuracy_diagnosis import density
-from .calibration import count_match_metrics, summarize_counts
+from .calibration import count_match_metrics, json_digest, summarize_counts
 from .data import TrainingCrops, load_rgb
 from .diagnostics import LoopStatistics
 from .ema import ParameterEMA, preserve_training_context
@@ -226,7 +226,7 @@ def _phase(guard, name):
     return guard.phase(name) if guard is not None else nullcontext()
 
 
-def fit(config, manifest, output, device, resume=False, stop_after=None, *, guard=None):
+def fit(config, manifest, output, device, resume=False, stop_after=None, *, guard=None, expected=None):
     config = DEFAULT_CONFIG | config
     records = read_manifest(manifest, splits=("train", "val"))
     train = [record for record in records if record.split == "train"]
@@ -248,6 +248,8 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
         seed_all(config["seed"])
         model = make_model(config, initialize=not resume)
         initial_sha = state_sha(model) if audited and not resume else None
+        if expected is not None and initial_sha != expected["initial_sha256"]:
+            raise ValueError("starting model differs from the frozen initialization")
         model.to(device)
         ema = ParameterEMA(model, config["ema_decay"]) if ema_enabled else None
     optimizer = optimizer_for(model, config)
@@ -350,6 +352,11 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
                 raise ValueError("missing optimizer updates in Stage 1 epoch")
             if ema is not None and ema.step != schedule.global_step:
                 raise ValueError("EMA update position diverged from the optimizer")
+            if expected is not None:
+                actual = details["crop_order_sha256"], json_digest(details["learning_rates"])
+                if actual != expected["trajectory"][epoch - 1]:
+                    write_json(output / "mismatched_epoch.json", {"epoch": epoch, "training": details})
+                    raise ValueError(f"observed crop order or LR differs at epoch {epoch}")
             details["train_seconds"] = perf_counter() - start
             if audited:
                 details["mean_train_batch_ms"] = 1000 * details["train_seconds"] / len(loader)
@@ -365,6 +372,8 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
                             metrics, rows = grouped_validation(
                                 model, val, manifest.parent, config, device, staged=staged, boundaries=boundaries,
                                 check=(lambda: guard.check("validation_image")) if guard is not None else (lambda: None))
+                            if model.channel_gate_deltas is not None:
+                                details.setdefault("channel_gate_statistics", {})[policy] = model.channel_gate_statistics()
                         readouts[policy] = metrics
                         image_rows.extend({"policy": policy, **row} for row in rows)
                 details["ema_validation"] = readouts["ema"]
@@ -375,6 +384,8 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
                 details["image_metrics_sha256"] = file_sha(image_path)
             elif audited:
                 stage_metrics = evaluate_outputs(model, val, manifest.parent, config, device, staged=staged)
+            if ema is None and model.channel_gate_deltas is not None:
+                details["channel_gate_statistics"] = {"live": model.channel_gate_statistics()}
         except Exception as error:
             if guard is not None:
                 partial = output / "interrupted.pt"

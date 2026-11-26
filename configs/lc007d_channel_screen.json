@@ -1,0 +1,43 @@
+{
+  "issue": 23,
+  "state": "DRAFT_ARCHITECTURE / GPU_TRAINING_NOT_AUTHORIZED",
+  "parent": "5751f1005ce3ff22db554374e0e9fd55b58a646a",
+  "historical_archive": "reports/LC-007B",
+  "ema_decay": 0.99,
+  "variants": {
+    "R": {"variant": "shared_2_channel_residual", "reference": "shared_2_aux_025", "gate_parameters": 768},
+    "RS": {"variant": "shared_2_channel_residual_state", "reference": "shared_2_aux_025", "gate_parameters": 1152},
+    "U-RS": {"variant": "unshared_2_channel_residual_state", "reference": "unshared_2_aux_025", "gate_parameters": 1152}
+  },
+  "order": {"42": ["R", "RS", "U-RS"], "123": ["U-RS", "RS", "R"]},
+  "limits_if_approved": {
+    "runs": 6,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "warmup_updates": 360,
+    "total_updates": 43200,
+    "peak_reserved_bytes": 2147483648,
+    "gpu_seconds": 5400,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  },
+  "cpu_equivalence_tolerances": {
+    "fp32": {"output": {"atol": 1e-6, "rtol": 2e-5}, "gradient": {"atol": 2e-6, "rtol": 2e-4}},
+    "bf16": {"output": {"atol": 0.002, "rtol": 0.02}, "gradient": {"atol": 0.001, "rtol": 0.04}}
+  },
+  "decision": {
+    "analysis_epochs": [36, 37, 38, 39, 40],
+    "loss_reference_epochs": [31, 32, 33, 34, 35],
+    "primary_policy": "ema",
+    "mae_ratio_max": 0.97,
+    "local_nap_delta_strict_min": 0,
+    "late_mae_sample_cv_max": 0.1,
+    "absolute_relative_final_loss_change_max": 0.03,
+    "rmse_ratio_max": 1.03,
+    "fp_ratio_max": 1.05,
+    "fn_ratio_max": 1.05,
+    "ungated_unshared_mae_max": 20.231775,
+    "ungated_unshared_local_nap_strict_min": 0.300470,
+    "exploratory_nap_margin": -0.005
+  }
+}

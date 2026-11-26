@@ -184,6 +184,7 @@ def _diagnose_two_calls(model, images, target, *, precision, parameter_values=No
     if any(t.device != device for t in (*model.parameters(), *model.buffers(), *target.values())):
         raise ValueError("probe inputs and model must share one device")
     if (model.loops != 2 or model.shifted or model.embedding is not None or model.gain_logits is not None
+            or model.channel_gate_deltas is not None
             or model.density is not None or model.gradient_checkpointing or model.freeze_backbone_bn):
         raise ValueError("gradient probe requires the frozen two-call LC-007B graph")
     if precision not in TOLERANCES:

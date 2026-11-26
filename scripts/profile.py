@@ -24,8 +24,13 @@ from loopcrowd.targets import point_targets
 from loopcrowd.training import gpu_scaler, optimizer_for, train_step
 
 
-def forward_flops(model, image):
+def forward_costs(model, image):
     counts = []
+    gate_adds, gate_multiplies = [], []
+
+    def count_gates(stage, before, after, scales):
+        gate_adds.append(sum(scale.numel() for scale in scales.values()))
+        gate_multiplies.append(after.numel() * len(scales))
 
     def count(module, arguments, result):
         if isinstance(module, nn.Conv2d):
@@ -41,11 +46,18 @@ def forward_flops(model, image):
                if isinstance(module, (nn.Conv2d, nn.Linear, nn.MultiheadAttention))]
     try:
         with torch.no_grad():
-            model(image)
+            if getattr(model, "channel_gate_names", ()):
+                model(image, channel_trace=count_gates)
+            else:
+                model(image)
     finally:
         for handle in handles:
             handle.remove()
-    return sum(counts)
+    return {"dense_flops": sum(counts), "gate_adds": sum(gate_adds), "gate_multiplies": sum(gate_multiplies)}
+
+
+def forward_flops(model, image):
+    return sum(forward_costs(model, image).values())
 
 
 def main():
@@ -76,7 +88,7 @@ def main():
               for k, v in point_targets(points, size, size, config["slots"]).items()}
 
     model.eval()
-    flops = forward_flops(model, images[:1])
+    costs = forward_costs(model, images[:1])
     model.train()
     train_step(model, optimizer, scaler, images, target, config, device)
     sync()
@@ -123,7 +135,7 @@ def main():
     run["weight_initialization"]["loaded"] = config["pretrained"]
     result = {
         "parameters": sum(p.numel() for p in model.parameters()),
-        "forward_flops_per_image": flops,
+        "forward_flops_per_image": sum(costs.values()),
         "flops_method": "2 per MAC, conv+linear+MHA projections and attention matmuls",
         "train_batch": config["batch_size"],
         "train_step": steps, "batch1_forward": latency, "batch1_full_image": full_image,
@@ -134,6 +146,9 @@ def main():
         "last_train_loss": float(loss),
         "output_shape": list(logits["logits"].shape),
     }
+    if model.channel_gate_deltas is not None:
+        result["flops_method"] += ", plus channel scale additions and multiplications"
+        result["forward_costs_per_image"] = costs
     write_json(args.output / "run_manifest.json", run)
     write_json(args.output / "profile.json", result)
     print(result, flush=True)
