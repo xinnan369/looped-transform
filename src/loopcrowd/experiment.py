@@ -15,7 +15,7 @@ import torchvision
 from torchvision.models import ResNet18_Weights
 
 from .ema import validate_decay
-from .model import CHANNEL_GATES, DEPTH4_VARIANTS, LoopCrowd, VARIANTS, WEIGHTS, pretrained_path
+from .model import CHANNEL_GATES, DEPTH8_VARIANTS, DEPTH_VARIANTS, LoopCrowd, VARIANTS, WEIGHTS, pretrained_path
 
 DEFAULT_CONFIG = {
     "variant": "cnn_only", "seed": 42, "slots": 2, "pretrained": False,
@@ -34,7 +34,7 @@ DEFAULT_CONFIG = {
 
 def read_config(path, variant=None):
     overrides = json.loads(path.read_text(encoding="utf-8"))
-    unknown = overrides.keys() - DEFAULT_CONFIG.keys() - {"ema_decay", "depth_screen"}
+    unknown = overrides.keys() - DEFAULT_CONFIG.keys() - {"ema_decay", "depth_screen", "depth_readout_start_epoch"}
     if unknown:
         raise ValueError(f"unknown config keys: {sorted(unknown)}")
     config = DEFAULT_CONFIG | overrides
@@ -45,11 +45,17 @@ def read_config(path, variant=None):
     early = config["early_loss_weight"]
     depth = config.get("depth_screen", False)
     if type(depth) is not bool or (depth and (
-        config["variant"] not in DEPTH4_VARIANTS or early != .25 or config["loop_embedding"]
+        config["variant"] not in DEPTH_VARIANTS or early != .25 or config["loop_embedding"]
         or config["density_weight"] or config["gradient_checkpointing"]
     )):
-        raise ValueError("depth_screen requires a fixed-window K=4 variant with the frozen midpoint supervision")
-    two_call = ("shared_2", "unshared_2", *(name for name in CHANNEL_GATES if name not in DEPTH4_VARIANTS))
+        raise ValueError("depth_screen requires a supported fixed-window variant with frozen midpoint supervision")
+    if config["variant"] in DEPTH8_VARIANTS and depth:
+        start = config.get("depth_readout_start_epoch")
+        if type(start) is not int or type(config["epochs"]) is not int or not 1 <= start <= config["epochs"]:
+            raise ValueError("K=8 depth readout start must be within the training horizon")
+    elif "depth_readout_start_epoch" in config:
+        raise ValueError("depth_readout_start_epoch requires the K=8 screen")
+    two_call = ("shared_2", "unshared_2", *(name for name in CHANNEL_GATES if name not in DEPTH_VARIANTS))
     if early is not None and (
         (not depth and config["variant"] not in two_call) or type(early) not in (int, float)
         or not math.isfinite(early) or early < 0

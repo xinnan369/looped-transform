@@ -21,14 +21,14 @@ class DepthBudget(ScreenBudget):
 
 
 @torch.inference_mode()
-def latency(screen, budget):
+def latency(screen, budget, *, load_config=config_for, modes=("final_only", "staged")):
     image = torch.zeros(1, 3, 512, 512, device=budget.device)
     arms = screen["order"]["42"]
-    samples = {arm: {mode: [] for mode in ("final_only", "staged")} for arm in arms}
+    samples = {arm: {mode: [] for mode in modes} for arm in arms}
     models = {}
     for arm in arms:
         seed_all(42)
-        models[arm] = make_model(config_for(screen, 42, arm), initialize=True).to(budget.device).eval()
+        models[arm] = make_model(load_config(screen, 42, arm), initialize=True).to(budget.device).eval()
     with autocast(budget.device, "bf16"):
         for repetition in range(6):
             order = arms[repetition % len(arms):] + arms[:repetition % len(arms)]
@@ -40,7 +40,7 @@ def latency(screen, budget):
                     torch.cuda.synchronize(budget.device)
                     start = perf_counter()
                     output = ({"final": model(image)} if mode == "final_only"
-                              else model.forward_depth_stages(image, diagnostic=True))
+                              else model.forward_depth_stages(image, diagnostic=mode != "midpoint_final"))
                     torch.cuda.synchronize(budget.device)
                     if repetition:
                         samples[arm][mode].append(1000 * (perf_counter() - start))
@@ -50,23 +50,25 @@ def latency(screen, budget):
                   for mode, values in modes.items()} for arm, modes in samples.items()}
 
 
-def execute(manifest, output, screen, revision):
-    if shutil.disk_usage(output.parent).free < 3 * 1024**3:
-        raise RuntimeError("LC-007E requires 3 GiB free for checkpoints and evidence")
+def execute(manifest, output, screen, revision, *, audit_inputs=audit, history_tables=history, budget_type=DepthBudget,
+            projection_keys=("upper_with_15pct_contingency_seconds", "peak_reserved_scenario_2x_bytes"),
+            latency_modes=("final_only", "staged"), free_disk_gib=3):
+    if shutil.disk_usage(output.parent).free < free_disk_gib * 1024**3:
+        raise RuntimeError(f"{budget_type.label} requires {free_disk_gib} GiB free for checkpoints and evidence")
     output.mkdir()
     progress = {"execution": "in_progress", "code_commit": revision, "completed": []}
     budget = None
     limits = screen["limits_if_approved"]
     try:
-        evidence = audit(manifest, screen)
+        evidence = audit_inputs(manifest, screen)
         write_json(output / "preflight_cpu.json", evidence)
         projection = evidence["resource_projection"]
-        if (projection["upper_with_15pct_contingency_seconds"] > limits["gpu_seconds"]
-                or projection["peak_reserved_scenario_2x_bytes"] > limits["peak_reserved_bytes"]):
+        if (projection[projection_keys[0]] > limits["gpu_seconds"]
+                or projection[projection_keys[1]] > limits["peak_reserved_bytes"]):
             raise RuntimeError("CPU resource projection exceeds the proposed limits")
-        tables = history()
+        tables = history_tables()
         device = torch.device("cuda:0")
-        budget = DepthBudget(limits, output / "gpu_phases.jsonl", device)
+        budget = budget_type(limits, output / "gpu_phases.jsonl", device)
         try:
             with budget.phase("preflight"):
                 (output / "background_start.txt").write_text(background_snapshot(), encoding="utf-8")
@@ -79,7 +81,7 @@ def execute(manifest, output, screen, revision):
                 if free < limits["peak_reserved_bytes"]:
                     raise RuntimeError("existing jobs leave less than 2 GiB free")
                 torch.cuda.set_per_process_memory_fraction(limits["peak_reserved_bytes"] / total, device)
-                write_json(output / "synthetic_gpu_latency.json", latency(screen, budget))
+                write_json(output / "synthetic_gpu_latency.json", latency(screen, budget, modes=latency_modes))
                 torch.cuda.empty_cache()
             for seed_text, arms in screen["order"].items():
                 for arm in arms:

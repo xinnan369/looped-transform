@@ -60,7 +60,7 @@ def close_out(root, config, *, config_path=CONFIG):
     return authorization, progress, phases, provenance | {"exit_status": code, "runner_log": local_ref(root / "runner.log")}
 
 
-def verify_case(path, seed, arm, config, preflight, reference, complete, revision, *, depth4=False):
+def verify_case(path, seed, arm, config, preflight, reference, complete, revision, *, depth_calls=2):
     run_path = path / "run_manifest.json"
     history_path = path / "history.json"
     evidence = {"seed": seed, "arm": arm, "status": "not_run", "epochs": 0, "successful_updates": 0}
@@ -79,7 +79,7 @@ def verify_case(path, seed, arm, config, preflight, reference, complete, revisio
     history = read_json(history_path)
     checkpoints = read_json(path / "checkpoint_index.json")
     last = path / "last.pt"
-    planned = preflight["planned_starts" if depth4 else "planned_gated_initialization"][f"{seed}/{arm}"]
+    planned = preflight["planned_starts" if depth_calls > 2 else "planned_gated_initialization"][f"{seed}/{arm}"]
     if (run["git_commit"] != revision or run["tracked_changes"] != "" or run["config_sha256"] != planned["config_sha256"]
             or json_digest(run["config"]) != planned["config_sha256"]
             or run["initial_state_sha256"] != planned["initial_sha256"]
@@ -94,10 +94,9 @@ def verify_case(path, seed, arm, config, preflight, reference, complete, revisio
                      or run["execution"] != "completed" or run["global_step"] != history[-1]["global_step"]):
         raise ValueError(f"completed run horizon differs for {seed}/{arm}")
     gates = []
-    arm_config = config["arms" if depth4 else "variants"][arm]
+    arm_config = config["arms" if depth_calls > 2 else "variants"][arm]
     branches = CHANNEL_GATES.get(arm_config["variant"], ())
-    calls = 4 if depth4 else 2
-    expected_gate_keys = {(stage, branch) for stage in range(1, calls + 1) for branch in branches}
+    expected_gate_keys = {(stage, branch) for stage in range(1, depth_calls + 1) for branch in branches}
     for epoch, (row, ckpt, ref) in enumerate(zip(history, checkpoints, reference[:len(history)], strict=True), 1):
         if (row["epoch"] != epoch or ckpt["epoch"] != epoch or row["optimizer_updates"] != 180
                 or row["global_step"] != 180 * epoch or row["ema_step"] != 180 * epoch or ckpt["step"] != 180 * epoch
@@ -119,8 +118,11 @@ def verify_case(path, seed, arm, config, preflight, reference, complete, revisio
     validate_saved_ema(last, run, history[-1])
     readouts = list(all_readouts(history))
     images = load_image_metrics(path, history, readouts, preflight["data"]["ordered_val_ids"])
-    stages = ("stage1", "early", "stage3", "final") if depth4 else ("early", "final")
-    expected = {(e, p, s, g) for e in range(1, len(history) + 1) for p in POLICIES for s in stages for g in GROUPS}
+    names = {depth_calls // 2: "early", depth_calls: "final"}
+    stages = tuple(names.get(call, f"stage{call}") for call in range(1, depth_calls + 1))
+    first_full_epoch = run["config"].get("depth_readout_start_epoch", 1)
+    expected = {(e, p, s, g) for e in range(1, len(history) + 1) for p in POLICIES
+                for s in (stages if e >= first_full_epoch else ("early", "final")) for g in GROUPS}
     if len(readouts) != len(expected) or {(r["epoch"], r["policy"], r["stage"], r["density_group"])
                                            for r in readouts} != expected:
         raise ValueError(f"missing metric readouts for {seed}/{arm}")
