@@ -11,3 +11,5 @@ The existing `shifted_shared_4` final-only path and checkpoint keys retain their
 | Four readouts | 83,995,131,904 | 84,743,815,168 | 748,683,264 |
 
 On the 64×64 P3 grid, calls 1 and 3 use 64 windows. Calls 2 and 4 pad to 72×72 and use 81 windows. The estimate counts two operations per MAC, with attention and its projections on padded tokens, FFN on the original grid and the decoder on each requested read. Shifted final-only compute grows about 1.85%. The matched shifted arms use the same arithmetic. The estimate excludes state diagnostics, transfers and kernel overhead. [CPU hook evidence](initialization_audit.json)
+
+The charged RTX 3090 BF16 preflight produced final-only medians of 7.445 ms (S4-shift) and 9.936 ms (U4-shift), and four-read medians of 8.630 ms and 7.204 ms. Each median uses five synchronized 512-pixel synthetic batch-one samples with rotated arm order after warmup. Concurrent work was present, and the sample ordering and variance limit throughput interpretation. [Latency samples](synthetic_gpu_latency.json)

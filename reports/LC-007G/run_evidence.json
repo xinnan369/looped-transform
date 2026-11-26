@@ -1,0 +1,116 @@
+{
+  "execution": {
+    "launch_time": "2026-11-26T22:33:48+08:00",
+    "exit_time": "2026-11-26T23:34:00+08:00",
+    "exit_status": 0,
+    "runner_log": {
+      "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/runner.log",
+      "sha256": "5a910ae2cb8a946d38495186e7047c0cae2501a75a1a17a8063949bfbaaf7034",
+      "bytes": 5291482
+    },
+    "execution": "completed",
+    "code_commit": "3e01e677714f87d71a2f7b0518a48f71f2669f82",
+    "completed": [
+      "42/S4-shift",
+      "42/U4-shift",
+      "123/U4-shift",
+      "123/S4-shift"
+    ],
+    "current": null,
+    "charged_seconds": 3609.7395378380024,
+    "peak_allocated_bytes": 775961600,
+    "peak_reserved_bytes": 983564288,
+    "successful_updates": 28800
+  },
+  "cases": [
+    {
+      "seed": 42,
+      "arm": "S4-shift",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/42/S4-shift/run_manifest.json",
+        "sha256": "a4dd11edf81de5bb68b54e5c004dc2d445dfb4ccea509c3a70fafcff6c20431a",
+        "bytes": 3462
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/42/S4-shift/last.pt",
+        "sha256": "392b39986bc6aaaa3d7645c0e002c366e63aebf5617ff547935ee96a35addf7c",
+        "bytes": 26266389
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/42/S4-shift/history.json",
+        "sha256": "6f2b506e8e48d7b8fc90b88d9f2436d01c3b9f5e063fa6438030f4d0dfe87376",
+        "bytes": 2004028
+      }
+    },
+    {
+      "seed": 42,
+      "arm": "U4-shift",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/42/U4-shift/run_manifest.json",
+        "sha256": "11d119a1b7b945697dd51a150b1da5aec7878b2236dc078f4803c76f87fe017d",
+        "bytes": 3464
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/42/U4-shift/last.pt",
+        "sha256": "beb0b7931d38c1b991dc0a723ed881ab026017f596c6cc68dd4b3bc477aafbb0",
+        "bytes": 47663441
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/42/U4-shift/history.json",
+        "sha256": "c0c453097f681a8b99a7fd972953a14ffbf2c39073a45e7298debabe69a30d44",
+        "bytes": 2004539
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "U4-shift",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/123/U4-shift/run_manifest.json",
+        "sha256": "f4f342f446f9f9a8449f574c5a06376aeb24fba42c41ac9c2b154258307766a0",
+        "bytes": 3467
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/123/U4-shift/last.pt",
+        "sha256": "b31ae562ff92620b887ba7f42b9494b51bf54a6032e9d371b0a78ccb3874281a",
+        "bytes": 47663185
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/123/U4-shift/history.json",
+        "sha256": "c3235e006bbb34b13a2884f293e9df02619dea40e6b9d5e482e59f438635a939",
+        "bytes": 2004233
+      }
+    },
+    {
+      "seed": 123,
+      "arm": "S4-shift",
+      "status": "completed",
+      "epochs": 40,
+      "successful_updates": 7200,
+      "manifest": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/123/S4-shift/run_manifest.json",
+        "sha256": "ad757c1c8f740778ebecfb9f6ccfbe58b9fa9ce9ae5fbcc008179b23ad34fa2d",
+        "bytes": 3465
+      },
+      "retained_checkpoint": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/123/S4-shift/last.pt",
+        "sha256": "f27b84360ac9e8e4689a3963a4710175594c743175a82c29cc7f1f4810d8dc85",
+        "bytes": 26266325
+      },
+      "raw_history": {
+        "path": "/home/xinnan/loopcrowd-lc007g-gpu-20261126/run/train/123/S4-shift/history.json",
+        "sha256": "2543d224a810057cf6ecb9a62dedc00286509b85f8bfdaee6125db3e5266100d",
+        "bytes": 2003654
+      }
+    }
+  ],
+  "phase_rows": 647
+}
