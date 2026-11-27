@@ -9,6 +9,46 @@ from .inference import predict_image, predict_image_depth, predict_image_stages
 from .metrics import pooled_point_nap
 
 
+class GainStatistics:
+    """Pooled valid tile-cell moments for the actual and paired gain maps."""
+
+    def __init__(self):
+        self.cells = self.changed = 0
+        self.minimum, self.maximum = 1.25, .75
+        self.total = self.squares = self.cross = 0.
+
+    def add(self, gain, width, height):
+        actual = gain[:(height + 7) // 8, :(width + 7) // 8].astype(np.float64).ravel()
+        if not len(actual) or not np.isfinite(actual).all() or actual.min() < .75 or actual.max() > 1.25:
+            raise ValueError("invalid confidence refinement gain")
+        # For a placebo map the inverse half-roll recovers the aligned values.
+        # A circular shift has the same changed count and covariance as its inverse.
+        values = actual - 1
+        shifted = values.size // 2
+        permuted = np.roll(values, shifted)
+        self.cells += values.size
+        self.changed += np.count_nonzero(values != permuted)
+        self.minimum = min(self.minimum, float(actual.min()))
+        self.maximum = max(self.maximum, float(actual.max()))
+        self.total += float(values.sum())
+        self.squares += float(np.einsum("i,i->", values, values))
+        self.cross += float(np.einsum("i,i->", values, permuted))
+
+    def result(self):
+        if not self.cells:
+            return None
+        mean = self.total / self.cells
+        variance = max(0., self.squares / self.cells - mean**2)
+        # Repeated constant float32 values can leave a rounding residual in moments.
+        correlation = ((self.cross / self.cells - mean**2) / variance
+                       if self.minimum != self.maximum and variance > 0 else None)
+        return {"min": self.minimum, "max": self.maximum, "mean": 1 + mean,
+                "sd": float(np.sqrt(variance)) if self.minimum != self.maximum else 0.,
+                "valid_tokens": int(self.cells), "changed_tokens": int(self.changed),
+                "changed_fraction": float(self.changed / self.cells),
+                "aligned_permuted_pearson": float(np.clip(correlation, -1, 1)) if correlation is not None else None}
+
+
 def summarize(rows, ranked):
     if not rows:
         return {"images": 0}
@@ -32,29 +72,27 @@ def grouped_validation(model, records, directory, config, device, *, staged, bou
     if depth:
         stages = tuple(model.depth_readout_stages(depth_diagnostic).values())
     state_stats = {stage: [] for stage in stages}
-    gain_stats = []
+    gain_stats = {group: GainStatistics() for group in ("all", *DENSITY_GROUPS)} if config.get("refinement") else {}
     rows, ranked = ({stage: [] for stage in stages} for _ in range(2))
     threshold = config["count_threshold"]
     for record in records:
         if record.split != "val":
             raise ValueError("grouped evaluation requires internal-validation images")
         check()
+        group = density_bin(density(record), boundaries)
         with load_rgb(record, directory) as image:
             if depth:
-                gains = [] if config.get("refinement") else None
+                gains = [] if gain_stats else None
                 outputs, norms = predict_image_depth(model, image, config, device, diagnostic=depth_diagnostic,
                                                      refinement_gains=gains)
                 if gains is not None:
                     for gain, tile in zip(gains, outputs["final"].tiles, strict=True):
                         left, top, right, bottom = tile["image_xyxy"]
-                        valid = gain[:(bottom - top + 7) // 8, :(right - left + 7) // 8]
-                        if not np.isfinite(valid).all():
-                            raise ValueError("nonfinite confidence refinement scale")
-                        gain_stats.append((float(valid.min()), float(valid.mean()), float(valid.max())))
+                        for bucket in ("all", group):
+                            gain_stats[bucket].add(gain, right - left, bottom - top)
             else:
                 outputs = (predict_image_stages(model, image, config, device, require_finite=True) if staged else
                            {"final": predict_image(model, image, config, device, require_finite=True)})
-        group = density_bin(density(record), boundaries)
         for index, (stage, predictions) in enumerate(outputs.items()):
             active = predictions.count_candidates()
             active = active[active[:, 2] > threshold]
@@ -84,6 +122,5 @@ def grouped_validation(model, records, directory, config, device, *, staged, bou
             "stage": stage,
         } for row in rows[stage])
     if gain_stats:
-        low, means, high = zip(*gain_stats)
-        results["final"]["refinement_gain"] = {"min": min(low), "mean_tile_mean": float(np.mean(means)), "max": max(high)}
+        results["final"]["refinement_gain"] = {group: stats.result() for group, stats in gain_stats.items()}
     return results, image_rows

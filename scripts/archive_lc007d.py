@@ -29,7 +29,7 @@ CONTRASTS = (
 JOINT_GATES = {"primary", "residual_ablation", "matched_sharing"}
 
 
-def close_out(root, config, *, config_path=CONFIG):
+def close_out(root, config, *, config_path=CONFIG, allow_truncated_tail=False):
     run = root / "run"
     code = int((root / "exit_status.txt").read_text(encoding="utf-8"))
     provenance = {key: (root / f"{key}.txt").read_text(encoding="utf-8").strip()
@@ -48,7 +48,16 @@ def close_out(root, config, *, config_path=CONFIG):
     if progress["code_commit"] != revision or (progress["execution"] == "completed") != (code == 0):
         raise ValueError("queue status, code revision or process exit status differs")
     path = run / "gpu_phases.jsonl"
-    phases = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()] if path.is_file() else []
+    phases = []
+    if path.is_file():
+        lines = path.read_text(encoding="utf-8").splitlines()
+        for index, line in enumerate(lines):
+            try:
+                phases.append(json.loads(line))
+            except json.JSONDecodeError:
+                if not (allow_truncated_tail and code != 0 and index == len(lines) - 1):
+                    raise
+                provenance["truncated_phase_tail"] = True
     limits = config["limits_if_approved"]
     peak_limit = limits.get("peak_reserved_bytes")
     if progress["execution"] == "completed":

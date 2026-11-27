@@ -53,21 +53,22 @@ def test_pooled_uncertainty_masks_alignment_centering_and_placebo():
 
 @pytest.mark.parametrize("precision", ("fp32", "bf16"))
 @pytest.mark.parametrize("variant", ("shifted_shared_4", "shifted_unshared_4"))
-def test_refinement_identity_early_parity_and_detached_path(precision, variant):
+@pytest.mark.parametrize("mode", ("guided", "placebo"))
+def test_refinement_identity_early_parity_and_detached_path(precision, variant, mode):
     seed_all(42)
     base = make_model(config(variant), initialize=False)
     rng = torch.get_rng_state()
     seed_all(42)
-    guided = make_model(config(variant, refinement="guided"), initialize=False)
-    assert state_sha(base) == state_sha(guided) and torch.equal(rng, torch.get_rng_state())
-    assert len(guided.blocks) == (1 if guided.shared else 4)
+    refined = make_model(config(variant, refinement=mode), initialize=False)
+    assert state_sha(base) == state_sha(refined) and torch.equal(rng, torch.get_rng_state())
+    assert len(refined.blocks) == (1 if refined.shared else 4)
     images = torch.randn(2, 3, 45, 49)
     target = {k: torch.stack((v, v)) for k, v in point_targets(np.array([[8.25, 15.5]]), 49, 45, 2).items()}
     with torch.autocast("cpu", dtype=torch.bfloat16, enabled=precision == "bf16"):
         plain = base.forward_depth_stages(images, diagnostic=True)
         states = []
-        candidate = guided.forward_depth_stages(images, diagnostic=True, point_valid=target["valid"],
-                                               state_trace=lambda _, before, after: states.append(after))
+        candidate = refined.forward_depth_stages(images, diagnostic=True, point_valid=target["valid"],
+                                                state_trace=lambda _, before, after: states.append(after))
         final = point_loss(candidate["final"], target)
         mid = point_loss(candidate["early"], target)
     for name in ("stage1", "early"):
@@ -105,8 +106,9 @@ def test_disabled_and_constant_gain_match_legacy_loss_gradient_and_rng():
         torch.testing.assert_close(a.grad, b.grad, atol=0, rtol=0)
 
 
-def test_guided_tiled_export_preserves_order_match_ap_and_validation_state():
-    cfg = config(refinement="guided", tile_size=32, tile_overlap=8, precision="fp32")
+@pytest.mark.parametrize("mode", ("guided", "placebo"))
+def test_refined_tiled_export_preserves_order_match_ap_and_validation_state(mode):
+    cfg = config(refinement=mode, tile_size=32, tile_overlap=8, precision="fp32")
     model = make_model(cfg, initialize=False).eval()
     device = torch.device("cpu")
     with torch.no_grad():
