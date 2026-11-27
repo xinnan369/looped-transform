@@ -1,0 +1,131 @@
+{
+  "plan_sha256": "f14c9befb3f7a434f82f723a54831f00eef3c21d8b4be0789dd9c7840aed80e8",
+  "data": {
+    "images_and_cleaned_heads": {
+      "train": [
+        360,
+        44856
+      ],
+      "val": [
+        40,
+        4295
+      ]
+    },
+    "train_only_density_tertiles": [
+      82.65177408854167,
+      180.98619249131943
+    ],
+    "ordered_val_ids": [
+      "train/IMG_121",
+      "train/IMG_134",
+      "train/IMG_139",
+      "train/IMG_148",
+      "train/IMG_152",
+      "train/IMG_170",
+      "train/IMG_180",
+      "train/IMG_183",
+      "train/IMG_186",
+      "train/IMG_187",
+      "train/IMG_189",
+      "train/IMG_205",
+      "train/IMG_207",
+      "train/IMG_208",
+      "train/IMG_219",
+      "train/IMG_220",
+      "train/IMG_229",
+      "train/IMG_24",
+      "train/IMG_256",
+      "train/IMG_28",
+      "train/IMG_283",
+      "train/IMG_288",
+      "train/IMG_301",
+      "train/IMG_303",
+      "train/IMG_306",
+      "train/IMG_342",
+      "train/IMG_344",
+      "train/IMG_357",
+      "train/IMG_36",
+      "train/IMG_363",
+      "train/IMG_373",
+      "train/IMG_376",
+      "train/IMG_378",
+      "train/IMG_379",
+      "train/IMG_389",
+      "train/IMG_391",
+      "train/IMG_70",
+      "train/IMG_85",
+      "train/IMG_9",
+      "train/IMG_97"
+    ],
+    "manifest_path": "/home/xinnan/loopcrowd-lc002/shanghaitech_b.jsonl",
+    "manifest_sha256": "de60892266c08bce96a3ea07e884c86eec8d05e0a9d31c0949bcff9e925fe482",
+    "pretrained_weight_path": "/home/xinnan/loopcrowd-lc002/torch/hub/checkpoints/resnet18-f37072fd.pth",
+    "pretrained_weight_sha256": "f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec"
+  },
+  "decoded_geometry": {
+    "train": {
+      "images": 360,
+      "min_width": 1024,
+      "min_height": 768,
+      "max_width": 1024,
+      "max_height": 768
+    },
+    "val": {
+      "images": 40,
+      "min_width": 1024,
+      "min_height": 768,
+      "max_width": 1024,
+      "max_height": 768
+    }
+  },
+  "planned_starts": {
+    "42/S4-shift-768": {
+      "initial_sha256": "b524a3a01a52f10ae4996f1805d5bc7560dddb40e87371664481c0d3334ff834",
+      "common_sha256": "12265d7499cdc6cbe271434c51a45f8dd728838621c3d82206138b950919f6d8",
+      "encoder_sha256": "9a93b32bac4cfb7a3492edec6d473342f28175337164a03d4ad7c779871c40f8",
+      "decoder_sha256": "5206d7d6bb816cd36e684e780e09e914bec8591430b170a66826b76fc1861348",
+      "block_sha256": [
+        "c6d9087e991ef05527af9b362907fb65e1b0b1d6cc485ed0ee5acb0b951ebc3a"
+      ],
+      "parameters": 1596614,
+      "rng_after_init_sha256": "c84cc27b328a4b5c3f84770176d66966c2d73c0ec2b00f5a12ad30eb164e8e6f",
+      "config_sha256": "d376683520d1a28c5534211b50d61be9d8510903b12e49a11dbea24959af221b"
+    }
+  },
+  "historical_config_sha256": "ed0877a1225f3d55bd56419f3149ce178d58db4930010b4f3a34f8b2d60bcef5",
+  "dense_two_read_flops": {
+    "512": {
+      "dense_flops": 55677288448,
+      "gate_adds": 0,
+      "gate_multiplies": 0
+    },
+    "768": {
+      "dense_flops": 124690366464,
+      "gate_adds": 0,
+      "gate_multiplies": 0
+    }
+  },
+  "dense_four_read_512_flops": {
+    "dense_flops": 84743815168,
+    "gate_adds": 0,
+    "gate_multiplies": 0
+  },
+  "projection": {
+    "historical_phase_seconds": {
+      "training": 281.13012883398915,
+      "validation_live": 295.97725489913137,
+      "validation_ema": 292.17582444899017,
+      "initialization": 0.1378826310101431,
+      "checkpoint": 1.8516810860310216
+    },
+    "area_ratio": 2.25,
+    "dense_ratio": 2.2395193792609893,
+    "base_seconds": 1222.6854329416383,
+    "allowance_seconds": 425.67135823540957,
+    "budget_estimate_seconds": 1648.3567911770479,
+    "headroom_bytes_estimate": 4265607168,
+    "actual_gpu": "not_run"
+  },
+  "exposure_csv_sha256": "ad89394d589f4829132c91df688ffd8c688e163093e163eb1545564f27919fc5",
+  "runtime_audit_sha256": "091e9fe7e9763486569d291ff63cb4a3a45656c9cd990d3595f5c026ef1b03ef"
+}
