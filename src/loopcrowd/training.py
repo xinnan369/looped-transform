@@ -38,7 +38,8 @@ def supervised_point_loss(model, images, target, config, diagnostics=None):
     weight = config.get("early_loss_weight")
     if weight is None:
         return point_loss(model(images), target, config["density_weight"], diagnostics)
-    predictions = (model.forward_depth_stages(images) if config.get("depth_screen") else model.forward_stages(images))
+    options = {"point_valid": target["valid"]} if config.get("refinement") else {}
+    predictions = (model.forward_depth_stages(images, **options) if config.get("depth_screen") else model.forward_stages(images))
     early_parts = {} if diagnostics is not None else None
     early = point_loss(predictions["early"], target, config["density_weight"], early_parts)
     final = point_loss(predictions["final"], target, config["density_weight"], diagnostics)

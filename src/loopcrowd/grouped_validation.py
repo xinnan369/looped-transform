@@ -32,6 +32,7 @@ def grouped_validation(model, records, directory, config, device, *, staged, bou
     if depth:
         stages = tuple(model.depth_readout_stages(depth_diagnostic).values())
     state_stats = {stage: [] for stage in stages}
+    gain_stats = []
     rows, ranked = ({stage: [] for stage in stages} for _ in range(2))
     threshold = config["count_threshold"]
     for record in records:
@@ -40,7 +41,16 @@ def grouped_validation(model, records, directory, config, device, *, staged, bou
         check()
         with load_rgb(record, directory) as image:
             if depth:
-                outputs, norms = predict_image_depth(model, image, config, device, diagnostic=depth_diagnostic)
+                gains = [] if config.get("refinement") else None
+                outputs, norms = predict_image_depth(model, image, config, device, diagnostic=depth_diagnostic,
+                                                     refinement_gains=gains)
+                if gains is not None:
+                    for gain, tile in zip(gains, outputs["final"].tiles, strict=True):
+                        left, top, right, bottom = tile["image_xyxy"]
+                        valid = gain[:(bottom - top + 7) // 8, :(right - left + 7) // 8]
+                        if not np.isfinite(valid).all():
+                            raise ValueError("nonfinite confidence refinement scale")
+                        gain_stats.append((float(valid.min()), float(valid.mean()), float(valid.max())))
             else:
                 outputs = (predict_image_stages(model, image, config, device, require_finite=True) if staged else
                            {"final": predict_image(model, image, config, device, require_finite=True)})
@@ -73,4 +83,7 @@ def grouped_validation(model, records, directory, config, device, *, staged, bou
         image_rows.extend({key: val for key, val in row.items() if key != "matches"} | row["matches"] | {
             "stage": stage,
         } for row in rows[stage])
+    if gain_stats:
+        low, means, high = zip(*gain_stats)
+        results["final"]["refinement_gain"] = {"min": min(low), "mean_tile_mean": float(np.mean(means)), "max": max(high)}
     return results, image_rows

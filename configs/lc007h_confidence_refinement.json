@@ -1,0 +1,43 @@
+{
+  "issue": 31,
+  "parent": "4a0f7b023e314af8ac6fe3c8ea0390d3428dee63",
+  "state": "DRAFT_CONFIDENCE_REFINEMENT / GPU_NOT_AUTHORIZED",
+  "coefficient": 0.25,
+  "arms": {
+    "S-guide": {"reference": "S4-shift", "refinement": "guided"},
+    "U-guide": {"reference": "U4-shift", "refinement": "guided"},
+    "S-placebo": {"reference": "S4-shift", "refinement": "placebo"}
+  },
+  "order": {"42": ["S-guide", "U-guide", "S-placebo"], "123": ["S-placebo", "U-guide", "S-guide"]},
+  "diagnostic_proposal": {
+    "runs": 4,
+    "validation_images_per_run": 40,
+    "stage_reads_per_tile": 4,
+    "max_charged_seconds": 300,
+    "successful_updates": 0,
+    "external_download_bytes": 0,
+    "model": "frozen_E40_EMA_live_BN",
+    "uncertainty_bins": [0.25, 0.75]
+  },
+  "conditional_training_proposal": {
+    "runs": 6,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "total_updates": 43200,
+    "max_charged_seconds": 7200,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  },
+  "memory_policy": "device_headroom_and_observation_only",
+  "decision": {
+    "epochs": [36, 37, 38, 39, 40],
+    "stability_reference_epochs": [31, 32, 33, 34, 35],
+    "mae_ratio": 0.97,
+    "strict_nap_delta": 0,
+    "late_mae_sample_cv_max": 0.10,
+    "absolute_final_loss_change_max": 0.03,
+    "rmse_ratio": 1.03,
+    "fp_ratio": 1.05,
+    "fn_ratio": 1.05
+  }
+}
