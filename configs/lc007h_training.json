@@ -1,0 +1,40 @@
+{
+  "issue": 31,
+  "scope": "CGCR_six_fresh_training_runs",
+  "parent": "85fc0616dafd42e7de23db1519823926331ee686",
+  "arm_config": "configs/lc007e_depth4.json",
+  "arms": {
+    "S-guide": {"variant": "shifted_shared_4", "comparison": "S4-shift", "refinement": "guided"},
+    "U-guide": {"variant": "shifted_unshared_4", "comparison": "U4-shift", "refinement": "guided"},
+    "S-placebo": {"variant": "shifted_shared_4", "comparison": "S4-shift", "refinement": "placebo"}
+  },
+  "order": {"42": ["S-guide", "U-guide", "S-placebo"], "123": ["S-placebo", "U-guide", "S-guide"]},
+  "inputs_sha256": {
+    "configs/lc007e_depth4.json": "32435ee981b479d9cd7831e4efe565c91b8d3e6a91f8cda59d4e9bb37e1239cd",
+    "configs/lc007g_cross_window.json": "9d444769dd6a543c93d0e2f58781ef790d45c88cb71195ba12c1fb7797f7e95b",
+    "configs/lc007h_confidence_refinement.json": "e694650774e9f34fe86215621712bef524f09293650e36fef44523e832590377",
+    "reports/LC-007G/epoch_index.csv": "c68d6328cd7da766a8b124793c3852a4c524b94413073d430b9e4ddf9f36bf38",
+    "reports/LC-007G/run_evidence.json": "b09216ca1f028529e255f732a9efb96f8319c5265e3424dab9a05f83cf23eea3",
+    "reports/LC-007G/initialization_audit.json": "52b8170975a9d1dbb04878f0682d4ac2f27d0bbcdf0f75756ddf82027f323efb",
+    "reports/LC-007H/initialization_audit.json": "33f599a55c82a4a745e4948d8fc34936f324e02a5e8e3b4bd5c0c05039525970"
+  },
+  "limits_if_approved": {
+    "runs": 6, "epochs_per_run": 40, "total_epochs": 240, "updates_per_epoch": 180,
+    "total_updates": 43200, "gpu_seconds": 7200, "external_download_bytes": 0, "disposable_gpu_updates": 0
+  },
+  "memory_policy": "device_headroom_and_observation_only",
+  "disk_free_bytes": 3221225472,
+  "decision": {
+    "epochs": [36, 37, 38, 39, 40], "loss_reference_epochs": [31, 32, 33, 34, 35],
+    "mae_ratio_max": 0.97, "nap_strict_delta_min": 0.0, "sample_cv_max": 0.10,
+    "absolute_loss_relative_change_max": 0.03, "rmse_ratio_max": 1.03, "fp_ratio_max": 1.05, "fn_ratio_max": 1.05,
+    "primary_absolute_targets": {
+      "S-guide_vs_S4-shift": [21.98505, 0.305224300],
+      "U-guide_vs_U4-shift": [20.1663, 0.305681402]
+    },
+    "historical_absolute_targets": {
+      "S2_parity_mae_max": 21.9375, "S2": [21.279375, 0.295320775],
+      "U2": [20.231775, 0.300470175], "U4-shift": [20.1663, 0.305681402]
+    }
+  }
+}

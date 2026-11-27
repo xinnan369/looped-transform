@@ -1,0 +1,19 @@
+{
+  "issue": 31,
+  "approval_scope": "CGCR_six_fresh_training_runs",
+  "code_commit": "4696be2fca77fcd534260dc0d8bc07f38d098e5a",
+  "source_tree": "fa412ab0945d13a6cd0744e3bcd37c460120c95e",
+  "config_sha256": "12499b6c3246fccd6c7c4342d6237a0c15e9cdd15f112390224716e9b5d2e5b9",
+  "limits": {
+    "runs": 6,
+    "epochs_per_run": 40,
+    "total_epochs": 240,
+    "updates_per_epoch": 180,
+    "total_updates": 43200,
+    "gpu_seconds": 7200,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  },
+  "owner_message_ref": "Codex looped-transform conversation, owner reply \u201c\u6279\u51c6\u8bad\u7ec3\u201d to the frozen six-run handoff in PR #32.",
+  "approved_at": "2026-11-27T12:44:34+08:00"
+}

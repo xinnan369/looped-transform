@@ -9,6 +9,8 @@ from torch.nn import functional as F
 from torch.utils.checkpoint import checkpoint
 from torchvision.models import ResNet18_Weights, resnet18
 
+from .refinement import REFINEMENT_MODES, refine_update, refinement_gain
+
 CHANNEL_GATES = {
     "shared_2_channel_residual": ("attention", "ffn"),
     "shared_2_channel_residual_state": ("attention", "ffn", "state"),
@@ -120,10 +122,15 @@ class LoopCrowd(nn.Module):
     def __init__(
         self, variant, slots=2, pretrained=False, density=False,
         loop_embedding=False, gradient_checkpointing=False, freeze_backbone_bn=False, depth_screen=False,
+        refinement=None,
     ):
         super().__init__()
         self.loops, self.shared = VARIANTS[variant]
         self.depth_screen = variant in DEPTH_VARIANTS or (depth_screen and variant in SHIFTED_DEPTH4_VARIANTS)
+        if refinement is not None and (refinement not in REFINEMENT_MODES or variant not in SHIFTED_DEPTH4_VARIANTS
+                                       or not depth_screen or density or loop_embedding or gradient_checkpointing):
+            raise ValueError("confidence refinement requires an ungated shifted K=4 depth screen")
+        self.refinement = refinement
         self.shifted = variant.startswith("shifted_")
         self.slots = slots
         if type(slots) is not int or slots < 1:
@@ -185,10 +192,12 @@ class LoopCrowd(nn.Module):
         names = {midpoint: "early", final: "final"}
         return {index: names.get(index, f"stage{index + 1}") for index in range(self.loops)}
 
-    def forward_depth_stages(self, images, *, diagnostic=False, state_trace=None, channel_trace=None):
+    def forward_depth_stages(self, images, *, diagnostic=False, state_trace=None, channel_trace=None, point_valid=None,
+                             refinement_trace=None):
         """Read the midpoint and final state, or every state in one diagnostic forward."""
         stages = self.depth_readout_stages(diagnostic)
-        return self(images, depth_stages=stages, state_trace=state_trace, channel_trace=channel_trace)
+        return self(images, depth_stages=stages, state_trace=state_trace, channel_trace=channel_trace,
+                    point_valid=point_valid, refinement_trace=refinement_trace)
 
     @torch.no_grad()
     def channel_gate_statistics(self):
@@ -205,7 +214,7 @@ class LoopCrowd(nn.Module):
         ]
 
     def forward(self, images, *, loop_count=None, trace=None, return_stages=False, channel_trace=None,
-                depth_stages=None, state_trace=None):
+                depth_stages=None, state_trace=None, point_valid=None, refinement_trace=None):
         calls = self.loops if loop_count is None else loop_count
         if type(calls) is not int or not 0 <= calls <= self.loops:
             raise ValueError("loop_count must be an integer inside the model's fixed depth")
@@ -217,6 +226,8 @@ class LoopCrowd(nn.Module):
             raise ValueError("stage predictions require both calls of a supported two-call model")
         if depth_stages is not None and (not self.depth_screen or calls != self.loops or return_stages):
             raise ValueError("depth readouts require all calls of a supported fixed-window model")
+        if self.refinement is not None and calls != 4:
+            raise ValueError("confidence refinement requires all four calls")
         readouts = {}
         p2 = self.p2(images)
         tokens = self.project(self.p3(p2)).permute(0, 2, 3, 1)
@@ -231,7 +242,7 @@ class LoopCrowd(nn.Module):
                 block_args["gains"] = gains[index]
             if trace is not None:
                 block_args["trace"] = partial(trace, index)
-            if self.channel_gate_deltas is not None or state_trace is not None:
+            if self.channel_gate_deltas is not None or state_trace is not None or self.refinement is not None:
                 before = tokens
             if self.channel_gate_deltas is not None:
                 scales = 1 + self.channel_gate_deltas[index]
@@ -245,12 +256,21 @@ class LoopCrowd(nn.Module):
                     tokens = tokens * scales[2].to(dtype=tokens.dtype)
                 if channel_trace is not None:
                     channel_trace(index, before, tokens, dict(zip(self.channel_gate_names, scales, strict=True)))
+            if self.refinement is not None and index > 1:
+                tokens = refine_update(before, tokens, spatial_gain)
             if return_stages and index == 0:
                 early = self._decode(p2, tokens)
             if state_trace is not None:
                 state_trace(index, before, tokens)
-            if depth_stages is not None and index in depth_stages:
-                readouts[depth_stages[index]] = self._decode(p2, tokens)
+            selected = depth_stages is not None and index in depth_stages
+            if selected or (self.refinement is not None and index == 1):
+                prediction = self._decode(p2, tokens)
+                if selected:
+                    readouts[depth_stages[index]] = prediction
+                if self.refinement is not None and index == 1:
+                    spatial_gain = refinement_gain(prediction["logits"], point_valid, mode=self.refinement)
+                    if refinement_trace is not None:
+                        refinement_trace(spatial_gain)
         if depth_stages is not None:
             return readouts
         final = self._decode(p2, tokens)

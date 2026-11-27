@@ -1,0 +1,16 @@
+{
+  "issue": 31,
+  "owner_message_ref": "ChatGPT looped-transform conversation, owner request \u542f\u52a8gpu\u5b9e\u9a8c, followed by \u6267\u884c\u6700\u65b0\u6307\u4ee4 after the reviewed scope was recorded in Issue #31. See Issue #31 and PR #32 launch review 6082211195.",
+  "approved_at": "2026-11-27",
+  "approval_scope": "read_only_E40_EMA_live_BN_B_internal_val",
+  "code_commit": "856dfb30eec4987849f8809575382f59b750c21f",
+  "config_sha256": "2309902dbe1d059981ec190635dd55bd461a2dff27ebd3cb012539fe495cb064",
+  "limits": {
+    "runs": 4,
+    "images_per_run": 40,
+    "stage_reads_per_tile": 4,
+    "gpu_seconds": 300,
+    "total_updates": 0,
+    "external_download_bytes": 0
+  }
+}

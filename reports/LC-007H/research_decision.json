@@ -1,0 +1,27 @@
+{
+  "issue": 31,
+  "status": "E40_DIAGNOSTIC_COMPLETE / AWAITING_ACCEPTANCE",
+  "execution_commit": "856dfb30eec4987849f8809575382f59b750c21f",
+  "diagnostic_parity": "pass_all_four_cases",
+  "guided_training": "not_authorized_or_run",
+  "decision": "Hold training and threshold or gain changes for diagnostic acceptance.",
+  "observations": {
+    "gt_observations": 17180,
+    "midpoint_fn": 7076,
+    "midpoint_fn_below_0_75": 4416,
+    "t4_recovered_midpoint_fn": 848,
+    "high_ambiguity_t4_recovered_fn": 566,
+    "high_ambiguity_midpoint_fn": 2660,
+    "low_ambiguity_t4_recovered_fn": 21,
+    "low_ambiguity_midpoint_fn": 466,
+    "midpoint_owned_candidates": 15687,
+    "midpoint_owned_candidates_below_0_75_ambiguity": 0,
+    "midpoint_high_score_false_positives": 0
+  },
+  "evidence_limits": [
+    "Shared validation images across four frozen E40 checkpoints.",
+    "Descriptive association between ambiguity, matches and later recovery.",
+    "No estimate of causal effect, guided accuracy, sharing advantage or placebo performance."
+  ],
+  "formal_baseline": "ungated_shared_2_aux_ema"
+}
