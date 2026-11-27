@@ -1,0 +1,26 @@
+# Resource and input freeze
+
+## Read-only E40 diagnostic proposal
+
+Request separately, after CPU draft review, at most 300 charged GPU seconds, four checkpoints, 40 B internal-validation images per checkpoint, one pass through each tile with all four stage decodes, zero training updates, and zero external download bytes. The 160 full-image evaluations reuse local B and the four archived `last.pt` files. The local manifest SHA-256 is `de60892266c08bce96a3ea07e884c86eec8d05e0a9d31c0949bcff9e925fe482`. The audit lists ordered IDs, train-only density cutpoints, exact local checkpoint sizes and paths, and mappings to the per-case config hashes. All four files passed a size and SHA-256 check on CPU. [Machine-readable audit](initialization_audit.json)
+
+| Case | E40 checkpoint SHA-256 |
+| --- | --- |
+| 42 / S4-shift | `392b39986bc6aaaa3d7645c0e002c366e63aebf5617ff547935ee96a35addf7c` |
+| 42 / U4-shift | `beb0b7931d38c1b991dc0a723ed881ab026017f596c6cc68dd4b3bc477aafbb0` |
+| 123 / U4-shift | `b31ae562ff92620b887ba7f42b9494b51bf54a6032e9d371b0a78ccb3874281a` |
+| 123 / S4-shift | `f27b84360ac9e8e4689a3963a4710175594c743175a82c29cc7f1f4810d8dc85` |
+
+The historical run used `3e01e677714f87d71a2f7b0518a48f71f2669f82`. The frozen identity/analysis implementation is `9d0272df4b801c9caef4410b6566fb302e60ae53`. The plan file SHA-256 is `e694650774e9f34fe86215621712bef524f09293650e36fef44523e832590377`. Before requesting launch approval, freeze the dedicated read-only driver and execution config on this implementation. Verify the original checkpoint size, hash, E40 and EMA step 7200 before loading tensors. Reconstruct an isolated eval model with saved FP32 EMA parameters and the checkpoint's live BN buffers. No optimizer or EMA updater is instantiated. Snapshot and check CPU/device RNG around model construction and inference, and check model tensors, BN buffers and the source checkpoint for equality before and after the sweep. Eval in inference mode with the original backend, tile, precision, ownership, stages and metric configuration. Use the live B archive's exact input order and geometry.
+
+Derive ordinary metrics and identity-derived TP/FP/FN, ranking, AP and count within the same four-stage sweep. Require exact equality for per-image count/TP/FP/FN and stable assignment/ranking on the common outputs. Compare E40 to the stored EMA image rows and grouped results and require archived precision for reported AP and count metrics before analysis. Freeze and retain the parity output linked to each checkpoint and manifest. Treat drift or missing input as a stop and report condition. Inspect the ownership and valid cell coverage for all 4,295 GT rows per checkpoint. Keep all GT in the denominator and explicitly report unscorable map locations if geometry is invalid, with no association interpretation from an incomplete map.
+
+For each seed, arm and train-defined density band, report midpoint FN rate by uncertainty bin (<.25, [.25,.75), ≥.75), final recovery among midpoint FN in each bin, and FP rate and category among owned >.30 midpoint candidates. Report numerator, denominator and missing/empty cases. Describe low-uncertainty FN and high-confidence FP explicitly, including the candidate score, signed .30 margin and entropy. Report t2→t4 and t3→t4 GT transitions and stage count errors, with displacement, score and rank change on matched-both GT. Retain image-level errors and cancellation alongside pooled AP. Window seam attribution remains unavailable until seam geometry is specified. These are descriptive associations from frozen predictions, with no threshold selection or guidance from GT.
+
+Historical same-geometry E40 EMA sweeps are proxied by LC-007G's 7.546 s mean and 12.284 s maximum over the archived epoch sweeps. Four times the observed maximum is 49.14 s of base sweep time. The 300 s proposal includes charged device checks, warmup/setup, transfers, synchronization and analysis time while holding the device, with allowance for identity extraction. No new GPU measurements support this estimate.
+
+## Conditional six-run training proposal
+
+Seek separate approval only after the CPU and checkpoint review. Six runs and 240 epochs total yield 43,200 successful updates. Order for seed 42 is S-guide, U-guide, S-placebo. Order for seed 123 is S-placebo, U-guide, S-guide. Proposal ceiling is 7,200 charged GPU seconds and zero new download bytes, with zero disposable GPU updates. LC-007G took 3,609.740 charged seconds for four runs. Scaling by 6/4 gives 5,414.609 s. A 25% allowance and 120 s setup gives 6,888.262 s. These are planning proxies. Validation gain logging, guide arithmetic, and actual concurrent load can change throughput.
+
+Both stages record free/total VRAM before launch, competing activity, actual peak allocated/reserved memory, phase time and update count. Keep other jobs undisturbed. Use the existing resource accounting with time and update bounds, physical device headroom and actual CUDA OOM handling. No allocator fraction, fixed/dynamic per-process cap, crop/batch changes or automatic retry on OOM. Stop with available evidence on actual OOM, time exhaustion, missing local input, or a parity break. Both proposals assume existing caches and zero network downloads.
