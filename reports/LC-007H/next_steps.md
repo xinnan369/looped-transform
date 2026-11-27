@@ -1,7 +1,7 @@
 # Review handoff
 
-1. Review the CPU archive reconciliation, the identity parity and the three matched initializations per seed. Confirm the fixed gain coefficient and placebo permutation.
-2. Review the frozen [read-only E40 driver and output schema](resource_plan.md). The next execution scope is up to 300 charged GPU seconds, four sweeps and zero updates/download bytes. Stop if cache, parity or the resource prerequisites fail.
-3. Review whether the uncertainty associations support comparing guided updates with the spatial placebo. A training decision requires another authorization for the specified matrix and resource bounds. Record weak associations or a negative result as such.
+1. Accept or request corrections to the [completed E40 diagnostic](uncertainty_diagnostic.md) and [resource audit](resource_audit.md).
+2. Decide whether the recovery association justifies comparing guided updates with the spatial placebo given low-ambiguity misses, empty candidate bins and heterogeneous late-call transitions.
+3. After diagnostic acceptance, a training decision requires separate authorization for the specified matrix and resource bounds.
 
-Keep the stacked drafts open and unmerged. The diagnostic execution is pending review of the frozen driver. Shared-2 aux+EMA remains the formal baseline.
+Keep the stacked drafts open for acceptance. Shared-2 aux+EMA remains the formal baseline.
