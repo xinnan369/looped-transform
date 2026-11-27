@@ -80,6 +80,8 @@ def read_config(path, variant=None):
             raise ValueError(f"{name} must be a nonnegative integer")
     if config["tile_size"] < 16 or config["tile_overlap"] >= config["tile_size"]:
         raise ValueError("tile size must be at least 16 and greater than overlap")
+    if "train_crop_size" in config and (type(config["train_crop_size"]) is not int or config["train_crop_size"] < 16):
+        raise ValueError("train_crop_size must be an integer of at least 16")
     if not 0 <= config["localization_min_score"] <= config["count_threshold"] <= 1:
         raise ValueError("localization score floor must be no greater than the count threshold")
     if config["crop_mode"] not in ("random", "density-biased"):

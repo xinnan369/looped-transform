@@ -36,20 +36,21 @@ class TrainingCrops(Dataset):
         self.manifest_dir = manifest_dir
         self.config = config
         self.epoch = epoch
+        self.size = config.get("train_crop_size", config["tile_size"])
 
     def __len__(self):
         return len(self.records)
 
     def origin(self, record, points):
         return crop_origin(
-            points, record.image_width, record.image_height, self.config["tile_size"], self.config["crop_mode"],
+            points, record.image_width, record.image_height, self.size, self.config["crop_mode"],
             self.config["seed"], f"{record.dataset}:{record.image_id}", self.epoch,
         )
 
     def __getitem__(self, index):
         record = self.records[index]
         points = np.asarray(record.points, dtype=float).reshape(-1, 2)
-        size = self.config["tile_size"]
+        size = self.size
         left, top = self.origin(record, points)
         with load_rgb(record, self.manifest_dir) as image:
             tile, width, height = image_tile(image, left, top, size)
@@ -58,5 +59,9 @@ class TrainingCrops(Dataset):
             valid_width=width, valid_height=height,
         )
         if self.config.get("early_loss_weight") is not None or self.config.get("audit_training"):
-            target["crop_identity"] = torch.tensor([index, left, top])
+            identity = [index, left, top]
+            if "train_crop_size" in self.config:
+                identity.append(size)
+                target["valid_pixels"] = torch.tensor(width * height)
+            target["crop_identity"] = torch.tensor(identity)
         return tile, target
