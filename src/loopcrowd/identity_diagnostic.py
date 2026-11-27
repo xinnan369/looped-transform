@@ -70,11 +70,13 @@ def uncertainty_at_points(points, prediction, midpoint_maps):
             raise ValueError("ownership tiles overlap for a diagnostic position")
         x, y = tile["image_xyxy"][:2]
         col, row = np.floor((coords[inside] - [x, y]) / 8).astype(int).T
-        if not support[row, col].all():
-            raise ValueError("a diagnostic position falls outside the valid token grid")
+        in_grid = (row >= 0) & (row < support.shape[0]) & (col >= 0) & (col < support.shape[1])
+        if not in_grid.all() or not support[row, col].all():
+            raise ValueError("unscorable diagnostic position outside valid midpoint support")
         values[inside] = score[row, col]
-    if not np.isfinite(values).all():
-        raise ValueError("a diagnostic position has no valid midpoint score")
+    missing = int(np.count_nonzero(~np.isfinite(values)))
+    if missing:
+        raise ValueError(f"{missing} unscorable diagnostic positions without an owned finite midpoint score")
     return values
 
 

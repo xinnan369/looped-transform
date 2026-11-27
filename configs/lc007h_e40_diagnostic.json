@@ -1,0 +1,26 @@
+{
+  "issue": 31,
+  "scope": "read_only_E40_EMA_live_BN_B_internal_val",
+  "parent": "34d5afa4f0d2573ad8ddbd1749d9c0b459441fc9",
+  "audit_sha256": "33f599a55c82a4a745e4948d8fc34936f324e02a5e8e3b4bd5c0c05039525970",
+  "archive_index_sha256": "c68d6328cd7da766a8b124793c3852a4c524b94413073d430b9e4ddf9f36bf38",
+  "order": ["42/S4-shift", "42/U4-shift", "123/U4-shift", "123/S4-shift"],
+  "stages": ["stage1", "early", "stage3", "final"],
+  "gt_rows_per_case": 4295,
+  "epoch": 40,
+  "ema_step": 7200,
+  "count_threshold": 0.30,
+  "ap_floor": 0.05,
+  "uncertainty_boundaries": [0.25, 0.75],
+  "high_confidence_fp_score": 0.75,
+  "archive_float_absolute_tolerance": 1e-12,
+  "limits_if_approved": {
+    "runs": 4,
+    "images_per_run": 40,
+    "stage_reads_per_tile": 4,
+    "gpu_seconds": 300,
+    "total_updates": 0,
+    "external_download_bytes": 0
+  },
+  "memory_policy": "device_headroom_and_observation_only"
+}

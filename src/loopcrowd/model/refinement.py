@@ -20,6 +20,11 @@ def midpoint_uncertainty(logits, valid=None):
 
 def refinement_gain(logits, valid=None, *, mode="guided"):
     score, support = midpoint_uncertainty(logits, valid)
+    return gain_from_uncertainty(score, support, mode=mode)
+
+
+def gain_from_uncertainty(score, support, *, mode):
+    """Construct or permute the gains from an aligned midpoint map."""
     # Subtracting an anchor first preserves exact centering for constant maps.
     relative = (score - score.amax(dim=(-2, -1), keepdim=True)).masked_fill(~support, 0)
     mean = relative.sum(dim=(-2, -1), keepdim=True) / support.sum(dim=(-2, -1), keepdim=True).clamp_min(1)
