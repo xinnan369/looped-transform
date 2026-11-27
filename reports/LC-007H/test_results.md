@@ -41,3 +41,19 @@ The CPU-only preflight rebuilt the four local E40 EMA models with live BN, confi
 | 42 / U4-shift | `0f6729e58ec6a770e9f9e01f76575dfa9a2c77fae5ed722c02cd929b46d3e672` |
 | 123 / U4-shift | `91b3402c83863997fe4061254a8ba029065a421d4ddf9bb68babc704978d129c` |
 | 123 / S4-shift | `af90780d43af6407472de1b3163308ebf6cca644216c638a4aaec04fa9e532a7` |
+
+## Six-run training preparation
+
+The execution freeze was `4696be2fca77fcd534260dc0d8bc07f38d098e5a` with CUDA visibility disabled in every test process. The WSL matrix ran from a clean offline bundle. The launcher also passed `bash -n`.
+
+| Environment | Full pytest result | Local log SHA-256 |
+| --- | --- | --- |
+| WSL Python 3.10.16, `mamba-ssm` | 197 passed in 79.23 s | `f85788c4657c280fda10666366d6fc1a67e6b59bffbb2baad26c81d9153fdcb7` |
+| WSL Python 3.11.11, `sigma-r1-cu121` | 197 passed in 79.95 s | `9b2cb18da68e91eee1a11c72c6c4b7bb60c1106aad81d715c23b2f7c7f090167` |
+| Windows Python 3.13.2 | 197 passed in 117.40 s, 11 deprecation warnings | `2fb99132a8913a532a9ece0aee3993bd6fc7dab3347cd44d977407a9f23d1729` |
+
+Eight new training cases cover distinct authorization and rejection of the prior E40 record, time/update/phase failure, a mock OOM that stops the queue without retry or setting a memory quota, and partial archive retention. Guided and placebo fixture runs verify two training decodes, four live and four EMA decodes, finite gradients and loss, epoch image digests, EMA/checkpoint update positions and gain output coverage. They also verify empty/constant gain and inverse-permutation behavior and distinguish the four predeclared decisions, including a failing strict seedwise placebo contrast. Five additional parity cases extend detached-path, loss/gradient and two/four-read API checks to the placebo mode. The inherited suite covers the legacy paths and archived history.
+
+The offline decision rehearsal read 78 indexed historical tables, computed 26 historical seed/arm stability summaries and kept all ten candidate comparisons unevaluable with no new outcomes.
+
+The clean WSL CPU preflight matched all six initialized configurations and 7,200 planned crop/LR updates per case to the historical indexed references. It verified the B manifest, ResNet-18 cache digest and ordered validation data. Its SHA-256 is `4590177e525f6da924de5bd3a23989d338ef6d477c9c6a719ce3943eba972f26`. The 6,894.25 s projection includes synthetic CPU gain bookkeeping. The guided arms' actual GPU training time, peak memory, gain outputs and statistical endpoints remain unmeasured. [Preflight evidence](training_preflight.json)
