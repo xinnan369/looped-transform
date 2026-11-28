@@ -1,0 +1,41 @@
+{
+  "decision": "fail",
+  "checks": {
+    "mae": true,
+    "nap": true,
+    "stability": false,
+    "rmse": true,
+    "fp": false,
+    "fn": true
+  },
+  "candidate": {
+    "mae": 19.7,
+    "rmse": 25.967581839564975,
+    "local_nap": 0.346196325464257,
+    "predicted": 4827.4,
+    "signed_count_error": 532.4,
+    "tp": 3066.8,
+    "fp": 1760.6,
+    "fn": 1228.2
+  },
+  "historical_512": {
+    "mae": 23.875,
+    "rmse": 31.81492807782338,
+    "local_nap": 0.30553705790378227,
+    "predicted": 3903.6,
+    "signed_count_error": -391.4,
+    "tp": 2552.6,
+    "fp": 1351.0,
+    "fn": 1742.4
+  },
+  "stability": {
+    "sample_mae_cv": 0.05700074792252714,
+    "relative_final_loss_change": -0.041255077260604726,
+    "final_loss_reference": 0.27091896533966064,
+    "final_loss_late": 0.25974218249320985,
+    "passed": false
+  },
+  "status": "COMPLETE / READY_FOR_REVIEW",
+  "formal_baseline": "shared_2_aux_025",
+  "historical_comparator": "non_contemporaneous_same_seed"
+}

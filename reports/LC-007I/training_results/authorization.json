@@ -1,0 +1,20 @@
+{
+  "issue": 33,
+  "approval_scope": "LC007I_single_seed42_native768",
+  "code_commit": "8dd00d0b9f78cc954a92824f868825ed786f4fd1",
+  "source_tree": "4956ad20fc5e667eb4d0627649be5b61389724d0",
+  "config_sha256": "f14c9befb3f7a434f82f723a54831f00eef3c21d8b4be0789dd9c7840aed80e8",
+  "limits": {
+    "runs": 1,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "total_updates": 7200,
+    "gpu_seconds": 1800,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  },
+  "owner_message_ref": "Codex looped-transform conversation, owner previously gave standing GPU permission and now directed immediate launch of LC-007I.",
+  "owner_review_waiver": "The owner directed immediate launch of this LC-007I attempt after being told independent prelaunch review was pending.",
+  "approved_at": "2026-11-28T08:08:05+08:00",
+  "local_authorization_sha256": "cf87589c42dad25a939aa2e29ebcf62ffaff5cb5f713707de86d12b566687bff"
+}
