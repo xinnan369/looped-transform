@@ -1,5 +1,6 @@
 """Fixed-depth head-point models with a common CNN and point head."""
 
+from copy import deepcopy
 from pathlib import Path
 from functools import partial
 
@@ -95,9 +96,10 @@ class WindowBlock(nn.Module):
         self.norm2 = nn.LayerNorm(width)
         self.ffn = nn.Sequential(nn.Linear(width, 4 * width), nn.GELU(), nn.Linear(4 * width, width))
 
-    def forward(self, tokens, shift=0, *, gains=None, trace=None, channel_scales=None):
+    def forward(self, tokens, shift=0, *, gains=None, trace=None, channel_scales=None, norms=None):
+        norm1, norm2 = (self.norm1, self.norm2) if norms is None else norms
         before = tokens
-        windows, padding = window_partition(self.norm1(tokens), self.window_size, shift)
+        windows, padding = window_partition(norm1(tokens), self.window_size, shift)
         attended, _ = self.attn(windows, windows, windows, key_padding_mask=padding, need_weights=False)
         attention = window_reverse(attended, tokens.shape, self.window_size, shift)
         if gains is not None:
@@ -105,7 +107,7 @@ class WindowBlock(nn.Module):
         if channel_scales is not None:
             attention = attention * channel_scales[0].to(dtype=attention.dtype)
         tokens = tokens + attention
-        feedforward = self.ffn(self.norm2(tokens))
+        feedforward = self.ffn(norm2(tokens))
         if gains is not None:
             feedforward = gains[1] * feedforward
         if channel_scales is not None:
@@ -122,7 +124,7 @@ class LoopCrowd(nn.Module):
     def __init__(
         self, variant, slots=2, pretrained=False, density=False,
         loop_embedding=False, gradient_checkpointing=False, freeze_backbone_bn=False, depth_screen=False,
-        refinement=None,
+        refinement=None, loop_norm=False,
     ):
         super().__init__()
         self.loops, self.shared = VARIANTS[variant]
@@ -131,6 +133,11 @@ class LoopCrowd(nn.Module):
                                        or not depth_screen or density or loop_embedding or gradient_checkpointing):
             raise ValueError("confidence refinement requires an ungated shifted K=4 depth screen")
         self.refinement = refinement
+        if type(loop_norm) is not bool or (loop_norm and (
+            variant != "shifted_shared_4" or not depth_screen or refinement is not None
+            or density or loop_embedding or gradient_checkpointing
+        )):
+            raise ValueError("loop_norm requires an ungated shifted shared K=4 depth screen")
         self.shifted = variant.startswith("shifted_")
         self.slots = slots
         if type(slots) is not int or slots < 1:
@@ -158,6 +165,9 @@ class LoopCrowd(nn.Module):
         self.density = nn.Conv2d(192, 1, 1) if density else None
         self.embedding = nn.Parameter(torch.zeros(192)) if loop_embedding else None
         self.blocks = nn.ModuleList(WindowBlock() for _ in range(1 if self.shared else self.loops))
+        self.loop_norms = (nn.ModuleList(nn.ModuleList(deepcopy(norm) for norm in
+                            (self.blocks[0].norm1, self.blocks[0].norm2)) for _ in range(self.loops - 1))
+                           if loop_norm else None)
         stages = GAIN_STAGES.get(variant)
         self.gain_logits = nn.Parameter(torch.zeros(stages, 2)) if stages else None
         self.channel_gate_names = CHANNEL_GATES.get(variant, ())
@@ -180,6 +190,21 @@ class LoopCrowd(nn.Module):
         if self.gain_logits is None:
             return None
         return (2 * self.gain_logits.sigmoid()).expand(self.loops, 2)
+
+    def loop_norm_layers(self):
+        """Read the two affine layers for each call in execution order."""
+        if self.loop_norms is None:
+            return ()
+        return ((self.blocks[0].norm1, self.blocks[0].norm2), *self.loop_norms)
+
+    @torch.no_grad()
+    def loop_norm_statistics(self):
+        layers = self.loop_norm_layers()
+        return [[torch.stack((
+            (norm.weight.float() - 1).norm(), norm.bias.float().norm(),
+            (norm.weight.float() - layers[0][branch].weight.float()).norm(),
+            (norm.bias.float() - layers[0][branch].bias.float()).norm(),
+        )).tolist() for branch, norm in enumerate(pair)] for pair in layers]
 
     def forward_stages(self, images):
         """Decode the first and second fixed-window calls with the same point head."""
@@ -228,6 +253,8 @@ class LoopCrowd(nn.Module):
             raise ValueError("depth readouts require all calls of a supported fixed-window model")
         if self.refinement is not None and calls != 4:
             raise ValueError("confidence refinement requires all four calls")
+        if self.loop_norms is not None and calls != 4:
+            raise ValueError("loop_norm requires all four calls")
         readouts = {}
         p2 = self.p2(images)
         tokens = self.project(self.p3(p2)).permute(0, 2, 3, 1)
@@ -238,6 +265,8 @@ class LoopCrowd(nn.Module):
                 tokens = tokens + self.embedding
             shift = block.window_size // 2 if self.shifted and index % 2 else 0
             block_args = {}
+            if self.loop_norms is not None and index:
+                block_args["norms"] = self.loop_norms[index - 1]
             if gains is not None:
                 block_args["gains"] = gains[index]
             if trace is not None:

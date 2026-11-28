@@ -37,7 +37,8 @@ DEFAULT_CONFIG = {
 
 def read_config(path, variant=None):
     overrides = json.loads(path.read_text(encoding="utf-8"))
-    unknown = overrides.keys() - DEFAULT_CONFIG.keys() - {"ema_decay", "depth_screen", "depth_readout_start_epoch", "refinement"}
+    optional = {"ema_decay", "depth_screen", "depth_readout_start_epoch", "refinement", "loop_norm", "train_crop_size"}
+    unknown = overrides.keys() - DEFAULT_CONFIG.keys() - optional
     if unknown:
         raise ValueError(f"unknown config keys: {sorted(unknown)}")
     config = DEFAULT_CONFIG | overrides
@@ -51,6 +52,10 @@ def read_config(path, variant=None):
     if refinement is not None and (refinement not in REFINEMENT_MODES or config["variant"] not in SHIFTED_DEPTH4_VARIANTS
                                    or not depth):
         raise ValueError("refinement requires the shifted K=4 depth screen")
+    loop_norm = config.get("loop_norm", False)
+    if type(loop_norm) is not bool or (loop_norm and (config["variant"] != "shifted_shared_4" or not depth
+                                                     or refinement is not None)):
+        raise ValueError("loop_norm requires an ungated shifted shared K=4 depth screen")
     if type(depth) is not bool or (depth and (
         config["variant"] not in (*DEPTH_VARIANTS, *SHIFTED_DEPTH4_VARIANTS) or early != .25 or config["loop_embedding"]
         or config["density_weight"] or config["gradient_checkpointing"]
@@ -115,7 +120,7 @@ def make_model(config, initialize):
         gradient_checkpointing=config["gradient_checkpointing"],
         freeze_backbone_bn=config.get("backbone_bn", "train") == "frozen",
         depth_screen=config.get("depth_screen", False),
-        refinement=config.get("refinement"),
+        refinement=config.get("refinement"), loop_norm=config.get("loop_norm", False),
     )
 
 

@@ -59,7 +59,14 @@ def train_step(model, optimizer, scaler, images, target, config, device, diagnos
         grads = [p.grad.detach() for p in model.parameters() if p.grad is not None]
         norms = torch._foreach_norm(grads)
         diagnostics["gradient_l2"] = torch.linalg.vector_norm(torch.stack(norms))
-    if require_finite and not torch.isfinite(torch.stack([loss.detach(), *diagnostics.values()])).all():
+        if config.get("loop_norm"):
+            affine = [parameter for pair in model.loop_norm_layers() for layer in pair for parameter in
+                      (layer.weight, layer.bias)]
+            if any(parameter.grad is None for parameter in affine):
+                raise ValueError("loop norm affine is dormant")
+            diagnostics["loop_norm_gradient_l2"] = torch.stack(
+                torch._foreach_norm([parameter.grad.detach() for parameter in affine])).reshape(4, 2, 2)
+    if require_finite and not torch.isfinite(torch.cat([v.reshape(-1) for v in (loss.detach(), *diagnostics.values())])).all():
         raise ValueError("nonfinite training loss or gradient before optimizer step")
     scaler.step(optimizer)
     scaler.update()
@@ -156,6 +163,7 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule, *, ema=No
     valid_pixels = 0
     heads = overflow = images_seen = valid_slots = skipped = 0
     rates, gradient_norms = [], []
+    norm_gradients = torch.zeros(4, 2, 2, device=device) if config.get("loop_norm") else None
     scale = scaler.get_scale()
     for images, target in loader:
         if guard is not None:
@@ -198,6 +206,8 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule, *, ema=No
         for key in stage_losses:
             stage_losses[key] += diagnostics[key]
         gradient_norms.append(diagnostics["gradient_l2"])
+        if norm_gradients is not None:
+            norm_gradients += diagnostics["loop_norm_gradient_l2"]
     mean_loss = float(losses / len(loader))
     gradients = torch.stack(gradient_norms).cpu().numpy()
     finite = gradients[np.isfinite(gradients)]
@@ -211,6 +221,8 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule, *, ema=No
             staged_metrics["final_loss"] = mean_loss
     if image_order is not None:
         staged_metrics.update(image_order_sha256=image_order.hexdigest(), valid_crop_pixels=valid_pixels)
+    if norm_gradients is not None:
+        staged_metrics["loop_norm_gradient_l2_mean"] = (norm_gradients / len(loader)).tolist()
     return {
         "loss": mean_loss, "classification_loss": float(class_losses / len(loader)),
         "offset_loss": float(offsets / len(loader)), "crops": images_seen,
@@ -290,6 +302,7 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
         if (
             any(saved_config.get(k) != config[k] for k in compatible_fields)
             or saved_config.get("train_crop_size") != config.get("train_crop_size")
+            or saved_config.get("loop_norm", False) != config.get("loop_norm", False)
             or saved_config.get("ema_decay") != config.get("ema_decay")
             or state["data_sha256"] != data_sha
             or (state["git_commit"] != run["git_commit"] and not legacy_constant)
@@ -393,6 +406,8 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
                                 **validation_options)
                             if model.channel_gate_deltas is not None:
                                 details.setdefault("channel_gate_statistics", {})[policy] = model.channel_gate_statistics()
+                            if config.get("loop_norm"):
+                                details.setdefault("loop_norm_affine_l2", {})[policy] = model.loop_norm_statistics()
                         readouts[policy] = metrics
                         image_rows.extend({"policy": policy, **row} for row in rows)
                 details["ema_validation"] = readouts["ema"]
