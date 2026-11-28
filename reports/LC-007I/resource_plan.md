@@ -16,4 +16,4 @@ The projection uses the larger of area growth and measured CPU dense FLOP growth
 
 The CPU preparation snapshot reported 97,514,692,608 bytes free on WSL disk and 18,787 MiB free on the RTX 3090. A separate compute process was present and left running. The snapshot is informational and the runner rechecks physical availability at launch.
 
-Keep the failed attempt's logs and checkpoints if real OOM, time, nonfinite, cache, trajectory or parity errors occur. The frozen queue does not retry or alter batch, precision or data. No official test or external data access is scheduled. Independent review of the exact freeze is pending. [Freeze and limits](protocol.md)
+Keep the failed attempt's logs and checkpoints if real OOM, time, nonfinite, cache, trajectory or parity errors occur. The frozen queue does not retry or alter batch, precision or data. No official test or external data access is scheduled. The owner waived independent prelaunch review for the single launch and the authorization record documents the exception. [Freeze and limits](protocol.md)

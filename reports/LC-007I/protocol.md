@@ -1,6 +1,6 @@
 # One native training crop comparison
 
-Execution freeze `7bf410956113184493b0d101694873b7b6219ac5`, Git tree `b450f22f8a3e36e88ef1030adc74109bd35d4230`, execution config SHA-256 `f14c9befb3f7a434f82f723a54831f00eef3c21d8b4be0789dd9c7840aed80e8`. The dedicated authorization scope is `LC007I_single_seed42_native768`. [Frozen configuration](../../configs/lc007i_native_crop.json)
+Original modeling freeze `7bf410956113184493b0d101694873b7b6219ac5`. The owner-directed review waiver is recorded by the launcher and archiver in the execution commit `8dd00d0b9f78cc954a92824f868825ed786f4fd1`, Git tree `4956ad20fc5e667eb4d0627649be5b61389724d0`. The execution config SHA-256 is `f14c9befb3f7a434f82f723a54831f00eef3c21d8b4be0789dd9c7840aed80e8`. The dedicated authorization scope is `LC007I_single_seed42_native768`. [Frozen configuration](../../configs/lc007i_native_crop.json)
 
 The single fresh run uses Shifted-Shared-4 at seed 42, 40 epochs of 180 successful updates each, and cached ShanghaiTech B train360/internal-val40. Training uses native 768×768 crops, no rescaling, batch 2, BF16, train BN, width 192, six heads, eight-token windows shifted 0/4/0/4, two point slots and 1,596,614 parameters. AdamW uses .0002 LR, .01 weight decay, 360-step warmup and cosine decay to .00002. FP32 EMA .99 averages unique parameters and uses live BN buffers. Use the final loss and .25 midpoint loss with exactly two training decodes.
 
