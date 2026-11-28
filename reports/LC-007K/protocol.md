@@ -1,6 +1,6 @@
 # Frozen single-case crop × sharing comparison
 
-Execution source `6a83290a2de0c502df0c5c8abd088f26a3b6b56e`, Git tree `f49846b77e65974702c549fde79b4d1aed171714`, execution config SHA-256 `7d78b00ba75eb87cc6165d2945ecbd1422fd7f338056db52ec388ed5412f1415`. The only new case is `42/U4-shift-768`. [Config](../../configs/lc007k_unshared_native768.json)
+Original CPU freeze `6a83290a2de0c502df0c5c8abd088f26a3b6b56e`. The current owner launch instruction is recorded with execution source `06205f38d847f725e9a621aa276d0a0d11186d90` and Git tree `e75165133567fb97912d454550167a953d46c0e9`. The execution config SHA-256 stays `7d78b00ba75eb87cc6165d2945ecbd1422fd7f338056db52ec388ed5412f1415`. The only new case is `42/U4-shift-768`. [Config](../../configs/lc007k_unshared_native768.json)
 
 Use the frozen B train360/internal-val40 split, 44,856/4,295 GT, cached ResNet-18, and 768×768 native random training crops. Batch 2, BF16, live BN during training, AdamW .0002 and .01 decay, 360-step warmup and cosine to .00002, 40×180 successful updates. The ungated unshared variant uses width 192, six heads, four independent blocks and eight-token windows shifted 0/4/0/4. Use stride-4 two-slot predictions with stride-8 P3, FP32 .99 EMA over unique parameters with live BN buffers, and final loss plus .25 midpoint loss. Training reads two outputs. Evaluation uses fixed 512×512 tiles and overlap 128 with one four-stage sweep each for live and EMA. Preserve strict owned count >.30 with δ=.50 and AP floor >.05, δ=.05:.05:.50, with the original train-only density groups.
 

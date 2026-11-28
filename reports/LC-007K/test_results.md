@@ -11,3 +11,5 @@ All environments hid CUDA and used existing dependencies. The WSL suites ran at 
 Five new cases cover authorization isolation from LC-007I, actual archived 768 exposure and mismatch rejection, selecting the unshared trajectory, the four-cell arithmetic with a failed historical stability guard, and partial archiving without a joint result. The inherited suites cover crop geometry, validation isolation, loss reads, checkpoint compatibility, finite/update/time guards and quota rejection.
 
 The CPU preflight decoded all 400 cached images, matched all 40 actual S768 exposure rows, checked legacy U512 and S512 order and LR, and confirmed matched-size nominal dense computation. The clean and working checkouts both produced audit SHA-256 `6de6c47f94bae2f67d7215e816be7d5fd0dcfbdfa0d4b74688b4ffc885c9fcca`. [Audit data](initialization_audit.json)
+
+The subsequent execution commit `06205f38d847f725e9a621aa276d0a0d11186d90` only changes launch-record handling and its test. The five targeted Python 3.13 cases passed. The explicit local record remains bound to the exact Issue #36 scope, source, config and limits and rejects the earlier LC-007I waiver.

@@ -17,4 +17,4 @@ The plan takes the phasewise maximum of observed S768 and U512 projection. U512 
 
 At an authorized launch, confirm 3 GiB local disk and actual device headroom against the 4,426,039,296-byte historical peak-based estimate. The runner observes before/after device memory and actual process peaks, leaves other jobs running, and applies no VRAM quota or allocator fraction. It stops and retains available evidence on OOM, nonfinite, time, data or trajectory errors, with one attempt and fixed batch and precision.
 
-Issue #36 requires independent review of this exact freeze followed by a separate owner launch approval. The earlier LC-007I waiver and general clearance do not authorize this run.
+The current attempt is bound to the owner's direct launch instruction for Issue #36. The local authorization records the absence of independent review at launch. The earlier LC-007I waiver is still rejected.
