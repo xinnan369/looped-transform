@@ -27,9 +27,9 @@ def require_launch_record(owner, plan, digest, revision, tree):
     raise ValueError("record the independent review or the owner's explicit waiver")
 
 
-def expected_trajectory(preflight, size):
+def expected_trajectory(preflight, size, case=CASE):
     rows = [row for row in preflight["exposure"] if row["crop_size"] == size]
-    return {"initial_sha256": preflight["planned_starts"][CASE]["initial_sha256"],
+    return {"initial_sha256": preflight["planned_starts"][case]["initial_sha256"],
             "trajectory": [(row["crop_order_sha256"], row["learning_rates_sha256"]) for row in rows],
             "crop_exposure": [{key: row[key] for key in EXPOSURE_FIELDS} for row in rows]}
 
@@ -38,17 +38,19 @@ class NativeCropBudget(TrainingBudget):
     label = "LC-007I native crop"
 
 
-def execute(manifest, output, plan, revision, tree):
+def execute(manifest, output, plan, revision, tree, *, screen=SCREEN, preflight=audit):
+    arm, = plan["order"][str(SEED)]
+    case = f"{SEED}/{arm}"
     output.mkdir()
     limits = plan["limits_if_approved"]
     budget = NativeCropBudget(limits, output / "gpu_phases.jsonl", torch.device("cuda:0"))
     progress = {"execution": "in_progress", "code_commit": revision, "source_tree": tree, "current": None,
-                "config_sha256": file_sha(SCREEN), "completed": [], "external_download_bytes": 0}
+                "config_sha256": file_sha(screen), "completed": [], "external_download_bytes": 0}
     try:
         with budget.phase("cpu_preflight"):
             if shutil.disk_usage(output).free < 3 * 1024**3:
                 raise RuntimeError("insufficient disk for native-crop evidence")
-            evidence = audit(manifest, plan)
+            evidence = preflight(manifest, plan)
             write_json(output / "preflight_cpu.json", evidence)
             resource = evidence["projection"]
             if resource["budget_estimate_seconds"] > limits["gpu_seconds"]:
@@ -63,14 +65,14 @@ def execute(manifest, output, plan, revision, tree):
             write_json(output / "device_memory_start.json", {"free_bytes": free, "total_bytes": total})
             if free < resource["headroom_bytes_estimate"]:
                 raise RuntimeError("insufficient actual device headroom")
-        budget.case = progress["current"] = CASE
+        budget.case = progress["current"] = case
         write_json(output / "queue_progress.json", progress | budget.totals())
-        result = fit(recipe(plan), manifest, output / "train" / CASE, budget.device, guard=budget,
-                     expected=expected_trajectory(evidence, plan["train_crop_size"]))
+        result = fit(recipe(plan), manifest, output / "train" / case, budget.device, guard=budget,
+                     expected=expected_trajectory(evidence, plan["train_crop_size"], case))
         if (result["completed_epochs"] != limits["epochs_per_run"] or result["global_step"] != limits["total_updates"]
                 or budget.updates != limits["total_updates"]):
             raise RuntimeError("execution differs from the frozen successful update denominator")
-        progress["completed"].append(CASE)
+        progress["completed"].append(case)
         with budget.phase("cleanup"):
             (output / "background_end.txt").write_text(background_snapshot(), encoding="utf-8")
             free, total = torch.cuda.mem_get_info(budget.device)

@@ -9,10 +9,10 @@ from scripts.archive_lc007c import POLICIES
 from scripts.archive_lc007d import close_out, endpoint, stability, verify_case
 from scripts.archive_lc007e import compact_state_rows
 from scripts.archive_lc007h_training import raw_case_refs
-from scripts.prepare_lc007i import ARM, REF, SCREEN, SEED, reference_tables
+from scripts.prepare_lc007i import REF, SCREEN, SEED, reference_tables
 from scripts.run_lc007a import write_csv
 from scripts.run_lc007d import git, read_json
-from scripts.run_lc007i import CASE, EXPOSURE_FIELDS, require_launch_record
+from scripts.run_lc007i import EXPOSURE_FIELDS, require_launch_record
 
 
 def score(training, metrics, historical, rule):
@@ -27,33 +27,38 @@ def score(training, metrics, historical, rule):
             "historical_512": b, "stability": stable}
 
 
-def archive(root, output, plan):
-    owner, progress, phases, runtime = close_out(root, plan, config_path=SCREEN, allow_truncated_tail=True)
+def archive(root, output, plan, *, screen=SCREEN, authorize=None, scorer=score, comparisons=None, verify_exposure=None):
+    arm, = plan["order"][str(SEED)]
+    reference = plan.get("historical_reference", REF)
+    case_label = f"{SEED}/{arm}"
+    owner, progress, phases, runtime = close_out(root, plan, config_path=screen, allow_truncated_tail=True)
     rev = owner["code_commit"]
     tree = git("rev-parse", f"{rev}^{{tree}}")
-    require_launch_record(owner, plan, file_sha(SCREEN), rev, tree)
+    (authorize or require_launch_record)(owner, plan, file_sha(screen), rev, tree)
     if progress.get("source_tree", tree) != tree:
         raise ValueError("execution freeze differs")
     historical = reference_tables(plan)
     run = root / "run"
-    case = run / "train" / CASE
+    case = run / "train" / case_label
     evidence = {"raw_files": raw_case_refs(case)}
-    complete = progress["execution"] == "completed" and progress["completed"] == [CASE]
+    complete = progress["execution"] == "completed" and progress["completed"] == [case_label]
     decision = {"decision": "unevaluable"}
     output.mkdir(parents=True)
     index = []
     try:
         if (case / "history.json").is_file():
             preflight = read_json(run / "preflight_cpu.json")
-            if preflight["plan_sha256"] != file_sha(SCREEN):
+            if preflight["plan_sha256"] != file_sha(screen):
                 raise ValueError("runtime preflight config digest differs")
             rows = [row for row in preflight["exposure"] if row["crop_size"] == plan["train_crop_size"]]
             verified, training, metrics, images, _ = verify_case(
-                case, SEED, ARM, plan, preflight, rows, complete, rev, depth_calls=4)
+                case, SEED, arm, plan, preflight, rows, complete, rev, depth_calls=4)
             evidence.update(verified)
             for expected, actual in zip(rows[:len(training)], training, strict=True):
                 if any(expected[k] != actual[k] for k in EXPOSURE_FIELDS):
                     raise ValueError("archived exposure differs from the frozen trajectory")
+            if verify_exposure is not None:
+                verify_exposure(training)
             labels = {row["image_id"]: (int(row["gt"]), row["density_group"])
                       for row in historical["images"] if row["epoch"] == "1"}
             for row in images:
@@ -66,13 +71,14 @@ def archive(root, output, plan):
             if corrections:
                 write_csv(output / "stagewise_correction.csv", corrections)
             if complete and verified["status"] == "completed":
-                decision = score(training, metrics, historical["metrics"], plan["decision"])
+                decision = scorer(training, metrics, historical["metrics"], plan["decision"])
+                tables = {arm: metrics, reference: historical["metrics"]} | (comparisons or {})
                 endpoints = []
                 for (name, epochs) in (("E36-40", plan["decision"]["analysis_epochs"]), ("E40", [40])):
                     for policy in POLICIES:
                         for group in GROUPS:
-                            for arm, table in ((ARM, metrics), (REF, historical["metrics"])):
-                                endpoints.append({"arm": arm, "window": name, "policy": policy, "density_group": group}
+                            for label, table in tables.items():
+                                endpoints.append({"arm": label, "window": name, "policy": policy, "density_group": group}
                                                  | endpoint(table, epochs, policy, "final", group))
                 write_csv(output / "endpoints.csv", endpoints)
         elif complete:
