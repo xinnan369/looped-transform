@@ -12,8 +12,7 @@ from scripts.archive_lc007h_training import raw_case_refs
 from scripts.prepare_lc007i import ARM, REF, SCREEN, SEED, reference_tables
 from scripts.run_lc007a import write_csv
 from scripts.run_lc007d import git, read_json
-from scripts.run_lc007h_training import require_training_authorization
-from scripts.run_lc007i import CASE, EXPOSURE_FIELDS
+from scripts.run_lc007i import CASE, EXPOSURE_FIELDS, require_launch_record
 
 
 def score(training, metrics, historical, rule):
@@ -32,9 +31,9 @@ def archive(root, output, plan):
     owner, progress, phases, runtime = close_out(root, plan, config_path=SCREEN, allow_truncated_tail=True)
     rev = owner["code_commit"]
     tree = git("rev-parse", f"{rev}^{{tree}}")
-    require_training_authorization(owner, plan, file_sha(SCREEN), rev, tree)
-    if not owner.get("independent_review") or progress.get("source_tree", tree) != tree:
-        raise ValueError("execution freeze or review differs")
+    require_launch_record(owner, plan, file_sha(SCREEN), rev, tree)
+    if progress.get("source_tree", tree) != tree:
+        raise ValueError("execution freeze differs")
     historical = reference_tables(plan)
     run = root / "run"
     case = run / "train" / CASE

@@ -16,7 +16,7 @@ from scripts.archive_lc007b import METRICS
 from scripts.prepare_lc007i import SCREEN, recipe
 from scripts.run_lc007d import read_json
 from scripts.run_lc007h_training import require_training_authorization
-from scripts.run_lc007i import NativeCropBudget
+from scripts.run_lc007i import NativeCropBudget, require_launch_record
 
 PLAN = read_json(SCREEN)
 DEVICE = torch.device("cpu")
@@ -94,6 +94,18 @@ def test_distinct_scope_and_resource_stops(tmp_path):
         budget.check("validation_live")
 
 
+def test_launch_record_requires_review_or_explicit_owner_waiver():
+    owner = {"issue": 33, "approval_scope": PLAN["scope"], "limits": PLAN["limits_if_approved"],
+             "code_commit": "head", "config_sha256": "config", "source_tree": "tree",
+             "owner_message_ref": "fixture", "approved_at": "fixture"}
+    with pytest.raises(ValueError, match="explicit waiver"):
+        require_launch_record(owner | {"owner_review_waiver": " "}, PLAN, "config", "head", "tree")
+    for field in ("independent_review", "owner_review_waiver"):
+        require_launch_record(owner | {field: "fixture evidence"}, PLAN, "config", "head", "tree")
+    with pytest.raises(ValueError):
+        require_launch_record(owner | {"owner_review_waiver": "fixture"}, PLAN, "other", "head", "tree")
+
+
 def test_partial_archive_preserves_raw_and_disables_scoring(tmp_path, monkeypatch):
     root = tmp_path / "attempt"
     case = root / "run" / "train" / "42" / "S4-shift-768"
@@ -101,7 +113,7 @@ def test_partial_archive_preserves_raw_and_disables_scoring(tmp_path, monkeypatc
     path = case / "interrupted.pt"
     path.write_bytes(b"fixture")
     monkeypatch.setattr(archival, "reference_tables", lambda plan: {})
-    monkeypatch.setattr(archival, "require_training_authorization", lambda *args: None)
+    monkeypatch.setattr(archival, "require_launch_record", lambda *args: None)
     monkeypatch.setattr(archival, "git", lambda *args: "tree")
     monkeypatch.setattr(archival, "close_out", lambda *args, **kwargs: (
         {"code_commit": "head", "independent_review": "fixture"},

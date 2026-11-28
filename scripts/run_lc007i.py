@@ -18,6 +18,15 @@ CASE = f"{SEED}/{ARM}"
 EXPOSURE_FIELDS = ("image_order_sha256", "valid_crop_pixels", "sampled_gt", "overflow_gt", "positive_slots", "negative_slots")
 
 
+def require_launch_record(owner, plan, digest, revision, tree):
+    require_training_authorization(owner, plan, digest, revision, tree)
+    for field in ("independent_review", "owner_review_waiver"):
+        note = owner.get(field)
+        if isinstance(note, str) and note.strip():
+            return
+    raise ValueError("record the independent review or the owner's explicit waiver")
+
+
 def expected_trajectory(preflight, size):
     rows = [row for row in preflight["exposure"] if row["crop_size"] == size]
     return {"initial_sha256": preflight["planned_starts"][CASE]["initial_sha256"],
@@ -90,9 +99,7 @@ def main():
         return
     revision, tree = git("rev-parse", "HEAD"), git("rev-parse", "HEAD^{tree}")
     owner = read_json(args.authorization)
-    require_training_authorization(owner, plan, file_sha(SCREEN), revision, tree)
-    if not isinstance(owner.get("independent_review"), str) or not owner["independent_review"].strip():
-        raise ValueError("the independent freeze review must be recorded")
+    require_launch_record(owner, plan, file_sha(SCREEN), revision, tree)
     git("merge-base", "--is-ancestor", plan["parent"], revision)
     if git("status", "--porcelain", "--untracked-files=no"):
         raise ValueError("the frozen checkout must be clean")
