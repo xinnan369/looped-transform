@@ -152,6 +152,8 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule, *, ema=No
         "early_loss", "early_classification_loss", "early_offset_loss", "final_loss",
     )} if staged else {}
     order = hashlib.sha256() if staged or config.get("audit_training") else None
+    image_order = hashlib.sha256() if order is not None and "train_crop_size" in config else None
+    valid_pixels = 0
     heads = overflow = images_seen = valid_slots = skipped = 0
     rates, gradient_norms = [], []
     scale = scaler.get_scale()
@@ -161,6 +163,9 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule, *, ema=No
         if order is not None:
             crop_identity = target.pop("crop_identity")
             order.update(crop_identity.numpy().astype("<i8", copy=False).tobytes())
+            if image_order is not None:
+                image_order.update(crop_identity[:, 0].numpy().astype("<i8", copy=False).tobytes())
+                valid_pixels += int(target.pop("valid_pixels").sum())
         images_seen += len(images)
         heads += int(target["heads"].sum())
         overflow += int(target["overflow"].sum())
@@ -204,6 +209,8 @@ def _epoch(model, optimizer, scaler, loader, config, device, schedule, *, ema=No
         staged_metrics["crop_order_sha256"] = order.hexdigest()
         if not staged:
             staged_metrics["final_loss"] = mean_loss
+    if image_order is not None:
+        staged_metrics.update(image_order_sha256=image_order.hexdigest(), valid_crop_pixels=valid_pixels)
     return {
         "loss": mean_loss, "classification_loss": float(class_losses / len(loader)),
         "offset_loss": float(offsets / len(loader)), "crops": images_seen,
@@ -282,6 +289,7 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
         legacy_constant = "scheduler" not in state and not schedule.fixed
         if (
             any(saved_config.get(k) != config[k] for k in compatible_fields)
+            or saved_config.get("train_crop_size") != config.get("train_crop_size")
             or saved_config.get("ema_decay") != config.get("ema_decay")
             or state["data_sha256"] != data_sha
             or (state["git_commit"] != run["git_commit"] and not legacy_constant)
@@ -359,6 +367,11 @@ def fit(config, manifest, output, device, resume=False, stop_after=None, *, guar
                 if actual != expected["trajectory"][epoch - 1]:
                     write_json(output / "mismatched_epoch.json", {"epoch": epoch, "training": details})
                     raise ValueError(f"observed crop order or LR differs at epoch {epoch}")
+                if "crop_exposure" in expected and any(
+                    details[k] != value for k, value in expected["crop_exposure"][epoch - 1].items()
+                ):
+                    write_json(output / "mismatched_epoch.json", {"epoch": epoch, "training": details})
+                    raise ValueError(f"observed crop exposure differs at epoch {epoch}")
             details["train_seconds"] = perf_counter() - start
             if audited:
                 details["mean_train_batch_ms"] = 1000 * details["train_seconds"] / len(loader)

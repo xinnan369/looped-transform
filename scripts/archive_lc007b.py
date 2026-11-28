@@ -62,6 +62,7 @@ def flatten_epoch(row, digest):
               "lr_first", "lr_last", "lr_min", "lr_max", "loss", "classification_loss", "offset_loss",
               "final_loss", "early_loss", "early_classification_loss", "early_offset_loss", "gradient_l2_last_step",
               "image_metrics_sha256")
+    fields += ("image_order_sha256", "valid_crop_pixels")
     return {key: row[key] for key in fields if key in row} | {
         f"gradient_l2_{key}": value for key, value in row["gradient_l2"].items()
     } | {"learning_rates_sha256": json_digest(row["learning_rates"]), "checkpoint_sha256": digest}
