@@ -38,7 +38,7 @@ class NativeCropBudget(TrainingBudget):
     label = "LC-007I native crop"
 
 
-def execute(manifest, output, plan, revision, tree, *, screen=SCREEN, preflight=audit):
+def execute(manifest, output, plan, revision, tree, *, screen=SCREEN, preflight=audit, config_builder=recipe):
     arm, = plan["order"][str(SEED)]
     case = f"{SEED}/{arm}"
     output.mkdir()
@@ -67,7 +67,7 @@ def execute(manifest, output, plan, revision, tree, *, screen=SCREEN, preflight=
                 raise RuntimeError("insufficient actual device headroom")
         budget.case = progress["current"] = case
         write_json(output / "queue_progress.json", progress | budget.totals())
-        result = fit(recipe(plan), manifest, output / "train" / case, budget.device, guard=budget,
+        result = fit(config_builder(plan), manifest, output / "train" / case, budget.device, guard=budget,
                      expected=expected_trajectory(evidence, plan["train_crop_size"], case))
         if (result["completed_epochs"] != limits["epochs_per_run"] or result["global_step"] != limits["total_updates"]
                 or budget.updates != limits["total_updates"]):

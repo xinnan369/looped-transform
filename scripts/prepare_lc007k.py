@@ -18,23 +18,27 @@ SHARED_ARM, SHARED_512, UNSHARED_ARM = "S4-shift-768", "S4-shift", "U4-shift-768
 
 
 def shared_control(plan):
-    for name, digest in plan["s768_sha256"].items():
-        if file_sha(SHARED / name) != digest:
-            raise ValueError(f"frozen shared 768 source differs: {name}")
+    return crop_control(SHARED, plan["s768_sha256"], SHARED_ARM)
+
+
+def crop_control(folder, fingerprints, arm):
+    for name, digest in fingerprints.items():
+        if file_sha(folder / name) != digest:
+            raise ValueError(f"frozen 768 source differs: {name}")
     tables = {}
-    for row in read_csv(SHARED / "epoch_index.csv"):
-        path = SHARED / row["path"]
+    for row in read_csv(folder / "epoch_index.csv"):
+        path = folder / row["path"]
         if path.stat().st_size != int(row["bytes"]) or file_sha(path) != row["sha256"]:
             raise ValueError(f"frozen shared 768 table differs: {path}")
         tables[row["kind"]] = read_csv(path)
         if len(tables[row["kind"]]) != int(row["rows"]):
             raise ValueError(f"frozen shared 768 row count differs: {path}")
     check_training(tables["training"])
-    evidence = read_json(SHARED / "run_evidence.json")
-    status = read_json(SHARED / "research_decision.json")
+    evidence = read_json(folder / "run_evidence.json")
+    status = read_json(folder / "research_decision.json")
     case = evidence["case"]
     if (evidence["execution"]["execution"] != "completed" or case["status"] != "completed"
-            or case["seed"] != 42 or case["arm"] != SHARED_ARM or case["successful_updates"] != 7200
+            or case["seed"] != 42 or case["arm"] != arm or case["successful_updates"] != 7200
             or status["decision"] != "fail"):
         raise ValueError("shared 768 provenance or accepted negative outcome differs")
     return tables, evidence

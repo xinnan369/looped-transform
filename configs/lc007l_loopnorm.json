@@ -1,0 +1,34 @@
+{
+  "issue": 39,
+  "scope": "LC007L_single_seed42_shared_native768_loopnorm",
+  "parent": "0b07826eb17fb0e3389126e2a6e27fc810f7e028",
+  "arm_config": "configs/lc007e_depth4.json",
+  "base_config_sha256": "32435ee981b479d9cd7831e4efe565c91b8d3e6a91f8cda59d4e9bb37e1239cd",
+  "archive_index_sha256": "c68d6328cd7da766a8b124793c3852a4c524b94413073d430b9e4ddf9f36bf38",
+  "reference_audit_sha256": "52b8170975a9d1dbb04878f0682d4ac2f27d0bbcdf0f75756ddf82027f323efb",
+  "reference_evidence_sha256": "b09216ca1f028529e255f732a9efb96f8319c5265e3424dab9a05f83cf23eea3",
+  "phase_sha256": "414c7c7e291b01d9323e8ce9ea5d3ff4a7f598f0732a9d69db1cd94af4c7d3ae",
+  "s768_sha256": {
+    "epoch_index.csv": "c58e21aeaf1d368a1d72e822cdea72f42ad3d3aed6cfaccc9d903a0dc80aeb0d",
+    "run_evidence.json": "ae11e234de25e6f35fc7a850fca4c82f533637f26f3d49c13d66a8d6fa4c6c44",
+    "research_decision.json": "472befa80324a5c945ce95838564c6e86d6463ce6924a17514435d27977337be",
+    "preflight_cpu.json": "091e9fe7e9763486569d291ff63cb4a3a45656c9cd990d3595f5c026ef1b03ef"
+  },
+  "u768_sha256": {
+    "epoch_index.csv": "beb878a21b192e523fb568f03ec49f4dcf9a8056ab37ebdc4561967549eb2174",
+    "run_evidence.json": "3186710cba3acd1a0671ea87dc5ac8de01b91b939cf2472c4497bc781e97d46b",
+    "research_decision.json": "8687045f245ebeb84cd0dc1495d6a7022ed4954290317f905822e037dc198a92",
+    "preflight_cpu.json": "6de6c47f94bae2f67d7215e816be7d5fd0dcfbdfa0d4b74688b4ffc885c9fcca"
+  },
+  "arms": {"S4-shift-768-LN": {"variant": "shifted_shared_4"}},
+  "order": {"42": ["S4-shift-768-LN"]},
+  "train_crop_size": 768,
+  "loop_norm": true,
+  "limits_if_approved": {"runs": 1, "epochs_per_run": 40, "updates_per_epoch": 180, "total_updates": 7200,
+    "gpu_seconds": 1800, "external_download_bytes": 0, "disposable_gpu_updates": 0},
+  "memory_policy": "device_headroom_and_observation_only",
+  "decision": {"analysis_epochs": [36, 37, 38, 39, 40], "loss_reference_epochs": [31, 32, 33, 34, 35],
+    "u768_mae_max": 18.5852, "s768_mae_max": 19.109,
+    "late_mae_sample_cv_max": 0.10, "absolute_relative_final_loss_change_max": 0.03,
+    "rmse_ratio": 1.03, "fp_ratio": 1.05, "fn_ratio": 1.05}
+}
