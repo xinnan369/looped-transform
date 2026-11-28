@@ -29,7 +29,8 @@ SEED, ARM, REF = 42, "S4-shift-768", "S4-shift"
 
 
 def recipe(plan):
-    return config_for(plan, SEED, ARM) | {"train_crop_size": plan["train_crop_size"]}
+    arm, = plan["order"][str(SEED)]
+    return config_for(plan, SEED, arm) | {"train_crop_size": plan["train_crop_size"]}
 
 
 def reference_tables(plan):
@@ -40,7 +41,7 @@ def reference_tables(plan):
             raise ValueError(f"frozen source differs: {path}")
     tables = {}
     for row in read_csv(G / "epoch_index.csv"):
-        if (row["seed"], row["arm"]) == (str(SEED), REF):
+        if (row["seed"], row["arm"]) == (str(SEED), plan.get("historical_reference", REF)):
             path = G / row["path"]
             if path.stat().st_size != int(row["bytes"]) or file_sha(path) != row["sha256"]:
                 raise ValueError(f"invalid historical table: {path}")
@@ -94,7 +95,9 @@ def exposure(records, directory, config):
                "negative_slots": valid_slots - (heads - overflow)}
 
 
-def audit(manifest, plan):
+def audit(manifest, plan, *, screen=SCREEN):
+    arm, = plan["order"][str(SEED)]
+    reference = plan.get("historical_reference", REF)
     hist = reference_tables(plan)
     _, data = frozen_inputs(manifest)
     records = read_manifest(manifest, splits=("train", "val"))
@@ -112,7 +115,7 @@ def audit(manifest, plan):
     config = recipe(plan)
     baseline = {key: value for key, value in config.items() if key != "train_crop_size"}
     historical = read_json(G / "initialization_audit.json")
-    prior = historical["planned_starts"][f"{SEED}/{REF}"]
+    prior = historical["planned_starts"][f"{SEED}/{reference}"]
     if json_digest(baseline) != prior["config_sha256"] or any(
         data[k] != historical["data"][k] for k in ("manifest_sha256", "pretrained_weight_sha256",
                                                    "ordered_val_ids", "train_only_density_tertiles")
@@ -136,14 +139,14 @@ def audit(manifest, plan):
     evaluation = forward_costs(model, torch.zeros(1, 3, 512, 512), depth_staged=True)
     with (G / "gpu_phases.jsonl").open(encoding="utf-8") as stream:
         phases = [json.loads(line) for line in stream]
-    case = [p for p in phases if p["case"] == f"{SEED}/{REF}"]
+    case = [p for p in phases if p["case"] == f"{SEED}/{reference}"]
     phase_times = {phase: sum(p["seconds"] for p in case if p["phase"] == phase)
                    for phase in ("training", "validation_live", "validation_ema", "initialization", "checkpoint")}
     area = (768 / 512)**2
     dense_ratio = costs["768"]["dense_flops"] / costs["512"]["dense_flops"]
     projected = sum(phase_times.values()) + phase_times["training"] * (max(area, dense_ratio) - 1)
-    return {"plan_sha256": file_sha(SCREEN), "data": data, "decoded_geometry": geometry,
-            "planned_starts": {f"{SEED}/{ARM}": initial | {"config_sha256": json_digest(config)}},
+    return {"plan_sha256": file_sha(screen), "data": data, "decoded_geometry": geometry,
+            "planned_starts": {f"{SEED}/{arm}": initial | {"config_sha256": json_digest(config)}},
             "historical_config_sha256": prior["config_sha256"], "exposure": small + large,
             "dense_two_read_flops": costs, "dense_four_read_512_flops": evaluation,
             "projection": {"historical_phase_seconds": phase_times, "area_ratio": area, "dense_ratio": dense_ratio,

@@ -1,0 +1,158 @@
+{
+  "decision": "fail",
+  "checks": {
+    "mae": true,
+    "nap": true,
+    "stability": false,
+    "rmse": true,
+    "fp": false,
+    "fn": true
+  },
+  "candidate": {
+    "mae": 19.16,
+    "rmse": 25.973794355869085,
+    "local_nap": 0.3512938785239617,
+    "predicted": 4800.2,
+    "signed_count_error": 505.2,
+    "tp": 3070.2,
+    "fp": 1730.0,
+    "fn": 1224.8
+  },
+  "historical_512": {
+    "mae": 20.255,
+    "rmse": 27.28374564642022,
+    "local_nap": 0.3077746512507217,
+    "predicted": 4036.4,
+    "signed_count_error": -258.6,
+    "tp": 2631.6,
+    "fp": 1404.8,
+    "fn": 1663.4
+  },
+  "stability": {
+    "sample_mae_cv": 0.04555234370687862,
+    "relative_final_loss_change": -0.0497346253097393,
+    "final_loss_reference": 0.25754290223121645,
+    "final_loss_late": 0.24473410248756408,
+    "passed": false
+  },
+  "reference_shared768_original_crop_gate": "fail",
+  "grid": {
+    "S4-shift": {
+      "mae": 23.875,
+      "rmse": 31.81492807782338,
+      "local_nap": 0.30553705790378227,
+      "predicted": 3903.6,
+      "signed_count_error": -391.4,
+      "tp": 2552.6,
+      "fp": 1351.0,
+      "fn": 1742.4
+    },
+    "U4-shift": {
+      "mae": 20.255,
+      "rmse": 27.28374564642022,
+      "local_nap": 0.3077746512507217,
+      "predicted": 4036.4,
+      "signed_count_error": -258.6,
+      "tp": 2631.6,
+      "fp": 1404.8,
+      "fn": 1663.4
+    },
+    "S4-shift-768": {
+      "mae": 19.7,
+      "rmse": 25.967581839564975,
+      "local_nap": 0.346196325464257,
+      "predicted": 4827.4,
+      "signed_count_error": 532.4,
+      "tp": 3066.8,
+      "fp": 1760.6,
+      "fn": 1228.2
+    },
+    "U4-shift-768": {
+      "mae": 19.16,
+      "rmse": 25.973794355869085,
+      "local_nap": 0.3512938785239617,
+      "predicted": 4800.2,
+      "signed_count_error": 505.2,
+      "tp": 3070.2,
+      "fp": 1730.0,
+      "fn": 1224.8
+    }
+  },
+  "shared_minus_unshared_512": {
+    "mae": 3.620000000000001,
+    "rmse": 4.531182431403163,
+    "local_nap": -0.002237593346939404,
+    "predicted": -132.80000000000018,
+    "signed_count_error": -132.79999999999995,
+    "tp": -79.0,
+    "fp": -53.799999999999955,
+    "fn": 79.0
+  },
+  "shared_minus_unshared_768": {
+    "mae": 0.5399999999999991,
+    "rmse": -0.006212516304110238,
+    "local_nap": -0.005097553059704718,
+    "predicted": 27.199999999999818,
+    "signed_count_error": 27.19999999999999,
+    "tp": -3.399999999999636,
+    "fp": 30.59999999999991,
+    "fn": 3.400000000000091
+  },
+  "crop_effect_shared": {
+    "mae": -4.175000000000001,
+    "rmse": -5.847346238258407,
+    "local_nap": 0.04065926756047472,
+    "predicted": 923.7999999999997,
+    "signed_count_error": 923.8,
+    "tp": 514.2000000000003,
+    "fp": 409.5999999999999,
+    "fn": -514.2
+  },
+  "crop_effect_unshared": {
+    "mae": -1.0949999999999989,
+    "rmse": -1.3099512905511332,
+    "local_nap": 0.043519227273240035,
+    "predicted": 763.7999999999997,
+    "signed_count_error": 763.8,
+    "tp": 438.5999999999999,
+    "fp": 325.20000000000005,
+    "fn": -438.60000000000014
+  },
+  "difference_in_differences_shared_minus_unshared": {
+    "mae": -3.080000000000002,
+    "rmse": -4.5373949477072735,
+    "local_nap": -0.0028599597127653142,
+    "predicted": 160.0,
+    "signed_count_error": 159.99999999999994,
+    "tp": 75.60000000000036,
+    "fp": 84.39999999999986,
+    "fn": -75.59999999999991
+  },
+  "sharing": {
+    "raw": {
+      "mae": false,
+      "nap": false
+    },
+    "practical_margin": {
+      "mae": false,
+      "nap": false
+    },
+    "guards": {
+      "stability": false,
+      "rmse": true,
+      "fp": true,
+      "fn": true
+    },
+    "shared_stability": {
+      "sample_mae_cv": 0.05700074792252714,
+      "relative_final_loss_change": -0.041255077260604726,
+      "final_loss_reference": 0.27091896533966064,
+      "final_loss_late": 0.25974218249320985,
+      "passed": false
+    },
+    "joint_pass": false
+  },
+  "status": "COMPLETE / READY_FOR_REVIEW",
+  "formal_baseline": "shared_2_aux_025",
+  "historical_comparator": "non_contemporaneous_same_seed"
+}

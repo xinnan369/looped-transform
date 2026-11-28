@@ -1,0 +1,19 @@
+{
+  "issue": 36,
+  "approval_scope": "LC007K_single_seed42_unshared_native768",
+  "code_commit": "06205f38d847f725e9a621aa276d0a0d11186d90",
+  "source_tree": "e75165133567fb97912d454550167a953d46c0e9",
+  "config_sha256": "7d78b00ba75eb87cc6165d2945ecbd1422fd7f338056db52ec388ed5412f1415",
+  "limits": {
+    "runs": 1,
+    "epochs_per_run": 40,
+    "updates_per_epoch": 180,
+    "total_updates": 7200,
+    "gpu_seconds": 1800,
+    "external_download_bytes": 0,
+    "disposable_gpu_updates": 0
+  },
+  "owner_message_ref": "The Codex owner explicitly requested launch of the frozen Issue #36 training after the PR #38 preparation handoff.",
+  "owner_direct_launch": "The current owner launch instruction is scoped to Issue #36. PR #38 had no independent review at launch.",
+  "approved_at": "2026-11-28T10:10:23+08:00"
+}

@@ -1,0 +1,1948 @@
+{
+  "execution": {
+    "launch_time": "2026-11-28T10:10:56+08:00",
+    "exit_time": "2026-11-28T10:32:21+08:00",
+    "exit_status": 0,
+    "runner_log": {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/runner.log",
+      "sha256": "b45a7202d107f5cb1c2e2218f0a75d0e2786126049dc1dfe1d2740842316c99c",
+      "bytes": 1327745
+    },
+    "execution": "completed",
+    "code_commit": "06205f38d847f725e9a621aa276d0a0d11186d90",
+    "source_tree": "e75165133567fb97912d454550167a953d46c0e9",
+    "current": null,
+    "config_sha256": "7d78b00ba75eb87cc6165d2945ecbd1422fd7f338056db52ec388ed5412f1415",
+    "completed": [
+      "42/U4-shift-768"
+    ],
+    "external_download_bytes": 0,
+    "charged_seconds": 1283.1935265830252,
+    "peak_allocated_bytes": 1487092736,
+    "peak_reserved_bytes": 1767899136,
+    "successful_updates": 7200
+  },
+  "case": {
+    "raw_files": [
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/run_manifest.json",
+        "sha256": "69b1b8d8e226778d89bca9f68f617eb018c41393d2969582180514965e78a7c0",
+        "bytes": 3517
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/history.json",
+        "sha256": "b2419514dad5b918ade917fe23c7591bd8155931ba77ac24ca63f8e7f890e078",
+        "bytes": 2009308
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/checkpoint_index.json",
+        "sha256": "d47031f5434d73c9b8990f69ff15891580603b73ce6b0975d8fe05381a523884",
+        "bytes": 4989
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/last.pt",
+        "sha256": "aeb8771f1de6b8178e9217c3e427c968d698e583780db9aee7bee8f6292575f8",
+        "bytes": 47666321
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/01.json",
+        "sha256": "2136507aca58f35b1c6a8b3f72af923349222bcac4fd5708c87f865025d221e6",
+        "bytes": 82710
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/02.json",
+        "sha256": "3fbae5d7fcc14ea1ce86e6b4e978f9149bbbf1e4abd03fab4b569b2b6031a6ee",
+        "bytes": 83008
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/03.json",
+        "sha256": "74cedca62a248c58ee3da94cde3ee7bf884c8c260ad4c9a29cb0b9b6fad2dcfa",
+        "bytes": 82981
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/04.json",
+        "sha256": "c31f2dc719ee83b44540a614fb30a94761178139ccfb3d37897c0325b264c6bb",
+        "bytes": 82966
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/05.json",
+        "sha256": "bdfd1f8016bb1bb9894d58be68d2f3417871df5e2c53fe3342a5e7ff2460808b",
+        "bytes": 82982
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/06.json",
+        "sha256": "1faa96851142783d5c7476bd53912b14bef87bac55c0c7af0ec91e48182c6dda",
+        "bytes": 82977
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/07.json",
+        "sha256": "c90dc11fdb2c9de0d40624752cf2e65c0598ea41fe6ea2657375e617e8eacac2",
+        "bytes": 82934
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/08.json",
+        "sha256": "bb16e8874166b36e3ceb71369973630de18b91b322f115bdcfd98ceea2562118",
+        "bytes": 82920
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/09.json",
+        "sha256": "5c9061eb7498c46058b97404a4ac0987801981200b915ba497cdcd56cd3b9866",
+        "bytes": 82942
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/10.json",
+        "sha256": "002e74c778aa005266ef22e11cbe92d4e408806e631e58ffcec260e9235c9a00",
+        "bytes": 82910
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/11.json",
+        "sha256": "f87829836d273f5e336b035ccaa61b99474d9d91c3b04583ef622b09ded9d3ce",
+        "bytes": 82935
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/12.json",
+        "sha256": "9284e25e97de884301bb79161de950b8ed2fcf7417b32c8f0d3b12f3b4f297e6",
+        "bytes": 82903
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/13.json",
+        "sha256": "c7e8f7c8a882df41129a10308438b57d3311405a06de645929f1049a319ac632",
+        "bytes": 82929
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/14.json",
+        "sha256": "15ab6387e82ab7dcca50544519776a0eaeaaee52da7dcf7306c9d110ee2db103",
+        "bytes": 82857
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/15.json",
+        "sha256": "41395d745c6a59715ccea97fa106cf3e6cfcb8250db80c427ab423a96c8eeab8",
+        "bytes": 82911
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/16.json",
+        "sha256": "7a2674403c02ef94603b03df268db5ef4cdb9566001bfde9994b04e23bcd5274",
+        "bytes": 82874
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/17.json",
+        "sha256": "599a64f89e2abc336da5d249e31043b81da3d899b4552d4a79d82ce8d9a98a25",
+        "bytes": 82854
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/18.json",
+        "sha256": "9b42b90ecada50432cc83e1dfdeeab659e7d6a01a21750e4be2df730286fa7b0",
+        "bytes": 82879
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/19.json",
+        "sha256": "127824cd7f406ef6558ce248b063f28aae4e48d8dc385a46e36513231e5367e6",
+        "bytes": 82850
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/20.json",
+        "sha256": "bc8f2bd9a4e578961c9f6d4a647b4e10c66c96b71a2d3933d230552fa5bd92c0",
+        "bytes": 82845
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/21.json",
+        "sha256": "0ad83686620c28f681bfaa130d2863ecedf9e605176ffcb02593813b9d59ff1d",
+        "bytes": 82845
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/22.json",
+        "sha256": "52e5e4ae7e444f32e9d4d7e1c7d18d3dd71ca77edc5294aa9dd05da64efee592",
+        "bytes": 82848
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/23.json",
+        "sha256": "bad67af8557bf415ba8849cf04169938d6abfec9870f187e5fa28237f7eef1d3",
+        "bytes": 82812
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/24.json",
+        "sha256": "f08c6ecac9a35670299afd8b9bfb1692dbcbc4998d990df6434b82767a887ea1",
+        "bytes": 82849
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/25.json",
+        "sha256": "f2ae95c600d91e78a1a360cc759b400e5327c6b98edbe0667188610c96271a11",
+        "bytes": 82816
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/26.json",
+        "sha256": "cb6158fcb6ad108f2043ca51d304758c3a005be1dbdce6ba2d0e32ab4e718b3d",
+        "bytes": 82826
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/27.json",
+        "sha256": "979e65e8cb1ca111bdf54983297b2efcc6e0a9ee3d5d6043be5a5c015c6b78c3",
+        "bytes": 82828
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/28.json",
+        "sha256": "9e19b9b49c5fc02c15c385654852ac0f8939d07dbfe0251f5c5f95875cbf94d5",
+        "bytes": 82808
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/29.json",
+        "sha256": "c56c9965020337f6d1094e8e97d5a1e72a5a2756b44b0518076f3107d1e5fae5",
+        "bytes": 82795
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/30.json",
+        "sha256": "78e95bf442f13e6b513422eadf8892878d16ea7adc0f04dac338f5335a9055fe",
+        "bytes": 82820
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/31.json",
+        "sha256": "141f7046351d5de1bb82a42811a125754d84cb9dcdbee865ecb9d17b747b78b4",
+        "bytes": 82792
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/32.json",
+        "sha256": "c35cc429b7bba2618eda4c9bb04edaeedb02e0322ac96cd66c40f77181236aa6",
+        "bytes": 82815
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/33.json",
+        "sha256": "81cd604b39429af13c7dcc48187dac659e223d7993e2bbf96c19caf677873416",
+        "bytes": 82825
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/34.json",
+        "sha256": "dbb144efe7e9dcc43d5bec5b9a15840da17fa0343e9a732744a096c7f2c0f1c0",
+        "bytes": 82789
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/35.json",
+        "sha256": "508a8705f3b04fa4d1e6e71d50a1491a7784dc81e428d83ffb19fd8ca80ea12d",
+        "bytes": 82844
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/36.json",
+        "sha256": "6d6338256b2e8d1ec4cdd08981f3d17ab2dc69e219a4ed8aa04cd999fd2c094f",
+        "bytes": 82836
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/37.json",
+        "sha256": "be2faf228a138f199faa52e17ab391bd7f5e72937e7c50df8bd950eb4b492b90",
+        "bytes": 82805
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/38.json",
+        "sha256": "bd41fed072fe2e1ff18cdcd7a0c09c7d833463b538d369e356dade3c315b62f0",
+        "bytes": 82819
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/39.json",
+        "sha256": "c59bbf63552099cd29cdcc0d0197aee11560a9f68b0490160bbe4bb67ef82f95",
+        "bytes": 82831
+      },
+      {
+        "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/images/40.json",
+        "sha256": "028340c67c95fb2f2ecf35077c6ffa19b6435fd23cdee0b1ccc11fb0ed87e722",
+        "bytes": 82863
+      }
+    ],
+    "seed": 42,
+    "arm": "U4-shift-768",
+    "status": "completed",
+    "epochs": 40,
+    "successful_updates": 7200,
+    "manifest": {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/run_manifest.json",
+      "sha256": "69b1b8d8e226778d89bca9f68f617eb018c41393d2969582180514965e78a7c0",
+      "bytes": 3517
+    },
+    "retained_checkpoint": {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/last.pt",
+      "sha256": "aeb8771f1de6b8178e9217c3e427c968d698e583780db9aee7bee8f6292575f8",
+      "bytes": 47666321
+    },
+    "raw_history": {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/train/42/U4-shift-768/history.json",
+      "sha256": "b2419514dad5b918ade917fe23c7591bd8155931ba77ac24ca63f8e7f890e078",
+      "bytes": 2009308
+    }
+  },
+  "phases": [
+    {
+      "case": "preflight",
+      "phase": "cpu_preflight",
+      "seconds": 6.7049086629995145,
+      "failure": null,
+      "charged_seconds": 6.705019028973766,
+      "peak_allocated_bytes": 0,
+      "peak_reserved_bytes": 0,
+      "successful_updates": 0
+    },
+    {
+      "case": "preflight",
+      "phase": "device_preflight",
+      "seconds": 0.6020707819843665,
+      "failure": null,
+      "charged_seconds": 7.3072385570267215,
+      "peak_allocated_bytes": 0,
+      "peak_reserved_bytes": 0,
+      "successful_updates": 0
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "initialization",
+      "seconds": 0.1460433480096981,
+      "failure": null,
+      "charged_seconds": 7.546146031003445,
+      "peak_allocated_bytes": 23535616,
+      "peak_reserved_bytes": 41943040,
+      "successful_updates": 0
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 12.893142782966606,
+      "failure": null,
+      "charged_seconds": 20.473928791994695,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1761607680,
+      "successful_updates": 180
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 7.624125979957171,
+      "failure": null,
+      "charged_seconds": 28.09897638001712,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1761607680,
+      "successful_updates": 180
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 16.80939980095718,
+      "failure": null,
+      "charged_seconds": 44.908908441022504,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 180
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06351677398197353,
+      "failure": null,
+      "charged_seconds": 44.976022034999914,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 180
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 35.37810743699083,
+      "failure": null,
+      "charged_seconds": 80.38630985899363,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 360
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 15.8707938590087,
+      "failure": null,
+      "charged_seconds": 96.2580341679859,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 360
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 17.135407111025415,
+      "failure": null,
+      "charged_seconds": 113.3939374969923,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 360
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07390802900772542,
+      "failure": null,
+      "charged_seconds": 113.47149130201433,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 360
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 28.98947935301112,
+      "failure": null,
+      "charged_seconds": 142.49482844601152,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 540
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.491978559002746,
+      "failure": null,
+      "charged_seconds": 148.98788185900776,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 540
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 7.484491186973173,
+      "failure": null,
+      "charged_seconds": 156.47280342999147,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 540
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.061169471009634435,
+      "failure": null,
+      "charged_seconds": 156.53689260798274,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 540
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.21925918100169,
+      "failure": null,
+      "charged_seconds": 167.7889883450116,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 720
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 7.243626896990463,
+      "failure": null,
+      "charged_seconds": 175.03356141998665,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 720
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.993988768954296,
+      "failure": null,
+      "charged_seconds": 182.02791991800768,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 720
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.060920911957509816,
+      "failure": null,
+      "charged_seconds": 182.09192882099887,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 720
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.527178841002751,
+      "failure": null,
+      "charged_seconds": 193.65428832703037,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 900
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.9836062749964185,
+      "failure": null,
+      "charged_seconds": 200.6388331860071,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 900
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.903453193954192,
+      "failure": null,
+      "charged_seconds": 207.54266183602158,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 900
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06615393201354891,
+      "failure": null,
+      "charged_seconds": 207.61212240997702,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 900
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.26890904904576,
+      "failure": null,
+      "charged_seconds": 218.91649561101804,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1080
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.988185541005805,
+      "failure": null,
+      "charged_seconds": 225.90563178702723,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1080
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.650525254022796,
+      "failure": null,
+      "charged_seconds": 232.5565448779962,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1080
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.0644887380185537,
+      "failure": null,
+      "charged_seconds": 232.62402637198102,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1080
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.368199634016491,
+      "failure": null,
+      "charged_seconds": 244.02917038399028,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1260
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.408788038999774,
+      "failure": null,
+      "charged_seconds": 250.43890390300658,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1260
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.722234593995381,
+      "failure": null,
+      "charged_seconds": 257.161579534004,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1260
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06542700697900727,
+      "failure": null,
+      "charged_seconds": 257.22991609497694,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1260
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.545683039992582,
+      "failure": null,
+      "charged_seconds": 268.8141403759946,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1440
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.994639474956784,
+      "failure": null,
+      "charged_seconds": 275.8096845159889,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1440
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.239222135976888,
+      "failure": null,
+      "charged_seconds": 282.0493042009766,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1440
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06765154004096985,
+      "failure": null,
+      "charged_seconds": 282.1201520920149,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1440
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 18.323601541982498,
+      "failure": null,
+      "charged_seconds": 300.4843987899949,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1620
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 7.061487650964409,
+      "failure": null,
+      "charged_seconds": 307.5470582069829,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1620
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.297829360992182,
+      "failure": null,
+      "charged_seconds": 313.84532602201216,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1620
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06271228496916592,
+      "failure": null,
+      "charged_seconds": 313.91157669201493,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1620
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 19.844960930000525,
+      "failure": null,
+      "charged_seconds": 333.7980481539853,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1800
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 15.140695564972702,
+      "failure": null,
+      "charged_seconds": 348.9398673750111,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1800
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 14.429428250994533,
+      "failure": null,
+      "charged_seconds": 363.36979604902444,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1800
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07581644499441609,
+      "failure": null,
+      "charged_seconds": 363.4491783850244,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1800
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 32.10910794499796,
+      "failure": null,
+      "charged_seconds": 395.60578218399314,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1980
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 14.446607874997426,
+      "failure": null,
+      "charged_seconds": 410.05349382699933,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1980
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 13.72969968803227,
+      "failure": null,
+      "charged_seconds": 423.78359263099264,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1980
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06738739396678284,
+      "failure": null,
+      "charged_seconds": 423.8539434610284,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 1980
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.543815740966238,
+      "failure": null,
+      "charged_seconds": 435.44153975101653,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2160
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.454662054020446,
+      "failure": null,
+      "charged_seconds": 441.8971646290156,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2160
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.374200035003014,
+      "failure": null,
+      "charged_seconds": 448.2717405129806,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2160
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06605565396603197,
+      "failure": null,
+      "charged_seconds": 448.3406135630212,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2160
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.447006318019703,
+      "failure": null,
+      "charged_seconds": 459.83227773499675,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2340
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.040070525952615,
+      "failure": null,
+      "charged_seconds": 465.87329879699973,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2340
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.356361836020369,
+      "failure": null,
+      "charged_seconds": 472.23008982097963,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2340
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06358813698170707,
+      "failure": null,
+      "charged_seconds": 472.2967793790158,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2340
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.33771832101047,
+      "failure": null,
+      "charged_seconds": 483.68095697899116,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2520
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.330677199992351,
+      "failure": null,
+      "charged_seconds": 490.0126048279926,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2520
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.364286433963571,
+      "failure": null,
+      "charged_seconds": 496.37728410598356,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2520
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06486706301802769,
+      "failure": null,
+      "charged_seconds": 496.4456054919865,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2520
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.566711819032207,
+      "failure": null,
+      "charged_seconds": 508.06127965502674,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2700
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.801252535020467,
+      "failure": null,
+      "charged_seconds": 513.8637586790137,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2700
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.982090816018172,
+      "failure": null,
+      "charged_seconds": 519.8462662780075,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2700
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06939413101645187,
+      "failure": null,
+      "charged_seconds": 519.9185834220261,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2700
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.132009943015873,
+      "failure": null,
+      "charged_seconds": 531.1027297960245,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2880
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.960139644972514,
+      "failure": null,
+      "charged_seconds": 537.0637842110009,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2880
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 6.074060191982426,
+      "failure": null,
+      "charged_seconds": 543.1383138620295,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2880
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06445557501865551,
+      "failure": null,
+      "charged_seconds": 543.2061753330054,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 2880
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.306352575018536,
+      "failure": null,
+      "charged_seconds": 554.5643672419828,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3060
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.759759460983332,
+      "failure": null,
+      "charged_seconds": 560.3250637180172,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3060
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.8691572769894265,
+      "failure": null,
+      "charged_seconds": 566.1946723400033,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3060
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06555124797159806,
+      "failure": null,
+      "charged_seconds": 566.2633683930035,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3060
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.24208107200684,
+      "failure": null,
+      "charged_seconds": 577.5578206100035,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3240
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.503955335007049,
+      "failure": null,
+      "charged_seconds": 584.0627082309802,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3240
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.735530752979685,
+      "failure": null,
+      "charged_seconds": 589.7986164379981,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3240
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06801925000036135,
+      "failure": null,
+      "charged_seconds": 589.8698999119806,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3240
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.125854546029586,
+      "failure": null,
+      "charged_seconds": 601.0491659410181,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3420
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 12.188195974042173,
+      "failure": null,
+      "charged_seconds": 613.2383829199825,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3420
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 14.026380763971247,
+      "failure": null,
+      "charged_seconds": 627.2651693050284,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3420
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07491276494693011,
+      "failure": null,
+      "charged_seconds": 627.3434513430111,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3420
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 31.573711548000574,
+      "failure": null,
+      "charged_seconds": 658.977017651021,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3600
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 14.057738397968933,
+      "failure": null,
+      "charged_seconds": 673.0358439109987,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3600
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 14.283137508959044,
+      "failure": null,
+      "charged_seconds": 687.3199796890258,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3600
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07812715199543163,
+      "failure": null,
+      "charged_seconds": 687.4022970600054,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3600
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 22.333856283978093,
+      "failure": null,
+      "charged_seconds": 709.8026560290018,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3780
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.735857583000325,
+      "failure": null,
+      "charged_seconds": 715.5396859369939,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3780
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.678954850998707,
+      "failure": null,
+      "charged_seconds": 721.2190648270189,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3780
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06761687196558341,
+      "failure": null,
+      "charged_seconds": 721.2899877590244,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3780
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.531434191041626,
+      "failure": null,
+      "charged_seconds": 732.8789105759934,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3960
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.872094757971354,
+      "failure": null,
+      "charged_seconds": 738.7520633069798,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3960
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.879269339027815,
+      "failure": null,
+      "charged_seconds": 744.6316974749789,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3960
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06669418199453503,
+      "failure": null,
+      "charged_seconds": 744.7017039220082,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 3960
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.344764112960547,
+      "failure": null,
+      "charged_seconds": 756.1083077649819,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4140
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.556337849004194,
+      "failure": null,
+      "charged_seconds": 761.665586425981,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4140
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.751828511012718,
+      "failure": null,
+      "charged_seconds": 767.4177896860056,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4140
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06974898400949314,
+      "failure": null,
+      "charged_seconds": 767.4906049210113,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4140
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.357033064006828,
+      "failure": null,
+      "charged_seconds": 778.908867924998,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4320
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.814368269988336,
+      "failure": null,
+      "charged_seconds": 784.7241912229802,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4320
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.559043682005722,
+      "failure": null,
+      "charged_seconds": 790.2835933599854,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4320
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07303756399778649,
+      "failure": null,
+      "charged_seconds": 790.3595953630283,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4320
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.460959655989427,
+      "failure": null,
+      "charged_seconds": 801.8829824060085,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4500
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.686410221969709,
+      "failure": null,
+      "charged_seconds": 807.5703128260211,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4500
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.61824187199818,
+      "failure": null,
+      "charged_seconds": 813.188952484983,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4500
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.06889630400110036,
+      "failure": null,
+      "charged_seconds": 813.2637816899805,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4500
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.350700062001124,
+      "failure": null,
+      "charged_seconds": 824.6769967990112,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4680
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.645316965994425,
+      "failure": null,
+      "charged_seconds": 830.3232758530066,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4680
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.498906835040543,
+      "failure": null,
+      "charged_seconds": 835.8226134009892,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4680
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07233931502560154,
+      "failure": null,
+      "charged_seconds": 835.8981278149877,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4680
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.425722111016512,
+      "failure": null,
+      "charged_seconds": 847.3898664389853,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4860
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.6054156349855475,
+      "failure": null,
+      "charged_seconds": 852.9963616430177,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4860
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.596120769972913,
+      "failure": null,
+      "charged_seconds": 858.5928533059778,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4860
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07744364399695769,
+      "failure": null,
+      "charged_seconds": 858.6734233429888,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 4860
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.317574943997897,
+      "failure": null,
+      "charged_seconds": 870.0559945509885,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5040
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.375856788014062,
+      "failure": null,
+      "charged_seconds": 875.4328285329975,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5040
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.568500641034916,
+      "failure": null,
+      "charged_seconds": 881.0016911479761,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5040
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07127251196652651,
+      "failure": null,
+      "charged_seconds": 881.0762817920186,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5040
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 27.48140826704912,
+      "failure": null,
+      "charged_seconds": 908.6253781929845,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5220
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 13.222011357021984,
+      "failure": null,
+      "charged_seconds": 921.8486142680049,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5220
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 13.845369856979232,
+      "failure": null,
+      "charged_seconds": 935.6943934049923,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5220
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.08370546600781381,
+      "failure": null,
+      "charged_seconds": 935.7812306400156,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5220
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 31.31622767302906,
+      "failure": null,
+      "charged_seconds": 967.1808392819948,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5400
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 13.471980039030313,
+      "failure": null,
+      "charged_seconds": 980.6541826219764,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5400
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 9.059702480037231,
+      "failure": null,
+      "charged_seconds": 989.7142627310241,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5400
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07676474802428856,
+      "failure": null,
+      "charged_seconds": 989.7942159220111,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5400
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.7127507829573,
+      "failure": null,
+      "charged_seconds": 1001.5795774339931,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5580
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.439810730982572,
+      "failure": null,
+      "charged_seconds": 1007.0206261919811,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5580
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.5259345669765025,
+      "failure": null,
+      "charged_seconds": 1012.5469756739913,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5580
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07236612000269815,
+      "failure": null,
+      "charged_seconds": 1012.6224558280082,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5580
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.830128530040383,
+      "failure": null,
+      "charged_seconds": 1024.5235403910046,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5760
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.557003790978342,
+      "failure": null,
+      "charged_seconds": 1030.0816464240197,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5760
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.697453458036762,
+      "failure": null,
+      "charged_seconds": 1035.779505915998,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5760
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07381214800989255,
+      "failure": null,
+      "charged_seconds": 1035.8571004570113,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5760
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.723922104982194,
+      "failure": null,
+      "charged_seconds": 1047.6543544949964,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5940
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.814775330014527,
+      "failure": null,
+      "charged_seconds": 1053.470460646029,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5940
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.5568563810084015,
+      "failure": null,
+      "charged_seconds": 1059.0277427409892,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5940
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07533666299423203,
+      "failure": null,
+      "charged_seconds": 1059.1070650420152,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 5940
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.248372617992572,
+      "failure": null,
+      "charged_seconds": 1070.4302602600073,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6120
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.720765420992393,
+      "failure": null,
+      "charged_seconds": 1076.1521333759883,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6120
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.480172790004872,
+      "failure": null,
+      "charged_seconds": 1081.6326981619932,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6120
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.0710072360234335,
+      "failure": null,
+      "charged_seconds": 1081.7067655649735,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6120
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.208148138015531,
+      "failure": null,
+      "charged_seconds": 1092.990126323013,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6300
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.909255427017342,
+      "failure": null,
+      "charged_seconds": 1098.9004702119855,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6300
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.510955810023006,
+      "failure": null,
+      "charged_seconds": 1104.4117948660278,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6300
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07314923702506348,
+      "failure": null,
+      "charged_seconds": 1104.4882534160279,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6300
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.275763320969418,
+      "failure": null,
+      "charged_seconds": 1115.8406195080024,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6480
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.395368682977278,
+      "failure": null,
+      "charged_seconds": 1121.2369762110175,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6480
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.552743781008758,
+      "failure": null,
+      "charged_seconds": 1126.790135651012,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6480
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.08782184700248763,
+      "failure": null,
+      "charged_seconds": 1126.8810692239786,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6480
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.31892205902841,
+      "failure": null,
+      "charged_seconds": 1138.2796580570284,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6660
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.622911591955926,
+      "failure": null,
+      "charged_seconds": 1143.904028702993,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6660
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.584789955988526,
+      "failure": null,
+      "charged_seconds": 1149.4892296720063,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6660
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07860543200513348,
+      "failure": null,
+      "charged_seconds": 1149.5710108479834,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6660
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 11.390066185034811,
+      "failure": null,
+      "charged_seconds": 1161.0420901299804,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6840
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 5.6278447130462155,
+      "failure": null,
+      "charged_seconds": 1166.6709856190137,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6840
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 13.011985670949798,
+      "failure": null,
+      "charged_seconds": 1179.6835635050084,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6840
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.09227110398933291,
+      "failure": null,
+      "charged_seconds": 1179.7791658740025,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 6840
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 32.23974431405077,
+      "failure": null,
+      "charged_seconds": 1212.111958896974,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 7020
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 13.342266911000479,
+      "failure": null,
+      "charged_seconds": 1225.45535818598,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 7020
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 13.476333002035972,
+      "failure": null,
+      "charged_seconds": 1238.9322544379975,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 7020
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.08874741703039035,
+      "failure": null,
+      "charged_seconds": 1239.025831335981,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 7020
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "training",
+      "seconds": 31.416124187991954,
+      "failure": null,
+      "charged_seconds": 1270.5350798330037,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 7200
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_live",
+      "seconds": 6.867573469993658,
+      "failure": null,
+      "charged_seconds": 1277.4036847350071,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 7200
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "validation_ema",
+      "seconds": 5.555648723966442,
+      "failure": null,
+      "charged_seconds": 1282.9597261609742,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 7200
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "checkpoint",
+      "seconds": 0.07607438799459487,
+      "failure": null,
+      "charged_seconds": 1283.0388829110307,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 7200
+    },
+    {
+      "case": "42/U4-shift-768",
+      "phase": "cleanup",
+      "seconds": 0.03560708003351465,
+      "failure": null,
+      "charged_seconds": 1283.1932759319898,
+      "peak_allocated_bytes": 1487092736,
+      "peak_reserved_bytes": 1767899136,
+      "successful_updates": 7200
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/preflight_cpu.json",
+      "sha256": "6de6c47f94bae2f67d7215e816be7d5fd0dcfbdfa0d4b74688b4ffc885c9fcca",
+      "bytes": 47133
+    },
+    {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/device_memory_start.json",
+      "sha256": "812050b7f2ef5a1e818f3e5fa49a0a58535688073ce11f9d2ef82e15c14ffe73",
+      "bytes": 62
+    },
+    {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/device_memory_end.json",
+      "sha256": "16246293441f04b279248bc02a96197d3de0c2621abc54c62c36c8a1c8ff54c6",
+      "bytes": 62
+    },
+    {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/background_start.txt",
+      "sha256": "99dcaa859b395c870ed11ef27ef669be78f160aca7bdf9512f5ff26febc5d967",
+      "bytes": 1781
+    },
+    {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/background_end.txt",
+      "sha256": "520b05934048cc82f490b23e15de0d159ddf5a8e06ece9ded46b9a3e24615c9b",
+      "bytes": 1873
+    },
+    {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/gpu_phases.jsonl",
+      "sha256": "15ebb4b87fc3b7ddc668bfccbf346f15e9201f508afbd29815177b56a883b5ee",
+      "bytes": 38939
+    },
+    {
+      "path": "/home/xinnan/loopcrowd-lc007k-run-20261128/result/run/queue_progress.json",
+      "sha256": "83b141258a348ced2a038aebc14bf35bb07ad72eceb0d00bc159aff7f3ac6614",
+      "bytes": 481
+    }
+  ]
+}
