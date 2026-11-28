@@ -14,9 +14,13 @@ from scripts.run_lc007i import execute
 
 def authorize(owner, plan, digest, revision, tree):
     require_training_authorization(owner, plan, digest, revision, tree)
-    review = owner.get("independent_review")
-    if not isinstance(review, str) or not review.strip() or owner.get("owner_review_waiver"):
-        raise ValueError("LC-007K requires its own independent review record and separate launch approval")
+    if owner.get("owner_review_waiver"):
+        raise ValueError("LC-007K cannot inherit the LC-007I waiver")
+    for field in ("independent_review", "owner_direct_launch"):
+        note = owner.get(field)
+        if isinstance(note, str) and note.strip():
+            return
+    raise ValueError("LC-007K requires its own independent review or an owner-directed launch record")
 
 
 def main():

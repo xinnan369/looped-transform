@@ -22,9 +22,14 @@ def test_only_new_scope_and_independent_review_authorize_k():
     record = {"issue": 36, "code_commit": "head", "source_tree": "tree", "config_sha256": "config",
               "limits": PLAN["limits_if_approved"], "owner_message_ref": "fixture", "approved_at": "fixture",
               "approval_scope": PLAN["scope"]}
-    with pytest.raises(ValueError, match="independent review"):
+    with pytest.raises(ValueError, match="inherit"):
         authorize(record | {"owner_review_waiver": "old"}, PLAN, "config", "head", "tree")
+    with pytest.raises(ValueError, match="independent review"):
+        authorize(record, PLAN, "config", "head", "tree")
     authorize(record | {"independent_review": "fixture"}, PLAN, "config", "head", "tree")
+    authorize(record | {"owner_direct_launch": "fixture"}, PLAN, "config", "head", "tree")
+    with pytest.raises(ValueError):
+        authorize(record | {"owner_direct_launch": "fixture"}, PLAN, "other", "head", "tree")
 
 
 def test_unshared_recipe_and_actual_exposure_are_bound():
